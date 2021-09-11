@@ -18,7 +18,7 @@ Kinopoisk frontend repository created by MAMBa team
 
 ## Менторы
 * [**Елизавета Добрянская**](https://github.com/Betchika99) - *Фронтенд*
-* [**Екатерина Кирилловас**](https://github.com/K1ola) - *Бэкенд*
+* [**Екатерина Кириллова**](https://github.com/K1ola) - *Бэкенд*
 
 ## Ссылка на backend
 

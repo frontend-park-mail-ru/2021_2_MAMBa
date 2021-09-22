@@ -1,0 +1,17 @@
+#footer {
+    background-color: #0C0C0C;
+    flex: 0 0 125px;
+    display: flex;
+}
+
+#copyright {
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    flex: 0 0 40px;
+    color:#5F5E5E;
+}
+
+#social {
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    flex: 1 0 auto;
+    display: flex;
+}

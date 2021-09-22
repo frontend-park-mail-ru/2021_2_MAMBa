@@ -1,0 +1,10 @@
+{
+  "name": "2021_2_MAMBa",
+  "version": "1.0.0",
+  "devDependencies": {
+    "pug": "^3.0.2"
+  },
+  "dependencies": {
+    "mime": "^2.5.2"
+  }
+}

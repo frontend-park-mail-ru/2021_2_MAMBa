@@ -1,0 +1,15 @@
+div(id=auth ? 'auth' : 'reg')
+    #auth-head Регистрация
+    form#auth-form
+        each input in inputs
+            input(
+                type=input.type
+                name=input.name
+                placeholder=input.placeholder
+                class='text-inputs'
+            )
+        input#auth-btn(type='button' value=auth ? 'Войти' : 'Создать аккаунт')
+    if auth
+        a#auth-a(href='') Еще нет аккаунта?
+    else
+        a#auth-a(href='') Уже есть аккаунт?

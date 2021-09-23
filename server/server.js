@@ -24,6 +24,7 @@ const server = http.createServer((req, res) => {
             if (err) {
                 data = page404;
                 res.write(data);
+                res.end();
                 return;
             }
 

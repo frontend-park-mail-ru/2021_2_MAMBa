@@ -19,6 +19,10 @@ body {
     height: 100vh;
 }
 
-#authlog-bg {
+#auth-content {
+    background: url("/static/pics/bg_auth.jpg") center;
     flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

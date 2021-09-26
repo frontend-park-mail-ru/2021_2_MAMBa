@@ -12,6 +12,10 @@
     width: 412px;
 }
 
+#auth {
+    width: 412px;
+}
+
 #auth-form {
     flex: 1 0 auto;
     margin: 25px 0;

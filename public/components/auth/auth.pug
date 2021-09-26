@@ -1,6 +1,9 @@
 div(id=auth ? 'auth' : 'reg')
-    #auth-head Регистрация
-    form#auth-form
+    if auth
+        #auth-head Авторизация
+    else
+        #auth-head Регистрация
+    form#auth-form(name='authForm')
         each input in inputs
             input(
                 type=input.type
@@ -8,8 +11,8 @@ div(id=auth ? 'auth' : 'reg')
                 placeholder=input.placeholder
                 class='text-inputs'
             )
-        input#auth-btn(type='button' value=auth ? 'Войти' : 'Создать аккаунт')
+        input#auth-btn(type='button' name='submitBtn' value=auth ? 'Войти' : 'Создать аккаунт')
     if auth
-        a#auth-a(href='') Еще нет аккаунта?
+        a#auth-a(href='/signup' data-section='signup') Еще нет аккаунта?
     else
-        a#auth-a(href='') Уже есть аккаунт?
+        a#auth-a(href='/login' data-section='login') Уже есть аккаунт?

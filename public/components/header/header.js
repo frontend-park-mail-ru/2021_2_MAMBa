@@ -1,7 +1,9 @@
-import {createElementFromHTML, includeStyle} from "../../utils/utils.js";
+import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {header} from "../../templates.js"
 
 function render(params) {
-    let template = createElementFromHTML(puglatizer.header.header(params));
+    console.log('headerrr');
+    let template = createElementFromHTML(header(params));
     return template;
 }
 

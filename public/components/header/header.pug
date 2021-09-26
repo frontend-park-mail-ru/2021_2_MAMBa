@@ -1,11 +1,10 @@
-include /public/icons/cube.pug
 #navbar
     img#logo(src=staticPath + 'pics/logo.svg')
     #wide-menu
         each btn in btns
             div.menu-btn= btn
         span
-            +svg-cube(fill="blue", width="32", height="32")
+            img#cube(src=staticPath + 'pics/cube.svg')
     #search-div
         input#search-input(placeholder='Фильмы, сериалы, актёры')
         img#search-btn(src=staticPath + 'pics/search.svg')

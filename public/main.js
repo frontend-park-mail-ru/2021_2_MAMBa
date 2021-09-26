@@ -29,9 +29,7 @@ function signupPage() {
         btns: ['Подборки', 'Жанры', 'Релизы'],
         authorized: false
     }));
-    let content = document.createElement('div');
-    content.id = 'auth-content';
-    content.appendChild(renderAuth({
+    root.appendChild(renderAuth({
         inputs: [
             {type: 'text', name: 'email', placeholder: 'Email'},
             {type: 'text', name: 'surname', placeholder: 'Фамилия'},
@@ -41,7 +39,6 @@ function signupPage() {
         ],
         auth:false
     }));
-    root.appendChild(content);
     root.appendChild(renderFooter());
 }
 
@@ -52,16 +49,13 @@ function loginPage() {
         btns: ['Подборки', 'Жанры', 'Релизы'],
         authorized: false
     }));
-    let content = document.createElement('div');
-    content.id = 'auth-content';
-    content.appendChild(renderAuth({
+    root.appendChild(renderAuth({
         inputs: [
             {type: 'text', name: 'email', placeholder: 'Email'},
             {type: 'text', name: 'password', placeholder: 'Пароль'},
         ],
         auth:true
     }));
-    root.appendChild(content);
     root.appendChild(renderFooter());
     let sendBtn = document.forms.authForm.submitBtn;
     sendBtn.addEventListener('click', (e) => {

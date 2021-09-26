@@ -4,20 +4,15 @@ const pug = require("pug")
 
 const basedir = "./public/components"
 
-
 const walker = async (dir, handler) => {
     await new Promise((resolve, reject) => {
         fs.readdir(dir, (err, files) => {
             if (err) return reject(err);
-
             Promise.all(
                 files.map((file) => {
                     return new Promise(async (resolve) => {
-
                             const filename = `${dir}/${file}`;
-
                             const stats = fs.statSync(filename);
-
                             if (stats.isDirectory()) {
                                 return resolve(await walker(filename, handler));
                             }
@@ -27,10 +22,8 @@ const walker = async (dir, handler) => {
                     );
                 })
             ).then(resolve);
-
         })
     })
-
 }
 
 
@@ -42,16 +35,13 @@ const compilePug = async () => {
         console.log(filename);
         const name = path.basename(filename.replace(".pug", ""));
 
-
-
         let templateFunc = pug.compileFileClient(
             filename, {
                 name: name,
                 basedir: "./public/"
-            }) + `; export {${name}};`;
+            });
 
         result.push(templateFunc);
-
     }
 
     await walker(basedir, handler);

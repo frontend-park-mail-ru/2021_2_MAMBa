@@ -1,5 +1,4 @@
 import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
-import {header} from "../../templates.js"
 
 function render(params) {
     console.log('headerrr');

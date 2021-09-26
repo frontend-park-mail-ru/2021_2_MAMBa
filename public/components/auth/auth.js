@@ -1,9 +1,11 @@
 import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
-import {auth} from "../../templates.js"
 
 function render(params) {
     let template = createElementFromHTML(auth(params));
-    return template;
+    let content = document.createElement('div');
+    content.id = 'auth-content';
+    content.appendChild(template);
+    return content;
 }
 
 includeStyle("auth");

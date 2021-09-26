@@ -1,3 +1,11 @@
+#auth-content {
+    background: url("../../static/pics/bg_auth.jpg") center;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #auth, #reg {
     border-radius: 20px;
     background-color: #FFFFFF9A;
@@ -8,19 +16,23 @@
 }
 
 #reg {
-    height: 522px;
+    min-height: 400px;
+    height: 75%;
     width: 412px;
 }
 
 #auth {
+    min-height: 280px;
+    height: 45%;
     width: 412px;
 }
 
 #auth-form {
+    margin-top: 15px;
     flex: 1 0 auto;
-    margin: 25px 0;
+    padding: 0 50px;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -41,6 +53,7 @@
 .text-inputs {
     font-family: "Montserrat-Regular", "Arial", sans-serif;
     padding-left: 15px;
+    flex: 1 0 auto;
     border-radius: 10px;
     width:290px;
     height: 36px;
@@ -51,6 +64,7 @@
 #auth-btn {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 18px;
+    margin: 0 auto;
     border-radius: 15px;
     background-color: #E10856;
     color: white;

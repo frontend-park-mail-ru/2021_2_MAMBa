@@ -6,7 +6,24 @@ const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const uuid = require('uuid');
 const path = require('path');
+let puglatizer = require('puglatizer');
+let pug = require('pug');
 const app = express();
+
+puglatizer(
+    __dirname + '/../public/components',
+    __dirname + '/../public/templates.js', {
+        pug: {
+            basedir: "../public"
+        },
+    },
+function(err,templates) { console.log(err || 'Successfully built') }
+);
+
+app.get('/templates.js', (req, res) => {
+    res.sendFile(path.resolve(`${__dirname}/templates.js`));
+});
+
 
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
@@ -22,19 +39,6 @@ const users = {
     },
 };
 const ids = {};
-
-// app.get('/', (req, res) => {
-//     const url = req.url === '/' ? '../public/index.html' : req.url;
-//     console.log(`${req.url}`);
-//     if (url.endsWith(".pug")) {
-//         const name = "template";
-//         let templateFunc = pug.compileFileClient(
-//             `../public/${url}`, {
-//                 name: name,
-//                 basedir: "../public/"
-//             }) + "; export default  " + name;
-//     }
-// });
 
 app.post('/signup', function (req, res) {
     const name = req.body.name;
@@ -78,7 +82,7 @@ app.post('/login', function (req, res) {
     res.status(200).json({id});
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);

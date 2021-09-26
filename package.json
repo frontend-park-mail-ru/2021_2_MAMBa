@@ -8,9 +8,8 @@
   },
   "scripts": {
     "start": "DEBUG=http node server/server.js",
-    "prestart": "npm run tmpl",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tmpl": "puglatizer -d public/components -o public/templates.js"
+    "prestart": "rm -rf public/templates.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

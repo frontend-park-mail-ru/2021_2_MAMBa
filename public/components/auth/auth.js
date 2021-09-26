@@ -1,8 +1,7 @@
-import Template from "./auth.pug";
 import {createElementFromHTML, includeStyle} from "../../utils/utils.js";
 
 function render(params) {
-    let template = createElementFromHTML(Template(params));
+    let template = createElementFromHTML(puglatizer.auth.auth(params));
     return template;
 }
 

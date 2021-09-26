@@ -1,8 +1,7 @@
-import Template from "./footer.pug";
 import {createElementFromHTML, includeStyle} from "../../utils/utils.js";
 
 function render(params) {
-    let template = createElementFromHTML(Template(params));
+    let template = createElementFromHTML(puglatizer.footer.footer(params));
     return template;
 }
 

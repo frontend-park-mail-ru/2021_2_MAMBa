@@ -1,13 +1,14 @@
+include /public/icons/cube.pug
 #navbar
-    img#logo(src=`${staticPath}pics/logo.svg`)
+    img#logo(src=staticPath + 'pics/logo.svg')
     #wide-menu
         each btn in btns
             div.menu-btn= btn
-        .menu-btn
-            include /static/pics/cube.svg
+        span
+            +svg-cube(fill="blue", width="32", height="32")
     #search-div
         input#search-input(placeholder='Фильмы, сериалы, актёры')
-        img#search-btn(src=`${staticPath}pics/search.svg`)
+        img#search-btn(src=staticPath + 'pics/search.svg')
     if authorized
         p Вася Пупкин
     else

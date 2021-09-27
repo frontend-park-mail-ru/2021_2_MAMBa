@@ -8,19 +8,22 @@ div.collections-main
             each input, index in collections_list
                 if index < 4
                     div.collection
-                        img(class ="image-collection" src=input.picture_url)
+                        div.pic_container
+                            img(src=input.picture_url)
                         p.name-of-collection #{input.title}
         div.container
             each input, index in collections_list
                 if index >= 4 && index < 8
                     div.collection
-                        img(class ="image-collection" src=input.picture_url)
+                        div.pic_container
+                            img(src=input.picture_url)
                         p.name-of-collection #{input.title}
         div.container
             each input, index in collections_list
                 if index >= 8 && index < 12
                     div.collection
-                        img(class ="image-collection" src=input.picture_url)
+                        div.pic_container
+                            img(src=input.picture_url)
                         p.name-of-collection #{input.title}
 
         //if  more_available

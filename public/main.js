@@ -26,27 +26,28 @@ const configApp = {
 
 function collectionsPage() {
     root.innerHTML = '';
-    root.appendChild(renderLoader());
-    let mask = document.querySelector('.mask');
 
-    window.addEventListener('load', () => {
-        mask.classList.add('hide');
-        setTimeout(() => {
-            mask.remove();
-        }, 5000);
-    });
     root.appendChild(renderHeader({
         staticPath: '/static/',
         btns: ['Подборки', 'Жанры', 'Релизы'],
         authorized: false
     }));
 
+    root.appendChild(renderLoader());
+    let mask = document.querySelector('.mask');
+    window.addEventListener('load', () => {
+        mask.classList.add('hide');
+        setTimeout(() => {
+            mask.remove();
+        }, 600);
+    });
+
     Ajax.ajaxGet({
         url: '/collections/getCollections/skip=0&limit=12',
         callback: (status, responseText) => {
             try {
                 const data = JSON.parse(responseText);
-                root.appendChild(renderCollections(data));
+                root.insertBefore(renderCollections(data), root.children[1]);
             } catch (e) {
                 console.log(e);
                 alert('ОШИБКА СЕРВЕРА');

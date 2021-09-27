@@ -1,0 +1,18 @@
+div(id=auth ? 'auth' : 'reg')
+    if auth
+        #auth-head Авторизация
+    else
+        #auth-head Регистрация
+    form#auth-form(name='authForm')
+        each input in inputs
+            input(
+                type=input.type
+                name=input.name
+                placeholder=input.placeholder
+                class='text-inputs'
+            )
+        input#auth-btn(type='button' name='submitBtn' value=auth ? 'Войти' : 'Создать аккаунт')
+    if auth
+        a#auth-a(href='/signup' data-section='signup') Еще нет аккаунта?
+    else
+        a#auth-a(href='/login' data-section='login') Уже есть аккаунт?

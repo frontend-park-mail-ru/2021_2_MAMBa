@@ -1,6 +1,7 @@
 import renderHeader from "./components/header/header.js"
 import renderFooter from "./components/footer/footer.js"
 import renderAuth from "./components/auth/auth.js"
+import {foundErrorFields, addFocusOutListeners} from "./utils/utils.js"
 
 let root = document.getElementById("root");
 
@@ -31,15 +32,43 @@ function signupPage() {
     }));
     root.appendChild(renderAuth({
         inputs: [
-            {type: 'text', name: 'email', placeholder: 'Email'},
+            {type: 'email', name: 'email', placeholder: 'Email'},
             {type: 'text', name: 'surname', placeholder: 'Фамилия'},
             {type: 'text', name: 'name', placeholder: 'Имя'},
-            {type: 'text', name: 'password', placeholder: 'Пароль'},
-            {type: 'text', name: 'reppassword', placeholder: 'Повторите пароль'},
+            {type: 'password', name: 'password', placeholder: 'Пароль'},
+            {type: 'password', name: 'reppassword', placeholder: 'Повторите пароль'},
         ],
         auth:false
     }));
     root.appendChild(renderFooter());
+
+    let authForm = document.forms.authForm;
+    let sendBtn = authForm.submitBtn;
+    addFocusOutListeners(authForm);
+    sendBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (foundErrorFields(authForm)) {
+            return;
+        }
+
+        const email = authForm.email.value.trim();
+        const password = authForm.password.value.trim();
+        const name = authForm.name.value.trim();
+        const surname = authForm.surname.value.trim();
+        Ajax.ajaxPost({
+            url: '/signup',
+            body: {email, password, name, surname},
+            callback: (status) => {
+                console.log(status);
+                if (status === 201) {
+                    collectionsPage();
+                    return;
+                }
+
+                alert('Wrong data');
+            }
+        });
+    })
 }
 
 function loginPage() {
@@ -51,17 +80,25 @@ function loginPage() {
     }));
     root.appendChild(renderAuth({
         inputs: [
-            {type: 'text', name: 'email', placeholder: 'Email'},
-            {type: 'text', name: 'password', placeholder: 'Пароль'},
+            {type: 'email', name: 'email', placeholder: 'Email'},
+            {type: 'password', name: 'password', placeholder: 'Пароль'},
         ],
         auth:true
     }));
     root.appendChild(renderFooter());
-    let sendBtn = document.forms.authForm.submitBtn;
+
+    let authForm = document.forms.authForm;
+    let sendBtn = authForm.submitBtn;
+
+    addFocusOutListeners(authForm);
     sendBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const email = document.forms.authForm.email.value.trim();
-        const password = document.forms.authForm.password.value.trim();
+        if (foundErrorFields(authForm)) {
+            return;
+        }
+
+        const email = authForm.email.value.trim();
+        const password = authForm.password.value.trim();
         Ajax.ajaxPost({
             url: '/login',
             body: {email, password},

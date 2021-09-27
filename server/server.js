@@ -4,7 +4,7 @@ const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
 const morgan = require('morgan');
-const uuid = require('uuid');
+const {v4: uuid} = require('uuid');
 const path = require('path');
 const app = express();
 
@@ -61,7 +61,7 @@ app.post('/login', function (req, res) {
     const id = uuid();
     ids[id] = email;
 
-    res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+    res.cookie('kino4u', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.status(200).json({id});
 });
 

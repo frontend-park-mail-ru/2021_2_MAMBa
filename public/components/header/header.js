@@ -1,7 +1,6 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML, includeStyle} from "../../utils/utils.js";
 
 function render(params) {
-    console.log('headerrr');
     let template = createElementFromHTML(header(params));
     return template;
 }

@@ -1,4 +1,4 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML, includeStyle} from "../../utils/utils.js";
 
 function render(params) {
     let template = createElementFromHTML(footer(params));

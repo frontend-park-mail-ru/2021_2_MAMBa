@@ -1,7 +1,7 @@
 import {renderHeader} from './components/header/header.js';
 import {renderFooter} from './components/footer/footer.js';
 import {renderAuth} from './components/auth/auth.js';
-import {foundErrorFields, addFocusOutListeners} from './utils/utils.js'
+import {foundErrorFields, addFocusOutListeners} from './utils/utils.js';
 
 const root = document.getElementById('root');
 
@@ -32,11 +32,11 @@ function signupPage() {
   }));
   root.appendChild(renderAuth({
     inputs: [
-      {type: 'text', name: 'email', placeholder: 'Email'},
+      {type: 'email', name: 'email', placeholder: 'Email'},
       {type: 'text', name: 'surname', placeholder: 'Фамилия'},
       {type: 'text', name: 'name', placeholder: 'Имя'},
-      {type: 'text', name: 'password', placeholder: 'Пароль'},
-      {type: 'text', name: 'reppassword', placeholder: 'Повторите пароль'},
+      {type: 'password', name: 'password', placeholder: 'Пароль'},
+      {type: 'password', name: 'reppassword', placeholder: 'Повторите пароль'},
     ],
     url: {
       signup: '/signup',
@@ -78,7 +78,7 @@ function signupPage() {
         }
 
         console.log('Wrong data');
-      }
+      },
     });
   });
 };
@@ -92,8 +92,8 @@ function loginPage() {
   }));
   root.appendChild(renderAuth({
     inputs: [
-      {type: 'text', name: 'email', placeholder: 'Email'},
-      {type: 'text', name: 'password', placeholder: 'Пароль'},
+      {type: 'email', name: 'email', placeholder: 'Email'},
+      {type: 'password', name: 'password', placeholder: 'Пароль'},
     ],
     url: {
       signup: '/signup',
@@ -111,8 +111,8 @@ function loginPage() {
       bor: '',
     },
   }));
-  let authForm = document.forms.authForm;
-  let sendBtn = authForm.submitBtn;
+  const authForm = document.forms.authForm;
+  const sendBtn = authForm.submitBtn;
 
   addFocusOutListeners(authForm);
   sendBtn.addEventListener('click', (e) => {

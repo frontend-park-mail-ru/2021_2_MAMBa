@@ -67,16 +67,15 @@ function signupPage() {
     const password = authForm.password.value.trim();
     const name = authForm.name.value.trim();
     const surname = authForm.surname.value.trim();
-    Ajax.ajaxPost({
-      url: '/signup',
-      body: {email, password, name, surname},
+    Ajax.postFetch({
+      url: 'http://localhost:8080/api/user/register',
+      body: {email: email, password: password, password_repeat: password, first_name: name, surname: surname},
       callback: (status) => {
         console.log(status);
         if (status === 201) {
           collectionsPage();
           return;
         }
-
         console.log('Wrong data');
       },
     });
@@ -124,15 +123,15 @@ function loginPage() {
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
     Ajax.postFetch({
-      url: 'http://89.208.198.137:8080/api/user/login',
+      url: 'http://localhost:8080/api/user/login',
       body: {email: email, password: password}
     }).then((response) => {
-      if (status === 200) {
+      if (response.status === 200) {
         collectionsPage();
         return
       }
     }).catch((response) => {
-      console.log('iiiiii');
+      console.log(`respst cl ${response.status}`);
     });
   });
 }

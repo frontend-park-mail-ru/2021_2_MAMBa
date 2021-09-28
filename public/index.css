@@ -1,3 +1,9 @@
+@import './components/header/header.css';
+@import './components/footer/footer.css';
+@import './components/auth/auth.css';
+@import './components/collections/collections.css';
+@import './components/loader/loader.css';
+
 @font-face {
     font-family: 'Montserrat-Bold';
     src: url('./static/fonts/Montserrat-Bold.ttf') format('truetype');

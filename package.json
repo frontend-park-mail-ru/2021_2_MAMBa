@@ -28,7 +28,6 @@
     "mime": "^2.5.2",
     "morgan": "^1.10.0"
   },
-  "description": "## Деплой",
   "main": "index.js",
   "repository": {
     "type": "git",

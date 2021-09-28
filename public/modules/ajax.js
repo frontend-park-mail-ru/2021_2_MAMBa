@@ -7,15 +7,33 @@
   };
 
   class Ajax {
-    ajaxGet(args) {
-      return this._ajax({method: AJAX_METHODS.GET, ...args});
+    getCollectionsFetch(args = {}) {
+      let statusCode;
+
+      return fetch(args.url, {
+        method: AJAX_METHODS.GET,
+        credentials: 'include',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((response) => {
+        statusCode = response.status;
+        return response.json();
+      }).then((parsedBody) => {
+        return {
+          status: statusCode,
+          parsedBody,
+        };
+      }).catch((parsedBody) => {
+        console.log('aaaaaa');
+      });
     }
 
     ajaxPost(args) {
       return this._ajax({method: AJAX_METHODS.POST, ...args});
     }
 
-    // eslint-disable-next-line require-jsdoc
     _ajax({
       method = AJAX_METHODS.GET,
       url = '/', body = null, callback = noop,

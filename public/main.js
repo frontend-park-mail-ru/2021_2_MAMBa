@@ -42,18 +42,14 @@ function collectionsPage() {
       mask.remove();
     }, 600);
   });
-
-  Ajax.ajaxGet({
-    url: '/collections/getCollections/skip=0&limit=12',
-    callback: (status, responseText) => {
-      try {
-        const data = JSON.parse(responseText);
-        root.insertBefore(renderCollections(data), root.children[1]);
-      } catch (e) {
+  Ajax.getCollectionsFetch({url: 'http://89.208.198.137/api/collections/getCollections?skip=0&limit=12'})
+      .then(({status, parsedBody}) => {
+        root.insertBefore(renderCollections(parsedBody), root.children[1]);
+      })
+      .catch((status, parsedBody) => {
         errorPage();
-      }
-    },
-  });
+        console.log(status);
+      });
   root.appendChild(renderFooter({
     url: {
       vk: 'https://vk.com/feed',
@@ -67,7 +63,7 @@ function collectionsPage() {
 }
 
 function signupPage() {
-  root.innerHTML ='';
+  root.innerHTML = '';
   root.appendChild(renderHeader({
     staticPath: '/static/',
     btns: ['Подборки', 'Жанры', 'Релизы'],
@@ -127,7 +123,7 @@ function signupPage() {
 }
 
 function loginPage() {
-  root.innerHTML ='';
+  root.innerHTML = '';
   root.appendChild(renderHeader({
     staticPath: '/static/',
     btns: ['Подборки', 'Жанры', 'Релизы'],

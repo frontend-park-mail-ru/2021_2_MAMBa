@@ -68,7 +68,7 @@ function signupPage() {
     const name = authForm.name.value.trim();
     const surname = authForm.surname.value.trim();
     Ajax.postFetch({
-      url: 'http://localhost:8080/api/user/register',
+      url: 'http://89.208.198.137:8080/api/user/register',
       body: {email: email, password: password, password_repeat: password, first_name: name, surname: surname},
       callback: (status) => {
         console.log(status);
@@ -123,21 +123,27 @@ function loginPage() {
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
     Ajax.postFetch({
-      url: 'http://localhost:8080/api/user/login',
+      url: 'http://89.208.198.137:8080/api/user/login',
       body: {email: email, password: password}
     }).then((response) => {
       if (response.status === 200) {
-        collectionsPage();
-        return
+        console.log(response.parsedBody);
+        collectionsPage(response.parsedBody);
+        return;
       }
-    }).catch((response) => {
-      console.log(`respst cl ${response.status}`);
     });
   });
 }
 
-  function collectionsPage() {
-    root.innerHTML = '<h1>SUCCESS</h1>';
+  function collectionsPage(userData) {
+    root.innerHTML = '';
+    root.appendChild(renderHeader({
+      staticPath: '/static/',
+      btns: ['Подборки', 'Жанры', 'Релизы'],
+      authorized: true,
+      userName: userData.first_name,
+      // picSrc:
+    }));
   }
 
   signupPage();

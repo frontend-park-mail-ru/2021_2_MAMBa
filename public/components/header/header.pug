@@ -9,6 +9,7 @@
         input.search-input(placeholder='Фильмы, сериалы, актёры')
         img.search-btn(src=staticPath + 'pics/search.svg')
     if authorized
-        p #{userName}
+        //img.user-pic(src=#{picSrc})
+        p.login-btn #{userName}
     else
         .login-btn Войти

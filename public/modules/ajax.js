@@ -81,20 +81,17 @@
 
         postFetch(args = {}) {
             let statusCode;
-            console.log('argsemail ' + args.email);
 
             return fetch(args.url, {
                 method: AJAX_METHODS.POST,
                 body: JSON.stringify(args.body),
                 credentials: 'include',
-                mode: 'no-cors',
+                mode: 'cors',
                 headers: {
                     "Content-Type": "application/json",
                 }
             }).then((response) => {
                 statusCode = response.status;
-                console.log(response);
-                console.log(`stcode ${statusCode}`);
                 return response.json();
             }).then((parsedBody) => {
                 return {
@@ -102,7 +99,7 @@
                     parsedBody
                 };
             }).catch((response) => {
-                console.log(`respst ${response.status}`);
+                console.log(`error ${response.status}`);
             })
         }
 

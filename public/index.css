@@ -1,6 +1,8 @@
 @import './components/header/header.css';
 @import './components/footer/footer.css';
 @import './components/auth/auth.css';
+@import './components/collections/collections.css';
+@import './components/loader/loader.css';
 
 @font-face {
     font-family: 'Montserrat-Bold';
@@ -21,4 +23,14 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+}
+
+:root {
+    --white: #ffffff;
+    --grey-background: #2e2532;
+    --black: #000000;
+    --pink: #E10856;
+    --light-grey: #bbb8b6;
+    --grey-botton: #433649;
+    --grey-shadow: #ffffff3f;
 }

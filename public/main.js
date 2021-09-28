@@ -1,6 +1,8 @@
 import {renderHeader} from './components/header/header.js';
 import {renderFooter} from './components/footer/footer.js';
 import {renderAuth} from './components/auth/auth.js';
+import {renderLoader} from './components/loader/loader.js';
+import {renderCollections} from './components/collections/collections.js';
 import {foundErrorFields, addFocusOutListeners} from './utils/utils.js';
 
 const root = document.getElementById('root');
@@ -22,6 +24,43 @@ const configApp = {
     open: collectionsPage,
   },
 };
+
+function collectionsPage() {
+  root.innerHTML = '';
+
+  root.appendChild(renderHeader({
+    staticPath: '/static/',
+    btns: ['Подборки', 'Жанры', 'Релизы'],
+    authorized: false,
+  }));
+
+  root.appendChild(renderLoader());
+  const mask = document.querySelector('.mask');
+  window.addEventListener('load', () => {
+    mask.classList.add('hide');
+    setTimeout(() => {
+      mask.remove();
+    }, 600);
+  });
+  Ajax.getCollectionsFetch({url: 'http://89.208.198.137/api/collections/getCollections?skip=0&limit=12'})
+      .then(({status, parsedBody}) => {
+        root.insertBefore(renderCollections(parsedBody), root.children[1]);
+      })
+      .catch((status, parsedBody) => {
+        errorPage();
+        console.log(status);
+      });
+  root.appendChild(renderFooter({
+    url: {
+      vk: 'https://vk.com/feed',
+      inst: 'https://instagram.com/',
+      alex: '',
+      max: '',
+      mar: '',
+      bor: '',
+    },
+  }));
+}
 
 function signupPage() {
   root.innerHTML ='';

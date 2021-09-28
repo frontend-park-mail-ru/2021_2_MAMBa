@@ -1,4 +1,3 @@
-
 (function() {
     const noop = () => {};
     const AJAX_METHODS = {
@@ -35,49 +34,28 @@
             xhr.send();
         }
 
-        promisifyGet(args = {}) {
-            return new Promise((resolve, reject) => {
-                this.#ajax({
-                    ...args,
-                    method: AJAX_METHODS.GET,
-                    callback: (status, responseText) => {
-                        // 1xx, 2xx
-                        if (status < 300) {
-                            resolve({
-                                status,
-                                responseText
-                            });
+      getCollectionsFetch(args = {}) {
+        let statusCode;
 
-                            return;
-                        }
-
-                        reject({
-                            status,
-                            responseText
-                        })
-                    }
-                });
-            });
-        }
-
-        getUsingFetch(args = {}) {
-            let statusCode;
-
-            return fetch(args.url, {
-                method: AJAX_METHODS.GET
-            }).then((response) => {
-                statusCode = response.status;
-                console.log(`codeee  ${statusCode}`);
-                return response.json();
-            }).then((parsedBody) => {
-                return {
-                    status: statusCode,
-                    parsedBody
-                };
-            }).catch((response) => {
-                console.log(`coee  ${response.status}`);
-            })
-        }
+        return fetch(args.url, {
+          method: AJAX_METHODS.GET,
+          credentials: 'include',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then((response) => {
+          statusCode = response.status;
+          return response.json();
+        }).then((parsedBody) => {
+          return {
+            status: statusCode,
+            parsedBody,
+          };
+        }).catch((parsedBody) => {
+          console.log('aaaaaa');
+        });
+      }
 
         postFetch(args = {}) {
             let statusCode;
@@ -102,20 +80,6 @@
                 console.log(`error ${response.status}`);
             })
         }
-
-        async asyncUsingFetch (args = {}) {
-            const response = await fetch(args.url, {
-                method: AJAX_METHODS.GET
-            });
-
-            const parsedBody = await response.json();
-
-            return {
-                status: response.status,
-                parsedBody
-            };
-        }
-    }
 
     window.Ajax = new Ajax();
 })();

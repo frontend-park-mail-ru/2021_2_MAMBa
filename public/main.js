@@ -1,6 +1,7 @@
 import {renderHeader} from './components/header/header.js';
 import {renderFooter} from './components/footer/footer.js';
 import {renderAuth} from './components/auth/auth.js';
+import {foundErrorFields, addFocusOutListeners} from './utils/utils.js'
 
 const root = document.getElementById('root');
 
@@ -53,7 +54,34 @@ function signupPage() {
       bor: '',
     },
   }));
-}
+  const authForm = document.forms.authForm;
+  const sendBtn = authForm.submitBtn;
+  addFocusOutListeners(authForm);
+  sendBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (foundErrorFields(authForm)) {
+      return;
+    }
+
+    const email = authForm.email.value.trim();
+    const password = authForm.password.value.trim();
+    const name = authForm.name.value.trim();
+    const surname = authForm.surname.value.trim();
+    Ajax.ajaxPost({
+      url: '/signup',
+      body: {email, password, name, surname},
+      callback: (status) => {
+        console.log(status);
+        if (status === 201) {
+          collectionsPage();
+          return;
+        }
+
+        console.log('Wrong data');
+      }
+    });
+  };
+};
 
 function loginPage() {
   root.innerHTML ='';
@@ -83,9 +111,16 @@ function loginPage() {
       bor: '',
     },
   }));
-  const sendBtn = document.forms.authForm.submitBtn;
+  let authForm = document.forms.authForm;
+  let sendBtn = authForm.submitBtn;
+
+  addFocusOutListeners(authForm);
   sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    if (foundErrorFields(authForm)) {
+      return;
+    }
+
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
     Ajax.ajaxPost({

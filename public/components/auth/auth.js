@@ -1,4 +1,4 @@
-import {createElementFromHTML, includeStyle} from '../../modules/utils.js';
+import {createElementFromHTML, includeStyle} from '../../utils/utils.js';
 
 const renderAuth = (params) => {
   const template = createElementFromHTML(auth(params));

@@ -80,7 +80,7 @@ function signupPage() {
         console.log('Wrong data');
       }
     });
-  };
+  });
 };
 
 function loginPage() {

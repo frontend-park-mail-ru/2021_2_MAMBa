@@ -1,10 +1,10 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML, includeStyle} from '../../utils/utils.js';
 
-function render(params) {
-    let template = createElementFromHTML(footer(params));
-    return template;
-}
+const renderFooter = (params) => {
+  const template = createElementFromHTML(footer(params));
+  return template;
+};
 
-includeStyle("footer");
+includeStyle('footer');
 
-export default render;
+export {renderFooter};

@@ -1,13 +1,8 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML} from '../../utils/utils.js';
 
-function render(params) {
-    let template = createElementFromHTML(collections(params));
-    let content = document.createElement('div');
-    content.id = 'collections-content';
-    content.appendChild(template);
-    return content;
-}
+const renderCollections = (params) => {
+  const template = createElementFromHTML(collections(params));
+  return template;
+};
 
-includeStyle("collections");
-
-export default render;
+export {renderCollections};

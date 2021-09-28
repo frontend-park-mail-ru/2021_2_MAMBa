@@ -1,10 +1,10 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML, includeStyle} from '../../utils/utils.js';
 
-function render(params) {
-    let template = createElementFromHTML(loader(params));
-    return template;
-}
+const renderLoader = (params) => {
+  const template = createElementFromHTML(loader(params));
+  return template;
+};
 
-includeStyle("loader");
+includeStyle('loader');
 
-export default render;
+export {renderLoader};

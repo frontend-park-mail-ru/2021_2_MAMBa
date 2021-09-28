@@ -1,7 +1,6 @@
-#footer {
+.footer {
     background-color: #0C0C0C;
     flex: 0 0 125px;
-    max-height: 125px;
     display: flex;
 }
 
@@ -14,7 +13,7 @@
     padding-left: 20px;
 }
 
-#social {
+.social {
     font-family: "Montserrat-Regular", "Arial", sans-serif;
     flex: 1 0 auto;
     display: flex;
@@ -24,14 +23,14 @@
     font-size: 15px;
 }
 
-#inst-hrefs {
+.inst-hrefs {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding: 0 0 0 20px;
 }
 
-#inst-hrefs a {
+.inst-hrefs a {
     text-decoration: none;
     color: currentcolor;
     padding: 3px;

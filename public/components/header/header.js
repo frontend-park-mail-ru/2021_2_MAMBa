@@ -1,4 +1,4 @@
-import {createElementFromHTML, includeStyle} from '../../utils/utils.js';
+import {createElementFromHTML} from '../../utils/utils.js';
 
 const renderHeader = (params) => {
   const template = createElementFromHTML(header(params));
@@ -8,7 +8,5 @@ const renderHeader = (params) => {
   });
   return template;
 };
-
-includeStyle('header');
 
 export {renderHeader};

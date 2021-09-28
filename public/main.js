@@ -84,7 +84,7 @@ function signupPage() {
 };
 
 function loginPage() {
-  root.innerHTML ='';
+  root.innerHTML = '';
   root.appendChild(renderHeader({
     staticPath: '/static/',
     btns: ['Подборки', 'Жанры', 'Релизы'],
@@ -123,32 +123,31 @@ function loginPage() {
 
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
-    Ajax.ajaxPost({
-      url: '/login',
-      body: {email, password},
-      callback: (status) => {
-        if (status === 200) {
-          collectionsPage();
-          return;
-        }
-
-        console.log('Wrong pass or email');
-      },
+    Ajax.postFetch({
+      url: 'http://89.208.198.137:8080/api/user/login',
+      body: {email: email, password: password}
+    }).then((response) => {
+      if (status === 200) {
+        collectionsPage();
+        return
+      }
+    }).catch((response) => {
+      console.log('iiiiii');
     });
   });
 }
 
-function collectionsPage() {
-  root.innerHTML = '<h1>SUCCESS</h1>';
-}
-
-signupPage();
-
-root.addEventListener('click', (e) => {
-  const {target} = e;
-
-  if (target instanceof HTMLAnchorElement) {
-    e.preventDefault();
-    configApp[target.dataset.section].open();
+  function collectionsPage() {
+    root.innerHTML = '<h1>SUCCESS</h1>';
   }
-});
+
+  signupPage();
+
+  root.addEventListener('click', (e) => {
+    const {target} = e;
+
+    if (target instanceof HTMLAnchorElement) {
+      e.preventDefault();
+      configApp[target.dataset.section].open();
+    }
+  });

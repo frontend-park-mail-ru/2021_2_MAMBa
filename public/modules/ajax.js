@@ -67,12 +67,40 @@
                 method: AJAX_METHODS.GET
             }).then((response) => {
                 statusCode = response.status;
+                console.log(`codeee  ${statusCode}`);
                 return response.json();
             }).then((parsedBody) => {
                 return {
                     status: statusCode,
                     parsedBody
                 };
+            }).catch((response) => {
+                console.log(`coee  ${response.status}`);
+            })
+        }
+
+        postFetch(args = {}) {
+            let statusCode;
+            console.log('hui' + args.email);
+
+            return fetch(args.url, {
+                method: AJAX_METHODS.POST,
+                body: JSON.stringify({
+                    email: args.body.email,
+                    password: args.body.password
+                }),
+                credentials: 'include',
+                mode: 'no-cors',
+            }).then((response) => {
+                statusCode = response.status;
+                return response.json();
+            }).then((parsedBody) => {
+                return {
+                    status: statusCode,
+                    parsedBody
+                };
+            }).catch((response) => {
+                console.log(`server error ${response.status}`);
             })
         }
 

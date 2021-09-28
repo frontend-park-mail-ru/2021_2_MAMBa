@@ -28,10 +28,10 @@ function deleteNodeError(currNode) {
     currNode.parentNode.removeChild(prevNode);
   }
 }
-
-function insertAfter(referenceNode, newNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
+//
+// function insertAfter(referenceNode, newNode) {
+//   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+// }
 
 function foundErrorFields(form) {
   let flag = false;
@@ -97,7 +97,8 @@ function addFocusOutListeners(authForm) {
         case 'surname': {
           if (input.value.match(/^.*[^A-zА-яЁё].*$/)) {
             input.classList.add('error');
-            authForm.insertBefore(createError('Недопускаются цифры и спец символы!'), input);
+            authForm.insertBefore(createError(
+                'Недопускаются цифры и спец символы!'), input);
           } else {
             input.classList.remove('error');
           }
@@ -112,4 +113,5 @@ function addFocusOutListeners(authForm) {
 }
 
 
-export {createElementFromHTML, createError, foundErrorFields, deleteAllErrors, addFocusOutListeners};
+export {createElementFromHTML, createError, foundErrorFields,
+  deleteAllErrors, addFocusOutListeners};

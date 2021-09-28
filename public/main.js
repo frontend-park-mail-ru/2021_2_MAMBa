@@ -25,23 +25,24 @@ const configApp = {
   },
 };
 
-function collectionsPage() {
+function collectionsPage(userData) {
   root.innerHTML = '';
 
   root.appendChild(renderHeader({
     staticPath: '/static/',
     btns: ['Подборки', 'Жанры', 'Релизы'],
-    authorized: false,
+    authorized: true,
+    userName: userData.first_name,
   }));
 
-  root.appendChild(renderLoader());
-  const mask = document.querySelector('.mask');
-  window.addEventListener('load', () => {
-    mask.classList.add('hide');
-    setTimeout(() => {
-      mask.remove();
-    }, 600);
-  });
+  // root.appendChild(renderLoader());
+  // const mask = document.querySelector('.mask');
+  // window.addEventListener('load', () => {
+  //   mask.classList.add('hide');
+  //   setTimeout(() => {
+  //     mask.remove();
+  //   }, 600);
+  // });
   Ajax.getCollectionsFetch({url: 'http://89.208.198.137/api/collections/getCollections?skip=0&limit=12'})
       .then(({status, parsedBody}) => {
         root.insertBefore(renderCollections(parsedBody), root.children[1]);
@@ -108,7 +109,8 @@ function signupPage() {
     const surname = authForm.surname.value.trim();
     Ajax.postFetch({
       url: 'http://89.208.198.137:8080/api/user/register',
-      body: {email: email, password: password, password_repeat: password, first_name: name, surname: surname},
+      body: {email: email, password: password, password_repeat: password,
+        first_name: name, surname: surname},
       callback: (status) => {
         console.log(status);
         if (status === 201) {
@@ -163,7 +165,7 @@ function loginPage() {
     const password = document.forms.authForm.password.value.trim();
     Ajax.postFetch({
       url: 'http://89.208.198.137:8080/api/user/login',
-      body: {email: email, password: password}
+      body: {email: email, password: password},
     }).then((response) => {
       if (response.status === 200) {
         console.log(response.parsedBody);
@@ -174,24 +176,13 @@ function loginPage() {
   });
 }
 
-  function collectionsPage(userData) {
-    root.innerHTML = '';
-    root.appendChild(renderHeader({
-      staticPath: '/static/',
-      btns: ['Подборки', 'Жанры', 'Релизы'],
-      authorized: true,
-      userName: userData.first_name,
-      // picSrc:
-    }));
+signupPage();
+
+root.addEventListener('click', (e) => {
+  const {target} = e;
+
+  if (target instanceof HTMLAnchorElement) {
+    e.preventDefault();
+    configApp[target.dataset.section].open();
   }
-
-  signupPage();
-
-  root.addEventListener('click', (e) => {
-    const {target} = e;
-
-    if (target instanceof HTMLAnchorElement) {
-      e.preventDefault();
-      configApp[target.dataset.section].open();
-    }
-  });
+});

@@ -1,4 +1,4 @@
-#auth-content {
+.auth-content {
     background: url("../../static/pics/bg_auth.jpg") center;
     flex: 1 0 auto;
     display: flex;
@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-#auth, #reg {
+.auth, .reg {
     border-radius: 20px;
     background-color: #FFFFFF9A;
     text-align: center;
@@ -15,19 +15,19 @@
     flex-direction: column;
 }
 
-#reg {
+.reg {
     min-height: 400px;
     height: 75%;
     width: 412px;
 }
 
-#auth {
+.auth {
     min-height: 280px;
     height: 45%;
     width: 412px;
 }
 
-#auth-form {
+.auth-form {
     margin-top: 15px;
     flex: 1 0 auto;
     padding: 0 50px;
@@ -38,7 +38,7 @@
 }
 
 
-#auth-head {
+.auth-head {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 26px;
     display: flex;
@@ -61,7 +61,7 @@
     border:0;
 }
 
-#auth-btn {
+.auth-btn {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 18px;
     margin: 0 auto;
@@ -75,7 +75,7 @@
     width: 221px;
 }
 
-#auth-a {
+.auth-a {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     text-decoration: underline;
     color: currentcolor;

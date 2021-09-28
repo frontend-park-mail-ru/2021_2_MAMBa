@@ -1,11 +1,14 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML, includeStyle} from '../../modules/utils.js';
 
-function render(params) {
-    console.log('headerrr');
-    let template = createElementFromHTML(header(params));
-    return template;
-}
+const renderHeader = (params) => {
+  const template = createElementFromHTML(header(params));
+  const loginBtn = template.querySelector('.login-btn');
+  loginBtn.addEventListener('click', () => {
+    window.location.href = '/login';
+  });
+  return template;
+};
 
-includeStyle("header");
+includeStyle('header');
 
-export default render;
+export {renderHeader};

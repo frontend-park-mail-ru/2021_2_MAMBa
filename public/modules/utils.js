@@ -1,14 +1,14 @@
-function createElementFromHTML(html) {
-    const temp = document.createElement("div");
-    temp.innerHTML = html;
-    return temp.firstChild;
-}
+const createElementFromHTML = (html) => {
+  const tempParent = document.createElement('div');
+  tempParent.innerHTML = html;
+  return tempParent.firstChild;
+};
 
-function includeStyle(name) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = `/components/${name}/${name}.css`;
-    document.head.appendChild(link);
-}
+const includeStyle = (name) => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = `/components/${name}/${name}.css`;
+  document.head.appendChild(link);
+};
 
 export {createElementFromHTML, includeStyle};

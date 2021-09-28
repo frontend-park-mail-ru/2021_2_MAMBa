@@ -1,13 +1,13 @@
-import {createElementFromHTML, includeStyle} from "../../modules/utils.js";
+import {createElementFromHTML, includeStyle} from '../../modules/utils.js';
 
-function render(params) {
-    let template = createElementFromHTML(auth(params));
-    let content = document.createElement('div');
-    content.id = 'auth-content';
-    content.appendChild(template);
-    return content;
-}
+const renderAuth = (params) => {
+  const template = createElementFromHTML(auth(params));
+  const content = document.createElement('div');
+  content.className = 'auth-content';
+  content.appendChild(template);
+  return content;
+};
 
-includeStyle("auth");
+includeStyle('auth');
 
-export default render;
+export {renderAuth};

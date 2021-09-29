@@ -40,7 +40,10 @@
           }
         }).then((response) => {
           statusCode = response.status;
-          return response.json();
+          if (statusCode === 200 || statusCode === 201) {
+            return response.json();
+          }
+          return response;
         }).then((parsedBody) => {
           return {
             status: statusCode,

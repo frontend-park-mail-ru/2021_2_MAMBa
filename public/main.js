@@ -27,7 +27,7 @@ const configApp = {
 
 function collectionsPage(userData) {
   root.innerHTML = '';
-
+  console.log(userData);
   root.appendChild(renderHeader({
     staticPath: '/static/',
     btns: [{title: 'Подборки', class: 'active-btn'},
@@ -125,7 +125,7 @@ function signupPage() {
         first_name: name, surname: surname},
     }).then((response) => {
       if (response && response.status === 201) {
-        collectionsPage();
+        collectionsPage(response.parsedBody);
         return;
       } else {
         const oldErrors = root.querySelectorAll('.error-mes');
@@ -138,7 +138,7 @@ function signupPage() {
         root.appendChild(error);
       }
     });
-    const loginBtn = template.querySelector('.login-btn');
+    const loginBtn = root.querySelector('.login-btn');
     if (loginBtn) {
       loginBtn.addEventListener('click', () => {
         loginPage();
@@ -207,7 +207,7 @@ function loginPage() {
         root.appendChild(error);
       }
     })
-    const loginBtn = template.querySelector('.login-btn');
+    const loginBtn = root.querySelector('.login-btn');
     if (loginBtn) {
       loginBtn.addEventListener('click', () => {
         loginPage();

@@ -1,0 +1,99 @@
+.navbar {
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    width: 100%;
+    min-width: 1000px;
+    flex: 0 0 65px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    max-height: 45px;
+    margin-left: 7%;
+    cursor: pointer;
+}
+
+.wide-menu {
+    display: inherit;
+    font-size: 20px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3%;
+    width: 573px;
+    min-width: 360px;
+}
+
+.menu-btn {
+    cursor: default;
+    color: gray;
+    fill: gray;
+    stroke: gray;
+    transition: .5s ease-in-out;
+}
+
+.active-btn {
+    cursor: default;
+    color: #E10856;
+}
+
+.user-name {
+    color: white;
+    margin-right: 20px;
+}
+/*.menu-btn:hover {*/
+/*    cursor: pointer;*/
+/*    color: #E10856;*/
+/*}*/
+
+/*.menu-btn > svg > g > path {*/
+/*    transition: .5s ease-in-out;*/
+/*}*/
+
+/*.menu-btn:hover > svg > g > path {*/
+/*    fill: #E10856;*/
+/*    stroke: #E10856;*/
+/*}*/
+
+.search-div {
+    font-family: "Montserrat-Regular", "Arial", sans-serif;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    padding: 0 15px;
+    width:30%;
+}
+
+.search-input {
+    border-radius: 20px;
+    width: 100%;
+    min-width: 124px;
+    height: 20px;
+    border: 0;
+    padding: 5px 15px;
+    outline:none;
+    text-align: center;
+}
+
+.search-btn {
+    cursor: pointer;
+}
+
+.login-btn, .logout-btn{
+    color: #E10856;
+    font-size: 24px;
+    margin-right: 7%;
+    transition: .5s ease-in-out;
+}
+
+.login-btn:hover, .logout-btn:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.user-pic {
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+}

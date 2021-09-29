@@ -1,7 +1,6 @@
 import {renderHeader} from './components/header/header.js';
 import {renderFooter} from './components/footer/footer.js';
 import {renderAuth} from './components/auth/auth.js';
-import {renderLoader} from './components/loader/loader.js';
 import {renderCollections} from './components/collections/collections.js';
 import {foundErrorFields, addFocusOutListeners} from './utils/utils.js';
 
@@ -69,7 +68,7 @@ function collectionsPage(userData) {
       Ajax.getFetch({url: 'http://89.208.198.137/api/user/logout'})
           .then((response) => {
             console.log('Logout');
-          })
+          });
       loginPage();
     });
   }
@@ -147,7 +146,7 @@ function signupPage() {
         loginPage();
       });
     }
-    });
+  });
 };
 
 function loginPage() {
@@ -209,7 +208,7 @@ function loginPage() {
         error.innerText = 'Неправильный логин или пароль!';
         root.appendChild(error);
       }
-    })
+    });
     const loginBtn = template.querySelector('.login-btn');
     if (loginBtn) {
       loginBtn.addEventListener('click', () => {
@@ -228,7 +227,7 @@ function checkAuth() {
         url: `http://89.208.198.137/api/user/${response.parsedBody.id}`,
       }).then((response) => {
         collectionsPage(response.parsedBody);
-      })
+      });
       return;
     } else {
       loginPage();

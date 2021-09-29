@@ -2,7 +2,7 @@
 
 ## Деплой
 
-В разработке
+https://www.film4u.club/
 
 ## API
 

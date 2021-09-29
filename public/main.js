@@ -66,8 +66,7 @@ function collectionsPage(userData) {
     logoutBtn.addEventListener('click', () => {
       Ajax.getFetch({url: 'https://film4u.club/api/user/logout'})
           .then((response) => {
- auth_log_layout_MB-d3fe3
-          })
+          });
       loginPage();
     });
   }
@@ -206,7 +205,7 @@ function loginPage() {
         error.innerText = 'Неправильный логин или пароль!';
         root.appendChild(error);
       }
-    })
+    });
     const loginBtn = root.querySelector('.login-btn');
 
     if (loginBtn) {

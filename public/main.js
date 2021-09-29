@@ -141,6 +141,12 @@ function signupPage() {
       }
       console.log('Wrong data');
     });
+    const loginBtn = template.querySelector('.login-btn');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', () => {
+        loginPage();
+      });
+    }
     });
 };
 
@@ -204,6 +210,12 @@ function loginPage() {
         root.appendChild(error);
       }
     })
+    const loginBtn = template.querySelector('.login-btn');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', () => {
+        loginPage();
+      });
+    }
   });
 }
 

@@ -45,7 +45,7 @@ function collectionsPage(userData) {
   //     mask.remove();
   //   }, 600);
   // });
-  Ajax.getFetch({url: 'http://film4u.club/api/collections/getCollections?skip=0&limit=12'})
+  Ajax.getFetch({url: 'https://film4u.club/api/collections/getCollections?skip=0&limit=12'})
       .then(({status, parsedBody}) => {
         root.insertBefore(renderCollections(parsedBody), root.children[1]);
       })
@@ -65,7 +65,7 @@ function collectionsPage(userData) {
   const logoutBtn = document.querySelector('.logout-btn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      Ajax.getFetch({url: 'http://film4u.club/api/user/logout'})
+      Ajax.getFetch({url: 'https://film4u.club/api/user/logout'})
           .then((response) => {
           })
       loginPage();
@@ -120,7 +120,7 @@ function signupPage() {
     const name = authForm.name.value.trim();
     const surname = authForm.surname.value.trim();
     Ajax.postFetch({
-      url: 'http://film4u.club/api/user/register',
+      url: 'https://film4u.club/api/user/register',
       body: {email: email, password: password, password_repeat: password,
         first_name: name, surname: surname},
     }).then((response) => {
@@ -190,7 +190,7 @@ function loginPage() {
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
     Ajax.postFetch({
-      url: 'http://film4u.club/api/user/login',
+      url: 'https://film4u.club/api/user/login',
       body: {email: email, password: password},
     }).then((response) => {
       if (response && response.status === 200) {
@@ -218,11 +218,11 @@ function loginPage() {
 
 function checkAuth() {
   Ajax.getFetch({
-    url: 'http://film4u.club/api/user/checkAuth',
+    url: 'https://film4u.club/api/user/checkAuth',
   }).then((response) => {
     if (response && response.status === 200) {
       Ajax.getFetch({
-        url: `http://film4u.club/api/user/${response.parsedBody.id}`,
+        url: `https://film4u.club/api/user/${response.parsedBody.id}`,
       }).then((response) => {
         collectionsPage(response.parsedBody);
       })

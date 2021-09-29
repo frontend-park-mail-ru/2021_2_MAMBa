@@ -23,6 +23,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    position: relative;
 }
 
 :root {
@@ -33,4 +34,12 @@ body {
     --light-grey: #bbb8b6;
     --grey-botton: #433649;
     --grey-shadow: #ffffff3f;
+}
+
+.error-mes {
+    position: absolute;
+    color: #E10856;
+    text-align: center;
+    bottom: 180px;
+    right: 90px;
 }

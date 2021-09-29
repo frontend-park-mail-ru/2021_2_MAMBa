@@ -69,7 +69,7 @@ function addFocusOutListeners(authForm) {
         }
         case 'password': {
           let errorText = '';
-          if (!input.value.match(/^(?=.*[0-9])(?=.*[A-z])[a-zA-Z0-9]{8,}$/)) {
+          if (!input.value.match(/^(?=.*[0-9])(?=.*[A-z])[A-zА-я0-9]{8,}$/)) {
             input.classList.add('error');
             if (!input.value.match(/(?=.*[0-9])/)) {
               errorText='Пароль должен содержать хотя бы 1 цифру!';

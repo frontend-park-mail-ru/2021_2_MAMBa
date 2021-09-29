@@ -67,7 +67,7 @@ function collectionsPage(userData) {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       Ajax.getFetch({url: 'http://89.208.198.137/api/user/logout'})
-          .then(({status, parsedBody}) => {
+          .then((response) => {
             console.log('Logout');
           })
       loginPage();
@@ -125,16 +125,23 @@ function signupPage() {
       url: 'http://89.208.198.137/api/user/register',
       body: {email: email, password: password, password_repeat: password,
         first_name: name, surname: surname},
-      callback: (status) => {
-        console.log(status);
-        if (status === 201) {
-          collectionsPage();
-          return;
+    }).then((response) => {
+      if (response && response.status === 201) {
+        collectionsPage();
+        return;
+      } else {
+        const oldErrors = root.querySelectorAll('.error-mes');
+        if (oldErrors.length > 0) {
+          root.removeChild(...oldErrors);
         }
-        console.log('Wrong data');
-      },
+        const error = document.createElement('div');
+        error.classList.add('error-mes');
+        error.innerText = 'Такой пользователь уже существует!';
+        root.appendChild(error);
+      }
+      console.log('Wrong data');
     });
-  });
+    });
 };
 
 function loginPage() {
@@ -183,10 +190,18 @@ function loginPage() {
       url: 'http://89.208.198.137/api/user/login',
       body: {email: email, password: password},
     }).then((response) => {
-      console.log(response);
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         collectionsPage(response.parsedBody);
         return;
+      } else {
+        const oldErrors = root.querySelectorAll('.error-mes');
+        if (oldErrors.length > 0) {
+          root.removeChild(...oldErrors);
+        }
+        const error = document.createElement('div');
+        error.classList.add('error-mes');
+        error.innerText = 'Неправильный логин или пароль!';
+        root.appendChild(error);
       }
     })
   });

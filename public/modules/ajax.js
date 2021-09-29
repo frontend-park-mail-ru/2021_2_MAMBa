@@ -46,8 +46,6 @@
             status: statusCode,
             parsedBody
           };
-        }).catch((response) => {
-          console.log(`error ${response.status}`);
         })
       }
     }

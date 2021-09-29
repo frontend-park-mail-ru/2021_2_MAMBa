@@ -105,7 +105,6 @@ function addFocusOutListeners(authForm) {
           break;
         }
         default: {
-          console.log('Wrong name of input');
         }
       }
     });

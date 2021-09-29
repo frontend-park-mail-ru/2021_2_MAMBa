@@ -51,7 +51,6 @@ function collectionsPage(userData) {
       })
       .catch((status, parsedBody) => {
         errorPage();
-        console.log(status);
       });
   root.appendChild(renderFooter({
     url: {
@@ -68,7 +67,6 @@ function collectionsPage(userData) {
     logoutBtn.addEventListener('click', () => {
       Ajax.getFetch({url: 'http://89.208.198.137/api/user/logout'})
           .then((response) => {
-            console.log('Logout');
           })
       loginPage();
     });
@@ -139,7 +137,6 @@ function signupPage() {
         error.innerText = 'Такой пользователь уже существует!';
         root.appendChild(error);
       }
-      console.log('Wrong data');
     });
     const loginBtn = template.querySelector('.login-btn');
     if (loginBtn) {

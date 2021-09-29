@@ -1,35 +1,34 @@
 (function() {
-    const AJAX_METHODS = {
-        POST: 'POST',
-        GET: 'GET',
-    };
+  const AJAX_METHODS = {
+    POST: 'POST',
+    GET: 'GET',
+  };
 
-    class Ajax {
-      getFetch(args = {}) {
-        let statusCode;
+  class Ajax {
+    getFetch(args = {}) {
+      let statusCode;
 
-        return fetch(args.url, {
-          method: AJAX_METHODS.GET,
-          credentials: 'include',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then((response) => {
-          statusCode = response.status;
-          return response.json();
-        }).then((parsedBody) => {
-          return {
-            status: statusCode,
-            parsedBody,
-          };
-        }).catch((parsedBody) => {
-        });
-      }
+      return fetch(args.url, {
+        method: AJAX_METHODS.GET,
+        credentials: 'include',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((response) => {
+        statusCode = response.status;
+        return response.json();
+      }).then((parsedBody) => {
+        return {
+          status: statusCode,
+          parsedBody,
+        };
+      }).catch((parsedBody) => {
+      });
+    }
 
-      postFetch(args = {}) {
-        let statusCode;
-
+    postFetch(args = {}) {
+      let statusCode;
         return fetch(args.url, {
           method: AJAX_METHODS.POST,
           body: JSON.stringify(args.body),
@@ -51,6 +50,8 @@
           };
         })
       }
+
     }
-    window.Ajax = new Ajax();
+  }
+  window.Ajax = new Ajax();
 })();

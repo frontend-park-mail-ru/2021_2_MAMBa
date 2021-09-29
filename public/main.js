@@ -30,7 +30,9 @@ function collectionsPage(userData) {
 
   root.appendChild(renderHeader({
     staticPath: '/static/',
-    btns: ['Подборки', 'Жанры', 'Релизы'],
+    btns: [{title: 'Подборки', class: 'active-btn'},
+      {title: 'Жанры', class: 'menu-btn'},
+      {title: 'Релизы', class: 'menu-btn'}],
     authorized: true,
     userName: userData.first_name,
   }));
@@ -43,7 +45,7 @@ function collectionsPage(userData) {
   //     mask.remove();
   //   }, 600);
   // });
-  Ajax.getCollectionsFetch({url: 'http://89.208.198.137/api/collections/getCollections?skip=0&limit=12'})
+  Ajax.getFetch({url: 'http://89.208.198.137/api/collections/getCollections?skip=0&limit=12'})
       .then(({status, parsedBody}) => {
         root.insertBefore(renderCollections(parsedBody), root.children[1]);
       })
@@ -67,7 +69,9 @@ function signupPage() {
   root.innerHTML ='';
   root.appendChild(renderHeader({
     staticPath: '/static/',
-    btns: ['Подборки', 'Жанры', 'Релизы'],
+    btns: [{title: 'Подборки', class: 'menu-btn'},
+      {title: 'Жанры', class: 'menu-btn'},
+      {title: 'Релизы', class: 'menu-btn'}],
     authorized: false,
   }));
   root.appendChild(renderAuth({
@@ -108,7 +112,7 @@ function signupPage() {
     const name = authForm.name.value.trim();
     const surname = authForm.surname.value.trim();
     Ajax.postFetch({
-      url: 'http://89.208.198.137:8080/api/user/register',
+      url: 'http://89.208.198.137/api/user/register',
       body: {email: email, password: password, password_repeat: password,
         first_name: name, surname: surname},
       callback: (status) => {
@@ -127,7 +131,9 @@ function loginPage() {
   root.innerHTML = '';
   root.appendChild(renderHeader({
     staticPath: '/static/',
-    btns: ['Подборки', 'Жанры', 'Релизы'],
+    btns: [{title: 'Подборки', class: 'menu-btn'},
+      {title: 'Жанры', class: 'menu-btn'},
+      {title: 'Релизы', class: 'menu-btn'}],
     authorized: false,
   }));
   root.appendChild(renderAuth({
@@ -164,19 +170,36 @@ function loginPage() {
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
     Ajax.postFetch({
-      url: 'http://89.208.198.137:8080/api/user/login',
+      url: 'http://89.208.198.137/api/user/login',
       body: {email: email, password: password},
     }).then((response) => {
+      console.log(response);
       if (response.status === 200) {
-        console.log(response.parsedBody);
         collectionsPage(response.parsedBody);
         return;
       }
-    });
+    })
   });
 }
 
-signupPage();
+function checkAuth() {
+  Ajax.getFetch({
+    url: 'http://89.208.198.137/api/user/checkAuth',
+  }).then((response) => {
+    if (response && response.status === 200) {
+      Ajax.getFetch({
+        url: `http://89.208.198.137/api/user/${response.parsedBody.id}`,
+      }).then((response) => {
+        collectionsPage(response.parsedBody);
+      })
+      return;
+    } else {
+      loginPage();
+    }
+  });
+}
+
+checkAuth();
 
 root.addEventListener('click', (e) => {
   const {target} = e;

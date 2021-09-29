@@ -2,7 +2,7 @@
     img.logo(src=staticPath + 'pics/logo.svg')
     .wide-menu
         each btn in btns
-            div.menu-btn= btn
+              div(class=btn.class)= btn.title
         .menu-btn
             include /static/pics/cube.svg
     .search-div
@@ -10,6 +10,6 @@
         img.search-btn(src=staticPath + 'pics/search.svg')
     if authorized
         //img.user-pic(src=#{picSrc})
-        p.login-btn #{userName}
+        p.user-name #{userName}
     else
         .login-btn Войти

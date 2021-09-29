@@ -26,22 +26,35 @@
 }
 
 .menu-btn {
+    cursor: default;
+    color: gray;
+    fill: gray;
+    stroke: gray;
     transition: .5s ease-in-out;
 }
 
-.menu-btn:hover {
-    cursor: pointer;
+.active-btn {
+    cursor: default;
     color: #E10856;
 }
 
-.menu-btn > svg > g > path {
-    transition: .5s ease-in-out;
+.user-name {
+    color: white;
+    margin-right: 10px;
 }
+/*.menu-btn:hover {*/
+/*    cursor: pointer;*/
+/*    color: #E10856;*/
+/*}*/
 
-.menu-btn:hover > svg > g > path {
-    fill: #E10856;
-    stroke: #E10856;
-}
+/*.menu-btn > svg > g > path {*/
+/*    transition: .5s ease-in-out;*/
+/*}*/
+
+/*.menu-btn:hover > svg > g > path {*/
+/*    fill: #E10856;*/
+/*    stroke: #E10856;*/
+/*}*/
 
 .search-div {
     font-family: "Montserrat-Regular", "Arial", sans-serif;

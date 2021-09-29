@@ -5,7 +5,7 @@
     };
 
     class Ajax {
-      getCollectionsFetch(args = {}) {
+      getFetch(args = {}) {
         let statusCode;
 
         return fetch(args.url, {
@@ -24,7 +24,6 @@
             parsedBody,
           };
         }).catch((parsedBody) => {
-          console.log('aaaaaa');
         });
       }
 

@@ -2,7 +2,11 @@
 
 ## Деплой
 
-В разработке
+https://www.film4u.club/
+
+## API
+
+https://app.swaggerhub.com/apis/MAMBa/Film4U-API/0.0.5
 
 ## Авторы
 

@@ -1,0 +1,43 @@
+{
+  "name": "2021_2_MAMBa",
+  "version": "1.0.0",
+  "devDependencies": {
+    "cookie-parser": "^1.4.5",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-config-xo": "^0.38.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "start": "DEBUG=http node server/server.js",
+    "prestart": "rm -rf public/templates.js & node server/build.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "debug": "^4.3.2",
+    "express": "^4.17.1",
+    "i": "^0.3.7",
+    "mime": "^2.5.2",
+    "morgan": "^1.10.0"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2021_2_MAMBa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-park-mail-ru/2021_2_MAMBa/issues"
+  },
+  "homepage": "https://github.com/frontend-park-mail-ru/2021_2_MAMBa#readme"
+}

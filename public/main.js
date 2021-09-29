@@ -63,6 +63,16 @@ function collectionsPage(userData) {
       bor: '',
     },
   }));
+  const logoutBtn = document.querySelector('.logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      Ajax.getFetch({url: 'http://89.208.198.137/api/user/logout'})
+          .then(({status, parsedBody}) => {
+            console.log('Logout');
+          })
+      loginPage();
+    });
+  }
 }
 
 function signupPage() {

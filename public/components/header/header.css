@@ -40,7 +40,7 @@
 
 .user-name {
     color: white;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 /*.menu-btn:hover {*/
 /*    cursor: pointer;*/
@@ -80,14 +80,14 @@
     cursor: pointer;
 }
 
-.login-btn {
+.login-btn, .logout-btn{
     color: #E10856;
     font-size: 24px;
     margin-right: 7%;
     transition: .5s ease-in-out;
 }
 
-.login-btn:hover {
+.login-btn:hover, .logout-btn:hover {
     cursor: pointer;
     transform: scale(1.1);
 }

@@ -26,7 +26,7 @@ const configApp = {
 
 function collectionsPage(userData) {
   root.innerHTML = '';
-
+  console.log(userData);
   root.appendChild(renderHeader({
     staticPath: '/static/',
     btns: [{title: 'Подборки', class: 'active-btn'},
@@ -44,13 +44,12 @@ function collectionsPage(userData) {
   //     mask.remove();
   //   }, 600);
   // });
-  Ajax.getFetch({url: 'http://89.208.198.137/api/collections/getCollections?skip=0&limit=12'})
+  Ajax.getFetch({url: 'https://film4u.club/api/collections/getCollections?skip=0&limit=12'})
       .then(({status, parsedBody}) => {
         root.insertBefore(renderCollections(parsedBody), root.children[1]);
       })
       .catch((status, parsedBody) => {
         errorPage();
-        console.log(status);
       });
   root.appendChild(renderFooter({
     url: {
@@ -65,10 +64,10 @@ function collectionsPage(userData) {
   const logoutBtn = document.querySelector('.logout-btn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      Ajax.getFetch({url: 'http://89.208.198.137/api/user/logout'})
+      Ajax.getFetch({url: 'https://film4u.club/api/user/logout'})
           .then((response) => {
-            console.log('Logout');
-          });
+ auth_log_layout_MB-d3fe3
+          })
       loginPage();
     });
   }
@@ -121,12 +120,12 @@ function signupPage() {
     const name = authForm.name.value.trim();
     const surname = authForm.surname.value.trim();
     Ajax.postFetch({
-      url: 'http://89.208.198.137/api/user/register',
+      url: 'https://film4u.club/api/user/register',
       body: {email: email, password: password, password_repeat: password,
         first_name: name, surname: surname},
     }).then((response) => {
       if (response && response.status === 201) {
-        collectionsPage();
+        collectionsPage(response.parsedBody);
         return;
       } else {
         const oldErrors = root.querySelectorAll('.error-mes');
@@ -138,9 +137,8 @@ function signupPage() {
         error.innerText = 'Такой пользователь уже существует!';
         root.appendChild(error);
       }
-      console.log('Wrong data');
     });
-    const loginBtn = template.querySelector('.login-btn');
+    const loginBtn = root.querySelector('.login-btn');
     if (loginBtn) {
       loginBtn.addEventListener('click', () => {
         loginPage();
@@ -192,7 +190,7 @@ function loginPage() {
     const email = document.forms.authForm.email.value.trim();
     const password = document.forms.authForm.password.value.trim();
     Ajax.postFetch({
-      url: 'http://89.208.198.137/api/user/login',
+      url: 'https://film4u.club/api/user/login',
       body: {email: email, password: password},
     }).then((response) => {
       if (response && response.status === 200) {
@@ -208,8 +206,9 @@ function loginPage() {
         error.innerText = 'Неправильный логин или пароль!';
         root.appendChild(error);
       }
-    });
-    const loginBtn = template.querySelector('.login-btn');
+    })
+    const loginBtn = root.querySelector('.login-btn');
+
     if (loginBtn) {
       loginBtn.addEventListener('click', () => {
         loginPage();
@@ -220,11 +219,11 @@ function loginPage() {
 
 function checkAuth() {
   Ajax.getFetch({
-    url: 'http://89.208.198.137/api/user/checkAuth',
+    url: 'https://film4u.club/api/user/checkAuth',
   }).then((response) => {
     if (response && response.status === 200) {
       Ajax.getFetch({
-        url: `http://89.208.198.137/api/user/${response.parsedBody.id}`,
+        url: `https://film4u.club/api/user/${response.parsedBody.id}`,
       }).then((response) => {
         collectionsPage(response.parsedBody);
       });

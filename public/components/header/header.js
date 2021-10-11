@@ -1,8 +1,15 @@
-import {createElementFromHTML} from '../../utils/utils.js';
+export class HeaderComponent {
+  constructor({
+                parent = document.body,
+                data = [],
+              } = {}) {
+    this._parent = parent;
+    this._data = data;
+  }
 
-const renderHeader = (params) => {
-  const template = createElementFromHTML(header(params));
-  return template;
-};
-
-export {renderHeader};
+  render() {
+    const template = puglatizer.components.header.header();
+    console.log("in header");
+    this._parent.innerHTML = template;
+  }
+}

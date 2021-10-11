@@ -3,12 +3,14 @@
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
-const morgan = require('morgan');
 const {v4: uuid} = require('uuid');
 const path = require('path');
 const app = express();
+const cors = require('cors');
 
-app.use(morgan('dev'));
+app.use(cors());
+app.options('*', cors());
+
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
@@ -45,9 +47,21 @@ const Collections = {
   current_skip: 0,
 };
 
-app.get('/collections/getCollections/skip=0&limit=12', function(req, res) {
+app.get('api/collections/getCollections/skip=0&limit=12', function(req, res) {
+  console.log('in get');
   res.json(Collections);
 });
+
+app.get('/index.html', (req, res) => {
+  console.log('in get*');
+  res.sendFile(path.resolve(`${__dirname}/../public/index.html`));
+});
+
+app.get('/api/me', (req, res) => {
+  console.log('in me');
+});
+
+
 
 const users = {
   'vasya@bk.ru': {
@@ -101,7 +115,7 @@ app.post('/login', function(req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3001;
 
 app.listen(port, function() {
   console.log(`Server listening port ${port}`);

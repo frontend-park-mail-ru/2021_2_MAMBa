@@ -1,8 +1,24 @@
-import {createElementFromHTML} from '../../utils/utils.js';
+// import {createElementFromHTML} from '../../utils/utils.js';
+//
+// const renderCollections = (params) => {
+//   const template = createElementFromHTML(collections(params));
+//   return template;
+// };
+//
+// export {renderCollections};
+//
 
-const renderCollections = (params) => {
-  const template = createElementFromHTML(collections(params));
-  return template;
-};
+export class CollectionsComponent {
+  constructor({
+                parent = document.body,
+                data = [],
+              } = {}) {
+    this._parent = parent;
+    this._data = data;
+  }
 
-export {renderCollections};
+  render() {
+    const template = puglatizer.components.Collections.Collections();
+    this._parent.innerHTML = template;
+  }
+}

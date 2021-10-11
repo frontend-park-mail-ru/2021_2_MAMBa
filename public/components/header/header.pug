@@ -1,16 +1,39 @@
+-
+    var headerLinks = [
+        {
+            className: 'menu-btn',
+            href: '/',
+            title: 'Подборки'
+        },
+        {
+            className: 'menu-btn',
+            href: '/genres',
+            title: 'Жанры'
+        },
+        {
+            className: 'menu-btn',
+            href: '/releases',
+            title: 'Релизы'
+        },
+        {
+            className: 'menu-btn',
+            href: '/random',
+            title: 'Рандомный'
+        },
+    ];
+
 .navbar
-    img.logo(src=staticPath + 'pics/logo.svg')
+    img.logo(src='static/pics/logo.svg')
     .wide-menu
-        each btn in btns
-              div(class=btn.class)= btn.title
-        .menu-btn
-            include /static/pics/cube.svg
-    .search-div
-        input.search-input(placeholder='Фильмы, сериалы, актёры')
-        img.search-btn(src=staticPath + 'pics/search.svg')
+      each i in headerLinks
+              a(class= i.className href=i.href)= i.title
+    //.search-div
+    //    input.search-input(placeholder='Фильмы, сериалы, актёры')
+    //    img.search-btn(src='static/pics/search.svg')
     if authorized
         //img.user-pic(src=#{picSrc})
         p.user-name #{userName}
         .logout-btn Выйти
     else
         .login-btn Войти
+.content

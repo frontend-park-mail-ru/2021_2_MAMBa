@@ -1,4 +1,4 @@
-const localUrl = 'http://localhost:3001';
+const localUrl = 'http://localhost:8080';
 
 const deployUrl = 'https://film4u.club';
 
@@ -13,6 +13,6 @@ export const URLS = {
   },
   api: {
     me: `${currentUrl}/api/me`,
-    collections: `${currentUrl}/api/collections/getCollections?skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
+    collections: `${currentUrl}/api/collections/getCollections/skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
   },
 };

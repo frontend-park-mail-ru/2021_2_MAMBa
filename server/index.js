@@ -47,21 +47,17 @@ const Collections = {
   current_skip: 0,
 };
 
-app.get('api/collections/getCollections/skip=0&limit=12', function(req, res) {
-  console.log('in get');
+app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
   res.json(Collections);
 });
 
 app.get('/index.html', (req, res) => {
-  console.log('in get*');
   res.sendFile(path.resolve(`${__dirname}/../public/index.html`));
 });
 
 app.get('/api/me', (req, res) => {
   console.log('in me');
 });
-
-
 
 const users = {
   'vasya@bk.ru': {
@@ -115,7 +111,7 @@ app.post('/login', function(req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8080;
 
 app.listen(port, function() {
   console.log(`Server listening port ${port}`);

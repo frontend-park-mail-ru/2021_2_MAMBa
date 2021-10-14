@@ -8,9 +8,7 @@ const getCollections = async () => {
         method: 'GET',
         credentials: 'include',
     };
-    console.log(params);
     try {
-        console.log("in getCollections");
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
         if (responseStatus === 200) {
             console.log(responseBody);

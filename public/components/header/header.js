@@ -9,7 +9,6 @@ export class HeaderComponent {
 
   render() {
     const template = puglatizer.components.header.header();
-    console.log("in header");
     this._parent.innerHTML = template;
   }
 }

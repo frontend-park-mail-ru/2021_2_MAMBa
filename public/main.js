@@ -13,7 +13,7 @@ router.register(Routes.HomePage, homePageController)
     .start();
 
 
-// import {renderHeader} from './components/header/header.js';
+// import {renderHeader} from './components/headerOld/headerOld.js';
 // import {renderFooter} from './components/footer/footer.js';
 // import {renderAuth} from './components/auth/auth.js';
 // import {renderCollections} from './components/collections/collections.js';

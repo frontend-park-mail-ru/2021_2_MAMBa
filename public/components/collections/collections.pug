@@ -1,37 +1,31 @@
-extends ../../views/BaseView/BaseView
+div.collections-main
+    p.heading Подборки
+    p.detailed-collection Коллекции фильмов и сериалов на все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивально екино и многое другое
+    div.background
+        div.container
+          each input, index in collections_list
+              if index < 4
+                  div.collection
+                      div.pic_container
+                          img(src=input.picture_url)
+                      p.name-of-collection #{input.title}
+        div.container
+          each input, index in collections_list
+              if index >= 4 && index < 8
+                  div.collection
+                      div.pic_container
+                          img(src=input.picture_url)
+                      p.name-of-collection #{input.title}
+        div.container
+          each input, index in collections_list
+              if index >= 8 && index < 12
+                  div.collection
+                      div.pic_container
+                          img(src=input.picture_url)
+                      p.name-of-collection #{input.title}
 
-block content
-    div.collections-main
-        p.heading Подборки
-        p.detailed-collection Коллекции фильмов и сериалов на все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивально екино и многое другое
-        div.background
-            div.container
-              each input, index in collections_list
-                  if index < 4
-                      div.collection
-                          div.pic_container
-                              img(src=input.picture_url)
-                          p.name-of-collection #{input.title}
-            div.container
-              each input, index in collections_list
-                  if index >= 4 && index < 8
-                      div.collection
-                          div.pic_container
-                              img(src=input.picture_url)
-                          p.name-of-collection #{input.title}
-            div.container
-              each input, index in collections_list
-                  if index >= 8 && index < 12
-                      div.collection
-                          div.pic_container
-                              img(src=input.picture_url)
-                          p.name-of-collection #{input.title}
-
-            //if  more_available
-            //    #button-more Показать больше
-
-
-
+        //if  more_available
+        //    #button-more Показать больше
 
 
 

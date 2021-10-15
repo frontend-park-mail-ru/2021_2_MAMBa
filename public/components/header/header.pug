@@ -1,38 +1,40 @@
 -
     var headerLinks = [
         {
-            className: 'menu-btn',
             href: '/',
             title: 'Подборки'
         },
         {
-            className: 'menu-btn',
             href: '/genres',
             title: 'Жанры'
         },
         {
-            className: 'menu-btn',
             href: '/releases',
             title: 'Релизы'
         },
         {
-            className: 'menu-btn',
             href: '/random',
             title: 'Рандомный'
         },
     ];
 
-header.header
-    img.logo(src='static/pics/logo.svg')
-    .wide-menu
-      each i in headerLinks
-              a(class= i.className href=i.href)= i.title
-    //.search-div
-    //    input.search-input(placeholder='Фильмы, сериалы, актёры')
-    //    img.search-btn(src='static/pics/search.svg')
+header.navbar
+    img.logo(src = 'static/pics/logo.svg')
+    - console.log(titleActiveButton)
+    .wide - menu
+        each btn in headerLinks
+            if btn.title == titleActiveButton
+                a(class = 'active-btn' href = btn.href)= btn.title
+            else
+                a(class = 'menu-btn' href = btn.href)= btn.title
+    .search - div
+        input.search-input(placeholder = 'Фильмы, сериалы, актёры')
+        img.search-btn(src = 'static/pics/search.svg')
+    - console.log(authorized)
     if authorized
-        //img.user-pic(src=#{picSrc})
-        p.user-name #{userName}
+        //p.user-name #{userName}
         .logout-btn Выйти
+        //img.user-pic(src=#{picSrc})
     else
         .login-btn Войти
+

@@ -1,13 +1,3 @@
-// import {createElementFromHTML} from '../../utils/utils.js';
-//
-// const renderCollections = (params) => {
-//   const template = createElementFromHTML(collections(params));
-//   return template;
-// };
-//
-// export {renderCollections};
-//
-
 export class CollectionsComponent {
   constructor({
                 parent = document.body,
@@ -18,6 +8,7 @@ export class CollectionsComponent {
   }
 
   render() {
+    debugger;
     const template = puglatizer.components.Collections.Collections();
     this._parent.innerHTML = template;
   }

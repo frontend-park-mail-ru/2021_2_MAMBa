@@ -5,8 +5,9 @@ import {Events} from '../consts/events.js';
 export class HomePageModel {
   constructor(eventBus) {
     this.eventBus = eventBus;
-    this.eventBus.on(Events.Homepage.Get.InfoForHeader, this.getInfoForHeader);
+
     this.eventBus.on(Events.Homepage.Get.MainPageContent, this.getMainPageContent);
+    this.eventBus.on(Events.Homepage.Get.InfoForHeader, this.getInfoForHeader);
   }
 
   getMainPageContent = () => {
@@ -23,22 +24,30 @@ export class HomePageModel {
   }
 
   getInfoForHeader = () => {
-    getCurrentUser().then((idUser) => {
-      if (idUser) {
-        const data = {
-          isAuthorized: true,
-        };
-        this.eventBus.emit(Events.Homepage.Render.Header, data);
-      } else {
-        const data = {
-          isAuthorized: false,
-        };
-        this.eventBus.emit(Events.Homepage.Render.Header, data);
-      }
-
-    }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-    });
+    const data = {
+      activeButton: {title: 'Подборки', class: 'active-btn'},
+      titleActiveButton: 'Подборки',
+      class: 'active-btn',
+      authorized: false,
+      // userName: userData.first_name,
+    }
+    this.eventBus.emit(Events.Homepage.Render.Header, data);
+    // getCurrentUser().then((idUser) => {
+    //   if (idUser) {
+    //     const data = {
+    //       isAuthorized: true,
+    //     };
+    //     this.eventBus.emit(Events.Homepage.Render.Header, data);
+    //   } else {
+    //     const data = {
+    //       isAuthorized: false,
+    //     };
+    //     this.eventBus.emit(Events.Homepage.Render.Header, data);
+    //   }
+    //
+    // }).catch(() => {
+    //   this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    // });
 
   }
 }

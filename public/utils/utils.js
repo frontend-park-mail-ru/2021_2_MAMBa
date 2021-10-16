@@ -1,8 +1,3 @@
-export const getCSRFToken = () => {
-  const token = document.cookie.match(/csrf_token=([\w-]+)/);
-  return token ? token[1] : null;
-};
-
 function createElementFromHTML(html) {
   const temp = document.createElement('div');
   temp.innerHTML = html;

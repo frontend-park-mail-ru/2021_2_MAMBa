@@ -131,6 +131,7 @@ class Router {
       window.history.pushState(null, null, path);
     }
 
+    console.log("in router");
     this.currentController.view.render(data);
   }
 

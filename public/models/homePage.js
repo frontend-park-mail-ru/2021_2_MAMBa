@@ -20,7 +20,6 @@ export class HomePageModel {
       console.log("error in GetCollections");
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
-    this.eventBus.emit(Events.Homepage.Render.Footer);
   }
 
   getInfoForHeader = () => {

@@ -14,27 +14,24 @@
         },
         {
             href: '/random',
-            title: 'Рандомный'
+            title: 'Рандомный фильм'
         },
     ];
 
 header.navbar
     img.logo(src = 'static/pics/logo.svg')
-    - console.log(titleActiveButton)
-    .wide - menu
-        each btn in headerLinks
-            if btn.title == titleActiveButton
-                a(class = 'active-btn' href = btn.href)= btn.title
-            else
-                a(class = 'menu-btn' href = btn.href)= btn.title
-    .search - div
+    .wide-menu
+      each btn in headerLinks
+          if btn.title == titleActiveButton
+              a(class = 'active-btn' href = btn.href)= btn.title
+          else
+              a(class = 'menu-btn' href = btn.href)= btn.title
+    .search-div
         input.search-input(placeholder = 'Фильмы, сериалы, актёры')
-        img.search-btn(src = 'static/pics/search.svg')
-    - console.log(authorized)
+        //img.search-btn(src = 'static/pics/search.svg')
     if authorized
         //p.user-name #{userName}
         .logout-btn Выйти
         //img.user-pic(src=#{picSrc})
     else
         .login-btn Войти
-

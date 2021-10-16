@@ -9,7 +9,6 @@ export const Events = {
       ErrorPage: 'homepage:renderErrorPage',
       Header: 'homepage:renderHeader',
       Content: 'homepage:renderContent',
-      Footer: 'homepage:renderFooter',
     },
     Get: {
       InfoForHeader: 'homepage:InfoForHeader',

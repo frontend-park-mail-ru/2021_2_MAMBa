@@ -111,7 +111,7 @@ app.post('/login', function(req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8082;
 
 app.listen(port, function() {
   console.log(`Server listening port ${port}`);

@@ -8,7 +8,6 @@ export class CollectionsComponent {
   }
 
   render() {
-    debugger;
     const template = puglatizer.components.Collections.Collections();
     this._parent.innerHTML = template;
   }

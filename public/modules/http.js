@@ -1,5 +1,4 @@
 import { URLS } from '../consts/urls.js';
-// import { getCSRFToken } from '../utils/utils';
 
 
 const getCollections = async () => {
@@ -11,22 +10,15 @@ const getCollections = async () => {
     try {
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
         if (responseStatus === 200) {
-            console.log(responseBody);
             return responseBody;
         }
         return null;
     } catch (err) {
-        console.log(err);
-        console.log("you are not lucky error in GetRequest");
         return null;
     }
 };
 
 const sendRequest = async ({ url, method, body } = {}) => {
-    // const headers = new Headers({
-    //     'X-CSRF-TOKEN': getCSRFToken(),
-    // });
-
     const response = await fetch(url, {
         method: method,
         headers: {
@@ -60,13 +52,6 @@ const getCurrentUser = async () => {
 
     try {
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
-        if (checkCSRFToken(responseBody)) {
-            const successGetCSRF = await getCSRF();
-            if (successGetCSRF) {
-                return getCurrentUser();
-            }
-            return false;
-        }
         if (responseStatus === 200) {
             return responseBody.id;
         }

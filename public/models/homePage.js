@@ -24,7 +24,6 @@ export class HomePageModel {
 
   getInfoForHeader = () => {
     const data = {
-      activeButton: {title: 'Подборки', class: 'active-btn'},
       titleActiveButton: 'Подборки',
       class: 'active-btn',
       authorized: false,

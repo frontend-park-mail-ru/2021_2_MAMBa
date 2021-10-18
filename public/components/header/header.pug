@@ -23,9 +23,17 @@ header.navbar
     .wide-menu
       each btn in headerLinks
           if btn.title == titleActiveButton
-              a(class = 'active-btn' href = btn.href)= btn.title
+              if  btn.title == 'Рандомный фильм'
+                    a.active-btn
+                        include ../../static/pics/cube.svg
+              else
+                    a.active-btn(href = btn.href)= btn.title
           else
-              a(class = 'menu-btn' href = btn.href)= btn.title
+              if  btn.title == 'Рандомный фильм'
+                  a.menu-btn
+                      include ../../static/pics/cube.svg
+              else
+                  a.menu-btn(href = btn.href)= btn.title
     .search-div
         input.search-input(placeholder = 'Фильмы, сериалы, актёры')
         //img.search-btn(src = 'static/pics/search.svg')

@@ -3,6 +3,7 @@ const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
+const spriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const PATHS = {
   public: path.resolve(__dirname, 'public'),
@@ -33,7 +34,7 @@ module.exports = {
       },
 
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|svg|gif)$/,
         use: [
           {
             loader: 'url-loader',
@@ -69,7 +70,7 @@ module.exports = {
       template: 'public/index.html',
       filename: 'index.html',
       inject: 'body'
-    })
+    }),
   ],
 
   optimization: {

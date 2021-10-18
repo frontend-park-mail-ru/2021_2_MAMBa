@@ -34,6 +34,14 @@
     transition: .5s ease-in-out;
 }
 
+.active-btn  > svg > g > path {
+    text-decoration: none;
+    cursor: default;
+    color: #E10856;
+    fill: #E10856;
+    stroke: #E10856;
+}
+
 .active-btn {
     text-decoration: none;
     cursor: default;
@@ -44,19 +52,20 @@
     color: white;
     margin-right: 20px;
 }
-/*.menu-btn:hover {*/
-/*    cursor: pointer;*/
-/*    color: #E10856;*/
-/*}*/
 
-/*.menu-btn > svg > g > path {*/
-/*    transition: .5s ease-in-out;*/
-/*}*/
+.menu-btn:hover {
+    cursor: pointer;
+    color: #E10856;
+}
 
-/*.menu-btn:hover > svg > g > path {*/
-/*    fill: #E10856;*/
-/*    stroke: #E10856;*/
-/*}*/
+.menu-btn > svg > g > path {
+    transition: .5s ease-in-out;
+}
+
+.menu-btn:hover > svg > g > path {
+    fill: #E10856;
+    stroke: #E10856;
+}
 
 .search-div {
     font-family: "Montserrat-Regular", "Arial", sans-serif;

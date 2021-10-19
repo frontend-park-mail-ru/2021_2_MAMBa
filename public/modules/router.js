@@ -31,7 +31,6 @@ class Router {
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
     this.application.addEventListener('click', (e) => {
-      console.log("in router");
       const target = e.target;
       const closestLink = target.closest('a');
 
@@ -51,7 +50,6 @@ class Router {
    * Регистрирует путь - добавляет в массив роутеров путь
    */
   register(path, controller) {
-    console.log("in router1");
     const routeObject = {
       path,
       controller,
@@ -62,13 +60,10 @@ class Router {
   }
 
   onPathChanged(data) {
-    console.log("in router");
     this.go(data.path, data || {});
   }
 
   start() {
-    console.log("in router2");
-    console.log(window.location.search);
     window.addEventListener('popstate', () => {
       this.go(window.location.pathname + window.location.search);
     });
@@ -77,7 +72,6 @@ class Router {
   }
 
   getRouteData(path) {
-    console.log("in router3");
     let targetController = null;
     const result = this.getParam(path);
 
@@ -100,7 +94,6 @@ class Router {
   }
 
   getParam(path = '/') {
-    console.log("in router4");
     const data = {};
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;

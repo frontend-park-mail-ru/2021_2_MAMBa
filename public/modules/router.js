@@ -30,14 +30,6 @@ class Router {
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
-    // document.getElementById('root').addEventListener('click', (e) => {
-    //   console.log("in router");
-    //   if (e.target.dataset.routlink) {
-    //     e.preventDefault();
-    //     this.changeRoute(e.target.dataset.routlink);
-    //   }
-    // });
-
     this.application.addEventListener('click', (e) => {
       console.log("in router");
       const target = e.target;

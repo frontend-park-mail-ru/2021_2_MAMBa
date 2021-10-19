@@ -45,6 +45,12 @@ module.exports = {
       },
 
       {
+        test: /\.scss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        exclude: /node_modules/,
+      },
+
+      {
         test: /\.pug$/,
         use: ['pug-loader'],
       },

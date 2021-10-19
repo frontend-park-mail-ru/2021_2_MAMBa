@@ -1,5 +1,34 @@
 import { URLS } from '../consts/urls.js';
 
+import {
+    arrayContentToActorPageContent
+} from './adapters.js';
+
+/**
+ * Send async get request using async func.
+ * @returns {Array} - Array of objects for render actor page.
+ */
+const getInfoAboutActor = async (actorId) => {
+    const params = {
+        url: URLS.api.actor + actorId,
+        method: 'GET',
+    };
+    console.log(params.url);
+
+    try {
+        const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
+        if (responseStatus === 200) {
+            console.log(responseBody);
+            // return arrayContentToActorPageContent(responseBody);
+            return responseBody;
+
+        }
+        return null;
+    } catch (err) {
+        return null;
+    }
+};
+
 
 const getCollections = async () => {
     const params = {
@@ -67,4 +96,5 @@ export {
     getCollections,
     sendRequest,
     getCurrentUser,
+    getInfoAboutActor,
 };

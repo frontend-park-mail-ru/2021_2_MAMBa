@@ -1,0 +1,59 @@
+div.actor-main
+    div.actor-info
+        img(src=picture_url)
+    div.actor-text
+        p.actor-name-rus #{name_rus}
+        p.actor-name-en #{name_en}
+        p.actor-title-facts О персоне
+        div.actor-facts
+            div.actor-key-facts Карьера
+            div.actor-value-facts #{career}
+            div.actor-key-facts Рост
+            div.actor-value-facts #{height}
+            div.actor-key-facts Дата рождения
+            div.actor-value-date-facts #{date}
+            div.actor-value-age-facts #{age}
+            div.actor-key-facts Место рождения
+            div.actor-value-facts #{birth_place}
+            div.actor-key-facts Жанры
+            div.actor-value-facts #{genres}
+            div.actor-key-facts Семейное положение
+            div(class=family_status ? 'married' : 'single')
+                if family_status
+                    if gender=="male"
+                        .actor-value-facts Женат
+                    else
+                        .actor-value-facts Замужем
+                else
+                    .actor-value-facts -
+            div.actor-value-facts #{family_status}
+            div.actor-key-facts Всего фильмов
+            div.actor-value-facts #{film_number}
+            input.button-more(type='button' name='actor-biography' value='Биография')
+
+    div.background
+        p.name-of-topic Популярные фильмы с актером
+        div.container
+          each input, index in film_list_with_actor
+              if index < 6
+                  div.film-collection
+                      div.pic-film-container
+                          img(src=input.picture_url)
+                      p.name-of-film #{input.title}
+
+        p.name-of-topic Полная фильмография
+        each input, index in film_with_description_list
+          div.full-film-description
+            div.pic-full-film-descr
+                img(src=input.picture_url)
+            p.name-film-full-decrtip #{input.title}
+            p.year-of-film #{input.year}
+            p.film-description #{input.description}
+            input.button-more(type='button' name='show-more' value='Подробнее')
+        if more_available
+            input.button-more(type='button' name='btn-show-more' value='Показать еще')
+
+    div.actor-full-biography
+        p.name-of-topic Биография
+        p.text-full-biography #{biography}
+

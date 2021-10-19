@@ -15,7 +15,22 @@ export const Events = {
       MainPageContent: 'homepage:getCollections',
     },
   },
+  ActorPage: {
+    Render: {
+      Page: 'actorPage:render',
+      Content: 'actorPage:renderContent',
+    },
+    GetPageContent: 'actorPage:getPageContent',
+  },
 
+
+  FilmPage: {
+    Render: {
+      Page: 'filmPage:render',
+      Content: 'filmPage:renderContent',
+    },
+    GetPageContent: 'filmPage:getMainPageContent'
+  },
 };
 
 export default Events;

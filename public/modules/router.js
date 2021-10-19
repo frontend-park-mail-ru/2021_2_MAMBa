@@ -3,6 +3,7 @@ import {Events} from '../consts/events.js';
 import Routes from '../consts/routes.js';
 
 export function getPathArgs(path, template) {
+  console.log("in router");
   if (!template) return {};
   const splitPath = path.split('/');
 
@@ -30,6 +31,7 @@ class Router {
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
     document.getElementById('root').addEventListener('click', (e) => {
+      console.log("in router");
       if (e.target.dataset.routlink) {
         e.preventDefault();
         this.changeRoute(e.target.dataset.routlink);
@@ -37,6 +39,7 @@ class Router {
     });
 
     this.application.addEventListener('click', (e) => {
+      console.log("in router");
       const target = e.target;
       const closestLink = target.closest('a');
 
@@ -57,21 +60,24 @@ class Router {
    * Регистрирует путь - добавляет в массив роутеров путь
    */
   register(path, controller) {
+    console.log("in router1");
     const routeObject = {
       path,
       controller,
     };
 
     this.routes.push(routeObject);
-
     return this;
   }
 
   onPathChanged(data) {
+    console.log("in router");
     this.go(data.path, data || {});
   }
 
   start() {
+    console.log("in router2");
+    console.log(window.location.search);
     window.addEventListener('popstate', () => {
       this.go(window.location.pathname + window.location.search);
     });
@@ -80,6 +86,7 @@ class Router {
   }
 
   getRouteData(path) {
+    console.log("in router3");
     let targetController = null;
     const result = this.getParam(path);
 
@@ -102,8 +109,8 @@ class Router {
   }
 
   getParam(path = '/') {
+    console.log("in router4");
     const data = {};
-    let isFilm = true;
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;
     const resultPath = parsedURL.pathname;
@@ -112,13 +119,15 @@ class Router {
       path: resultPath,
       pathParams: pathParams,
       data,
-      isFilm,
     };
   }
 
   go(path = '/', data = {}) {
+    console.log("in router go");
     const routeData = this.getRouteData(path);
     data = {...data, ...routeData};
+    console.log(data);
+    console.log(this.routes);
 
     this.currentController = routeData.controller;
 
@@ -131,7 +140,7 @@ class Router {
       window.history.pushState(null, null, path);
     }
 
-    console.log("in router");
+
     this.currentController.view.render(data);
   }
 

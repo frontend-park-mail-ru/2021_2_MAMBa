@@ -14,5 +14,6 @@ export const URLS = {
   api: {
     me: `${currentUrl}/api/me`,
     collections: `${currentUrl}/api/collections/getCollections/skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
+    actor: `${currentUrl}/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=`,
   },
 };

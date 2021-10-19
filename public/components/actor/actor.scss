@@ -1,0 +1,375 @@
+//:root {
+//  --white: #ffffff;
+//  --grey-background: #2E2532;
+//  --black: #000000;
+//  --pink: #E10856;
+//  --purple-button:#73324A;
+//  --light-grey: #bbb8b6;
+//  --grey-base: #433649;
+//  --grey-shadow: #ffffff3f;
+//}
+//
+//.actor-main{
+//  background-color: var(--white);
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//  margin-right: 12%;
+//  margin-left: 12%;
+//}
+//.actor-info {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//}
+//.pic_actor{
+//  width: 367px;
+//  height: 508px;
+//  margin-right: 102px;
+//  border-radius: 20px;
+//}
+//
+//.odin-fil-m-v-polnoj-fil-mografii {
+//  background: linear-gradient(
+//                  104deg,
+//                  var(--grey-background) 0%,
+//                  rgba(67, 54, 73, 1) 100%
+//  );
+//  border-radius: 10px;
+//  padding: 30px 47px 29px 43px;
+//  box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
+//  display: flex;
+//  align-items: center;
+//}
+//.image-32 {
+//  width: 15.88%;
+//  height: 99.9%;
+//  margin-right: 50.85px;
+//  box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.25);
+//  border-radius: 10px;
+//}
+//
+//
+//.actor-text {
+//  margin-bottom: 60px;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//}
+//.actor-name-rus {
+//  height: 38px;
+//  width: 619px;
+//  font-family: "Montserrat";
+//  font-size: 36px;
+//  font-weight: 900;
+//  line-height: normal;
+//  color: var(--black);
+//  display: flex;
+//  margin-bottom: 15px;
+//}
+//.actor-name-en {
+//  height: 25px;
+//  width: 197px;
+//  font-family: "Montserrat";
+//  font-size: 16px;
+//  font-weight: 400;
+//  line-height: normal;
+//  color: var(--black);
+//  display: flex;
+//  margin-bottom: 30px;
+//}
+//.actor-title-facts {
+//  height: 23px;
+//  width: 605px;
+//  font-family: "Montserrat";
+//  font-size: 22px;
+//  font-weight: 700;
+//  line-height: normal;
+//  color: var(--black);
+//  display: flex;
+//  margin-bottom: 15px;
+//}
+//
+//.actor-facts {
+//  display: flex;
+//  align-items: flex-start;
+//}
+//
+//.shpion-na-million-dollarov {
+//  height: 11.27%;
+//  font-family: "Montserrat";
+//  font-size: 20px;
+//  font-weight: 700;
+//  line-height: normal;
+//  color: var(--white);
+//  align-self: stretch;
+//  display: flex;
+//  margin-bottom: 16px;
+//}
+//.num-2020-god {
+//  height: 9.8%;
+//  width: 99.24%;
+//  font-family: "Montserrat";
+//  font-size: 12px;
+//  font-weight: 300;
+//  line-height: normal;
+//  color: var(--white);
+//  display: flex;
+//  margin-bottom: 16px;
+//}
+//.lorem-ipsum-dolor-sit-amet-consectetur {
+//  height: 32.35%;
+//  font-family: "Montserrat";
+//  font-size: 14px;
+//  font-weight: 300;
+//  line-height: normal;
+//  color: var(--white);
+//  align-self: stretch;
+//  display: flex;
+//  margin-bottom: 23px;
+//}
+//.podrobnee-knopka {
+//  background-color: var(--pink);
+//  border-radius: 10px;
+//  padding: 10px 20.67px 8px 18.66px;
+//  display: flex;
+//  align-items: center;
+//}
+//
+//.film-collection {
+//  padding: 250.11px 20.19px 28.86px 0;
+//}
+//
+//.pic-film-container {
+//  position: relative;
+//  padding-bottom: 64%;
+//  height: 0;
+//  overflow: hidden;
+//  margin-bottom: 10px;
+//  object-fit:cover;
+//  background-size: cover;
+//  /*padding: 250.11px 20.19px 28.86px 0;*/
+//}
+//
+//.name-of-film-in-container {
+//  height: 100%;
+//  width: 100%;
+//  font-family: "Montserrat";
+//  font-size: 16px;
+//  font-weight: 600;
+//  line-height: normal;
+//  color: var(--white);
+//  display: flex;
+//  /*font-family: "Montserrat-Semi-Bold", "Arial", sans-serif;;*/
+//  /*margin-left: 3px;*/
+//  /*margin-top: 0px;*/
+//  /*margin-bottom: 0;*/
+//  /*font-size: 18px;*/
+//  /*font-weight: 600;*/
+//  /*line-height: normal;*/
+//  /*color: var(--white);*/
+//  /*display: flex;*/
+//}
+//
+//.the-hobbit-1 {
+//  width: 100%;
+//  height: 85.06%;
+//  position: absolute;
+//  left: 0;
+//  top: -9.62px;
+//  border-radius: 10px;
+//}
+//
+//.actor-key-facts {
+//  height: 261px;
+//  width: 200px;
+//  font-family: "Montserrat";
+//  font-size: 16px;
+//  font-weight: 400;
+//  line-height: normal;
+//  color: var(--black);
+//  display: flex;
+//  margin-right: 37px;
+//}
+//.actor-value-facts {
+//  height: 261px;
+//  width: 344px;
+//  font-family: "Montserrat";
+//  font-size: 16px;
+//  font-weight: 600;
+//  line-height: normal;
+//  color: var(--black);
+//  display: flex;
+//}
+///*.button-show-more-biografy {*/
+///*    padding: 0 0 0.56px;*/
+///*    position: relative;*/
+///*}*/
+///*.rectangle-51 {*/
+///*    width: 97.37%;*/
+///*    height: 89.15%;*/
+///*    background-color: var(--white);*/
+///*    border-radius: 10px;*/
+///*    position: absolute;*/
+///*    left: 0;*/
+///*    top: 0.4px;*/
+///*    border: 2px solid rgba(115, 50, 74, 1);*/
+///*}*/
+///**.biografija {*!*/
+///*    height: 40px;*/
+///*    width: 152px;*/
+///*    font-family: "Montserrat";*/
+///*    font-size: 16px;*/
+///*    font-weight: 700;*/
+///*    line-height: normal;*/
+///*    color: rgba(115, 50, 74, 1);*/
+///*    display: flex;*/
+///*    align-items: center;*/
+///*    text-align: center;*/
+///*    position: relative;*/
+///*}*/
+//.actor-film-played {
+//  background-color: var(--grey-background);
+//  margin-bottom: 40px;
+//  border-radius: 20px;
+//  padding: 37.85px 37px 45px 36px;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//}
+//.name-of-topic {
+//  height: 2.6%;
+//  width: 61.27%;
+//  font-family: "Montserrat";
+//  font-size: 30px;
+//  font-weight: 700;
+//  line-height: normal;
+//  color: var(--white);
+//  display: flex;
+//  margin-bottom: 29.01px;
+//}
+//
+//.actor-film-container {
+//  /*display: flex;*/
+//  /*align-items: center;*/
+//  /*position: relative;*/
+//  margin-bottom: 1.875%;
+//  display: flex;
+//  align-items: flex-start;
+//  column-gap: 2%;
+//}
+//
+//
+//.esche-55-fil-mov {
+//  height: 28px;
+//  width: 388.02px;
+//  font-family: "Montserrat";
+//  font-size: 16px;
+//  font-weight: 700;
+//  line-height: normal;
+//  color: var(--white);
+//  display: flex;
+//  align-items: center;
+//  text-align: center;
+//}
+//.actor-full-biography {
+//  margin-bottom: 50px;
+//  margin-left: 217px;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+//}
+//
+//.text-full-biography {
+//  height: 121px;
+//  width: 1171px;
+//  font-family: "Montserrat";
+//  font-size: 16px;
+//  font-weight: 400;
+//  line-height: 23px;
+//  color: rgba(34, 34, 59, 1);
+//  display: flex;
+//  text-align: justify;
+//  position: relative;
+//  letter-spacing: 0.8px;
+//}
+//.chitat-dalee-two {
+//  background-color: var(--white);
+//  border-radius: 10px;
+//  position: absolute;
+//  left: 0;
+//  bottom: 0;
+//  border: 2px solid rgba(115, 50, 74, 1);
+//}
+//
+//#button-more{
+//  background-color: var(--white);
+//  border-radius: 10px;
+//  border: 2px solid var(--purple-button);
+//  cursor: pointer;
+//  height: 40px;
+//  position: absolute;
+//  font-family:"Montserrat-Bold", "Arial", sans-serif;;
+//  font-style: normal;
+//  font-size: 16px;
+//  line-height: 20px;
+//  padding-right: 20px;
+//  padding-left: 20px;
+//  display: flex;
+//  align-items: center;
+//  text-align: center;
+//  /*margin-top: 10px;*/
+//  color: var(--purple-button);
+//}
+//
+//#button-more:hover {
+//  background: var(--pink);
+//  color: var(--pink);
+//  /*position: relative;*/
+//  /*opacity: 1;*/
+//  /*transform: scale(1.1);*/
+//}
+//
+//#button-pink{
+//  background-color: var(--pink);
+//  border-radius: 10px;
+//  cursor: pointer;
+//  height: 40px;
+//  position: absolute;
+//  font-family:"Montserrat-Bold", "Arial", sans-serif;;
+//  font-style: normal;
+//  font-size: 16px;
+//  line-height: 20px;
+//  padding-right: 20px;
+//  padding-left: 20px;
+//  display: flex;
+//  align-items: center;
+//  text-align: center;
+//  color: var(--white);
+//}
+//
+//#button-pink:hover {
+//  position: relative;
+//  opacity: 1;
+//  transform: scale(1.1);
+//}
+//
+//#button-show-more{
+//  cursor: pointer;
+//  height: 46px;
+//  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.25));
+//  background: var(--grey-base);
+//  border-radius: 10px;
+//  font-family:"Montserrat-Bold", "Arial", sans-serif;;
+//  font-style: normal;
+//  font-size: 16px;
+//  line-height: 20px;
+//  padding-right: 20px;
+//  padding-left: 20px;
+//  display: flex;
+//  align-items: center;
+//  text-align: center;
+//  margin-top: 10px;
+//  color: var(--white);
+//}
+//

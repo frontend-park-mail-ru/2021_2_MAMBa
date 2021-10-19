@@ -3,7 +3,6 @@ const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const spriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const PATHS = {
   public: path.resolve(__dirname, 'public'),
@@ -32,7 +31,10 @@ module.exports = {
         use: ['babel-loader'],
         exclude: /node_modules/
       },
-
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        use: 'file-loader?name=fonts/[name].[ext]!static'
+      },
       {
         test: /\.(png|jpg|svg|gif)$/,
         use: [
@@ -71,7 +73,6 @@ module.exports = {
       template: `${PAGES_DIR}/${page}`,
       filename: `./${page.replace(/\.pug/, '.html')}`
     })),
-    new Dotenv(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       filename: 'index.html',

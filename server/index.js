@@ -11,7 +11,8 @@ const cors = require('cors');
 app.use(cors());
 app.options('*', cors());
 
-app.use(express.static(path.resolve(__dirname, '..', 'public')));
+// app.use(express.static(path.resolve(__dirname, '..', 'public')));
+app.use(express.static('public'));
 app.use(body.json());
 app.use(cookie());
 

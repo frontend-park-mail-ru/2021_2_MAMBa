@@ -13,6 +13,7 @@
   margin-bottom: 0;
   color: $black;
   display: flex;
+  //font-weight: 700;
   font-family: "Montserrat-Bold", "Arial", sans-serif;;
   font-size: 40px;
   margin-top: 25px;
@@ -21,7 +22,7 @@
 .detailed-collection {
   margin-top: 10px;
   margin-bottom: 25px;
-  font-family: "Montserrat-Regular", "Arial", sans-serif;;
+  //font-family: "Montserrat-Regular", "Arial", sans-serif;;
   font-size: 16px;
   line-height: normal;
   color: $grey-background;
@@ -85,12 +86,11 @@
 }
 
 .name-of-collection {
-  font-family: "Montserrat-Semi-Bold", "Arial", sans-serif;;
+  font-weight: 600;
   margin-left: 3px;
   margin-top: 0px;
   margin-bottom: 0;
   font-size: 18px;
-  font-weight: 600;
   line-height: normal;
   color: $white;
   display: flex;

@@ -1,7 +1,8 @@
 div.actor-main
     div.actor-info-container
-        div.pic_actor
-            img(src=picture_url)
+        div.pic_actor_container
+            div.pic_actor
+                img(src=picture_url)
         div.actor-text
             p.actor-name-rus #{name_rus}
             p.actor-name-en #{name_en}
@@ -33,6 +34,7 @@ div.actor-main
 
             button(type='button' class="button-show-more" ) Биография
 
+    div.place_between_blocks
     div.background
     //    p.name-of-topic Популярные фильмы с актером
     //    div.actor-film-container

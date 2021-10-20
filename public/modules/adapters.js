@@ -2,7 +2,7 @@ export const arrayContentToActorPageContent = (actorInfoJson) => (
     {
       // name: actorInfoJson.first_name + ' ' + actorInfoJson.last_name,
       born: actorInfoJson.born,
-      // actor_avatar: actorInfoJson.actor_avatar,
+      actor_avatar: actorInfoJson.actor_avatar,
       // movies: arrayContentToNewFilmsSeries(actorInfoJson.movies),
     }
 );

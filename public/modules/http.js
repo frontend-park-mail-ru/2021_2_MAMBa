@@ -4,10 +4,7 @@ import {
     arrayContentToActorPageContent
 } from './adapters.js';
 
-/**
- * Send async get request using async func.
- * @returns {Array} - Array of objects for render actor page.
- */
+
 const getInfoAboutActor = async (actorId) => {
     const params = {
         url: URLS.api.actor + actorId,
@@ -21,7 +18,6 @@ const getInfoAboutActor = async (actorId) => {
             console.log(responseBody);
             // return arrayContentToActorPageContent(responseBody);
             return responseBody;
-
         }
         return null;
     } catch (err) {

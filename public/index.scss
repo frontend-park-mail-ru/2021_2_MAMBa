@@ -6,12 +6,12 @@
 @import 'components/actor/actor.scss';
 
 @font-face {
-  font-family: 'Montserrat-Bold';
-  src: url('../public/static/fonts/Montserrat-Bold.ttf') format('truetype');
+  font-family: 'Montserrat-Regular';
+  src: url('../public/static/fonts/Montserrat-Regular.ttf') format('truetype');
 }
 
 html, body {
-  font-family: 'MontserratMedium', sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   margin: 0;
   padding: 0;
 }

@@ -1,39 +1,44 @@
 div.actor-main
-    div.actor-info
-        img(src=picture_url)
-    div.actor-text
-        p.actor-name-rus #{name_rus}
-        p.actor-name-en #{name_en}
-        p.actor-title-facts О персоне
-        div.actor-facts
-            div.actor-key-facts Карьера
-            div.actor-value-facts #{career}
-            div.actor-key-facts Рост
-            div.actor-value-facts #{height}
-            div.actor-key-facts Дата рождения
-            div.actor-value-date-facts #{date}
-            div.actor-value-age-facts #{age}
-            div.actor-key-facts Место рождения
-            div.actor-value-facts #{birth_place}
-            div.actor-key-facts Жанры
-            div.actor-value-facts #{genres}
-            div.actor-key-facts Семейное положение
-            div(class=family_status ? 'married' : 'single')
+    div.actor-info-container
+        div.pic_actor
+            img(src=picture_url)
+        div.actor-text
+            p.actor-name-rus #{name_rus}
+            p.actor-name-en #{name_en}
+            p.actor-title-facts О персоне
+            div.actor-facts-container
+                div.actor-key-facts Карьера
+                div.actor-value-facts #{career}
+            div.actor-facts-container
+                div.actor-key-facts Рост
+                div.actor-value-facts #{height}
+            div.actor-facts-container
+                div.actor-key-facts Дата рождения
+                div.actor-value-facts #{born} - #{age}
+                //div.actor-value-born-fact #{born}
+                //div.actor-value-facts #{age}
+            div.actor-facts-container
+                div.actor-key-facts Место рождения
+                div.actor-value-facts #{birth_place}
+            div.actor-facts-container
+                div.actor-key-facts Семейное положение
+                //div(class=family_status ? 'married' : 'single')
                 if family_status
-                    if gender=="male"
-                        .actor-value-facts Женат
+                    if gender == "male"
+                        div.actor-value-facts Женат
                     else
-                        .actor-value-facts Замужем
+                        div.actor-value-facts Замужем
                 else
-                    .actor-value-facts -
-            div.actor-value-facts #{family_status}
-            div.actor-key-facts Всего фильмов
-            div.actor-value-facts #{film_number}
-            input.button-more(type='button' name='actor-biography' value='Биография')
+                    div.actor-value-facts -
+                div.actor-value-facts #{family_status}
+            div.actor-facts-container
+                div.actor-key-facts Всего фильмов
+                div.actor-value-facts #{film_number}
+            button(type='button' class="button-show-more" ) Биография
 
     div.background
         p.name-of-topic Популярные фильмы с актером
-        div.container
+        div.actor-film-container
           each input, index in film_list_with_actor
               if index < 6
                   div.film-collection

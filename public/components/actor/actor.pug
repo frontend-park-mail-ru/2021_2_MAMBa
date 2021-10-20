@@ -1,41 +1,42 @@
-div.actor-main
-    div.actor-info-container
-        div.pic_actor_container
-            div.pic_actor
+div.content__actor-info
+    div.actor-info__container
+        div.container__pic-actor
+            div.container__pic-actor_src
                 img(src=picture_url)
-        div.actor-text
-            p.actor-name-rus #{name_rus}
-            p.actor-name-en #{name_en}
-            p.actor-title-facts О персоне
-            div.actor-facts-container
-                div.actor-key-facts Карьера
-                div.actor-value-facts #{career}
-            div.actor-facts-container
-                div.actor-key-facts Рост
-                div.actor-value-facts #{height}
-            div.actor-facts-container
-                div.actor-key-facts Дата рождения
-                div.actor-value-facts #{date}
-            div.actor-facts-container
-                div.actor-key-facts Место рождения
-                div.actor-value-facts #{birth_place}
-            div.actor-facts-container
-                div.actor-key-facts Семейное положение
+        div.actor-info__text
+            p.text__name-rus #{name_rus}
+            p.text__name-en #{name_en}
+            p.text__title-facts О персоне
+            div.title-facts__container
+                div.title-facts__container_key Карьера
+                div.title-facts__container_value #{career}
+            div.title-facts__container
+                div.title-facts__container_key Рост
+                div.title-facts__container_value #{height}
+            div.title-facts__container
+                div.title-facts__container_key Дата рождения
+                div.title-facts__container_value #{date}
+            div.title-facts__container
+                div.title-facts__container_key Место рождения
+                div.title-facts__container_value #{birth_place}
+            div.title-facts__container
+                div.title-facts__container_key Семейное положение
                 if family_status=="married"
                     if gender == "male"
-                        div.actor-value-facts Женат
+                        div.title-facts__container_value Женат
                     else
-                        div.actor-value-facts Замужем
+                        div.title-facts__container_value Замужем
                 else
-                    div.actor-value-facts -
-            div.actor-facts-container
-                div.actor-key-facts Всего фильмов
-                div.actor-value-facts #{film_number}
+                    div.title-facts__container_value -
+            div.title-facts__container
+                div.title-facts__container_key Всего фильмов
+                div.title-facts__container_value #{film_number}
 
             button(type='button' class="button-show-more" ) Биография
 
-    div.place_between_blocks
-    div.background
+    div.place-between-blocks
+
+    //div.background
     //    p.name-of-topic Популярные фильмы с актером
     //    div.actor-film-container
     //      each input, index in film_list_with_actor

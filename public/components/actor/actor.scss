@@ -1,4 +1,4 @@
-@import '../../css/Consts';
+@import '../../css/consts';
 
 .actor-main{
   margin-top: 30px;
@@ -26,19 +26,17 @@
 }
 
 .actor-text {
-  margin-bottom: 60px;
-  display: flex;
+  //display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  //align-items: flex-start;
 }
 
 .actor-name-rus {
+  font-family:"Montserrat-Black", "Arial", sans-serif;;
   margin-top: 0px;
   height: 38px;
   width: 619px;
-  font-family: "Montserrat";
   font-size: 36px;
-  font-weight: 900;
   line-height: normal;
   color: $black;
   display: flex;
@@ -49,24 +47,22 @@
   margin-top: 0px;
   height: 25px;
   width: 197px;
-  font-family: "Montserrat-Black", "Arial", sans-serif;;
   font-size: 16px;
   line-height: normal;
   color: $black;
   display: flex;
   margin-bottom: 30px;
 }
-
 .actor-title-facts {
+  font-weight: 700;
   height: 23px;
   width: 605px;
-  font-family: "Montserrat";
   font-size: 22px;
-  font-weight: 700;
   line-height: normal;
   color: $black;
-  display: flex;
+  //display: flex;
   margin-bottom: 15px;
+  margin-top: 0px;
 }
 
 .actor-facts-container {
@@ -77,11 +73,12 @@
 }
 
 .actor-value-facts {
-  font-family: "Montserrat-Semi-Bold", "Arial", sans-serif;;
+  font-weight: 600;
   font-size: 16px;
   line-height: normal;
   color: $black;
-  //display: flex;
+  width: 605px;
+  display: flex;
   //position: relative;
 }
 
@@ -90,19 +87,23 @@
   border: 2px solid $purple-button;
   cursor: pointer;
   //position: absolute;
-  font-family:"Montserrat-Bold", "Arial", sans-serif;;
+  //font-family:"Montserrat-Bold", "Arial", sans-serif;;
+  font-weight: 700;
   font-style: normal;
   font-size: 16px;
   display: flex;
   padding: 8px 16px;
   color: $purple-button;
-  margin-bottom: 0px;
+  bottom: 0;
 }
 
 .button-show-more:hover {
   color: $pink;
   border: 2px solid $pink;
 }
+
+
+
 
 .film-collection {
   padding: 250.11px 20.19px 28.86px 0;
@@ -132,15 +133,14 @@
 
 .actor-key-facts {
   width: 200px;
-  font-family: "Montserrat";
+  //font-family: "Montserrat";
   font-size: 16px;
-  font-weight: 400;
+  //font-weight: 400;
   line-height: normal;
   color: $black;
   display: flex;
-  margin-right: 37px;
+  //margin-right: 37px;
 }
-
 
 .actor-film-played {
   background-color: $grey-background;
@@ -173,7 +173,6 @@
   column-gap: 2%;
 }
 
-
 .actor-full-biography {
   margin-bottom: 50px;
   display: flex;
@@ -195,46 +194,21 @@
   letter-spacing: 0.8px;
 }
 
-#button-pink{
-  background-color: var(--pink);
-  border-radius: 10px;
-  cursor: pointer;
-  height: 40px;
-  position: absolute;
-  font-family:"Montserrat-Bold", "Arial", sans-serif;;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 20px;
-  padding-right: 20px;
-  padding-left: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: var(--white);
-}
-
-#button-pink:hover {
-  position: relative;
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-#button-show-more{
-  cursor: pointer;
-  height: 46px;
-  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.25));
-  background: var(--grey-base);
-  border-radius: 10px;
-  font-family:"Montserrat-Bold", "Arial", sans-serif;;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 20px;
-  padding-right: 20px;
-  padding-left: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-top: 10px;
-  color: var(--white);
-}
+//#button-pink{
+//  background-color: var(--pink);
+//  border-radius: 10px;
+//  cursor: pointer;
+//  height: 40px;
+//  position: absolute;
+//  font-family:"Montserrat-Bold", "Arial", sans-serif;;
+//  font-style: normal;
+//  font-size: 16px;
+//  line-height: 20px;
+//  padding-right: 20px;
+//  padding-left: 20px;
+//  display: flex;
+//  align-items: center;
+//  text-align: center;
+//  color: var(--white);
+//}
 

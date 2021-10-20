@@ -1,29 +1,24 @@
 @import 'components/header/header.scss';
 @import 'components/footer/footer.scss';
-///*@import './components/auth/auth.css';*/
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
 @import 'components/actor/actor.scss';
+///*@import './components/auth/auth.css';*/
 
 @font-face {
   font-family: 'Montserrat-Regular';
-  src: url('../public/static/fonts/Montserrat-Regular.ttf') format('truetype');
+  src: url('static/fonts/Montserrat-Regular.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('static/fonts/Montserrat-Black.woff2') format('truetype');
 }
 
 html, body {
   font-family: 'Montserrat-Regular', sans-serif;
   margin: 0;
   padding: 0;
-}
-
-:root {
-  $white: #ffffff;
-  $grey-background: #2e2532;
-  $black: #000000;
-  $pink: #E10856;
-  $light-grey: #bbb8b6;
-  $grey-base: #433649;
-  $grey-shadow: #ffffff3f;
 }
 
 #root {

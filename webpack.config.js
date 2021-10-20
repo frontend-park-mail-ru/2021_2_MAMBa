@@ -1,6 +1,4 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 
@@ -33,7 +31,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
-        use: 'file-loader?name=fonts/[name].[ext]!static'
+        use: 'file-loader?name=static/fonts_backup/[name].[ext]!static'
       },
       {
         test: /\.(png|jpg|svg|gif)$/,

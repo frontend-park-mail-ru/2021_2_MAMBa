@@ -1,11 +1,29 @@
 export const arrayContentToActorPageContent = (actorInfoJson) => (
     {
-      // name: actorInfoJson.first_name + ' ' + actorInfoJson.last_name,
-      born: actorInfoJson.born,
-      actor_avatar: actorInfoJson.actor_avatar,
-      // movies: arrayContentToNewFilmsSeries(actorInfoJson.movies),
+      id: actorInfoJson.id,
+      picture_url: actorInfoJson.picture_url,
+      name_rus: actorInfoJson.name_rus,
+      name_en: actorInfoJson.name_en,
+      career: actorInfoJson.career,
+      height: actorInfoJson.height,
+      date: actorInfoJson.born + '   ·   ' + actorInfoJson.age,
+      birth_place: actorInfoJson.birth_place,
+      gender: actorInfoJson.gender,
+      family_status: actorInfoJson.family_status,
+      film_number: actorInfoJson.film_number,
+
     }
 );
+
+
+// export const arrayContentToActorPageContent = (actorInfoJson) => (
+//     {
+//       // name: actorInfoJson.first_name + ' ' + actorInfoJson.last_name,
+//       // born: actorInfoJson.born,
+//       // actor_avatar: actorInfoJson.picture_url,
+//       // movies: arrayContentToNewFilmsSeries(actorInfoJson.movies),
+//     }
+// );
 // export const arrayContentToActorPageContent = (actorInfoJson) => (
 //     {
 //         name_rus: actorInfoJson.name_rus,

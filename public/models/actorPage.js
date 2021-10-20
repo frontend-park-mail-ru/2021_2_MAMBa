@@ -9,9 +9,10 @@ export class ActorPageModel {
 
     getPageContent = (actorId) => {
         getInfoAboutActor(actorId.id).then((contentData) => {
+            console.log(contentData);
             this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
-        }).catch(() => {
-            console.log("err in model");
+        }).catch((err) => {
+            console.log("err in model", err);
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
         });
     }

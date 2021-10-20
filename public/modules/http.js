@@ -16,11 +16,12 @@ const getInfoAboutActor = async (actorId) => {
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
         if (responseStatus === 200) {
             console.log(responseBody);
-            // return arrayContentToActorPageContent(responseBody);
-            return responseBody;
+            return arrayContentToActorPageContent(responseBody);
+            // return responseBody;
         }
         return null;
     } catch (err) {
+        console.log(err);
         return null;
     }
 };
@@ -86,7 +87,6 @@ const getCurrentUser = async () => {
         return null;
     }
 };
-
 
 export {
     getCollections,

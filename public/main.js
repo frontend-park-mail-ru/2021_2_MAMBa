@@ -1,5 +1,6 @@
 import {HomePageController} from './controllers/homePage.js';
 import {ActorPagePageController} from './controllers/actorPage.js';
+import {AuthPageController} from './controllers/authPage.js';
 
 
 import Router from './modules/router.js';
@@ -11,11 +12,13 @@ export const ROOT = document.getElementById('root');
 
 const homePageController = new HomePageController();
 const actorPagePageController = new ActorPagePageController();
+const authPageController = new AuthPageController();
 
 const router = new Router(ROOT);
 
 router.register(Routes.HomePage, homePageController)
     .register(Routes.ActorPage, actorPagePageController)
+    .register(Routes.AuthPage, authPageController)
     .start();
 console.log(router);
 

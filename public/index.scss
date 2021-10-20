@@ -1,6 +1,6 @@
 @import 'components/header/header.scss';
 @import 'components/footer/footer.scss';
-///*@import './components/auth/auth.css';*/
+@import './components/auth/auth.scss';
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
 @import 'components/actor/actor.scss';
@@ -8,6 +8,16 @@
 @font-face {
   font-family: 'Montserrat-Regular';
   src: url('../public/static/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('../public/static/fonts/Montserrat-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('../public/static/fonts/Montserrat-Bold.ttf') format('truetype');
 }
 
 html, body {
@@ -24,6 +34,11 @@ html, body {
   $light-grey: #bbb8b6;
   $grey-base: #433649;
   $grey-shadow: #ffffff3f;
+}
+
+.content {
+  display: flex;
+  height: inherit;
 }
 
 #root {

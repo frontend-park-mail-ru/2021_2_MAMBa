@@ -95,7 +95,8 @@
   visibility: hidden;
 }
 
-.login-btn, .logout-btn{
+.login-btn, .logout-btn {
+  text-decoration: none;
   color: $pink;
   font-size: 24px;
   margin-right: 7%;

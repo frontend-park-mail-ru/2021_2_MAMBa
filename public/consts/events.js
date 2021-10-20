@@ -22,7 +22,18 @@ export const Events = {
     },
     GetPageContent: 'actorPage:getPageContent',
   },
-
+  AuthPage: {
+    Render: {
+      Page: 'authPage:render',
+      Content: 'authPage:renderContent',
+    },
+    Submit: 'authPage:submit',
+    AddValidateError: 'authPage:addValidateError',
+    DeleteValidateError: 'authPage:deleteValidateError',
+    Validate: 'authPage:validate',
+    GetRegContent: 'authPage:getRegContent',
+    GetAuthContent: 'authPage:getAuthContent',
+  },
 
   FilmPage: {
     Render: {

@@ -3,9 +3,8 @@
   "version": "1.1.0",
   "scripts": {
     "start": "node server",
-    "tmpl": "puglatizer -d public/ -o public/templates.js",
     "scss": "node-sass public/index.scss -o public/",
-    "prestart": "npm run scss && npm run tmpl",
+    "prestart": "npm run scss && npm run build",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "build": "webpack --mode=production --config ./webpack.config.js",

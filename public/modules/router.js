@@ -60,6 +60,9 @@ class Router {
   }
 
   onPathChanged(data) {
+    if (data.path === null) {
+      return;
+    }
     this.go(data.path, data || {});
   }
 
@@ -67,7 +70,6 @@ class Router {
     window.addEventListener('popstate', () => {
       this.go(window.location.pathname + window.location.search);
     });
-
     this.go(window.location.pathname + window.location.search);
   }
 
@@ -107,12 +109,8 @@ class Router {
   }
 
   go(path = '/', data = {}) {
-    console.log("in router go");
     const routeData = this.getRouteData(path);
     data = {...data, ...routeData};
-    console.log(data);
-    console.log(this.routes);
-
     this.currentController = routeData.controller;
 
     if (!this.currentController) {

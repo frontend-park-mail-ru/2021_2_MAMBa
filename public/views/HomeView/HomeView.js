@@ -18,7 +18,6 @@ export class HomePageView extends BaseView {
     }
 
     render = () => {
-        console.log("in homeView");
         const template = Loader();
         ROOT.innerHTML = template;
         this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
@@ -26,7 +25,6 @@ export class HomePageView extends BaseView {
     }
 
     renderHeader = (data) => {
-        console.log(ROOT.innerHTML);
         const template = Header(data);
         const [header] = document.getElementsByTagName('header');
         if (header) {

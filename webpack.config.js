@@ -5,19 +5,18 @@ const fs = require('fs');
 const PATHS = {
   public: path.resolve(__dirname, 'public'),
 };
-
+console.log(PATHS.public);
 const PAGES_DIR = `${PATHS.public}/views/`;
 const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'));
 
 module.exports = {
-  entry: {
-    'bundle': PATHS.public + '/main.js',
-  },
+  entry: PATHS.public + '/main.js',
   output: {
     path: path.resolve(__dirname, './public/dist'),
-    filename: '[name].js',
-    sourceMapFilename: '[name].[fullhash:8].map',
-    chunkFilename: '[id].[fullhash:8].js'
+    // path: path.resolve(__dirname, '../dist'),
+    filename: 'bundle.js',
+    // sourceMapFilename: '[name].[fullhash:8].map',
+    // chunkFilename: '[id].[fullhash:8].js'
   },
 
   devtool: 'source-map',
@@ -31,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
-        use: 'file-loader?name=static/fonts_backup/[name].[ext]!static'
+        use: 'file-loader?name=static/fonts/[name].[ext]!static'
       },
       {
         test: /\.(png|jpg|svg|gif)$/,
@@ -62,15 +61,15 @@ module.exports = {
     contentBase: 'public',
     historyApiFallback: true,
     hot: true,
-    port: 3000,
+    port: 8081,
     watchContentBase: true,
   },
 
   plugins: [
-    ...PAGES.map(page => new HtmlWebpackPlugin({
-      template: `${PAGES_DIR}/${page}`,
-      filename: `./${page.replace(/\.pug/, '.html')}`
-    })),
+    // ...PAGES.map(page => new HtmlWebpackPlugin({
+    //   template: `${PAGES_DIR}/${page}`,
+    //   filename: `./${page.replace(/\.pug/, '.html')}`
+    // })),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       filename: 'index.html',

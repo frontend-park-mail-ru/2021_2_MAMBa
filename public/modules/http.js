@@ -1,7 +1,7 @@
 import { URLS } from '../consts/urls.js';
 
 import {
-    arrayContentToActorPageContent
+    convertArrayToActorPage
 } from './adapters.js';
 
 
@@ -16,8 +16,7 @@ const getInfoAboutActor = async (actorId) => {
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
         if (responseStatus === 200) {
             console.log(responseBody);
-            return arrayContentToActorPageContent(responseBody);
-            // return responseBody;
+            return convertArrayToActorPage(responseBody);
         }
         return null;
     } catch (err) {

@@ -7,8 +7,9 @@ export class ActorPageModel {
         this.eventBus.on(Events.ActorPage.GetPageContent, this.getPageContent);
     }
 
-    getPageContent = (actorId) => {
-        getInfoAboutActor(actorId.id).then((contentData) => {
+    getPageContent = (actor) => {
+        console.log(actor);
+        getInfoAboutActor(actor.id).then((contentData) => {
             console.log(contentData);
             this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
         }).catch((err) => {

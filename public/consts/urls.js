@@ -1,4 +1,4 @@
-const localUrl = 'http://localhost:8082';
+const localUrl = 'http://localhost:8081';
 
 const deployUrl = 'https://film4u.club';
 

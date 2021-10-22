@@ -14,8 +14,8 @@ const actorPagePageController = new ActorPagePageController();
 
 const router = new Router(ROOT);
 
-router.register(Routes.HomePage, homePageController)
-    .register(Routes.ActorPage, actorPagePageController)
+router.register(Routes.homePage, homePageController)
+    .register(Routes.actorPage, actorPagePageController)
     .start();
 console.log(router);
 

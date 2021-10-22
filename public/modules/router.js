@@ -116,7 +116,7 @@ class Router {
     this.currentController = routeData.controller;
 
     if (!this.currentController) {
-      path = Routes.HomePage;
+      path = Routes.homePage;
       this.currentController = this.getRouteData(path).controller;
     }
 

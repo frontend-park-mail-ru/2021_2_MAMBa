@@ -4,5 +4,3 @@ export const Routes = {
   actorPage: '/actor/\\d+', // first \ - экранирования специального символа, а \d+ - десятичное число
   filmPage: '\\/film\\/\\d+',
 };
-
-export default Routes;

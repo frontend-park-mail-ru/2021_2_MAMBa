@@ -1,6 +1,6 @@
 import {eventBus} from './eventBus.js';
 import {Events} from '../consts/events.js';
-import Routes from '../consts/routes.js';
+import {Routes} from '../consts/routes.js';
 
 export function getPathArgs(path, template) {
   console.log("in router");

@@ -3,7 +3,7 @@ import {ActorPagePageController} from './controllers/actorPage.js';
 
 
 import Router from './modules/router.js';
-import Routes from './consts/routes.js';
+import {Routes} from './consts/routes.js';
 
 import './index.scss';
 

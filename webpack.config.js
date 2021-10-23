@@ -11,19 +11,24 @@ const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.p
 
 module.exports = {
   entry: PATHS.public + '/main.js',
-  output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "bundle.js",
-    publicPath: "/dist/"
   // output: {
-  //   path: path.resolve(__dirname + "/dist"),
+  //   path: path.resolve(__dirname, "./dist"),
   //   filename: "bundle.js",
-  //   publicPath: "../",
-
-    // path: path.resolve(__dirname, './public/dist'),
-    // path: path.resolve(__dirname, '../dist'),
-    // sourceMapFilename: '[name].[fullhash:8].map',
-    // chunkFilename: '[id].[fullhash:8].js'
+  //   publicPath: "/dist/"
+  // // output: {
+  // //   path: path.resolve(__dirname + "/dist"),
+  // //   filename: "bundle.js",
+  // //   publicPath: "../",
+  //
+  //   // path: path.resolve(__dirname, './public/dist'),
+  //   // path: path.resolve(__dirname, '../dist'),
+  //   // sourceMapFilename: '[name].[fullhash:8].map',
+  //   // chunkFilename: '[id].[fullhash:8].js'
+  // },
+  output: {
+    path: path.join(__dirname, "dist"),
+    filename: "bundle.js",
+    publicPath: "/"
   },
 
   // devtool: 'source-map',

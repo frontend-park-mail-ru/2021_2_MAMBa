@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 const localUrl = 'http://localhost:8085';
 
+// eslint-disable-next-line no-unused-vars
 const deployUrl = 'https://film4u.club';
 
 const COLLECTIONS_COUNT = 12;

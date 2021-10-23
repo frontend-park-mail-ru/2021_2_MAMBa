@@ -2,7 +2,7 @@ import {HomePageController} from './controllers/homePage.js';
 import {ActorPagePageController} from './controllers/actorPage.js';
 
 
-import Router from './modules/router.js';
+import {Router} from './modules/router.js';
 import {Routes} from './consts/routes.js';
 
 import './index.scss';
@@ -17,7 +17,6 @@ const router = new Router(ROOT);
 router.register(Routes.homePage, homePageController)
     .register(Routes.actorPage, actorPagePageController)
     .start();
-console.log(router);
 
 
 // import {renderHeader} from './components/headerOld/headerOld.js';

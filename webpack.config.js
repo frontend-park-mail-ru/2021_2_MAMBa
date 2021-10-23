@@ -1,49 +1,27 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const fs = require('fs');
 
 const PATHS = {
   public: path.resolve(__dirname, 'public'),
 };
-console.log(PATHS.public);
-const PAGES_DIR = `${PATHS.public}/views/`;
-const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'));
 
 module.exports = {
   entry: PATHS.public + '/main.js',
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "bundle.js",
-    // publicPath: "/dist/"
-    publicPath: "/"
-  // output: {
-  //   path: path.resolve(__dirname + "/dist"),
-  //   filename: "bundle.js",
-  //   publicPath: "../",
-
-    // path: path.resolve(__dirname, './public/dist'),
-    // path: path.resolve(__dirname, '../dist'),
-    // sourceMapFilename: '[name].[fullhash:8].map',
-    // chunkFilename: '[id].[fullhash:8].js'
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.js',
+    publicPath: '/',
   },
-  // output: {
-  //   path: path.join(__dirname, "dist"),
-  //   filename: "bundle.js",
-  //   publicPath: "/"
-  // },
-
-  // devtool: 'source-map',
-
   module: {
     rules: [
       {
         test: /\.js$/,
         use: ['babel-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
-        use: 'file-loader?name=static/fonts/[name].[ext]!static'
+        use: 'file-loader?name=static/fonts/[name].[ext]!static',
       },
       {
         test: /\.(png|jpg|svg|gif)$/,
@@ -54,7 +32,7 @@ module.exports = {
               mimetype: 'image/png',
             },
           },
-        ]
+        ],
       },
 
       {
@@ -67,7 +45,7 @@ module.exports = {
         test: /\.pug$/,
         use: ['pug-loader'],
       },
-    ]
+    ],
   },
 
   devServer: {
@@ -82,7 +60,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       filename: 'index.html',
-      inject: 'body'
+      inject: 'body',
     }),
   ],
 
@@ -90,7 +68,7 @@ module.exports = {
     minimize: true,
     splitChunks: {
       minChunks: Infinity,
-      chunks: 'all'
-    }
-  }
+      chunks: 'all',
+    },
+  },
 };

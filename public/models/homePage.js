@@ -1,8 +1,13 @@
 import {getCollections} from '../modules/http.js';
-import {getCurrentUser} from '../modules/http.js';
 import {Events} from '../consts/events.js';
 
+/** Class representing home page model.
+ */
 export class HomePageModel {
+  /**
+   * Create a actor page model.
+   * @param {EventBus} eventBus - Global Event Bus.
+   */
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.eventBus.on(Events.Homepage.Get.MainPageContent, this.getMainPageContent);
@@ -16,27 +21,9 @@ export class HomePageModel {
     });
     promise.then((data) => {
       this.eventBus.emit(Events.Homepage.Render.Content, data);
-    }).catch((error) => {
+    }).catch(() => {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
-
-
-    // const collections = getCollections();
-    // console.log("in collection model");
-    // Promise.all([collections]).then((values) => {
-    //   const [collectionsValue] = values;
-    //   this.eventBus.emit(Events.Homepage.Render.Content, collectionsValue);
-    // }).catch(() => {
-    //   console.log("error in GetCollections");
-    //   this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-    // });
-    // Promise.all([collections]).then((values) => {
-    //   const [collectionsValue] = values;
-    //   this.eventBus.emit(Events.Homepage.Render.Content, collectionsValue);
-    // }).catch(() => {
-    //   console.log("error in GetCollections");
-    //   this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-    // });
   }
 
   getInfoForHeader = () => {
@@ -44,8 +31,7 @@ export class HomePageModel {
       titleActiveButton: 'Подборки',
       class: 'active-btn',
       authorized: false,
-      // userName: userData.first_name,
-    }
+    };
     this.eventBus.emit(Events.Homepage.Render.Header, data);
     // getCurrentUser().then((idUser) => {
     //   if (idUser) {
@@ -63,6 +49,5 @@ export class HomePageModel {
     // }).catch(() => {
     //   this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     // });
-
   }
 }

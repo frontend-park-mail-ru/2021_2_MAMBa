@@ -7,9 +7,6 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
-# pictures(пока нет бека)
-/public/actor/
-
 logs
 *.log
 npm-debug.log*

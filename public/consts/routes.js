@@ -1,6 +1,6 @@
 export const Routes = {
   homePage: '/',
   collections: '/collections',
-  actorPage: '/actor/\\d+', // first \ - экранирования специального символа, а \d+ - десятичное число
+  actorPage: '/actor/\\d+',
   filmPage: '\\/film\\/\\d+',
 };

@@ -1,8 +1,3 @@
-/public/models/homePage.js
-/public/modules
-/public/components
-/public/views
-/public/templates.js
-webpack.config.js
+/dist
 /server
-/public
+

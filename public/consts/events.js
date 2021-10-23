@@ -22,15 +22,12 @@ export const Events = {
     },
     GetPageContent: 'actorPage:getPageContent',
   },
-
-
   FilmPage: {
     Render: {
       Page: 'filmPage:render',
       Content: 'filmPage:renderContent',
     },
-    GetPageContent: 'filmPage:getMainPageContent'
+    GetPageContent: 'filmPage:getMainPageContent',
   },
 };
 
-export default Events;

@@ -5,7 +5,7 @@ const {v4: uuid} = require('uuid');
 const path = require('path');
 const app = express();
 
-app.use(express.static('public'));
+app.use(express.static('dist'));
 
 const cors = require('cors');
 

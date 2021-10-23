@@ -22,11 +22,14 @@ export const getPathArgs = (path, template) => {
       }, {});
 };
 
+/** Class representing a router. */
 export class Router {
-  constructor(app) {
+  /**
+   * Create an base router.
+   */
+  constructor() {
     this.routes = new Set();
     this.currentController = null;
-
     eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
@@ -34,18 +37,21 @@ export class Router {
 
   /**
    * Регистрирует путь - добавляет в массив роутеров путь
-   * @return {this}
    * @param {string} path - Путь, который нужно добавить
    * @param {Controller} controller - Контроллер, который соответствует этому пути
    */
   register(path, controller) {
     this.routes.add({path, controller});
-    return this;
   }
 
+  /**
+   * При изменении
+   * @param {string} data - Путь, который нужно добавить
+   */
   onPathChanged(data) {
-    this.go(data.path, data || {});
+    this.go(data.path);
   }
+
   /**
    * Запустить роутер
    */
@@ -57,6 +63,11 @@ export class Router {
     this.go(window.location.pathname + window.location.search);
   }
 
+  /**
+   * Получить информацию о пути
+   * @param {string} path - Путь, по которому перешел пользователь
+   * @return {Object} - Возвращает информацию о пути
+   */
   getRouteData(path) {
     let targetController = null;
     const result = this.getParam(path);
@@ -78,6 +89,11 @@ export class Router {
     };
   }
 
+  /**
+   * Получить параметры пути
+   * @param {string} path - Путь, по которому перешел пользователь
+   * @return {Object} - Возвращает парпметры пути
+   */
   getParam(path = '/') {
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;
@@ -89,6 +105,10 @@ export class Router {
     };
   }
 
+  /**
+   * Перейти по пути
+   * @param {string} path - Путь, по которому перешел пользователь
+   */
   go(path = '/') {
     const routeData = this.getRouteData(path);
     const data = {...routeData};
@@ -105,12 +125,14 @@ export class Router {
 
     this.currentController.view.render(data);
   }
+
   /**
    * Переход назад по истории браузера
    */
   back() {
     window.history.back();
   }
+
   /**
    * Переход вперёд по истории браузера
    */

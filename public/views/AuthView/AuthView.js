@@ -1,6 +1,6 @@
 import { ROOT } from '../../main.js';
 import { BaseView } from '../BaseView/BaseView.js';
-import {AuthInputs} from '../../consts/authInputs';
+import {AuthConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfig';
 import Loader from '../../components/loader/loader.pug';
 import AuthContent from '../../components/auth/auth.pug';
 import Events from '../../consts/events.js';
@@ -10,9 +10,9 @@ export class AuthView extends BaseView {
     super(eventBus, data);
     this.eventBus.on(Events.AuthPage.Render.Page, this.render);
     this.eventBus.on(Events.AuthPage.Render.Content, this.renderContent);
-    this.eventBus.on(Events.AuthPage.AddValidateError, this.addErrorMessages);
-    this.eventBus.on(Events.AuthPage.DeleteValidateError, this.deleteErrorMessages);
-    this.eventBus.on(Events.AuthPage.HavingWrongInputs, this.animateWrongInputs);
+    this.eventBus.on(Events.AuthPage.AddValidateError, this.addErrorMessage);
+    this.eventBus.on(Events.AuthPage.DeleteValidateError, this.deleteErrorMessage);
+    this.eventBus.on(Events.AuthPage.HavingWrongInput, this.animateWrongInput);
   }
 
   render = () => {
@@ -28,7 +28,6 @@ export class AuthView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.deleteAllErrorMessages();
       this.addValidateListeners();
       this.addLinkListener();
       this.addSubmitListener();
@@ -38,69 +37,57 @@ export class AuthView extends BaseView {
     }
   }
 
-  addErrorMessages = (inputName, errorMessages) => {
-    if (!inputName || !errorMessages) {
+  addErrorMessage = (inputName, errorMessage) => {
+    if (!inputName || !errorMessage) {
       return;
     }
-    const authForm = document.forms.authForm;
+    const authForm = document.forms[AuthFormName];
     const errorInput = authForm[inputName];
     errorInput.classList.add('error-input');
-    errorMessages.forEach((value) => {
-        authForm.insertBefore(this.createError(value), errorInput);
-    })
+    authForm.insertBefore(this.createError(errorMessage), errorInput);
   }
 
-  deleteErrorMessages = (inputName, errorMessages) => {
-    if (!errorMessages.size || !inputName) {
+  deleteErrorMessage = (inputName, errorMessage) => {
+    console.log(inputName, errorMessage);
+    if (!inputName || !errorMessage) {
       return;
     }
-    const errorInput = document.forms.authForm[inputName];
+    const errorInput = document.forms[AuthFormName][inputName];
     errorInput.classList.remove('error-input');
-    const errorBlocks = document.forms.authForm.querySelectorAll('.error-text');
+    const errorBlocks = document.forms[AuthFormName].querySelectorAll('.error-text');
+    console.log(errorBlocks);
     if (!errorBlocks.length) {
       return;
     }
     for (let errorBlock of errorBlocks) {
-      if (errorMessages.has(errorBlock.innerText)) {
+      if (errorMessage === errorBlock.innerText) {
         errorBlock.remove();
       }
     }
   }
 
-  deleteAllErrorMessages = () => {
-    const errorBlocks = document.querySelectorAll('.error-text');
-    if (!errorBlocks.length) {
+  animateWrongInput = (inputName) => {
+    const errorInput = document.forms[AuthFormName][inputName];
+    if (!errorInput) {
       return;
     }
-    for (let errorBlock in errorBlocks) {
-      errorBlock.remove();
-    }
-  }
-
-  animateWrongInputs = () => {
-    const errorInputs = document.querySelectorAll('.error-input');
-    if (!errorInputs.length) {
-      return;
-    }
-    for (let input of errorInputs) {
-        input.classList.add('animated');
-    }
+    errorInput.classList.add('animated');
   }
 
   addValidateListeners = () => {
-    const authForm = document.forms.authForm;
+    const authForm = document.forms[AuthFormName];
+    console.log(authForm);
     if (!authForm) {
       return;
     }
     const formTextInputs = authForm.querySelectorAll('.text-inputs');
+    if (!formTextInputs.length) {
+      return;
+    }
     for (const input of formTextInputs) {
       input.addEventListener('keyup', () => {
-        this.eventBus.emit(Events.AuthPage.Validate, {
-          inputName: input.name,
-          inputValue: input.value,
-          passwordValue: input.name === AuthInputs.repPasswordInput.name  ?
-              document.forms.authForm[AuthInputs.passwordInput.name].value : '',
-        });
+        this.eventBus.emit(Events.AuthPage.Validate, input.name, input.value, input.name ===
+          AuthConfig.repPasswordInput.name  ? document.forms[AuthFormName][AuthConfig.passwordInput.name].value : '');
       })
       input.addEventListener("animationend", () => {
         input.classList.remove("animated");
@@ -123,8 +110,8 @@ export class AuthView extends BaseView {
   }
 
   addSubmitListener = () => {
-    const authForm = document.forms.authForm;
-    const submitBtn = authForm.submitBtn;
+    const authForm = document.forms[AuthFormName];
+    const submitBtn = authForm[SubmitButtonName];
     if (!submitBtn) {
       return;
     }

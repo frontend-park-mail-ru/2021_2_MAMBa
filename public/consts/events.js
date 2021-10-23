@@ -31,7 +31,7 @@ export const Events = {
     AddValidateError: 'authPage:addValidateError',
     DeleteValidateError: 'authPage:deleteValidateError',
     Validate: 'authPage:validate',
-    HavingWrongInputs: 'authPage:havingWrongInputs',
+    HavingWrongInput: 'authPage:havingWrongInputs',
     GetRegContent: 'authPage:getRegContent',
     GetAuthContent: 'authPage:getAuthContent',
   },

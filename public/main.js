@@ -20,8 +20,6 @@ router.register(Routes.HomePage, homePageController)
     .register(Routes.ActorPage, actorPagePageController)
     .register(Routes.AuthPage, authPageController)
     .start();
-console.log(router);
-
 
 // import {renderHeader} from './components/headerOld/headerOld.js';
 // import {renderFooter} from './components/footer/footer.js';

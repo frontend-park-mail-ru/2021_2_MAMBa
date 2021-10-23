@@ -4,7 +4,7 @@
             .auth-head Авторизация
         else
             .auth-head Регистрация
-        form.auth-form(name='authForm')
+        form.auth-form(name=authFormName)
             each input in inputs
                 input(
                     type=input.type
@@ -12,7 +12,7 @@
                     placeholder=input.placeholder
                     class='text-inputs'
                 )
-            input.auth-btn(type='button' name='submitBtn' value=auth ? 'Войти' : 'Создать аккаунт')
+            input.auth-btn(type='button' name=submitButtonName value=auth ? 'Войти' : 'Создать аккаунт')
         if auth
             a.auth-a(data-link='signup') Еще нет аккаунта?
         else

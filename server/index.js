@@ -1,20 +1,34 @@
-'use strict';
-
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
 const {v4: uuid} = require('uuid');
 const path = require('path');
 const app = express();
+
+app.use(express.static('public'));
+
 const cors = require('cors');
 
 app.use(cors());
+
 app.options('*', cors());
 
-// app.use(express.static(path.resolve(__dirname, '..', 'public')));
-app.use(express.static('public'));
+
 app.use(body.json());
 app.use(cookie());
+
+app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
+  res.json(COLLECTIONS);
+});
+
+app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=1', (req, res) => {
+  res.json(ACTOR);
+});
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/../dist/index.html`));
+});
+
 
 const COLLECTIONS = {
   collections_list: [
@@ -183,20 +197,6 @@ const ACTOR = {
     },
   ]
 };
-
-
-app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
-  res.json(COLLECTIONS);
-});
-
-app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=1', (req, res) => {
-  res.json(ACTOR);
-});
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/../public/index.html`));
-});
-
 const users = {
   'vasya@bk.ru': {
     name: 'Vasya',
@@ -249,7 +249,7 @@ app.post('/login', function (req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8085;
 
 app.listen(port, function () {
   console.log(`Server listening port ${port}`);

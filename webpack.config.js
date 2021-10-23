@@ -12,14 +12,21 @@ const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.p
 module.exports = {
   entry: PATHS.public + '/main.js',
   output: {
-    path: path.resolve(__dirname, './public/dist'),
+    path: path.resolve(__dirname, "./dist"),
+    filename: "bundle.js",
+    publicPath: "/dist/"
+  // output: {
+  //   path: path.resolve(__dirname + "/dist"),
+  //   filename: "bundle.js",
+  //   publicPath: "../",
+
+    // path: path.resolve(__dirname, './public/dist'),
     // path: path.resolve(__dirname, '../dist'),
-    filename: 'bundle.js',
     // sourceMapFilename: '[name].[fullhash:8].map',
     // chunkFilename: '[id].[fullhash:8].js'
   },
 
-  devtool: 'source-map',
+  // devtool: 'source-map',
 
   module: {
     rules: [
@@ -61,15 +68,11 @@ module.exports = {
     contentBase: 'public',
     historyApiFallback: true,
     hot: true,
-    port: 8081,
+    port: 8085,
     watchContentBase: true,
   },
 
   plugins: [
-    // ...PAGES.map(page => new HtmlWebpackPlugin({
-    //   template: `${PAGES_DIR}/${page}`,
-    //   filename: `./${page.replace(/\.pug/, '.html')}`
-    // })),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       filename: 'index.html',

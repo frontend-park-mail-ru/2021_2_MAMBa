@@ -15,10 +15,7 @@ export class AuthView extends BaseView {
     this.eventBus.on(Events.AuthPage.HavingWrongInput, this.animateWrongInput);
   }
 
-  render = () => {
-    const template = Loader();
-    ROOT.innerHTML = template;
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
+  emitGetContent = () => {
     this.eventBus.emit(Events.AuthPage.GetAuthContent);
   }
 

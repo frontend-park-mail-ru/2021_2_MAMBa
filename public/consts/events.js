@@ -3,6 +3,10 @@ export const Events = {
   RedirectBack: 'redirectBack',
   RedirectForward: 'redirectForward',
 
+  App: {
+    Start: 'app:start',
+  },
+
   Homepage: {
     Render: {
       Page: 'homepage:render',
@@ -15,6 +19,7 @@ export const Events = {
       MainPageContent: 'homepage:getCollections',
     },
   },
+
   ActorPage: {
     Render: {
       Page: 'actorPage:render',
@@ -22,6 +27,7 @@ export const Events = {
     },
     GetPageContent: 'actorPage:getPageContent',
   },
+
   AuthPage: {
     Render: {
       Page: 'authPage:render',
@@ -34,6 +40,20 @@ export const Events = {
     HavingWrongInput: 'authPage:havingWrongInputs',
     GetRegContent: 'authPage:getRegContent',
     GetAuthContent: 'authPage:getAuthContent',
+  },
+
+  Authorization: {
+    GotUser: 'authorization:gotUser',
+  },
+
+  Header: {
+    Render: {
+      Content: 'header:renderContent',
+    },
+    ChangeAuth: 'header:changeAuth',
+    GetHeaderContent: 'authPage:getHeaderContent',
+    PathChanged: 'header:pathChanged',
+    LogOut: 'header:logOut',
   },
 
   FilmPage: {

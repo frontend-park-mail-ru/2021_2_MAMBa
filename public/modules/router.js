@@ -3,7 +3,6 @@ import {Events} from '../consts/events.js';
 import Routes from '../consts/routes.js';
 
 export function getPathArgs(path, template) {
-  console.log("in router");
   if (!template) return {};
   const splitPath = path.split('/');
 
@@ -121,7 +120,6 @@ class Router {
     if (window.location.pathname !== path) {
       window.history.pushState(null, null, path);
     }
-
 
     this.currentController.view.render(data);
   }

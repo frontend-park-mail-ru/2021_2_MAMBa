@@ -13,7 +13,6 @@
   margin-bottom: 0;
   color: $black;
   display: flex;
-  //font-weight: 700;
   font-family: "Montserrat-Bold", "Arial", sans-serif;;
   font-size: 40px;
   margin-top: 25px;
@@ -22,7 +21,6 @@
 .detailed-collection {
   margin-top: 10px;
   margin-bottom: 25px;
-  //font-family: "Montserrat-Regular", "Arial", sans-serif;;
   font-size: 16px;
   line-height: normal;
   color: $grey-background;
@@ -34,7 +32,6 @@
   background-color: $grey-background;
   border-radius: 20px;
   padding: 3% 3% 0.9% 3%;
-  margin-bottom: 25px;
   width: 94%;
   flex-direction: column;
   align-items: flex-start;

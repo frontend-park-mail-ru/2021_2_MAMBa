@@ -32,7 +32,6 @@ div.content__actor-info
             div.title-facts__container
                 div.title-facts__container_key Всего фильмов
                 div.title-facts__container_value #{film_number}
-
             button(type='button' class="button-show-more" ) Биография
 
     div.place-between-blocks
@@ -47,22 +46,19 @@ div.content__actor-info
                         img(src= input.film_avatar alt= input.alt)
                       div.carousel_film_name
                           a(href= "#")= input.title
-
-
         div.place-between-blocks
         p.name-of-topic Полная фильмография
-        each input, index in films_with_description
-          div.actor-film__background
-            div.pic-full-film-descr
-                img(src=input.film_avatar)
-            div.text-full-film-descr
-                div.name-film-full-decrtip #{input.title}
-                div.year-of-film #{input.year}
-                div.film-description #{input.description}
-                p #{input.description}
-                button(type='button' class="button-pink" ) Подробнее
-
-    //div.actor-full-biography
-    //    p.name-of-topic Биография
-    //    p.text-full-biography #{biography}
+        div.actor-film__back
+            each input, index in films_with_description
+              div.actor-film__background
+                div.pic-full-film-descr
+                    img(src=input.film_avatar)
+                div.text-full-film-descr
+                    div.name-film-full-decrtip #{input.title}
+                    div.year-of-film #{input.year}
+                    div.film-description #{input.description}
+                    button(type='button' class="button-pink" ) Подробнее
+    div.place-between-blocks
+    p.name-of-topic Биография
+    div.text-full-biography #{biography}
 

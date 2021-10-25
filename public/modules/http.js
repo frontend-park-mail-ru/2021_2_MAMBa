@@ -4,6 +4,8 @@ import {
   convertArrayToActorPage,
 } from './adapters.js';
 
+
+// const api_url = process.env.API_URL || '';
 /**
  * Send async get request using async func.
  * @param {Object} actorId - Contains id of actor to render.
@@ -22,7 +24,7 @@ const getInfoAboutActor = async (actorId) => {
       return convertArrayToActorPage(responseBody);
     }
     return null;
-  } catch (err) {
+  } catch {
     return null;
   }
 };
@@ -44,7 +46,7 @@ const getCollections = async () => {
       return responseBody;
     }
     return null;
-  } catch (err) {
+  } catch {
     return null;
   }
 };

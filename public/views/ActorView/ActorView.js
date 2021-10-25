@@ -15,8 +15,6 @@ export class ActorView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.eventBus.on(Events.ActorPage.Render.Page, this.render);
-    this.eventBus.on(Events.ActorPage.Render.Content, this.renderContent);
   }
 
   /**

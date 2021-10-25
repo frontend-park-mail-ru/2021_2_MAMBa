@@ -33,21 +33,5 @@ export class HomePageModel {
       authorized: false,
     };
     this.eventBus.emit(Events.Homepage.Render.Header, data);
-    // getCurrentUser().then((idUser) => {
-    //   if (idUser) {
-    //     const data = {
-    //       isAuthorized: true,
-    //     };
-    //     this.eventBus.emit(Events.Homepage.Render.Header, data);
-    //   } else {
-    //     const data = {
-    //       isAuthorized: false,
-    //     };
-    //     this.eventBus.emit(Events.Homepage.Render.Header, data);
-    //   }
-    //
-    // }).catch(() => {
-    //   this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-    // });
   }
 }

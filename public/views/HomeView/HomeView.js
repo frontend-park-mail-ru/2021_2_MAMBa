@@ -15,10 +15,6 @@ export class HomePageView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.eventBus.on(Events.Homepage.Render.Page, this.render);
-    this.eventBus.on(Events.Homepage.Render.Header, this.renderHeader);
-    this.eventBus.on(Events.Homepage.Render.Content, this.renderContent);
-    this.eventBus.on(Events.Homepage.Render.ErrorPage, this.renderErrorPage);
   }
 
   /**

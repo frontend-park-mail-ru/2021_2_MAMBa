@@ -9,15 +9,9 @@ app.use(express.static('dist'));
 
 app.use('/', express.static(__dirname));
 
-const cors = require('cors');
-
-app.use(cors());
-
-app.options('*', cors());
-
-
 app.use(body.json());
 app.use(cookie());
+
 
 app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
   res.json(COLLECTIONS);
@@ -252,7 +246,7 @@ app.post('/login', function(req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8085;
+const port = process.env.PORT || 8089;
 
 app.listen(port, function() {
   console.log(`Server listening port ${port}`);

@@ -65,7 +65,6 @@ module.exports = {
     },
   },
 
-
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
@@ -74,12 +73,4 @@ module.exports = {
       inject: 'body',
     }),
   ],
-
-  optimization: {
-    minimize: true,
-    splitChunks: {
-      minChunks: Infinity,
-      chunks: 'all',
-    },
-  },
 };

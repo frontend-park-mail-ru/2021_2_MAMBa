@@ -14,11 +14,11 @@ export class ActorPageModel {
     this.eventBus.on(Events.ActorPage.GetPageContent, this.getPageContent);
   }
 
-    getPageContent = (actor) => {
-      getInfoAboutActor(actor.id).then((contentData) => {
-        this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
-      }).catch((err) => {
-        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-      });
-    }
+  getPageContent = (actor) => {
+    getInfoAboutActor(actor.id).then((contentData) => {
+      this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
+    }).catch((err) => {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    });
+  }
 }

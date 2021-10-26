@@ -68,6 +68,19 @@ module.exports = {
     watchContentBase: true,
   },
 
+  resolve: {
+    fallback: {
+      "fs": false,
+      "net": false,
+      "mime": false,
+      "path": require.resolve("path-browserify"),
+      "zlib": false,
+      "http": require.resolve("stream-http"),
+      "stream": false,
+      "crypto": false,
+    }
+  },
+
   plugins: [
     ...PAGES.map(page => new HtmlWebpackPlugin({
       template: `${PAGES_DIR}/${page}`,

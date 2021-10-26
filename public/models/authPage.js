@@ -1,15 +1,14 @@
 import Events from '../consts/events.js';
 import {ErrorMessages} from '../consts/validateErrors';
 import {AuthConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
+import {Model} from "./model";
+import {login} from "../modules/http";
+import {URLS} from "../consts/urls.js";
 
-export class AuthPageModel {
+export class AuthPageModel extends Model {
   constructor(eventBus) {
-    this.eventBus = eventBus;
+    super(eventBus);
     this.errorMessages = new Map();
-    this.eventBus.on(Events.AuthPage.GetRegContent, this.getRegContent);
-    this.eventBus.on(Events.AuthPage.GetAuthContent, this.getAuthContent);
-    this.eventBus.on(Events.AuthPage.Validate, this.validateOneInput);
-    this.eventBus.on(Events.AuthPage.Submit, this.submit);
   }
 
   getAuthContent = () => {
@@ -106,7 +105,16 @@ export class AuthPageModel {
     }
     if (!hasErrorInputs) {
       console.log('submit');
-      //TODO SEND DATA TO SERVER
+      const userData = {
+        email: inputsData[AuthConfig.emailInput],
+        password: inputsData[AuthConfig.passwordInput],
+      }
+      login(userData).finally((response) => {
+        if (response.status === 200) {
+          this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+          window.location.href = URLS.pages.main;
+        }
+      });
     }
   }
 }

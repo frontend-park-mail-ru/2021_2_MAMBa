@@ -1,19 +1,32 @@
+-
+    var headerLinks = [
+        {
+            href: '/',
+            title: 'Подборки'
+        },
+        {
+            href: '/actor/1',
+            title: 'Жанры'
+        },
+        {
+            href: '/releases',
+            title: 'Релизы'
+        },
+        {
+            href: '/random',
+            title: 'Рандомный фильм'
+        },
+    ];
+
 header.navbar
     img.logo(src = '../../static/pics/logo.svg')
     .wide-menu
       each btn in headerLinks
-          if btn.title == titleActiveButton
-              if  btn.title == 'Рандомный фильм'
-                    a.active-btn
-                        include ../../static/pics/cube.svg
-              else
-                    a.active-btn(href = btn.href)= btn.title
-          else
-              if  btn.title == 'Рандомный фильм'
-                  a.menu-btn
-                      include ../../static/pics/cube.svg
-              else
-                  a.menu-btn(href = btn.href)= btn.title
+            if  btn.title == 'Рандомный фильм'
+                a.menu-btn
+                    include ../../static/pics/cube.svg
+            else
+                a.menu-btn(href = btn.href)= btn.title
     .search-div
         input.search-input(placeholder = 'Фильмы, сериалы, актёры')
         //img.search-btn(src = 'static/pics/search.svg')

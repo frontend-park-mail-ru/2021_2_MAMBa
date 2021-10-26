@@ -28,7 +28,7 @@
   color: gray;
   fill: gray;
   stroke: gray;
-  transition: .5s ease-in-out; }
+  transition: .2s ease-in-out; }
 
 .active-btn > svg > g > path {
   text-decoration: none;
@@ -571,6 +571,9 @@ html, body {
   font-family: 'Montserrat-Regular', sans-serif;
   margin: 0;
   padding: 0; }
+
+body {
+  overflow-y: scroll; }
 
 .content {
   display: flex;

@@ -1,17 +1,16 @@
 import Events from '../consts/events.js';
 import { getInfoAboutActor } from '../modules/http';
+import {Model} from "./model";
 
-export class ActorPageModel {
+export class ActorPageModel extends Model {
     constructor(eventBus) {
-        this.eventBus = eventBus;
-        this.eventBus.on(Events.ActorPage.GetPageContent, this.getPageContent);
+        super(eventBus);
     }
 
     getPageContent = (actorId) => {
         getInfoAboutActor(actorId.id).then((contentData) => {
             this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
         }).catch(() => {
-            console.log("err in model");
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
         });
     }

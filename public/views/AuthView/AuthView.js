@@ -1,18 +1,12 @@
 import { ROOT } from '../../main.js';
 import { BaseView } from '../BaseView/BaseView.js';
 import {AuthConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfig';
-import Loader from '../../components/loader/loader.pug';
 import AuthContent from '../../components/auth/auth.pug';
 import Events from '../../consts/events.js';
 
 export class AuthView extends BaseView {
   constructor(eventBus, { data = {} } = {}) {
     super(eventBus, data);
-    this.eventBus.on(Events.AuthPage.Render.Page, this.render);
-    this.eventBus.on(Events.AuthPage.Render.Content, this.renderContent);
-    this.eventBus.on(Events.AuthPage.AddValidateError, this.addErrorMessage);
-    this.eventBus.on(Events.AuthPage.DeleteValidateError, this.deleteErrorMessage);
-    this.eventBus.on(Events.AuthPage.HavingWrongInput, this.animateWrongInput);
   }
 
   emitGetContent = () => {
@@ -38,21 +32,19 @@ export class AuthView extends BaseView {
     if (!inputName || !errorMessage) {
       return;
     }
-    const authForm = document.forms[AuthFormName];
+    const authForm = this.getAuthFormFromDom();
     const errorInput = authForm[inputName];
     errorInput.classList.add('error-input');
     authForm.insertBefore(this.createError(errorMessage), errorInput);
   }
 
   deleteErrorMessage = (inputName, errorMessage) => {
-    console.log(inputName, errorMessage);
     if (!inputName || !errorMessage) {
       return;
     }
     const errorInput = document.forms[AuthFormName][inputName];
     errorInput.classList.remove('error-input');
     const errorBlocks = document.forms[AuthFormName].querySelectorAll('.error-text');
-    console.log(errorBlocks);
     if (!errorBlocks.length) {
       return;
     }
@@ -72,8 +64,7 @@ export class AuthView extends BaseView {
   }
 
   addValidateListeners = () => {
-    const authForm = document.forms[AuthFormName];
-    console.log(authForm);
+    const authForm = this.getAuthFormFromDom();
     if (!authForm) {
       return;
     }
@@ -84,7 +75,7 @@ export class AuthView extends BaseView {
     for (const input of formTextInputs) {
       input.addEventListener('keyup', () => {
         this.eventBus.emit(Events.AuthPage.Validate, input.name, input.value, input.name ===
-          AuthConfig.repPasswordInput.name  ? document.forms[AuthFormName][AuthConfig.passwordInput.name].value : '');
+          AuthConfig.repPasswordInput.name  ? this.getAuthFormFromDom()[AuthConfig.passwordInput.name].value : '');
       })
       input.addEventListener("animationend", () => {
         input.classList.remove("animated");
@@ -107,7 +98,7 @@ export class AuthView extends BaseView {
   }
 
   addSubmitListener = () => {
-    const authForm = document.forms[AuthFormName];
+    const authForm = this.getAuthFormFromDom();
     const submitBtn = authForm[SubmitButtonName];
     if (!submitBtn) {
       return;
@@ -130,5 +121,9 @@ export class AuthView extends BaseView {
     errorBlock.innerText = text;
     errorBlock.classList.add('error-text');
     return errorBlock;
+  }
+
+  getAuthFormFromDom = () => {
+    return document.forms[AuthFormName];
   }
 }

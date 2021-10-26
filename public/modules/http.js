@@ -3,6 +3,7 @@ import { URLS } from '../consts/urls.js';
 import {
     arrayContentToActorPageContent
 } from './adapters.js';
+import {response} from "express";
 
 
 const getInfoAboutActor = async (actorId) => {
@@ -10,12 +11,10 @@ const getInfoAboutActor = async (actorId) => {
         url: URLS.api.actor + actorId,
         method: 'GET',
     };
-    console.log(params.url);
 
     try {
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
         if (responseStatus === 200) {
-            console.log(responseBody);
             // return arrayContentToActorPageContent(responseBody);
             return responseBody;
         }
@@ -67,13 +66,26 @@ const sendRequest = async ({ url, method, body } = {}) => {
     }
 };
 
+const login = async (user) => {
+    const params = {
+        url: URLS.api.login,
+        method: 'POST',
+        body: user,
+    };
+
+    try {
+        return response = await sendRequest(params);
+    } catch (err) {
+        return null;
+    }
+};
+
 const getCurrentUser = async () => {
     const params = {
         url: URLS.api.me,
         method: 'GET',
         credentials: 'include',
     };
-    console.log(params);
 
     try {
         const { status: responseStatus, parsedJson: responseBody} = await sendRequest(params);
@@ -93,4 +105,5 @@ export {
     sendRequest,
     getCurrentUser,
     getInfoAboutActor,
+    login,
 };

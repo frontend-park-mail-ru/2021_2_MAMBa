@@ -205,8 +205,8 @@ const users = {
   'vasya@bk.ru': {
     name: 'Vasya',
     surname: 'Petrov',
-    email: 'vasya@bk.ru',
-    password: 'password',
+    email: 'v@v.v',
+    password: '123456as',
   },
 };
 const ids = {};
@@ -236,21 +236,27 @@ app.post('/signup', function (req, res) {
   res.status(201).json({id});
 });
 
-app.post('/login', function (req, res) {
+app.post('/api/login', function (req, res) {
   const password = req.body.password;
   const email = req.body.email;
   if (!password || !email) {
     return res.status(400).json({error: 'Не указан E-Mail или пароль'});
   }
   if (!users[email] || users[email].password !== password) {
-    return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+    return res.status(401).json({error: 'Не верный E-Mail и/или пароль'});
   }
 
   const id = uuid();
   ids[id] = email;
 
   res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(200).json({id});
+  res.status(200).json({
+    id: 1,
+    first_name: "Vasya",
+    surname: "Petrov",
+    email: "vasya@bk.ru",
+    // profile_pic: "/userpic/{user_id}"
+  });
 });
 
 const port = process.env.PORT || 8082;

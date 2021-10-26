@@ -1,13 +1,21 @@
-import { eventBus } from '../modules/eventBus.js';
-import Controller from './controller.js';
+import {Controller} from './controller.js';
 import { HeaderModel } from '../models/header.js';
 import { HeaderView } from '../views/HeaderView/HeaderView.js';
+import {Events} from "../consts/events";
+
 
 export class HeaderController extends Controller {
   constructor() {
-    super();
-    this.eventBus = eventBus;
-    this.model = new HeaderModel(this.eventBus);
-    this.view = new HeaderView(this.eventBus);
+    super(HeaderView, HeaderModel);
+    this.subscribe();
+  }
+  subscribe = () => {
+    this.eventBus.on(Events.Header.ChangeActiveButton, this.view.changeActiveButton);
+    this.eventBus.on(Events.Authorization.GotUser, this.view.renderUserBlock);
+    this.eventBus.on(Events.Router.Go, this.model.compareLinksWithPath);
+  }
+  unsubscribe = () => {
+    this.eventBus.off(Events.Header.ChangeActiveButton, this.view.changeActiveButton);
+    this.eventBus.off(Events.Router.Go, this.model.compareLinksWithPath);
   }
 }

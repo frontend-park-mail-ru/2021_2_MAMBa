@@ -7,6 +7,10 @@ export const Events = {
     Start: 'app:start',
   },
 
+  Router: {
+    Go: 'router:go',
+  },
+
   Homepage: {
     Render: {
       Page: 'homepage:render',
@@ -34,6 +38,7 @@ export const Events = {
       Content: 'authPage:renderContent',
     },
     Submit: 'authPage:submit',
+    SuccessLogReg: 'authPage:successLogReg',
     AddValidateError: 'authPage:addValidateError',
     DeleteValidateError: 'authPage:deleteValidateError',
     Validate: 'authPage:validate',
@@ -44,16 +49,14 @@ export const Events = {
 
   Authorization: {
     GotUser: 'authorization:gotUser',
+    LogOut: 'authorization:logOut',
   },
 
   Header: {
     Render: {
       Content: 'header:renderContent',
     },
-    ChangeAuth: 'header:changeAuth',
-    GetHeaderContent: 'authPage:getHeaderContent',
-    PathChanged: 'header:pathChanged',
-    LogOut: 'header:logOut',
+    ChangeActiveButton: 'header:changeActiveButton',
   },
 
   FilmPage: {

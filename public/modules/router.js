@@ -110,6 +110,7 @@ class Router {
   go(path = '/', data = {}) {
     const routeData = this.getRouteData(path);
     data = {...data, ...routeData};
+    this.currentController.unsubscribe();
     this.currentController = routeData.controller;
 
     if (!this.currentController) {
@@ -122,6 +123,7 @@ class Router {
     }
 
     this.currentController.view.render(data);
+    eventBus.emit(Events.Router.Go, path);
   }
 
   back() {

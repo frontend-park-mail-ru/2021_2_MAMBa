@@ -1,23 +1,19 @@
 import {getCollections} from '../modules/http.js';
 import {getCurrentUser} from '../modules/http.js';
 import {Events} from '../consts/events.js';
+import {Model} from "./model";
 
-export class HomePageModel {
+export class HomePageModel extends Model {
   constructor(eventBus) {
-    this.eventBus = eventBus;
-
-    this.eventBus.on(Events.Homepage.Get.MainPageContent, this.getMainPageContent);
-    this.eventBus.on(Events.Homepage.Get.InfoForHeader, this.getInfoForHeader);
+    super(eventBus);
   }
 
   getMainPageContent = () => {
     const collections = getCollections();
-    console.log("in collection model");
     Promise.all([collections]).then((values) => {
       const [collectionsValue] = values;
       this.eventBus.emit(Events.Homepage.Render.Content, collectionsValue);
     }).catch(() => {
-      console.log("error in GetCollections");
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
   }

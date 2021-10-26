@@ -26,6 +26,10 @@ html, body {
   padding: 0;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 :root {
   $white: #ffffff;
   $grey-background: #2e2532;

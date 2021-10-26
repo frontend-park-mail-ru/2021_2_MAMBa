@@ -2,7 +2,7 @@ import { ROOT } from '../../main.js';
 import Header from '../../components/header/header.pug';
 import Events from '../../consts/events.js';
 import {headerLinks} from '../../consts/header';
-import {authUser} from '../../modules/authorization';
+import {authModule} from '../../modules/authorization';
 import {BaseView} from "../BaseView/BaseView";
 
 export class HeaderView extends BaseView {
@@ -54,7 +54,9 @@ export class HeaderView extends BaseView {
   }
 
   renderUserBlock = () => {
-    if (!authUser) {
+    console.log('render block');
+    console.log(authModule.user);
+    if (!authModule.user) {
       return;
     }
     const header = this.getHeaderFromDom();
@@ -65,7 +67,7 @@ export class HeaderView extends BaseView {
     if (!enterButton) {
       return;
     }
-    enterButton.innerHTML = `${authUser.name}`;
+    enterButton.innerHTML = `${authModule.user.first_name}`;
     enterButton.classList.remove('login-btn');
     enterButton.classList.add('user-block');
   }

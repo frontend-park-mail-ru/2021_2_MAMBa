@@ -110,7 +110,7 @@ class Router {
   go(path = '/', data = {}) {
     const routeData = this.getRouteData(path);
     data = {...data, ...routeData};
-    this.currentController.unsubscribe();
+    // this.currentController.unsubscribe();
     this.currentController = routeData.controller;
 
     if (!this.currentController) {

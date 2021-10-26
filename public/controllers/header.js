@@ -17,5 +17,6 @@ export class HeaderController extends Controller {
   unsubscribe = () => {
     this.eventBus.off(Events.Header.ChangeActiveButton, this.view.changeActiveButton);
     this.eventBus.off(Events.Router.Go, this.model.compareLinksWithPath);
+    this.eventBus.off(Events.Authorization.GotUser, this.view.renderUserBlock);
   }
 }

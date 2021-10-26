@@ -1,11 +1,5 @@
 import { URLS } from '../consts/urls.js';
 
-import {
-    arrayContentToActorPageContent
-} from './adapters.js';
-import {response} from "express";
-
-
 const getInfoAboutActor = async (actorId) => {
     const params = {
         url: URLS.api.actor + actorId,
@@ -70,11 +64,11 @@ const login = async (user) => {
     const params = {
         url: URLS.api.login,
         method: 'POST',
-        body: user,
+        body: JSON.stringify(user),
     };
 
     try {
-        return response = await sendRequest(params);
+        return await sendRequest(params);
     } catch (err) {
         return null;
     }
@@ -82,7 +76,7 @@ const login = async (user) => {
 
 const getCurrentUser = async () => {
     const params = {
-        url: URLS.api.me,
+        // url: URLS.api.me,
         method: 'GET',
         credentials: 'include',
     };

@@ -202,7 +202,7 @@ app.get('/*', (req, res) => {
 });
 
 const users = {
-  'vasya@bk.ru': {
+  'v@v.v': {
     name: 'Vasya',
     surname: 'Petrov',
     email: 'v@v.v',
@@ -236,7 +236,7 @@ app.post('/signup', function (req, res) {
   res.status(201).json({id});
 });
 
-app.post('/api/login', function (req, res) {
+app.post('/api/user/login', function (req, res) {
   const password = req.body.password;
   const email = req.body.email;
   if (!password || !email) {

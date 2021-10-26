@@ -104,15 +104,17 @@ export class AuthPageModel extends Model {
       }
     }
     if (!hasErrorInputs) {
-      console.log('submit');
       const userData = {
-        email: inputsData[AuthConfig.emailInput],
-        password: inputsData[AuthConfig.passwordInput],
+        email: inputsData[AuthConfig.emailInput.name],
+        password: inputsData[AuthConfig.passwordInput.name],
       }
-      login(userData).finally((response) => {
+      login(userData).then((response) => {
+        if (!response) {
+          return;
+        }
         if (response.status === 200) {
           this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
-          window.location.href = URLS.pages.main;
+          window.history.pushState(null, null, '/');
         }
       });
     }

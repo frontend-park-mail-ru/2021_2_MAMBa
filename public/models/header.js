@@ -8,8 +8,6 @@ export class HeaderModel extends Model {
   }
 
   compareLinksWithPath = (path) => {
-    console.log('compare');
-    console.log(path);
     for (let link of headerLinks) {
       if (link.href === path) {
         this.eventBus.emit(Events.Header.ChangeActiveButton, link.href);

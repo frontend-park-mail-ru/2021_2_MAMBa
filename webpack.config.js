@@ -8,8 +8,6 @@ const PATHS = {
   public: path.resolve(__dirname, 'public'),
 };
 
-const PAGES_DIR = `${PATHS.public}/views/`;
-const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'));
 
 module.exports = {
   entry: {
@@ -56,6 +54,7 @@ module.exports = {
       {
         test: /\.pug$/,
         use: ['pug-loader'],
+        exclude: /node_modules/
       },
     ]
   },
@@ -68,24 +67,7 @@ module.exports = {
     watchContentBase: true,
   },
 
-  resolve: {
-    fallback: {
-      "fs": false,
-      "net": false,
-      "mime": false,
-      "path": require.resolve("path-browserify"),
-      "zlib": false,
-      "http": require.resolve("stream-http"),
-      "stream": false,
-      "crypto": false,
-    }
-  },
-
   plugins: [
-    ...PAGES.map(page => new HtmlWebpackPlugin({
-      template: `${PAGES_DIR}/${page}`,
-      filename: `./${page.replace(/\.pug/, '.html')}`
-    })),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       filename: 'index.html',

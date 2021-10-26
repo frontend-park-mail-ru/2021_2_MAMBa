@@ -12,7 +12,9 @@ class Authorization {
   }
 
   getUserFromSubmit = (user) => {
+    console.log('aUthik')
     this.user = user;
+    console.log(user);
     this.eventBus.emit(Events.Authorization.GotUser, this.user);
   }
 
@@ -30,4 +32,4 @@ class Authorization {
   }
 }
 
-export const authUser = new Authorization(eventBus).user;
+export const authModule = new Authorization(eventBus);

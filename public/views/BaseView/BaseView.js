@@ -11,8 +11,6 @@ export class BaseView {
     emitGetContent = () => {};
     render = () => {
         const content = document.querySelector('.content');
-        console.log('\n\n');
-        console.log(content);
         if (!content) {
             ROOT.innerHTML = BaseViewPug(headerLinks);
         } else {

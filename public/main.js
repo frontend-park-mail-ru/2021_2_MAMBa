@@ -2,6 +2,7 @@ import {HeaderController} from './controllers/header.js';
 import {HomePageController} from './controllers/homePage.js';
 import {ActorPagePageController} from './controllers/actorPage.js';
 import {AuthPageController} from './controllers/authPage.js';
+import {AuthModule} from './modules/authorization.js';
 
 
 import Router from './modules/router.js';
@@ -11,6 +12,7 @@ import './index.scss';
 
 export const ROOT = document.getElementById('root');
 
+const authModule = AuthModule;
 const headerController = new HeaderController();
 const homePageController = new HomePageController();
 const actorPagePageController = new ActorPagePageController();

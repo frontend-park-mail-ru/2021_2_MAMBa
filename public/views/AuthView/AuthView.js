@@ -4,6 +4,7 @@ import {AuthConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfi
 import AuthContent from '../../components/auth/auth.pug';
 import Events from '../../consts/events.js';
 
+//TODO CHANGE SUBMIT BUTTON AFTER CLICK OR INSERT LOADER
 export class AuthView extends BaseView {
   constructor(eventBus, { data = {} } = {}) {
     super(eventBus, data);

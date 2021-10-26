@@ -50,6 +50,7 @@ export class HomePageView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
+
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }

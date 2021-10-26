@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const localUrl = 'http://localhost:8089';
+const localUrl = 'http://localhost:8088';
 
 // eslint-disable-next-line no-unused-vars
 const deployUrl = 'https://film4u.club';

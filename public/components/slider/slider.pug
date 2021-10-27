@@ -1,0 +1,7 @@
+mixin slider(i)
+    div.slider-container
+        div.slider-track
+          each input, _ in i
+              div.film-collection_pics
+                  img(src= input.film_avatar)
+                  div.carousel_film_name #{input.title}

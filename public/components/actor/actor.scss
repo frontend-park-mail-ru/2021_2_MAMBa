@@ -106,18 +106,21 @@
   .actor-info__background {
     background-color: $grey-background;
     border-radius: 20px;
-    width: 1280px;
-    padding: 40px;
     color: $white;
+  }
+  .container-actor{
+    padding: 30px;
   }
 
   .name-of-topic {
     font-family: "Montserrat-Bold", "Arial", sans-serif;;
     font-size: 30px;;
     margin-top: 0px;
+    margin-bottom: 20px;
   }
 
   .wrapper {
+    position: relative;
   }
 
   .slider-container {
@@ -125,14 +128,10 @@
   }
 
   .slider-track {
+    position: relative;
     display: flex;
     text-align: center;
     transition: .2s;
-  }
-
-  .film-collection_pics {
-    //margin-right: 10px;
-    //min-width:275px;
   }
 
   .film-collection_pics img {
@@ -145,6 +144,37 @@
     font-size: 16px;
     font-weight: 600;
     color: $white;
+  }
+
+  .slider-film-card__item {
+    position: absolute;
+    top: 40%;
+    color: white;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.24s ease-in-out;
+
+    &-left {
+      margin-left: 8px;
+    }
+
+    &-right {
+      right: 0;
+      margin-right: 8px;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .hidden{
+    display: none;
+  }
+
+  .hidden{
+    visibility: hidden;
   }
 
   .actor-film__back {
@@ -244,30 +274,6 @@
 
 .scroll-to {
   text-decoration: none;
-}
-
-.slider-film-card__item {
-  position: absolute;
-  top: 40%;
-  color: white;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  transition: 0.24s ease-in-out;
-  //visibility: hidden;
-
-  &-left {
-    margin-left: 8px;
-  }
-
-  &-right {
-    right: 0;
-    margin-right: 8px;
-  }
-
-  &:hover {
-    transform: scale(1.2);
-  }
 }
 
 

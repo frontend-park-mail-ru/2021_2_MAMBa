@@ -1,6 +1,6 @@
-import {ROOT} from "../../main.js";
-import BaseViewPug from './BaseView.pug'
-import Loader from '../../components/loader/loader.pug'
+import {ROOT} from '../../main.js';
+import baseViewPug from './BaseView.pug';
+import loader from '../../components/loader/loader.pug';
 /** Abstract class representing base view. */
 export class BaseView {
   /**
@@ -17,9 +17,9 @@ export class BaseView {
   render = () => {
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = BaseViewPug();
+      ROOT.innerHTML = baseViewPug();
     } else {
-      content.innerHTML = Loader();
+      content.innerHTML = loader();
     }
     this.emitGetContent();
   }

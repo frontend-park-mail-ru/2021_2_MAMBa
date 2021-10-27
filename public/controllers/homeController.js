@@ -1,4 +1,4 @@
-import {HomePageModel} from '../models/homeModeljs';
+import {HomePageModel} from '../models/homeModel';
 import {HomePageView} from '../views/HomeView/HomeView.js';
 import {BaseController} from './baseController.js';
 import {Events} from '../consts/events';

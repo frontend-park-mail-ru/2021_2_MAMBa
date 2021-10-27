@@ -11,7 +11,7 @@ export class ActorPagePageController extends BaseController {
   constructor() {
     super(ActorView, ActorPageModel);
     this.subscribe();
-   }
+  }
 
   subscribe = () => {
     this.eventBus.on(Events.ActorPage.GetPageContent, this.model.getPageContent);

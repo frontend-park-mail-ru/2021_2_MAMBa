@@ -7,8 +7,8 @@ export const convertArrayToActorPage = (actorInfoJson) => (
   {
     ...actorInfoJson,
     date: `${actorInfoJson.born}  ·  ${actorInfoJson.age}`,
-    films_to_slide: convertArrayToFilm(actorInfoJson.film_list_with_actor),
-    films_with_description:
+    filmsToSlide: convertArrayToFilm(actorInfoJson.film_list_with_actor),
+    filmsWithDescription:
         convertArrayToFilmWithDescription(actorInfoJson.film_with_description_list),
   }
 );

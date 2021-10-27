@@ -27,12 +27,27 @@ export class Router {
   /**
    * Create an base router.
    */
-  constructor() {
+  constructor(app) {
     this.routes = new Set();
+    this.application = app;
     this.currentController = null;
     eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
+
+    this.application.addEventListener('click', (e) => {
+      const target = e.target;
+      const closestLink = target.closest('a');
+      if (e.target.matches('.scroll-to')) {
+        return;
+      }
+      if (closestLink instanceof HTMLAnchorElement ) {
+        e.preventDefault();
+        const data = {...closestLink.dataset};
+        data.path = closestLink.getAttribute('href');
+        eventBus.emit(Events.PathChanged, data);
+      }
+    });
   }
 
   /**

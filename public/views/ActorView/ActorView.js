@@ -15,12 +15,14 @@ export class ActorView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
+    this.eventBus.on(Events.SliderActions, this.setSliderActions);
   }
 
   /**
    * Render html favourites page from pug template.
    */
   render = () => {
+    console.log("in slider action")
     const template = loader();
     ROOT.innerHTML = template;
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
@@ -33,6 +35,7 @@ export class ActorView extends BaseView {
    * @param {Object} data - Contains info about actor.
    */
   renderContent = (data) => {
+    console.log("in slider action")
     const template = actorPageContent(data);
     const content = document.querySelector('.content');
     if (content) {
@@ -51,8 +54,99 @@ export class ActorView extends BaseView {
           })
         })
       }
+      console.log("in slider action")
+      let position = 0;
+      const slidesToShow = 6;
+      const slidesToScroll = 1;
+      const container = document.querySelector(`.slider-container`);
+      const track = document.querySelector(`.slider-track`);
+      const items = document.querySelectorAll(`.film-collection_pics`);
+      const itemCount = items.length;
+      console.log(itemCount);
+      const btvPrev = document.querySelector(`.btn-prev`);
+      const btvNext = document.querySelector(`.btn-next`);
+      const itemWidth = container.clientWidth / slidesToShow
+      const movePosition = slidesToScroll * itemWidth
+
+      items.forEach((item) => {
+        item.style.minWidth = `${itemWidth}px`;
+      });
+
+      btvNext.addEventListener('click', () => {
+        const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
+        position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
+        setPosition();
+        checkBnts();
+      });
+
+      btvPrev.addEventListener('click', () => {
+        const itemLeft = Math.abs(position) / itemWidth;
+        position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
+        setPosition();
+        checkBnts();
+      });
+
+      const setPosition = () => {
+        track.style.transform = `translateX(${position}px`;
+      }
+
+      const checkBnts = () => {
+        btvPrev.disabled = position === 0;
+        btvNext.disabled = position <= -(itemCount-slidesToShow) * itemWidth;
+      };
+      checkBnts();
+
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
+
+  /**
+   * Set slider actions.
+   */
+  setSliderActions = () => {
+    //slider top
+    console.log("in slider action")
+    let position = 0;
+    const slidesToShow = 6;
+    const slidesToScroll = 1;
+    const container = document.querySelector(`.slider-container`);
+    const track = document.querySelector(`.slider-track`);
+    const items = document.querySelectorAll(`.film-collection_pic`);
+    const itemCount = items.length;
+    console.log(itemCount);
+    const btvPrev = document.querySelector(`.btn-prev`);
+    const btvNext = document.querySelector(`.btn-next`);
+    const itemWidth = container.clientWidth / slidesToShow
+    const movePosition = slidesToScroll * itemWidth
+
+    items.forEach((item) => {
+      item.style.minWidth = `${itemWidth}px`;
+    });
+
+    btvNext.addEventListener('click', () => {
+      const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
+      position -= itemLeft >= slidesToShow ? movePosition : itemLeft * itemWidth;
+      setPosition();
+      checkBnts();
+    });
+
+    btvPrev.addEventListener('click', () => {
+      const itemLeft = Math.abs(position) / itemWidth;
+      position += itemLeft >= slidesToShow ? movePosition : itemLeft * itemWidth;
+      setPosition();
+      checkBnts();
+    });
+
+    const setPosition = () => {
+      track.style.transform = `translateX(${position}px`;
+    }
+
+    const checkBnts = () => {
+      btvPrev.disabled = position === 0;
+      btvNext.disabled = position <= -(itemCount - slidesToShow) * itemWidth;
+    };
+    checkBnts();
+  }
+
 }

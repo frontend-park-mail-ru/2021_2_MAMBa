@@ -53,7 +53,7 @@ module.exports = {
     contentBase: 'server',
     historyApiFallback: true,
     hot: true,
-    port: 8088,
+    port: 8084,
     proxy: {
       '/api': {
         target: {

@@ -246,7 +246,7 @@ app.post('/login', function(req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8088;
+const port = process.env.PORT || 8084;
 
 app.listen(port, function() {
   console.log(`Server listening port ${port}`);

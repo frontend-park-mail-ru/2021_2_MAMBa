@@ -1,5 +1,5 @@
-import {HomePageController} from './controllers/homePage.js';
-import {ActorPagePageController} from './controllers/actorPage.js';
+import {HomePageController} from './controllers/homeController.js';
+import {ActorPagePageController} from './controllers/actorController.js';
 
 import {Router} from './modules/router.js';
 import {Routes} from './consts/routes.js';

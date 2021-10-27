@@ -11,7 +11,6 @@ export class ActorPageModel {
    */
   constructor(eventBus) {
     this.eventBus = eventBus;
-    this.eventBus.on(Events.ActorPage.GetPageContent, this.getPageContent);
   }
 
   getPageContent = (actor) => {

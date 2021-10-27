@@ -38,7 +38,7 @@ export class Router {
   /**
    * Регистрирует путь - Добавляет в массив роутеров путь
    * @param {string} path - Путь, который нужно добавить
-   * @param {Controller} controller - Контроллер, который соответствует этому пути
+   * @param {BaseController} controller - Контроллер, который соответствует этому пути
    * @return {Object} - Возвращает этот путь
    */
   register(path, controller) {

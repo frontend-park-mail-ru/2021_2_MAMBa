@@ -49,23 +49,6 @@ module.exports = {
     ],
   },
 
-  devServer: {
-    contentBase: 'server',
-    historyApiFallback: true,
-    hot: true,
-    port: 8087,
-    proxy: {
-      '/api': {
-        target: {
-          host: '0.0.0.0',
-          protocol: 'http:',
-          port: 8085,
-        },
-      },
-    },
-  },
-
-
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

@@ -1,4 +1,4 @@
-@import '../../css/Consts';
+@import '../../css/consts.scss';
 
 .collections-main {
   background-color: $white;
@@ -21,7 +21,6 @@
 .detailed-collection {
   margin-top: 10px;
   margin-bottom: 25px;
-  font-family: "Montserrat-Regular", "Arial", sans-serif;;
   font-size: 16px;
   line-height: normal;
   color: $grey-background;
@@ -33,7 +32,6 @@
   background-color: $grey-background;
   border-radius: 20px;
   padding: 3% 3% 0.9% 3%;
-  margin-bottom: 25px;
   width: 94%;
   flex-direction: column;
   align-items: flex-start;
@@ -85,12 +83,11 @@
 }
 
 .name-of-collection {
-  font-family: "Montserrat-Semi-Bold", "Arial", sans-serif;;
+  font-weight: 600;
   margin-left: 3px;
   margin-top: 0px;
   margin-bottom: 0;
   font-size: 18px;
-  font-weight: 600;
   line-height: normal;
   color: $white;
   display: flex;
@@ -121,3 +118,4 @@
 //  opacity: 1;
 //  transform: scale(1.1);
 //}
+

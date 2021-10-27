@@ -1,30 +1,36 @@
 import {eventBus} from './eventBus.js';
 import {Events} from '../consts/events.js';
-import Routes from '../consts/routes.js';
+import {Routes} from '../consts/routes.js';
 
-export function getPathArgs(path, template) {
+/**
+ * Получить параметры из пути
+ * @param {string} path - Путь, в котором будем искать аргументы
+ * @param {string} template - Шаблон пути
+ * @return {Object} - Возвращает найденный аргумент из пути
+ */
+export const getPathArgs = (path, template) => {
   if (!template) return {};
   const splitPath = path.split('/');
 
-  const pathArgs = template
+  return template
       .split('/')
       .reduce((args, propName, index) => {
         if (propName.startsWith(':')) {
           args[propName.slice(1)] = splitPath[index];
         }
-
         return args;
       }, {});
+};
 
-  return pathArgs;
-}
-
-class Router {
+/** Class representing a router. */
+export class Router {
+  /**
+   * Create an base router.
+   */
   constructor(app) {
+    this.routes = new Set();
     this.application = app;
-    this.routes = [];
     this.currentController = null;
-
     eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
@@ -46,39 +52,47 @@ class Router {
   }
 
   /**
-   * Регистрирует путь - добавляет в массив роутеров путь
+   * Регистрирует путь - Добавляет в массив роутеров путь
+   * @param {string} path - Путь, который нужно добавить
+   * @param {BaseController} controller - Контроллер, который соответствует этому пути
+   * @return {Object} - Возвращает этот путь
    */
   register(path, controller) {
-    const routeObject = {
-      path,
-      controller,
-    };
-
-    this.routes.push(routeObject);
+    this.routes.add({path, controller});
     return this;
   }
 
+  /**
+   * При изменении
+   * @param {string} data - Путь, который нужно добавить
+   */
   onPathChanged(data) {
-    if (data.path === null) {
-      return;
-    }
-    this.go(data.path, data || {});
+    this.go(data.path);
   }
 
+  /**
+   * Запустить роутер
+   */
   start() {
     window.addEventListener('popstate', () => {
       this.go(window.location.pathname + window.location.search);
     });
+
     this.go(window.location.pathname + window.location.search);
   }
 
+  /**
+   * Получить информацию о пути
+   * @param {string} path - Путь, по которому перешел пользователь
+   * @return {Object} - Возвращает информацию о пути
+   */
   getRouteData(path) {
     let targetController = null;
     const result = this.getParam(path);
 
+
     this.routes.forEach(({path, controller}) => {
       const res = result.path.match(path);
-
       if (res) {
         targetController = controller;
       }
@@ -94,8 +108,12 @@ class Router {
     };
   }
 
+  /**
+   * Получить параметры пути
+   * @param {string} path - Путь, по которому перешел пользователь
+   * @return {Object} - Возвращает парпметры пути
+   */
   getParam(path = '/') {
-    const data = {};
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;
     const resultPath = parsedURL.pathname;
@@ -103,13 +121,16 @@ class Router {
     return {
       path: resultPath,
       pathParams: pathParams,
-      data,
     };
   }
 
-  go(path = '/', data = {}) {
+  /**
+   * Перейти по пути
+   * @param {string} path - Путь, по которому перешел пользователь
+   */
+  go(path = '/') {
     const routeData = this.getRouteData(path);
-    data = {...data, ...routeData};
+    const data = {...routeData};
     // this.currentController.unsubscribe();
     this.currentController = routeData.controller;
 
@@ -126,13 +147,17 @@ class Router {
     eventBus.emit(Events.Router.Go, path);
   }
 
+  /**
+   * Переход назад по истории браузера
+   */
   back() {
     window.history.back();
   }
 
+  /**
+   * Переход вперёд по истории браузера
+   */
   forward() {
     window.history.forward();
   }
 }
-
-export default Router;

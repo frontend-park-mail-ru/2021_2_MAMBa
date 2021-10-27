@@ -1,33 +1,60 @@
-import { ROOT } from '../../main.js';
-import { BaseView } from '../BaseView/BaseView.js';
-import HomeContent from '../../components/collections/collections.pug';
-import ErrorPage from '../../components/errorPage/errorPage.pug';
-import { Events } from '../../consts/events.js';
-import {getPathArgs} from "../../modules/router";
+import {ROOT} from '../../main.js';
+import {BaseView} from '../BaseView/BaseView.js';
+import header from '../../components/header/header.pug';
+import homeContent from '../../components/collections/collections.pug';
+import errorPage from '../../components/errorPage/errorPage.pug';
+import {Events} from '../../consts/events.js';
 
-
+/** Class representing home page view. */
 export class HomePageView extends BaseView {
-    constructor(eventBus, { data = {} } = {}) {
-        super(eventBus, data);
-    }
+  /**
+   * Create a home page view.
+   * @param {EventBus} eventBus - Global Event Bus.
+   * @param {Object} - Parameters for home page view.
+   */
+  constructor(eventBus, {data = {}} = {}) {
+    super(eventBus, data);
+  }
 
-    emitGetContent = () => {
-        this.eventBus.emit(Events.Homepage.Get.MainPageContent);
-    }
+  /**
+   * Emit event to get content for homepage.
+   */
+  emitGetContent = () => {
+    this.eventBus.emit(Events.Homepage.Get.MainPageContent);
+  }
 
-    renderContent = (collections) => {
-        this._data = collections;
-        const template = HomeContent(this._data);
-        const content = document.querySelector('.content');
-        if (content) {
-            content.innerHTML = template;
-        } else {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-        }
+  /**
+   * Render header from pug template.
+   * @param {Object} data - Contains flag of authorizing and open section.
+   */
+  renderHeader = (data) => {
+    const template = header(data);
+    const [headerTag] = document.getElementsByTagName('header');
+    if (headerTag) {
+      headerTag.outerHTML = template;
+    } else {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
+  }
 
-    renderErrorPage = () => {
-        const template = ErrorPage();
-        ROOT.innerHTML = template;
+  /**
+   * Render content home page from pug template to content div.
+   * @param {Object} collections - Contains info about collections.
+   */
+  renderContent = (collections) => {
+    const template = homeContent(collections);
+    const content = document.querySelector('.content');
+    if (content) {
+      content.innerHTML = template;
+    } else {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
+  }
+
+  /**
+   * Render error page from pug template.
+   */
+  renderErrorPage = () => {
+    ROOT.innerHTML = errorPage();
+  }
 }

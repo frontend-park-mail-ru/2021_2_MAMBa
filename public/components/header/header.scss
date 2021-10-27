@@ -1,11 +1,11 @@
-@import '../../css/Consts';
+@import '../../css/consts.scss';
 
 .navbar {
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   width: 100%;
   min-width: 1000px;
   flex: 0 0 65px;
-  background-color: black;
+  background-color: $grey-base;
   display: flex;
   align-items: center;
 }

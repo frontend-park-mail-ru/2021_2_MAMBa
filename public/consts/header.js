@@ -1,18 +1,18 @@
 export const headerLinks = [
   {
     href: '/',
-    title: 'Подборки'
+    title: 'Подборки',
   },
   {
     href: '/actor/1',
-    title: 'Жанры'
+    title: 'Жанры',
   },
   {
     href: '/releases',
-    title: 'Релизы'
+    title: 'Релизы',
   },
   {
     href: '/random',
-    title: 'Рандомный фильм'
+    title: 'Рандомный фильм',
   },
 ];

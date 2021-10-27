@@ -1,12 +1,11 @@
-import { ROOT } from '../../main.js';
-import { BaseView } from '../BaseView/BaseView.js';
+import {BaseView} from '../BaseView/BaseView.js';
 import {AuthConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfig';
 import AuthContent from '../../components/auth/auth.pug';
-import Events from '../../consts/events.js';
+import {Events} from '../../consts/events.js';
 
-//TODO CHANGE SUBMIT BUTTON AFTER CLICK OR INSERT LOADER
+// TODO CHANGE SUBMIT BUTTON AFTER CLICK OR INSERT LOADER
 export class AuthView extends BaseView {
-  constructor(eventBus, { data = {} } = {}) {
+  constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
   }
 
@@ -23,8 +22,7 @@ export class AuthView extends BaseView {
       this.addValidateListeners();
       this.addLinkListener();
       this.addSubmitListener();
-    }
-    else {
+    } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
@@ -49,7 +47,7 @@ export class AuthView extends BaseView {
     if (!errorBlocks.length) {
       return;
     }
-    for (let errorBlock of errorBlocks) {
+    for (const errorBlock of errorBlocks) {
       if (errorMessage === errorBlock.innerText) {
         errorBlock.remove();
       }
@@ -76,11 +74,11 @@ export class AuthView extends BaseView {
     for (const input of formTextInputs) {
       input.addEventListener('keyup', () => {
         this.eventBus.emit(Events.AuthPage.Validate, input.name, input.value, input.name ===
-          AuthConfig.repPasswordInput.name  ? this.getAuthFormFromDom()[AuthConfig.passwordInput.name].value : '');
-      })
-      input.addEventListener("animationend", () => {
-        input.classList.remove("animated");
-      })
+          AuthConfig.repPasswordInput.name ? this.getAuthFormFromDom()[AuthConfig.passwordInput.name].value : '');
+      });
+      input.addEventListener('animationend', () => {
+        input.classList.remove('animated');
+      });
     }
   }
 
@@ -95,7 +93,7 @@ export class AuthView extends BaseView {
       } else {
         this.eventBus.emit(Events.AuthPage.GetAuthContent);
       }
-    })
+    });
   }
 
   addSubmitListener = () => {
@@ -109,12 +107,12 @@ export class AuthView extends BaseView {
       if (!formTextInputs.length) {
         return;
       }
-      let inputsData = {};
-      for (let input of formTextInputs) {
+      const inputsData = {};
+      for (const input of formTextInputs) {
         inputsData[input.name] = input.value;
       }
       this.eventBus.emit(Events.AuthPage.Submit, inputsData);
-    })
+    });
   }
 
   createError = (text) => {

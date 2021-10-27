@@ -1,240 +1,274 @@
-@import '../../css/Consts';
+@import '../../css/consts.scss';
 
-.actor-main{
-  margin-top: 30px;
-  background-color: $white;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 12%;
-  margin-left: 12%;
-}
-
-.actor-info-container {
-  display: flex;
-  align-items: flex-start;
-}
-
-.pic_actor img{
-  width: 367px;
-  height: 508px;
-  border-radius: 20px;
-}
-
-.pic_actor{
-  margin-right: 102px;
-}
-
-.actor-text {
-  margin-bottom: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.actor-name-rus {
-  margin-top: 0px;
-  height: 38px;
-  width: 619px;
-  font-family: "Montserrat";
-  font-size: 36px;
-  font-weight: 900;
-  line-height: normal;
-  color: $black;
-  display: flex;
-  margin-bottom: 15px;
-}
-
-.actor-name-en {
-  margin-top: 0px;
-  height: 25px;
-  width: 197px;
-  font-family: "Montserrat-Black", "Arial", sans-serif;;
-  font-size: 16px;
-  line-height: normal;
-  color: $black;
-  display: flex;
-  margin-bottom: 30px;
-}
-
-.actor-title-facts {
-  height: 23px;
-  width: 605px;
-  font-family: "Montserrat";
-  font-size: 22px;
-  font-weight: 700;
-  line-height: normal;
-  color: $black;
-  display: flex;
-  margin-bottom: 15px;
-}
-
-.actor-facts-container {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: flex-start;
-  column-gap: 2%;
-}
-
-.actor-value-facts {
-  font-family: "Montserrat-Semi-Bold", "Arial", sans-serif;;
-  font-size: 16px;
-  line-height: normal;
-  color: $black;
-  //display: flex;
-  //position: relative;
-}
-
-.button-show-more{
-  border-radius: 10px;
-  border: 2px solid $purple-button;
-  cursor: pointer;
-  //position: absolute;
-  font-family:"Montserrat-Bold", "Arial", sans-serif;;
-  font-style: normal;
-  font-size: 16px;
-  display: flex;
-  padding: 8px 16px;
-  color: $purple-button;
-  margin-bottom: 0px;
-}
-
-.button-show-more:hover {
-  color: $pink;
-  border: 2px solid $pink;
-}
-
-.film-collection {
-  padding: 250.11px 20.19px 28.86px 0;
-}
-
-.pic-film-container {
-  position: relative;
-  padding-bottom: 64%;
-  height: 0;
-  overflow: hidden;
-  margin-bottom: 10px;
-  object-fit:cover;
-  background-size: cover;
-  /*padding: 250.11px 20.19px 28.86px 0;*/
-}
-
-.name-of-film-in-container {
-  height: 100%;
-  width: 100%;
-  font-family: "Montserrat";
-  font-size: 16px;
-  font-weight: 600;
-  line-height: normal;
-  color: $white;
-  display: flex;
-}
-
-.actor-key-facts {
-  width: 200px;
-  font-family: "Montserrat";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: normal;
-  color: $black;
-  display: flex;
-  margin-right: 37px;
-}
-
-
-.actor-film-played {
-  background-color: $grey-background;
+.place-between-blocks {
   margin-bottom: 40px;
-  border-radius: 20px;
-  padding: 37.85px 37px 45px 36px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.name-of-topic {
-  height: 2.6%;
-  width: 61.27%;
-  font-family: "Montserrat";
-  font-size: 30px;
-  font-weight: 700;
-  line-height: normal;
-  color: $black;
-  display: flex;
-  margin-bottom: 29.01px;
 }
 
-.actor-film-container {
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*position: relative;*/
-  margin-bottom: 1.875%;
-  display: flex;
-  align-items: flex-start;
-  column-gap: 2%;
-}
+.content__actor-info {
+  background-color: $white;
+  width: 1200px;
+  margin: auto;
 
+  .actor-info__container {
+    grid-template-columns:  3fr 8fr;
+    column-gap: 5%;
+    display: grid;
 
-.actor-full-biography {
-  margin-bottom: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    .container__pic-actor {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+
+    .container__pic-actor img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .actor-info__text {
+      color: $black;
+      display: grid;
+      grid-template-rows:  3fr  1fr 5fr 1fr 45px;
+      grid-column-start: 2;
+      grid-column-end: 3;
+
+      .name {
+        grid-row-start: 1;
+        grid-row-end: 2;
+
+        .text__name-rus {
+          font-family: "Montserrat-Black", "Arial", sans-serif;;
+          font-size: 40px;
+          line-height: normal;
+          margin-bottom: 12px;
+        }
+
+        .text__name-en {
+          font-size: 16px;
+          line-height: normal;
+        }
+      }
+
+      .text__title-facts {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        font-weight: 700;
+        font-size: 26px;
+      }
+
+      .facts {
+        grid-row-start: 3;
+        grid-row-end: 4;
+        font-size: 20px;
+
+        .title-facts__container {
+          margin-bottom: 5px;
+          display: grid;
+          grid-template-columns: 3fr 5fr;
+          column-gap: 2%;
+
+          .title-facts__container_key {
+            grid-column-start: 1;
+            grid-column-end: 2;
+          }
+
+          .title-facts__container_value {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .button-show-more {
+        grid-row-start: 5;
+        grid-row-end: 6;
+        border-radius: 10px;
+        border: 4px solid $purple-button;
+        cursor: pointer;
+        font-family: "Montserrat-Bold", "Arial", sans-serif;;
+        font-size: 20px;
+        padding: 8px 20px;
+        color: $purple-button;
+        max-width: 120px;
+        max-height: 60px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .button-show-more:hover {
+        color: $pink;
+        border: 4px solid $pink;
+      }
+    }
+  }
+
+  .actor-info__background {
+    background-color: $grey-background;
+    border-radius: 20px;
+    width: 1280px;
+    padding: 40px;
+    color: $white;
+  }
+
+  .name-of-topic {
+    font-family: "Montserrat-Bold", "Arial", sans-serif;;
+    font-size: 30px;;
+    margin-top: 0px;
+  }
+
+  .wrapper {
+  }
+
+  .slider-container {
+    overflow: hidden;
+  }
+
+  .slider-track {
+    display: flex;
+    text-align: center;
+    transition: .2s;
+  }
+
+  .film-collection_pics {
+    //margin-right: 10px;
+    //min-width:275px;
+  }
+
+  .film-collection_pics img {
+    width:90%;
+    border-radius: 20px;
+  }
+
+  .carousel_film_name {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: $white;
+  }
+
+  .actor-film__back {
+    gap: 30px;
+    position: relative;
+    display: grid;
+
+    .actor-film__background {
+      background: linear-gradient(
+                      104deg,
+                      $grey-background 0%,
+                      rgba(67, 54, 73, 1) 100%
+      );
+      border-radius: 10px;
+      padding: 2% 2% 2% 2%;
+      box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
+      color: $white;
+      display: grid;
+      grid-template-columns:  1fr 8fr;
+      column-gap: 2.5%;
+
+      .pic-full-film-descr {
+        display: grid;
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
+
+      .pic-full-film-descr img {
+        border-radius: 20px;
+      }
+
+      .text-full-film-descr {
+        display: grid;
+        grid-template-rows:  2fr 4fr 45px;
+        grid-column-start: 2;
+        grid-column-end: 3;
+
+        .name-film-full-decrtip {
+          color: $white;
+          font-weight: 600;
+          font-size: 26px;
+
+          .year-of-film {
+            color: $white;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 4px;
+          }
+        }
+
+        .film-description {
+          display: -webkit-box;
+          -webkit-line-clamp: 5;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          color: $white;
+          font-size: 18px;
+          margin-bottom: 25px;
+        }
+
+        .button-pink {
+          grid-row-start: 3;
+          grid-row-end: 4;
+          background-color: $pink;
+          border-radius: 10px;
+          cursor: pointer;
+          font-family: "Montserrat-Bold", "Arial", sans-serif;;
+          font-style: normal;
+          font-size: 20px;
+          color: $white;
+          padding: 8px 20px;
+          max-width: 180px;
+          height: 100%;
+          max-height: 45px;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .button-pink:hover {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+
+      }
+    }
+  }
 }
 
 .text-full-biography {
-  height: 121px;
-  width: 1171px;
-  font-family: "Montserrat";
   font-size: 16px;
-  font-weight: 400;
   line-height: 23px;
   color: rgba(34, 34, 59, 1);
   display: flex;
   text-align: justify;
-  position: relative;
   letter-spacing: 0.8px;
 }
 
-#button-pink{
-  background-color: var(--pink);
-  border-radius: 10px;
-  cursor: pointer;
-  height: 40px;
+.scroll-to {
+  text-decoration: none;
+}
+
+.slider-film-card__item {
   position: absolute;
-  font-family:"Montserrat-Bold", "Arial", sans-serif;;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 20px;
-  padding-right: 20px;
-  padding-left: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: var(--white);
-}
-
-#button-pink:hover {
-  position: relative;
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-#button-show-more{
+  top: 40%;
+  color: white;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  height: 46px;
-  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.25));
-  background: var(--grey-base);
-  border-radius: 10px;
-  font-family:"Montserrat-Bold", "Arial", sans-serif;;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 20px;
-  padding-right: 20px;
-  padding-left: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-top: 10px;
-  color: var(--white);
+  transition: 0.24s ease-in-out;
+  //visibility: hidden;
+
+  &-left {
+    margin-left: 8px;
+  }
+
+  &-right {
+    right: 0;
+    margin-right: 8px;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
 }
+
+
 

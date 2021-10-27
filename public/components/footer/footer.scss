@@ -1,7 +1,7 @@
-@import '../../css/Consts';
+@import '../../css/consts.scss';
 
 .footer {
-  background-color: #0C0C0C;
+  background-color: $grey-base;
   flex: 0 0 125px;
   display: flex;
 }

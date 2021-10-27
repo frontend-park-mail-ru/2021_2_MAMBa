@@ -1,5 +1,6 @@
-import Events from '../consts/events.js';
+import {Events} from '../consts/events.js';
 import {eventBus} from './eventBus';
+import {checkAuth, getCurrentUser} from './http';
 
 class Authorization {
   constructor(eventBus) {
@@ -7,23 +8,34 @@ class Authorization {
     this.user = null;
     this.getUserFromServer();
     this.eventBus.on(Events.AuthPage.SuccessLogReg, this.getUserFromSubmit);
-    // this.eventBus.on(Events.App.Start, this.getUserFromServer);
     this.eventBus.on(Events.Header.LogOut, this.logOutUser);
   }
 
-  getUserFromSubmit = (user) => {
-    console.log('aUthik')
-    this.user = user;
-    console.log(user);
-    this.eventBus.emit(Events.Authorization.GotUser, this.user);
+  getUserFromSubmit = (parsedResponse) => {
+    this.user = parsedResponse.body;
+    this.eventBus.emit(Events.Authorization.GotUser);
   }
 
   getUserFromServer = () => {
-    // TODO fetch// from fetch
-    // if (user) {
-    //   this.user = user;
-    //   this.eventBus.emit(Events.Authorization.GotUser, this.user);
-    // }
+    checkAuth().then((response) => {
+      if (!response) {
+        return;
+      }
+      if (response.status === 200) {
+        const id = response.parsedJson.body.id;
+        if (id) {
+          getCurrentUser(id).then((response) => {
+            if (!response) {
+              return;
+            }
+            if (response.status === 200) {
+              this.user = response.parsedJson.body;
+              this.eventBus.emit(Events.Authorization.GotUser);
+            }
+          });
+        }
+      }
+    });
   }
 
   logOutUser = () => {

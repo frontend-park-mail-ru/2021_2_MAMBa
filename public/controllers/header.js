@@ -1,10 +1,10 @@
-import {Controller} from './controller.js';
-import { HeaderModel } from '../models/header.js';
-import { HeaderView } from '../views/HeaderView/HeaderView.js';
-import {Events} from "../consts/events";
+import {BaseController} from './baseController.js';
+import {HeaderModel} from '../models/header.js';
+import {HeaderView} from '../views/HeaderView/HeaderView.js';
+import {Events} from '../consts/events';
 
 
-export class HeaderController extends Controller {
+export class HeaderController extends BaseController {
   constructor() {
     super(HeaderView, HeaderModel);
     this.subscribe();

@@ -7,48 +7,39 @@
 
 @font-face {
   font-family: 'Montserrat-Regular';
-  src: url('../public/static/fonts/Montserrat-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Montserrat-Black';
-  src: url('../public/static/fonts/Montserrat-Black.ttf') format('truetype');
+  src: url('static/fonts/Montserrat-Regular.woff2') format('truetype');
 }
 
 @font-face {
   font-family: 'Montserrat-Bold';
-  src: url('../public/static/fonts/Montserrat-Bold.ttf') format('truetype');
+  src: url('static/fonts/Montserrat-Bold.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('static/fonts/Montserrat-Black.woff2') format('truetype');
 }
 
 html, body {
   font-family: 'Montserrat-Regular', sans-serif;
   margin: 0;
   padding: 0;
+  background-color: $white;
 }
 
 body {
   overflow-y: scroll;
 }
 
-:root {
-  $white: #ffffff;
-  $grey-background: #2e2532;
-  $black: #000000;
-  $pink: #E10856;
-  $light-grey: #bbb8b6;
-  $grey-base: #433649;
-  $grey-shadow: #ffffff3f;
-}
-
 .content {
   display: flex;
-  height: inherit;
+  flex: 1 0 auto;
 }
 
 #root {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-  height: 100vh;
   position: relative;
 }
 

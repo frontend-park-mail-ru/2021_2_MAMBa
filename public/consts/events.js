@@ -2,6 +2,7 @@ export const Events = {
   PathChanged: 'pathChanged',
   RedirectBack: 'redirectBack',
   RedirectForward: 'redirectForward',
+  SliderActions: 'sliderActions',
 
   App: {
     Start: 'app:start',
@@ -64,8 +65,6 @@ export const Events = {
       Page: 'filmPage:render',
       Content: 'filmPage:renderContent',
     },
-    GetPageContent: 'filmPage:getMainPageContent'
+    GetPageContent: 'filmPage:getMainPageContent',
   },
 };
-
-export default Events;

@@ -1,18 +1,17 @@
 import {HeaderController} from './controllers/header.js';
-import {HomePageController} from './controllers/homePage.js';
-import {ActorPagePageController} from './controllers/actorPage.js';
-import {AuthPageController} from './controllers/authPage.js';
-import {AuthModule} from './modules/authorization.js';
+import {AuthPageController} from './controllers/authController.js';
+import {authModule} from './modules/authorization.js';
+import {HomePageController} from './controllers/homeController.js';
+import {ActorPagePageController} from './controllers/actorController.js';
 
-
-import Router from './modules/router.js';
-import Routes from './consts/routes.js';
+import {Router} from './modules/router.js';
+import {Routes} from './consts/routes.js';
 
 import './index.scss';
 
 export const ROOT = document.getElementById('root');
 
-const authModule = AuthModule;
+const AuthModule = authModule;
 const headerController = new HeaderController();
 const homePageController = new HomePageController();
 const actorPagePageController = new ActorPagePageController();

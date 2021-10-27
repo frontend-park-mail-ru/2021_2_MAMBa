@@ -3,7 +3,6 @@ import {BaseView} from '../BaseView/BaseView.js';
 import header from '../../components/header/header.pug';
 import homeContent from '../../components/collections/collections.pug';
 import errorPage from '../../components/errorPage/errorPage.pug';
-import loader from '../../components/loader/loader.pug';
 import {Events} from '../../consts/events.js';
 
 /** Class representing home page view. */
@@ -18,12 +17,9 @@ export class HomePageView extends BaseView {
   }
 
   /**
-   * Render html home page from pug template.
+   * Emit event to get content for homepage.
    */
-  render = () => {
-    const template = loader();
-    ROOT.innerHTML = template;
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
+  emitGetContent = () => {
     this.eventBus.emit(Events.Homepage.Get.MainPageContent);
   }
 

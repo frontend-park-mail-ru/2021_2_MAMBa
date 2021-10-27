@@ -21,10 +21,7 @@ export class ActorView extends BaseView {
   /**
    * Render html favourites page from pug template.
    */
-  render = () => {
-    console.log("in slider action")
-    const template = loader();
-    ROOT.innerHTML = template;
+  emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
     this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.ActorPage.GetPageContent, pathArgs);

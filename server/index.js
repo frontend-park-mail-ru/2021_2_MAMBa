@@ -272,8 +272,8 @@ app.post('/api/user/login', function (req, res) {
       first_name: "Vasya",
       surname: "Petrov",
       email: "v@v.v",
+      profile_pic: "/user/images/avatar.jpg",
     }
-    // profile_pic: "/userpic/{user_id}"
   });
 });
 

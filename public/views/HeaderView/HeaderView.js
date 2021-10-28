@@ -1,4 +1,5 @@
 import Header from '../../components/header/header.pug';
+import UserBlock from '../../components/header/userBlock.pug';
 import {Events} from '../../consts/events.js';
 import {headerLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
@@ -63,7 +64,7 @@ export class HeaderView extends BaseView {
     if (!enterButton) {
       return;
     }
-    enterButton.innerHTML = `${authModule.user.first_name}`;
+    enterButton.innerHTML = UserBlock({userName: authModule.user.first_name, imgSrc: authModule.user.profile_pic});
     enterButton.classList.remove('login-btn');
     enterButton.classList.add('user-block');
   }

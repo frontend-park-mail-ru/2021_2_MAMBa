@@ -58,8 +58,6 @@ const PERSONFILMS = {
   ],
 };
 
-
-
 const COLLECTIONS = {
   collections_list: [
     {
@@ -130,7 +128,7 @@ const ACTOR = {
   gender: 'male',
   family_status: 'married',
   film_number: 87,
-  biography:'Мадс Миккельсен — датский и голливудский киноактер. Карьера Миккельсена началась поздно, однако это не помешало ему добиться больших успехов. Мировая популярность пришла к нему после роли Ганнибала Лектера в телесериале «Ганнибал»',
+  biography: 'Мадс Миккельсен — датский и голливудский киноактер. Карьера Миккельсена началась поздно, однако это не помешало ему добиться больших успехов. Мировая популярность пришла к нему после роли Ганнибала Лектера в телесериале «Ганнибал»',
 
   popular_actor_film_current_limit: 12, // буду запрашивать примерно по 30
   popular_actor_current_skip: 0,
@@ -239,13 +237,13 @@ const users = {
 };
 const ids = {};
 
-app.post('/signup', function(req, res) {
+app.post('/signup', function (req, res) {
   const name = req.body.name;
   const surname = req.body.surname;
   const password = req.body.password;
   const email = req.body.email;
   if (
-    !password || !email ||
+      !password || !email ||
       !password.match(/^\S{4,}$/) ||
       !email.match(/@/)
   ) {
@@ -264,7 +262,7 @@ app.post('/signup', function(req, res) {
   res.status(201).json({id});
 });
 
-app.post('/login', function(req, res) {
+app.post('/login', function (req, res) {
   const password = req.body.password;
   const email = req.body.email;
   if (!password || !email) {
@@ -283,6 +281,6 @@ app.post('/login', function(req, res) {
 
 const port = process.env.PORT || 8088;
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`Server listening port ${port}`);
 });

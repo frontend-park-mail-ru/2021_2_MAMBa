@@ -67,8 +67,30 @@ export class HeaderView extends BaseView {
     enterButton.innerHTML = UserBlock({userName: authModule.user.first_name, imgSrc: authModule.user.profile_pic});
     enterButton.classList.remove('login-btn');
     enterButton.classList.add('user-block');
+    enterButton.removeAttribute('href');
+    this.addEventListenerToLogoutButton();
+  }
+
+  addEventListenerToLogoutButton = () => {
+    const logoutButton = document.querySelector('.logout-btn');
+    if (!logoutButton) {
+      return;
+    }
+    logoutButton.addEventListener('click', (e) => {
+      this.renderEnterButton();
+      this.eventBus.emit(Events.Header.LogOut);
+    });
   }
 
   renderEnterButton = () => {
+    const userBlock = document.querySelector('.user-block');
+    if (!userBlock) {
+      return;
+    }
+    const enterButton = document.createElement('a');
+    enterButton.classList.add('login-btn');
+    enterButton.setAttribute('href', '/auth');
+    enterButton.innerText = 'Войти';
+    userBlock.replaceWith(enterButton);
   }
 }

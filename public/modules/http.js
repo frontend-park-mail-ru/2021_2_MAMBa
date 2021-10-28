@@ -94,6 +94,20 @@ const login = async (user) => {
   }
 };
 
+const register = async (user) => {
+  const params = {
+    url: URLS.api.register,
+    method: 'POST',
+    body: JSON.stringify(user),
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 const checkAuth = async () => {
   const params = {
     url: URLS.api.checkAuth,
@@ -133,5 +147,6 @@ export {
   getCurrentUser,
   getInfoAboutActor,
   checkAuth,
+  register,
   login,
 };

@@ -226,11 +226,12 @@ const users = {
 };
 const ids = {};
 
-app.post('/signup', function(req, res) {
-  const name = req.body.name;
+app.post('/api/user/register', function(req, res) {
+  const name = req.body.first_name;
   const surname = req.body.surname;
   const password = req.body.password;
   const email = req.body.email;
+  const passwordRepeat = req.body.password_repeat;
   if (
     !password || !email ||
       !password.match(/^\S{4,}$/) ||
@@ -239,11 +240,17 @@ app.post('/signup', function(req, res) {
     return res.status(400).json({error: 'Невалидные данные пользователя'});
   }
   if (users[email]) {
-    return res.status(400).json({error: 'Пользователь уже существует'});
+    return res.status(401).json({error: 'Пользователь уже существует'});
   }
 
   const id = uuid();
-  const user = {name, surname, email, password};
+  const user = {
+    first_name: name,
+    surname: surname,
+    email: email,
+    password: password,
+    password_repeat: passwordRepeat,
+  };
   ids[id] = email;
   users[email] = user;
 

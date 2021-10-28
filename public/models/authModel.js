@@ -2,7 +2,8 @@ import {Events} from '../consts/events.js';
 import {ErrorMessages} from '../consts/validateErrors';
 import {AuthConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
 import {Model} from './model';
-import {login} from '../modules/http';
+import {login, register} from '../modules/http';
+import {eventBus} from '../modules/eventBus';
 
 export class AuthPageModel extends Model {
   constructor(eventBus) {
@@ -103,19 +104,27 @@ export class AuthPageModel extends Model {
       }
     }
     if (!hasErrorInputs) {
-      const userData = {
-        email: inputsData[AuthConfig.emailInput.name],
-        password: inputsData[AuthConfig.passwordInput.name],
-      };
-      login(userData).then((response) => {
-        if (!response) {
-          return;
-        }
-        if (response.status === 200) {
-          this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
-          // TODO REDIRECT
-        }
-      });
+      if (Object.keys(inputsData).length === 2) {
+        login(inputsData).then((response) => {
+          if (!response) {
+            return;
+          }
+          if (response.status === 200) {
+            this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+            eventBus.emit(Events.PathChanged, '/');
+          }
+        });
+      } else {
+        register(inputsData).then((response) => {
+          if (!response) {
+            return;
+          }
+          if (response.status === 200) {
+            this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+            eventBus.emit(Events.PathChanged, '/');
+          }
+        });
+      }
     }
   }
 }

@@ -14,11 +14,7 @@ export class HomePageModel {
   }
 
   getMainPageContent = () => {
-    const promise = new Promise((resolve, reject) => {
-      const collections = getCollections();
-      resolve(collections);
-    });
-    promise.then((data) => {
+    getCollections().then((data) => {
       this.eventBus.emit(Events.Homepage.Render.Content, data);
     }).catch(() => {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);

@@ -1,5 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
+import actorFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
 import {Events} from '../../consts/events.js';
 import {getPathArgs} from '../../modules/router.js';
 
@@ -12,6 +13,7 @@ export class ActorView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
+    this.dataActor;
   }
 
   /**
@@ -29,65 +31,51 @@ export class ActorView extends BaseView {
    */
   renderContent = (data) => {
     const template = actorPageContent(data);
+    this.dataActor= data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-
       this.setAnchorActions();
       this.setSliderActions();
-      this.showMore();
+      this.showMore(this.dataActor);
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
 
-
-  showMore = () => {
-    let data={
-      id:1,
-      skip:3,
-      limit:3
+  checkShowMoreButton = (available) => {
+    const buttonShowMore = document.querySelector('.show-more-films');
+    if (!available) {
+      buttonShowMore.classList.add('hidden');
     }
-    const Button = document.querySelector('.next-page');
-
-    Button.addEventListener('click', ()=>{
-      console.log("clock");
-      // this.draw(data)
-
-      // this.eventBus.emit(Events.ActorPage.GetFilms, data);
-    })
   }
 
-  renderFilms = (data)=>{
-    const list = document.querySelector('.showMoreContainer');
-    const newElements = data.filmsWithDescription.map((item) => {
-      const newContainer = document.createElement('div');
-      newContainer.classList.add('item')
-      const img = document.createElement('img');
-      img.setAttribute('src', item.film_avatar);
-      newContainer.appendChild(img);
-      return newContainer;
-    })
-
-    newElements.forEach(element => {
-      list.appendChild(element);
-    })
+  showMore = (data) => {
+    const newData = {
+      id: data.id,
+      skip: data.skip + data.limit,
+      limit: data.limit,
+    };
+    const buttonShowMore = document.querySelector('.show-more-films');
+    buttonShowMore.addEventListener('click', () => {
+      this.eventBus.emit(Events.ActorPage.GetFilms, newData);
+    });
   }
 
-  draw = (data) => {
-    const list = document.querySelector('.showMoreContainer');
-    const newElements = data.filmsWithDescription.map((item) => {
-      const newContainer = document.createElement('div');
-      newContainer.classList.add('item')
-      const img = document.createElement('img');
-      img.setAttribute('src', item.film_avatar);
-      newContainer.appendChild(img);
-      return newContainer;
-    })
-
-    newElements.forEach(element => {
-      list.appendChild(element);
-    })
+  /**
+   * Render content favourites page from pug template to content div.
+   * @param {Object} data - Contains info about actor films.
+   */
+  renderFilms = (data) => {
+    const template = actorFilmsContent(data);
+    const showMoreContainer = document.querySelector('.actor-info__black-container_films-with-description_container');
+    if (showMoreContainer) {
+      showMoreContainer.innerHTML += template;
+    }
+    this.dataActor.moreAvailable=data.moreAvailable;
+    this.dataActor.skip= data.skip;
+    this.dataActor.limit=data.limit;
+    this.checkShowMoreButton(this.dataActor.moreAvailable);
   }
 
   /**
@@ -98,12 +86,11 @@ export class ActorView extends BaseView {
     const slidesToShow = 6;
     const slidesToScroll = 1;
     const container = document.querySelector('.slider-container');
-    const track = document.querySelector('.slider-track');
-    const items = document.querySelectorAll('.film-collection_pics');
+    const track = document.querySelector('.slider-container__track');
+    const items = document.querySelectorAll('.slider-container__track_film');
     const itemCount = items.length;
-    console.log(itemCount);
-    const btvPrev = document.querySelector('.btn-prev');
-    const btvNext = document.querySelector('.btn-next');
+    const btvPrev = document.querySelector('.slider-container_button-left');
+    const btvNext = document.querySelector('.slider-container_button-right');
     const itemWidth = container.clientWidth / slidesToShow;
     const movePosition = slidesToScroll * itemWidth;
 
@@ -115,34 +102,38 @@ export class ActorView extends BaseView {
       const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
       position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();
-      checkBnts();
+      checkButtons();
     });
 
     btvPrev.addEventListener('click', () => {
       const itemLeft = Math.abs(position) / itemWidth;
       position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();
-      checkBnts();
+      checkButtons();
     });
-
+    /**
+     * Set film to the right position.
+     */
     const setPosition = () => {
       track.style.transform = `translateX(${position}px`;
     };
-
-    const checkBnts = () => {
+    /**
+     * Check buttons.
+     */
+    const checkButtons = () => {
       if (position === 0) {
         btvPrev.classList.add('hidden');
       } else {
-        btvPrev.classList.remove("hidden");
+        btvPrev.classList.remove('hidden');
       }
 
       if (position <= -(itemCount - slidesToShow) * itemWidth) {
         btvNext.classList.add('hidden');
       } else {
-        btvNext.classList.remove("hidden");
+        btvNext.classList.remove('hidden');
       }
     };
-    checkBnts();
+    checkButtons();
   }
   /**
    * Set anchor actions.
@@ -151,11 +142,10 @@ export class ActorView extends BaseView {
     const anchors = document.querySelectorAll('a.scroll-to');
 
     for (const anchor of anchors) {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
 
         const blockID = anchor.getAttribute('href');
-        console.log(blockID);
 
         document.querySelector(blockID).scrollIntoView({
           behavior: 'smooth',
@@ -164,5 +154,4 @@ export class ActorView extends BaseView {
       });
     }
   }
-
 }

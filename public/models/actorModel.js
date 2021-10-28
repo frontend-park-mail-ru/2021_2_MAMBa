@@ -22,7 +22,6 @@ export class ActorPageModel {
   }
 
   getActorFilmsContent = (actor) => {
-    console.log("in film actor model");
     getActorFilms(actor.id, actor.limit, actor.skip).then((contentData) => {
       this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
     }).catch(() => {

@@ -1,10 +1,10 @@
 mixin filmCard (i)
-    div.actor-film__background
-        div.pic-full-film-descr
+    div.film-card
+        div.film-card_pic
             img(src=i.film_avatar)
-        div.text-full-film-descr
-            div.name-film-full-decrtip #{i.title}
-                div.year-of-film #{i.year}
-            div.film-description #{i.description}
-            button(type='button' class="button-pink" ) Подробнее
+        div.film-card_description
+            div.film-card_description_name #{i.title}
+                div.film-card_description_name_year #{i.year}
+            div.film-card_description_text #{i.description}
+            button(type='button' class="pink-button" ) Подробнее
 

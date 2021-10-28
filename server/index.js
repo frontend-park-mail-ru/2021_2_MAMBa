@@ -181,7 +181,9 @@ const ACTOR = {
     },
   ],
 
+  full_actor_film_current_limit: 3,
   full_actor_current_skip: 0,
+  more_available: true,
   film_with_description_list: [
     {
       id: 20,
@@ -226,7 +228,6 @@ const ACTOR = {
       picture_url: 'server/images/filmSlider12.webp',
     },
   ],
-  more_available: true,
 };
 const users = {
   'vasya@bk.ru': {
@@ -280,7 +281,7 @@ app.post('/login', function(req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8089;
+const port = process.env.PORT || 8088;
 
 app.listen(port, function() {
   console.log(`Server listening port ${port}`);

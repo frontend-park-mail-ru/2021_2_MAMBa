@@ -1,6 +1,7 @@
 import {URLS} from '../consts/urls.js';
 
 import {
+  convertArrayToActorFilms,
   convertArrayToActorPage,
 } from './adapters.js';
 
@@ -28,9 +29,14 @@ const getInfoAboutActor = async (actorId) => {
   }
 };
 
-
+/**
+ * Send async get request using async func.
+ * @param {Integer} actorId - Contains id of actor to render.
+ * @param {Integer} limit - Contains count of films to render.
+ * @param {Integer} skip - Contains count 0f rendered films.
+ * @return {Array} - Array of objects for render actor page.
+ */
 const getActorFilms = async (actorId, limit, skip) => {
-  console.log(limit);
   const params = {
     url: URLS.api.actorFilms + actorId+ '&skip='+ limit +'&limit='+skip,
     method: 'GET',
@@ -40,7 +46,7 @@ const getActorFilms = async (actorId, limit, skip) => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      return convertArrayToActorPage(responseBody);
+      return convertArrayToActorFilms(responseBody);
     }
     return null;
   } catch {

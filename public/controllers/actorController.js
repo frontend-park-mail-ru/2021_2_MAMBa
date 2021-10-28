@@ -17,8 +17,8 @@ export class ActorPagePageController extends BaseController {
     this.eventBus.on(Events.ActorPage.GetPageContent, this.model.getPageContent);
     this.eventBus.on(Events.ActorPage.Render.Page, this.view.render);
     this.eventBus.on(Events.ActorPage.Render.Content, this.view.renderContent);
-    this.eventBus.on(Events.ActorPage.Render.Content, this.model.getActorFilmsContent);
-    // this.eventBus.on(Events.ActorPage.Render.Content, this.view.renderFilms);
+    this.eventBus.on(Events.ActorPage.GetFilms, this.model.getActorFilmsContent);
+    this.eventBus.on(Events.ActorPage.Render.Films, this.view.renderFilms);
   }
 
   unsubscribe = () => {

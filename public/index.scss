@@ -3,6 +3,11 @@
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
 @import 'components/actor/actor.scss';
+@import 'components/slider/slider.scss';
+@import 'components/filmCard/filmdCard.scss';
+@import 'components/pinkButton/pinkButton.scss';
+@import 'components/buttonWithBorder/buttonWithBorder';
+@import 'components/buttonShowMore/buttonShowMore.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';
@@ -31,6 +36,24 @@ html, body {
   flex-direction: column;
   height: 100vh;
   position: relative;
+}
+
+.place-between-blocks {
+  margin-bottom: 40px;
+}
+
+.name-of-topic {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.hidden{
+  display: none;
+}
+
+.scroll-to {
+  text-decoration: none;
 }
 
 

@@ -17,13 +17,47 @@ app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
   res.json(COLLECTIONS);
 });
 
-app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=1', (req, res) => {
+app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=1', (req, res) => {
   res.json(ACTOR);
 });
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../dist/index.html`));
 });
+
+app.get('/api/person/getPersonFilms/id=1&skip=3&limit=3', (req, res) => {
+  res.json(PERSONFILMS);
+});
+
+const PERSONFILMS = {
+  full_actor_film_current_limit: 3,
+  full_actor_current_skip: 3,
+  more_available: true,
+  film_with_description_list: [
+    {
+      id: 18,
+      title: 'Главный герой',
+      year: 2012,
+      description: 'У сотрудника крупного банка всё идёт по накатанной, пока однажды он не выясняет, что окружающий его мир — это часть огромной видеоигры, а сам он в ней — всего лишь второстепенный персонаж. Хватит ли у него духу переписать свой код, обратить на себя внимание прекрасной девушки и, наконец, спасти мир? Одним словом, получится ли из него главный герой?',
+      picture_url: 'server/images/filmSlider7.webp',
+    },
+    {
+      id: 21,
+      title: 'Стажер',
+      year: '2019',
+      description: '70-летний вдовец Бен Уитакер обнаруживает, что выход на пенсию — еще не конец. Пользуясь случаем, он становится старшим стажером в интернет-магазине модной одежды под руководством Джулс Остин.',
+      picture_url: 'server/images/filmSlider10.webp',
+    },
+    {
+      id: 23,
+      title: 'После',
+      year: '2019',
+      description: 'Случайная встреча перевернула их привычный мир. Она – прилежная студентка и образцовая дочь, а он – притягательный бунтарь с непростым прошлым. Живя в параллельных вселенных, они бы вряд ли даже взглянули друг на друга. Однако этому знакомству суждено разделить жизнь влюбленных на до и после.',
+      picture_url: 'server/images/filmSlider12.webp',
+    },
+  ],
+};
+
 
 
 const COLLECTIONS = {
@@ -147,9 +181,8 @@ const ACTOR = {
     },
   ],
 
-  full_actor_film_current_limit: 6, // буду запрашивать примерно по 15
   full_actor_current_skip: 0,
-  film_with_description_list: [// по возрастанию даты
+  film_with_description_list: [
     {
       id: 20,
       title: 'Дневник памяти',
@@ -193,6 +226,7 @@ const ACTOR = {
       picture_url: 'server/images/filmSlider12.webp',
     },
   ],
+  more_available: true,
 };
 const users = {
   'vasya@bk.ru': {

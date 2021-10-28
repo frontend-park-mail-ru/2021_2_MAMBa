@@ -20,8 +20,10 @@ export const Events = {
     Render: {
       Page: 'actorPage:render',
       Content: 'actorPage:renderContent',
+      Films: 'actorPage:renderFilms',
     },
     GetPageContent: 'actorPage:getPageContent',
+    GetFilms: 'actorPage:getFilms',
   },
   FilmPage: {
     Render: {

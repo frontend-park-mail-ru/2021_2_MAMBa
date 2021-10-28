@@ -5,7 +5,6 @@ import {
 } from './adapters.js';
 
 
-// const api_url = process.env.API_URL || '';
 /**
  * Send async get request using async func.
  * @param {Object} actorId - Contains id of actor to render.
@@ -29,6 +28,25 @@ const getInfoAboutActor = async (actorId) => {
   }
 };
 
+
+const getActorFilms = async (actorId, limit, skip) => {
+  console.log(limit);
+  const params = {
+    url: URLS.api.actorFilms + actorId+ '&skip='+ limit +'&limit='+skip,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return convertArrayToActorPage(responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 /**
  * Send async get request using async func.
  * @return {Array} - Array of objects for render collections page.
@@ -104,6 +122,7 @@ const getCurrentUser = async () => {
 };
 
 export {
+  getActorFilms,
   getCollections,
   sendRequest,
   getCurrentUser,

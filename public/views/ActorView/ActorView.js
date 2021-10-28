@@ -22,34 +22,55 @@ export class ActorView extends BaseView {
     this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.ActorPage.GetPageContent, pathArgs);
   }
-  // let act = document.getElementsByClassName('actor-film__back');
 
   /**
    * Render content favourites page from pug template to content div.
    * @param {Object} data - Contains info about actor.
    */
   renderContent = (data) => {
-    console.log('in slider action');
     const template = actorPageContent(data);
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
 
-
-      this.showMore(data);
       this.setAnchorActions();
       this.setSliderActions();
+      this.showMore();
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
 
 
-  showMore = (data) => {
+  showMore = () => {
+    let data={
+      id:1,
+      skip:3,
+      limit:3
+    }
     const Button = document.querySelector('.next-page');
 
     Button.addEventListener('click', ()=>{
-      this.draw(data)
+      console.log("clock");
+      // this.draw(data)
+
+      // this.eventBus.emit(Events.ActorPage.GetFilms, data);
+    })
+  }
+
+  renderFilms = (data)=>{
+    const list = document.querySelector('.showMoreContainer');
+    const newElements = data.filmsWithDescription.map((item) => {
+      const newContainer = document.createElement('div');
+      newContainer.classList.add('item')
+      const img = document.createElement('img');
+      img.setAttribute('src', item.film_avatar);
+      newContainer.appendChild(img);
+      return newContainer;
+    })
+
+    newElements.forEach(element => {
+      list.appendChild(element);
     })
   }
 
@@ -59,7 +80,7 @@ export class ActorView extends BaseView {
       const newContainer = document.createElement('div');
       newContainer.classList.add('item')
       const img = document.createElement('img');
-      img.setAttribute('src', item.url);
+      img.setAttribute('src', item.film_avatar);
       newContainer.appendChild(img);
       return newContainer;
     })

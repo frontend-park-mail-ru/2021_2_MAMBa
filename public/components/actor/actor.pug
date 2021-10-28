@@ -44,7 +44,7 @@ div.actor-info
         div.name-of-topic Полная фильмография
         div.actor-info__black-container_films-with-description
             div.actor-info__black-container_films-with-description_container
-              - for (let i = 0; i < 3; i++)
+              - for (let i = 0; i < limit; i++)
               +filmCard(filmsWithDescription[i])
             button(type="button" class=" show-more-films button-more ") Показать еще
     div.place-between-blocks

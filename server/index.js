@@ -29,6 +29,140 @@ app.get('/api/person/getPersonFilms/id=1&skip=3&limit=3', (req, res) => {
   res.json(PERSONFILMS);
 });
 
+const FILM = {
+  "status": 200,
+  "body": {
+    "film": {
+      "id": 0,
+      "title": "Титаник",
+      "title_original": "Titanic",
+      "origin_countries": [
+        "Германия"
+      ],
+      "rating": 8.5,
+      "total_revenue": "130 миллионов $",
+      "description": "В первом и последнем плавании шикарного «Титаника» встречаются двое. Пассажир нижней палубы Джек выиграл билет в карты, а богатая наследница Роза отправляется в Америку, чтобы выйти замуж по расчёту. Чувства молодых людей только успевают расцвести, и даже не классовые различия создадут испытания влюблённым, а айсберг, вставший на пути считавшегося непотопляемым лайнера.",
+      "genres": [
+        {
+          "name": "Комедия",
+          "genre_id": 0
+        }
+      ],
+      "director": {
+        "id": 0,
+        "name_en": "Mads Mikkelsen",
+        "name_rus": "Мадс Миккельсен",
+        "picture_url": "string",
+        "career": [
+          "Актер"
+        ]
+      },
+      "screenwriter": {
+        "id": 0,
+        "name_en": "Mads Mikkelsen",
+        "name_rus": "Мадс Миккельсен",
+        "picture_url": "string",
+        "career": [
+          "Актер"
+        ]
+      },
+      "actors": [
+        {
+          "id": 1,
+          "name_en": "Mads Mikkelsen",
+          "name_rus": "Мадс Миккельсен",
+          "picture_url": "string",
+          "career": [
+            "Актер"
+          ]
+        },
+        {
+          "id": 2,
+          "name_en": "Mads Mikkelsen",
+          "name_rus": "Мадс Миккельсен",
+          "picture_url": "string",
+          "career": [
+            "Актер"
+          ]
+        },
+        {
+          "id": 0,
+          "name_en": "Mads Mikkelsen",
+          "name_rus": "Мадс Миккельсен",
+          "picture_url": "string",
+          "career": [
+            "Актер"
+          ]
+        },
+        {
+          "id": 0,
+          "name_en": "Mads Mikkelsen",
+          "name_rus": "Мадс Миккельсен",
+          "picture_url": "string",
+          "career": [
+            "Актер"
+          ]
+        },
+        {
+          "id": 0,
+          "name_en": "Mads Mikkelsen",
+          "name_rus": "Мадс Миккельсен",
+          "picture_url": "string",
+          "career": [
+            "Актер"
+          ]
+        },
+      ],
+      "poster_url": "string",
+      "trailer_url": "string",
+      "content_type": "film",
+      "release_year": 2004,
+      "duration": 132
+    },
+    "reviews": {
+      "review_list": [
+        {
+          "id": 0,
+          "film_id": 0,
+          "film_name_ru": "string",
+          "film_name_en": "string",
+          "author_name": "string",
+          "author_picture_url": "string",
+          "text": "string",
+          "review_type": 0,
+          "date": "2021-10-28"
+        }
+      ],
+      "more_available": true,
+      "review_total": 0,
+      "current_sort": "string",
+      "current_limit": 0,
+      "current_skip": 0
+    },
+    "recommendations": {
+      "recommendation_list": [
+        {
+          "id": 0,
+          "title": "Титаник",
+          "title_original": "Titanic",
+          "rating": 0,
+          "year": 0,
+          "poster_url": "string",
+          "origin_countries": [
+            "Германия"
+          ]
+        }
+      ],
+      "more_available": true,
+      "recommendation_total": 0,
+      "current_sort": "string",
+      "current_limit": 0,
+      "current_skip": 0
+    },
+    "my_rating": 0
+  }
+};
+
 const PERSONFILMS = {
   full_actor_film_current_limit: 3,
   full_actor_current_skip: 3,

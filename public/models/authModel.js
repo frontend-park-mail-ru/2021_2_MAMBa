@@ -4,11 +4,20 @@ import {AuthConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
 import {Model} from './model';
 import {login, register} from '../modules/http';
 import {eventBus} from '../modules/eventBus';
+import {Routes} from '../consts/routes.js';
 
 export class AuthPageModel extends Model {
   constructor(eventBus) {
     super(eventBus);
     this.errorMessages = new Map();
+  }
+
+  getContent = (routeData) => {
+    if (routeData.path.path === Routes.AuthPage) {
+      this.getAuthContent();
+    } else {
+      this.getRegContent();
+    }
   }
 
   getAuthContent = () => {
@@ -94,7 +103,7 @@ export class AuthPageModel extends Model {
     }
   }
 
-  submit = (inputsData = {}) => {
+  submit = (inputsData = {}, routeData) => {
     let hasErrorInputs = false;
     for (const inputName in inputsData) {
       this.validateOneInput(inputName, inputsData[inputName], inputsData[AuthConfig.passwordInput.name]);
@@ -104,7 +113,7 @@ export class AuthPageModel extends Model {
       }
     }
     if (!hasErrorInputs) {
-      if (Object.keys(inputsData).length === 2) {
+      if (routeData.path.path === Routes.AuthPage) {
         login(inputsData).then((response) => {
           if (!response) {
             return;

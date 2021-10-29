@@ -44,8 +44,7 @@ export const Events = {
     DeleteValidateError: 'authPage:deleteValidateError',
     Validate: 'authPage:validate',
     HavingWrongInput: 'authPage:havingWrongInputs',
-    GetRegContent: 'authPage:getRegContent',
-    GetAuthContent: 'authPage:getAuthContent',
+    GetContent: 'authPage:getContent',
   },
 
   Authorization: {

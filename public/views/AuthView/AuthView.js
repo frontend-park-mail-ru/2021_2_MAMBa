@@ -10,7 +10,7 @@ export class AuthView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.eventBus.emit(Events.AuthPage.GetAuthContent);
+    this.eventBus.emit(Events.AuthPage.GetContent, this.routeData);
   }
 
   renderContent = (data) => {
@@ -20,7 +20,6 @@ export class AuthView extends BaseView {
     if (content) {
       content.innerHTML = template;
       this.addValidateListeners();
-      this.addLinkListener();
       this.addSubmitListener();
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
@@ -82,20 +81,6 @@ export class AuthView extends BaseView {
     }
   }
 
-  addLinkListener = () => {
-    const authRegLink = document.querySelector('.auth-a');
-    if (!authRegLink) {
-      return;
-    }
-    authRegLink.addEventListener('click', (e) => {
-      if (authRegLink.dataset.link === 'signup') {
-        this.eventBus.emit(Events.AuthPage.GetRegContent);
-      } else {
-        this.eventBus.emit(Events.AuthPage.GetAuthContent);
-      }
-    });
-  }
-
   addSubmitListener = () => {
     const authForm = this.getAuthFormFromDom();
     const submitBtn = authForm[SubmitButtonName];
@@ -111,7 +96,7 @@ export class AuthView extends BaseView {
       for (const input of formTextInputs) {
         inputsData[input.name] = input.value;
       }
-      this.eventBus.emit(Events.AuthPage.Submit, inputsData);
+      this.eventBus.emit(Events.AuthPage.Submit, inputsData, this.routeData);
     });
   }
 

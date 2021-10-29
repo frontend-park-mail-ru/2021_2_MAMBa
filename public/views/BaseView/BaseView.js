@@ -14,7 +14,8 @@ export class BaseView {
   }
 
   emitGetContent = () => {};
-  render = () => {
+  render = (routeData) => {
+    this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
       ROOT.innerHTML = BaseViewPug();

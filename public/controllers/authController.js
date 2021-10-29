@@ -14,8 +14,7 @@ export class AuthPageController extends BaseController {
     this.eventBus.on(Events.AuthPage.AddValidateError, this.view.addErrorMessage);
     this.eventBus.on(Events.AuthPage.DeleteValidateError, this.view.deleteErrorMessage);
     this.eventBus.on(Events.AuthPage.HavingWrongInput, this.view.animateWrongInput);
-    this.eventBus.on(Events.AuthPage.GetRegContent, this.model.getRegContent);
-    this.eventBus.on(Events.AuthPage.GetAuthContent, this.model.getAuthContent);
+    this.eventBus.on(Events.AuthPage.GetContent, this.model.getContent);
     this.eventBus.on(Events.AuthPage.Validate, this.model.validateOneInput);
     this.eventBus.on(Events.AuthPage.Submit, this.model.submit);
   }
@@ -25,8 +24,7 @@ export class AuthPageController extends BaseController {
     this.eventBus.off(Events.AuthPage.AddValidateError, this.view.addErrorMessage);
     this.eventBus.off(Events.AuthPage.DeleteValidateError, this.view.deleteErrorMessage);
     this.eventBus.off(Events.AuthPage.HavingWrongInput, this.view.animateWrongInput);
-    this.eventBus.off(Events.AuthPage.GetRegContent, this.model.getRegContent);
-    this.eventBus.off(Events.AuthPage.GetAuthContent, this.model.getAuthContent);
+    this.eventBus.off(Events.AuthPage.GetContent, this.model.getContent);
     this.eventBus.off(Events.AuthPage.Validate, this.model.validateOneInput);
     this.eventBus.off(Events.AuthPage.Submit, this.model.submit);
   }

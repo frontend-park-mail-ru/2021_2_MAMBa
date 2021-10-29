@@ -22,4 +22,5 @@ const router = new Router(ROOT);
 router.register(Routes.HomePage, homePageController)
     .register(Routes.ActorPage, actorPagePageController)
     .register(Routes.AuthPage, authPageController)
+    .register(Routes.RegPage, authPageController)
     .start();

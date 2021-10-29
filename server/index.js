@@ -39,6 +39,24 @@ app.get('/api/user/checkAuth', (req, res) => {
   });
 });
 
+app.get('/api/user/getProfile', (req, res) => {
+  res.json({
+    "status": 200,
+    "body": {
+      "id": 354,
+      "first_name": "Vasya",
+      "surname": "Petrov",
+      "picture_url": "/user/images/avatar.jpg",
+      "email": "v@v.v",
+      "gender": "male",
+      "register_date": "2021-10-29",
+      "sub_count": 3,
+      "bookmark_count": 10,
+    }
+  });
+});
+
+
 app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=1', (req, res) => {
   res.json(ACTOR);
 });

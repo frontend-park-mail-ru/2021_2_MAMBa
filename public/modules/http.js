@@ -108,6 +108,20 @@ const register = async (user) => {
   }
 };
 
+const getProfile = async () => {
+  const params = {
+    url: URLS.api.profile,
+    method: 'GET',
+    credentials: 'include',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 const checkAuth = async () => {
   const params = {
     url: URLS.api.checkAuth,
@@ -147,6 +161,7 @@ export {
   getCurrentUser,
   getInfoAboutActor,
   checkAuth,
+  getProfile,
   register,
   login,
 };

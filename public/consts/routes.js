@@ -1,8 +1,9 @@
 export const Routes = {
   HomePage: '/',
   Collections: '/collections',
-  ActorPage: '/actor/\\d+',
+  ActorPage: '\\/actor/\\d+',
   FilmPage: '\\/film\\/\\d+',
   AuthPage: '/auth',
   RegPage: '/reg',
+  Profile: '/profile',
 };

@@ -15,6 +15,7 @@ export const URLS = {
   },
   api: {
     login: `${currentUrl}/api/user/login`,
+    profile: `${currentUrl}/api/user/getProfile`,
     register: `${currentUrl}/api/user/register`,
     logout: `${currentUrl}/api/user/logout`,
     checkAuth: `${currentUrl}/api/user/checkAuth`,

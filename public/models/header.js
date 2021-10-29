@@ -8,7 +8,7 @@ export class HeaderModel extends Model {
   }
 
   compareLinksWithPath = (path) => {
-    for (const link of headerLinks) {
+    for (const link of headerLinks.headerLinks) {
       if (link.href === path) {
         this.eventBus.emit(Events.Header.ChangeActiveButton, link.href);
         return;

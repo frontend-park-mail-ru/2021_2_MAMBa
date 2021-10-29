@@ -66,4 +66,11 @@ export const Events = {
     },
     GetPageContent: 'filmPage:getMainPageContent',
   },
+
+  ProfilePage: {
+    Render: {
+      Content: 'profilePage:renderContent',
+    },
+    GetContent: 'profilePage:getContent',
+  },
 };

@@ -77,7 +77,6 @@ export class Router {
     window.addEventListener('popstate', () => {
       this.go(window.location.pathname + window.location.search);
     });
-
     this.go(window.location.pathname + window.location.search);
   }
 

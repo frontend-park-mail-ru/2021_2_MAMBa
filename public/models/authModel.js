@@ -34,6 +34,10 @@ export class AuthPageModel extends Model {
     });
   }
 
+  redirectToHomePage = () => {
+    eventBus.emit(Events.PathChanged, '/');
+  }
+
   getRegContent = () => {
     this.errorMessages.clear();
     this.initializeErrorMessages();
@@ -120,7 +124,7 @@ export class AuthPageModel extends Model {
           }
           if (response.status === 200) {
             this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
-            eventBus.emit(Events.PathChanged, '/');
+            this.redirectToHomePage();
           }
         });
       } else {
@@ -130,7 +134,7 @@ export class AuthPageModel extends Model {
           }
           if (response.status === 200) {
             this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
-            eventBus.emit(Events.PathChanged, '/');
+            this.redirectToHomePage();
           }
         });
       }

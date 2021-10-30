@@ -10,7 +10,6 @@ export class ActorPagePageController extends BaseController {
    */
   constructor() {
     super(ActorView, ActorPageModel);
-    this.subscribe();
   }
 
   subscribe = () => {

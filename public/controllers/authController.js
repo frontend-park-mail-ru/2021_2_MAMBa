@@ -6,7 +6,6 @@ import {Events} from '../consts/events';
 export class AuthPageController extends BaseController {
   constructor() {
     super(AuthView, AuthPageModel);
-    this.subscribe();
   }
   subscribe = () => {
     this.eventBus.on(Events.AuthPage.Render.Page, this.view.render);
@@ -17,6 +16,7 @@ export class AuthPageController extends BaseController {
     this.eventBus.on(Events.AuthPage.GetContent, this.model.getContent);
     this.eventBus.on(Events.AuthPage.Validate, this.model.validateOneInput);
     this.eventBus.on(Events.AuthPage.Submit, this.model.submit);
+    this.eventBus.on(Events.Authorization.GotUser, this.model.redirectToHomePage);
   }
   unsubscribe = () => {
     this.eventBus.off(Events.AuthPage.Render.Page, this.view.render);
@@ -27,5 +27,6 @@ export class AuthPageController extends BaseController {
     this.eventBus.off(Events.AuthPage.GetContent, this.model.getContent);
     this.eventBus.off(Events.AuthPage.Validate, this.model.validateOneInput);
     this.eventBus.off(Events.AuthPage.Submit, this.model.submit);
+    this.eventBus.off(Events.Authorization.GotUser, this.model.redirectToHomePage);
   }
 }

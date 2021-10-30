@@ -131,8 +131,11 @@ export class Router {
   go(path = '/') {
     const routeData = this.getRouteData(path);
     const data = {...routeData};
-    // this.currentController.unsubscribe();
+    if (this.currentController) {
+      this.currentController.unsubscribe();
+    }
     this.currentController = routeData.controller;
+    this.currentController.subscribe();
 
     if (!this.currentController) {
       path = Routes.HomePage;

@@ -14,7 +14,13 @@ export const URLS = {
     main: '/',
   },
   api: {
-    me: `${currentUrl}/api/me`,
+    login: `${currentUrl}/api/user/login`,
+    profile: `${currentUrl}/api/user/getProfile`,
+    register: `${currentUrl}/api/user/register`,
+    logout: `${currentUrl}/api/user/logout`,
+    checkAuth: `${currentUrl}/api/user/checkAuth`,
+    getUser: `${currentUrl}/api/user/`, // +user_id
+    getProfile: `${currentUrl}/api/user/getProfile`,
     collections: `${currentUrl}/api/collections/getCollections/skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
     actor: `${currentUrl}/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=`,
     actorFilms: `${currentUrl}/api/person/getPersonFilms/id=`,

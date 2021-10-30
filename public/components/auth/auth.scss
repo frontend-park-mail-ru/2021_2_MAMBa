@@ -1,5 +1,7 @@
+@import '../../css/consts.scss';
+
 .auth-content {
-    background: url("../../static/pics/bg_auth.jpg") center;
+    background: url("./static/pics/bg_auth.jpg") center;
     flex: 1 0 auto;
     display: flex;
     align-items: center;
@@ -8,14 +10,14 @@
 
 @keyframes errorField {
     from {background-color: white;}
-    50% {background-color: #E10856;}
+    50% {background-color: $pink;}
     to {background-color: white;}
 }
 
 .auth, .reg {
     border-radius: 20px;
-    background-color: #FFFFFF9A;
-    color: #240B36;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: $purple-text;
     display: flex;
     flex-direction: column;
 }
@@ -51,7 +53,7 @@
     justify-content: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    background-color: #FFFFFF9A;
+    background-color: rgba(255, 255, 255, 0.6);
     height: 63px;
 }
 
@@ -69,10 +71,10 @@
 .auth-btn {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 18px;
-    margin: 0 auto;
     border-radius: 15px;
-    background-color: #E10856;
+    background-color: $pink;
     color: white;
+    margin: 0 auto;
     height: 40px;
     outline:none;
     border:0;
@@ -84,11 +86,12 @@
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     text-decoration: underline;
     color: currentcolor;
+    cursor: pointer;
     margin: 0 auto 25px auto;
 }
 
 .error {
-    border: 2px solid #E10856 !important;
+    border: 2px solid $pink !important;
 }
 
 .animated {
@@ -98,5 +101,5 @@
 .error-text {
     font-family: "Montserrat-Regular", "Arial", sans-serif;
     font-size: 13px;
-    color: #240B36;
+    color: $purple-text;
 }

@@ -28,7 +28,7 @@
   color: gray;
   fill: gray;
   stroke: gray;
-  transition: .5s ease-in-out; }
+  transition: .2s ease-in-out; }
 
 .active-btn > svg > g > path {
   text-decoration: none;
@@ -81,6 +81,7 @@
   visibility: hidden; }
 
 .login-btn, .logout-btn {
+  text-decoration: none;
   color: #E10856;
   font-size: 24px;
   margin-right: 7%;
@@ -137,6 +138,99 @@
 
 .social-btn:hover path {
   fill: white; }
+
+.auth-content {
+  background: url("./static/pics/bg_auth.jpg") center;
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+@keyframes errorField {
+  from {
+    background-color: white; }
+  50% {
+    background-color: #E10856; }
+  to {
+    background-color: white; } }
+
+.auth, .reg {
+  border-radius: 20px;
+  background-color: #FFFFFF9A;
+  color: #240B36;
+  display: flex;
+  flex-direction: column; }
+
+.reg {
+  min-height: 400px;
+  height: 75%;
+  width: 412px; }
+
+.auth {
+  min-height: 280px;
+  height: 45%;
+  width: 412px; }
+
+.auth-form {
+  margin-top: 15px;
+  flex: 1 0 auto;
+  padding: 0 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center; }
+
+.auth-head {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #FFFFFF9A;
+  height: 63px; }
+
+.text-inputs {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  padding-left: 15px;
+  flex: 1 0 auto;
+  border-radius: 10px;
+  width: 290px;
+  height: 36px;
+  outline: none;
+  border: 0; }
+
+.auth-btn {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 18px;
+  margin: 0 auto;
+  border-radius: 15px;
+  background-color: #E10856;
+  color: white;
+  height: 40px;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  width: 221px; }
+
+.auth-a {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  text-decoration: underline;
+  color: currentcolor;
+  cursor: pointer;
+  margin: 0 auto 25px auto; }
+
+.error {
+  border: 2px solid #E10856 !important; }
+
+.animated {
+  animation: errorField  0.3s 1 ease-in-out; }
+
+.error-text {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  font-size: 13px;
+  color: #240B36; }
 
 .collections-main {
   background-color: #F2F2F2;
@@ -491,11 +585,26 @@
   font-family: 'Montserrat-Black';
   src: url("static/fonts/Montserrat-Black.woff2") format("truetype"); }
 
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url("../public/static/fonts/Montserrat-Black.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url("../public/static/fonts/Montserrat-Bold.ttf") format("truetype"); }
+
 html, body {
   font-family: 'Montserrat-Regular', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #F2F2F2; }
+
+body {
+  overflow-y: scroll; }
+
+.content {
+  display: flex;
+  height: inherit; }
 
 #root {
   display: flex;

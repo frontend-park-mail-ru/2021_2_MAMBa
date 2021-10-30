@@ -20,13 +20,4 @@ export class HomePageModel {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
   }
-
-  getInfoForHeader = () => {
-    const data = {
-      titleActiveButton: 'Подборки',
-      class: 'active-btn',
-      authorized: false,
-    };
-    this.eventBus.emit(Events.Homepage.Render.Header, data);
-  }
 }

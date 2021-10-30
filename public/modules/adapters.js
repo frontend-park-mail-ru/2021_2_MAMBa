@@ -71,19 +71,14 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
 
 /**
  * Union actors and their ids.
- * @param {Object} actorInfoJson - Info about actor from json.
- * @return {Object} - Object for render actor information
+ * @param {Object} filmInfoJson - Info about film from json.
+ * @return {Object} - Object for render film information
  */
 export const convertArrayToFilmPage = (filmInfoJson) => (
     {
       film: convertArrayToFilmInfo(filmInfoJson.body.film),
       reviews:convertArrayToReviewArrayInFilmPage(filmInfoJson.body.reviews.review_list),
-      // skip: filmInfoJson.full_actor_current_skip,
-      // limit: filmInfoJson.full_actor_film_current_limit,
-      // date: `${actorInfoJson.born}  ·  ${actorInfoJson.age}`,
       recommendations: convertArrayToFilm(filmInfoJson.body.recommendations.recommendation_list),
-      // filmsWithDescription:
-      //     convertArrayToFilmWithDescription(actorInfoJson.film_with_description_list),
     }
 );
 /**

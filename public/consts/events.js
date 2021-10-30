@@ -32,5 +32,12 @@ export const Events = {
     },
     GetPageContent: 'filmPage:getMainPageContent',
   },
+  ReviewPage: {
+    Render: {
+      Page: 'reviewPage:render',
+      Content: 'reviewPage:renderContent',
+    },
+    GetPageContent: 'reviewPage:getReviewPageContent',
+  },
 };
 

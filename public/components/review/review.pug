@@ -1,0 +1,79 @@
+include ../filmCard/filmCard
+include ../slider/slider
+include ../reviewSlider/reviewSlider
+div.place-between-blocks
+div.film-info
+    div.film-info__container
+        div.film-info__container_pic-film
+            img(src=film.filmAvatar)
+        div.film-info__container_text
+            div.film-info__container_text_main
+                div.film-info__container_text_main_rus #{film.title}
+                div.film-info__container_text_main_en #{film.titleOriginal}
+                div.film-info__container_text_main_rating
+                    img(src="../../static/pics/pink_star.webp" alt= "")
+                    div.film-info__container_text_main_rating_scors  #{film.rating}
+            div.film-info__container_text_facts
+                div.film-info__container_text_facts_title О фильме
+                div.film-info__container_text_facts_container
+                    div.film-info__container_text_facts_container_key Год производсва
+                    div.film-info__container_text_facts_container_value #{film.year}
+                div.film-info__container_text_facts_container
+                    div.film-info__container_text_facts_container_key  Страна
+                    div.film-info__container_text_facts_container_value #{film.countryOriginal}
+                div.film-info__container_text_facts_container
+                    div.film-info__container_text_facts_container_key  Жанр
+                    div.film-info__container_text_facts_container_value
+                        each genre, index in film.genres
+                            if index != 0
+                                span
+                                    = ',    '
+                            a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
+                div.film-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Продолжительность
+                    div.actor-info__container_text_facts_container_value #{film.duration}
+                div.film-info__container_text_facts_container
+                    div.film-info__container_text_facts_container_key  В главных ролях
+                    div.film-info__container_text_facts_container_value
+                      each actor, index in film.actors
+                          if index != 0
+                              span
+                                  = ',    '
+                          a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
+                div.film-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Режиссёр
+                    div.actor-info__container_text_facts_container_value
+                        a(class='change-color-text-href' href=`${film.director.href}`) #{film.director.name}
+                div.film-info__container_text_facts_container-last
+                    div.film-info__container_text_facts_container_key  Сценарист
+                    div.film-info__container_text_facts_container_value
+                        a(class='change-color-text-href' href=`${film.screenwriter.href}`) #{film.screenwriter.name}
+    div.place-between-blocks
+    div.film-info__container-trailer
+        div.film-info__container-trailer_video
+            a(class="film-info__container-trailer_video_button" href="#")
+                img(class="film-info__container-trailer_video_button_img" src="../../static/pics/play.webp" alt= "")
+                | Трейлер
+        div.film-info__container-trailer_name Обзор
+        div.film-info__container-trailer_summery #{film.description}
+    div.place-between-blocks
+    div.film-info__black-container
+        div.name-of-topic Отзывы
+        +reviewSlider(reviews)
+    div.film-info__container-rec-films
+        div.name-of-topic С фильмом
+            span
+                = ' '
+            span.color-text-pink #{film.title}
+            span
+                = ' смотрят'
+        +slider(recommendations)
+
+
+
+
+
+
+
+
+

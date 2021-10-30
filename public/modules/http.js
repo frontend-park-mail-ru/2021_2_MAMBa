@@ -30,6 +30,29 @@ const getInfoAboutFilm = async (filmId) => {
 
 /**
  * Send async get request using async func.
+ * @param {Object} filmId - Contains id of review to render.
+ * @return {Array} - Array of objects for render review page.
+ */
+const getInfoAboutReview = async (reviewId) => {
+  const params = {
+    url: URLS.api.review + reviewId,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return convertArrayToFilmPage(responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
  * @param {Object} actorId - Contains id of actor to render.
  * @return {Array} - Array of objects for render actor page.
  */

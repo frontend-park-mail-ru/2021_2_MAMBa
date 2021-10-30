@@ -1,0 +1,68 @@
+@import '../../css/consts';
+
+.review-slider-container {
+  overflow: hidden;
+  position: relative;
+
+  &__track {
+    display: flex;
+    transition: .2s;
+    row-gap: 20px;
+
+    &_review {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-right: 20px;
+      height: 185px;
+      padding: 40px;
+      color: $white;
+      border-radius: 10px;
+
+      &_name {
+        font-size: 16px;
+      }
+
+      &_text {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      &_date {
+        font-size: 16px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.red{
+  background: linear-gradient(45deg, rgba(209, 51, 48, 0.25), rgba(67, 54, 73, 0.5));
+}
+
+.green{
+  background: linear-gradient(45deg, rgba(85, 202, 91, 0.5), rgba(67, 54, 73, 0.5));
+}
+
+.grey{
+  background: linear-gradient(45deg, rgba(82, 82, 82, 1), rgba(67, 54, 73, 0.5));
+}
+
+.review-slider-container_button {
+  position: absolute;
+  top: 40%;
+  color: white;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: 0.24s ease-in-out;
+
+  &-right {
+    right: 0;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

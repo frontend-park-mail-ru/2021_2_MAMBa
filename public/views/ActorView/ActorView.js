@@ -17,7 +17,7 @@ export class ActorView extends BaseView {
   }
 
   /**
-   * Render html favourites page from pug template.
+   * Render html actor page from pug template.
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
@@ -26,7 +26,7 @@ export class ActorView extends BaseView {
   }
 
   /**
-   * Render content favourites page from pug template to content div.
+   * Render content actor page from pug template to content div.
    * @param {Object} data - Contains info about actor.
    */
   renderContent = (data) => {

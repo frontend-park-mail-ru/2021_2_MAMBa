@@ -2,9 +2,31 @@ import {URLS} from '../consts/urls.js';
 
 import {
   convertArrayToActorFilms,
-  convertArrayToActorPage,
+  convertArrayToActorPage, convertArrayToFilmPage,
 } from './adapters.js';
 
+/**
+ * Send async get request using async func.
+ * @param {Object} filmId - Contains id of film to render.
+ * @return {Array} - Array of objects for render film page.
+ */
+const getInfoAboutFilm = async (filmId) => {
+  const params = {
+    url: URLS.api.film + filmId,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return convertArrayToFilmPage(responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 /**
  * Send async get request using async func.
@@ -38,7 +60,7 @@ const getInfoAboutActor = async (actorId) => {
  */
 const getActorFilms = async (actorId, limit, skip) => {
   const params = {
-    url: URLS.api.actorFilms + actorId+ '&skip='+ limit +'&limit='+skip,
+    url: URLS.api.actorFilms + actorId+ '&skip='+ skip +'&limit='+limit,
     method: 'GET',
   };
 
@@ -133,4 +155,5 @@ export {
   sendRequest,
   getCurrentUser,
   getInfoAboutActor,
+  getInfoAboutFilm,
 };

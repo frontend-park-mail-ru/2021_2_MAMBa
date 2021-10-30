@@ -112,6 +112,7 @@ export class Router {
    * @return {Object} - Возвращает парпметры пути
    */
   getParam(path = '/') {
+    console.log(path);
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;
     const resultPath = parsedURL.pathname;

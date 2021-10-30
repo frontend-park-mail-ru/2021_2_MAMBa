@@ -8,6 +8,8 @@
 @import 'components/pinkButton/pinkButton.scss';
 @import 'components/buttonWithBorder/buttonWithBorder';
 @import 'components/buttonShowMore/buttonShowMore.scss';
+@import 'components/film/film.scss';
+@import 'components/reviewSlider/reviewSlider.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';
@@ -56,6 +58,16 @@ html, body {
   text-decoration: none;
 }
 
+.change-color-text-href:hover{
+  color: $pink;
+}
 
+.change-color-text-href{
+  text-decoration: none;
+  color: $black;
+}
 
+.color-text-pink {
+  color: $pink;
+}
 

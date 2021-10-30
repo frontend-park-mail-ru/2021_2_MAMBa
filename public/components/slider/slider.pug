@@ -1,10 +1,9 @@
 mixin slider(i)
-    div.actor-info__black-container_wrapper
-        div.slider-container
-            div.slider-container__track
-              each input, _ in i
-                  div.slider-container__track_film
-                      img(src= input.film_avatar)
-                      div.slider-container__track_film_name #{input.title}
-            img(class="slider-container_button  slider-container_button-left " src= "../../static/pics/left_arrow.webp" alt= "")
-            img(class="slider-container_button  slider-container_button-right " src="../../static/pics/right_arrow.webp" alt= "")
+    div.slider-container
+        div.slider-container__track
+          each input, _ in i
+              div.slider-container__track_film
+                  img(src= input.film_avatar)
+                  div.slider-container__track_film_name #{input.title}
+        img(class="slider-container_button  slider-container_button-left " src= "../../static/pics/left_arrow.webp" alt= "")
+        img(class="slider-container_button  slider-container_button-right " src="../../static/pics/right_arrow.webp" alt= "")

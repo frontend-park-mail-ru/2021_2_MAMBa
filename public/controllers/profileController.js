@@ -10,7 +10,6 @@ export class ProfileController extends BaseController {
    */
   constructor() {
     super(ProfileView, ProfileModel);
-    this.subscribe();
   }
 
   subscribe = () => {

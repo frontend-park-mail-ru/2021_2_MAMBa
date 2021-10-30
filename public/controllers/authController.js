@@ -6,7 +6,6 @@ import {Events} from '../consts/events';
 export class AuthPageController extends BaseController {
   constructor() {
     super(AuthView, AuthPageModel);
-    this.subscribe();
   }
   subscribe = () => {
     this.eventBus.on(Events.AuthPage.Render.Page, this.view.render);

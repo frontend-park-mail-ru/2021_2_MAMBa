@@ -22,7 +22,7 @@ class EventBus {
    * @param {function} callback - Callback function.
    */
   off(event, callback) {
-    this._listeners[event] = this._listeners[event]?.delete(callback.name);
+    this._listeners[event]?.delete(callback.name);
   }
 
   /**

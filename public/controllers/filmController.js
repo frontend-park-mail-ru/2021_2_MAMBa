@@ -17,6 +17,7 @@ export class FilmPagePageController extends BaseController {
     this.eventBus.on(Events.FilmPage.GetPageContent, this.model.getPageContent);
     this.eventBus.on(Events.FilmPage.Render.Page, this.view.render);
     this.eventBus.on(Events.FilmPage.Render.Content, this.view.renderContent);
+    this.eventBus.on(Events.FilmPage.Render.WriteReview, this.view.renderInputReview);
   }
 
   unsubscribe = () => {

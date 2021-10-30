@@ -4,6 +4,28 @@ export const Events = {
   RedirectForward: 'redirectForward',
   SliderActions: 'sliderActions',
 
+  AuthPage: {
+    Render: {
+      Page: 'authPage:render',
+      Content: 'authPage:renderContent',
+    },
+    Submit: 'authPage:submit',
+    SuccessLogReg: 'authPage:successLogReg',
+    AddValidateError: 'authPage:addValidateError',
+    DeleteValidateError: 'authPage:deleteValidateError',
+    Validate: 'authPage:validate',
+    HavingWrongInput: 'authPage:havingWrongInputs',
+    GetContent: 'authPage:getContent',
+  },
+
+  App: {
+    Start: 'app:start',
+  },
+
+  Router: {
+    Go: 'router:go',
+  },
+
   Homepage: {
     Render: {
       Page: 'homepage:render',
@@ -29,6 +51,7 @@ export const Events = {
     Render: {
       Page: 'filmPage:render',
       Content: 'filmPage:renderContent',
+      WriteReview: 'filmPage:renderReviewToWrite',
     },
     GetPageContent: 'filmPage:getMainPageContent',
   },
@@ -38,6 +61,25 @@ export const Events = {
       Content: 'reviewPage:renderContent',
     },
     GetPageContent: 'reviewPage:getReviewPageContent',
+  },
+
+  Header: {
+    Render: {
+      Content: 'header:renderContent',
+    },
+    ChangeActiveButton: 'header:changeActiveButton',
+  },
+
+  Authorization: {
+    GotUser: 'authorization:gotUser',
+    LogOut: 'authorization:logOut',
+  },
+
+  ProfilePage: {
+    Render: {
+      Content: 'profilePage:renderContent',
+    },
+    GetContent: 'profilePage:getContent',
   },
 };
 

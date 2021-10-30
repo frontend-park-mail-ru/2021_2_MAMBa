@@ -1,7 +1,9 @@
 import {BaseView} from './BaseView/BaseView.js';
 import filmPageContent from './../components/film/film.pug';
+import inputReviewContent from './../components/writeReview/writeReview.pug';
 import {Events} from '../consts/events.js';
 import {getPathArgs} from '../modules/router.js';
+import actorFilmsContent from "../components/filmsWithDescription/filmCardsWithDescription.pug";
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -30,7 +32,7 @@ export class FilmView extends BaseView {
    */
   renderContent = (data) => {
     const template = filmPageContent(data);
-    this.dataFilm= data;
+    this.dataFilm = data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
@@ -39,6 +41,31 @@ export class FilmView extends BaseView {
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
+  }
+
+  addEventListenerToLogout = () => {
+    const logoutButton = document.querySelector('.logout-btn');
+    if (!logoutButton) {
+      return;
+    }
+    logoutButton.addEventListener('click', (e) => {
+      this.eventBus.emit(Events.FilmPage.Render.WriteReview);
+    });
+  }
+
+  renderInputReview = () => {
+    const d = document.querySelector('.input_review');
+    console.log("кут");
+    const template = inputReviewContent();
+
+    console.log(d);
+    if (d) {
+      d.innerHTML += template;
+    }
+    // this.dataActor.moreAvailable = data.moreAvailable;
+    // this.dataActor.skip = data.skip;
+    // this.dataActor.limit = data.limit;
+    // this.checkShowMoreButton(this.dataActor.moreAvailable);
   }
 
   /**
@@ -56,8 +83,8 @@ export class FilmView extends BaseView {
     const reviewCount = reviews.length;
     const btvPrev = document.querySelector('.review-slider-container_button-left');
     const btvNext = document.querySelector('.review-slider-container_button-right');
-    const itemWidth = (container.clientWidth - gap*(reviewSlidesToShow)  - padding*2*reviewSlidesToShow)/ reviewSlidesToShow;
-    const itemWidthWithMargin=itemWidth+gap+padding*2
+    const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding * 2 * reviewSlidesToShow) / reviewSlidesToShow;
+    const itemWidthWithMargin = itemWidth + gap + padding * 2
     const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
 
     reviews.forEach((item) => {

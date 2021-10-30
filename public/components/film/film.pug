@@ -60,14 +60,20 @@ div.film-info
     div.film-info__black-container
         div.name-of-topic Отзывы
         +reviewSlider(reviews)
-    div.film-info__container-rec-films
-        div.name-of-topic С фильмом
-            span
-                = ' '
-            span.color-text-pink #{film.title}
-            span
-                = ' смотрят'
-        +slider(recommendations)
+    div.place-between-blocks
+    div.film-info__white-container
+        div.film-info__white-container_rec-films
+            div.name-of-topic С фильмом
+                span
+                    = ' '
+                span.color-text-pink #{film.title}
+                span
+                    = ' смотрят'
+            +slider(recommendations)
+        div.place-between-blocks
+        div.film-info__white-container_review Написать отзыв
+            div.input_review
+                div.film-info__white-container_review_no-auth Чтобы написать отзыв, пожалуйста, авторизуйтесь
 
 
 

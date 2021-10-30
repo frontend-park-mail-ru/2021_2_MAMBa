@@ -4,4 +4,7 @@ export const Routes = {
   actorPage: '/actor/\\d+',
   filmPage: '/film/\\d+',
   reviewPage: '/review/\\d+',
+  AuthPage: '/auth',
+  RegPage: '/reg',
+  Profile: '/profile',
 };

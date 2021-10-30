@@ -5,6 +5,9 @@
   width: 100%;
   min-width: 1000px;
   flex: 0 0 65px;
+  top: 0;
+  z-index: 1;
+  position: sticky;
   background-color: $grey-base;
   display: flex;
   align-items: center;
@@ -30,10 +33,10 @@
 .menu-btn {
   text-decoration: none;
   cursor: default;
-  color: gray;
-  fill: gray;
-  stroke: gray;
-  transition: .5s ease-in-out;
+  color: $white;
+  fill: $white;
+  stroke: $white;
+  transition: .2s ease-in-out;
 }
 
 .active-btn  > svg > g > path {
@@ -134,7 +137,8 @@
   visibility: hidden;
 }
 
-.login-btn, .logout-btn{
+.login-btn {
+  text-decoration: none;
   color: $pink;
   font-size: 24px;
   margin-right: 7%;

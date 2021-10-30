@@ -5,6 +5,62 @@ import {
   convertArrayToActorPage, convertArrayToFilmPage,
 } from './adapters.js';
 
+const login = async (user) => {
+  const params = {
+    url: URLS.api.login,
+    method: 'POST',
+    body: JSON.stringify(user),
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+const register = async (user) => {
+  const params = {
+    url: URLS.api.register,
+    method: 'POST',
+    body: JSON.stringify(user),
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+const checkAuth = async () => {
+  const params = {
+    url: URLS.api.checkAuth,
+    method: 'GET',
+    credentials: 'include',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+const getProfile = async () => {
+  const params = {
+    url: URLS.api.profile,
+    method: 'GET',
+    credentials: 'include',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 /**
  * Send async get request using async func.
  * @param {Object} filmId - Contains id of film to render.
@@ -17,12 +73,13 @@ const getInfoAboutFilm = async (filmId) => {
   };
 
   try {
-    const {status: responseStatus, parsedJson: responseBody} =
-        await sendRequest(params);
-    if (responseStatus === 200) {
-      return convertArrayToFilmPage(responseBody);
-    }
-    return null;
+    return await sendRequest(params);
+    // const {status: responseStatus, parsedJson: responseBody} =
+    //     await sendRequest(params);
+    // if (responseStatus === 200) {
+    //   return convertArrayToFilmPage(responseBody);
+    // }
+    // return null;
   } catch {
     return null;
   }
@@ -83,7 +140,7 @@ const getInfoAboutActor = async (actorId) => {
  */
 const getActorFilms = async (actorId, limit, skip) => {
   const params = {
-    url: URLS.api.actorFilms + actorId+ '&skip='+ skip +'&limit='+limit,
+    url: URLS.api.actorFilms + actorId + '&skip=' + skip + '&limit=' + limit,
     method: 'GET',
   };
 
@@ -153,20 +210,15 @@ const sendRequest = async ({url, method, body} = {}) => {
  * Send async get request using async func.
  * @return {Promise} - user id if you authorized, null in another case.
  */
-const getCurrentUser = async () => {
+const getCurrentUser = async (id) => {
   const params = {
-    url: URLS.api.me,
+    url: URLS.api.getUser + id,
     method: 'GET',
     credentials: 'include',
   };
 
   try {
-    const {status: responseStatus, parsedJson: responseBody} =
-        await sendRequest(params);
-    if (responseStatus === 200) {
-      return responseBody.id;
-    }
-    return null;
+    return await sendRequest(params);
   } catch (err) {
     return null;
   }
@@ -179,4 +231,8 @@ export {
   getCurrentUser,
   getInfoAboutActor,
   getInfoAboutFilm,
+  checkAuth,
+  getProfile,
+  register,
+  login,
 };

@@ -13,7 +13,6 @@ export class ProfileView extends BaseView {
 
   renderContent = (user) => {
     this.user = user;
-    console.log(user);
     const template = profilePug(this.user);
     const content = document.querySelector('.content');
     if (content) {

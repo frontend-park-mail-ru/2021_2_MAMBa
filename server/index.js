@@ -31,6 +31,46 @@ app.get('/api/person/getPersonFilms/id=1&skip=3&limit=3', (req, res) => {
   res.json(PERSONFILMS);
 });
 
+app.get('/api/user/354', (req, res) => {
+  res.json({
+    "status": 200,
+    "body": {
+      "id": 354,
+      "first_name": 'Vasya',
+      "surname": 'Petrov',
+      "email": 'v@v.v',
+      "profile_pic": "/user/images/avatar.jpg"
+    }
+  });
+});
+
+app.get('/api/user/checkAuth', (req, res) => {
+  res.json({
+    "status": 200,
+    "body": {
+      "id": 354
+    }
+  });
+});
+
+app.get('/api/user/getProfile', (req, res) => {
+  res.json({
+    "status": 200,
+    "body": {
+      "id": 354,
+      "first_name": "Vasya",
+      "surname": "Petrov",
+      "picture_url": "/user/images/avatar.jpg",
+      "email": "v@v.v",
+      "gender": "male",
+      "register_date": "2021-10-29",
+      "sub_count": 3,
+      "bookmark_count": 10,
+    }
+  });
+});
+
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../dist/index.html`));
 });
@@ -69,7 +109,7 @@ const FILM = {
       "release_year": 2020,
       "duration": 132,
       "total_revenue": "12 миллионов $",
-      "description": "В первом и последнем плавании шикарного «Титаника» встречаются двое. Пассажир нижней палубы Джек выиграл билет в карты, а богатая наследница Роза отправляется в Америку, чтобы выйти замуж по расчёту. Чувства молодых людей только успевают расцвести, и даже не классовые различия создадут испытания влюблённым, а айсберг, вставший на пути считавшегося непотопляемым лайнера.",
+      "description": "В ресторане собираются учитель истории, психологии, музыки и физрук, чтобы отметить 40-летие одного из них. И решают проверить научную теорию о том, что c самого рождения человек страдает от нехватки алкоголя в крови, а чтобы стать по-настоящему счастливым, нужно быть немного нетрезвым. Друзья договариваются наблюдать, как возлияния скажутся на их работе и личной жизни, и устанавливают правила: не пить вечером и по выходным. Казалось бы, что может пойти не так?",
       "genres": [
         {
           "name": "Драма",
@@ -446,20 +486,21 @@ const ACTOR = {
   ],
 };
 const users = {
-  'vasya@bk.ru': {
+  'v@v.v': {
     name: 'Vasya',
     surname: 'Petrov',
-    email: 'vasya@bk.ru',
-    password: 'password',
+    email: 'v@v.v',
+    password: '123456as',
   },
 };
 const ids = {};
 
-app.post('/signup', function (req, res) {
-  const name = req.body.name;
+app.post('/api/user/register', function(req, res) {
+  const name = req.body.first_name;
   const surname = req.body.surname;
   const password = req.body.password;
   const email = req.body.email;
+  const passwordRepeat = req.body.password_repeat;
   if (
       !password || !email ||
       !password.match(/^\S{4,}$/) ||
@@ -468,11 +509,17 @@ app.post('/signup', function (req, res) {
     return res.status(400).json({error: 'Невалидные данные пользователя'});
   }
   if (users[email]) {
-    return res.status(400).json({error: 'Пользователь уже существует'});
+    return res.status(401).json({error: 'Пользователь уже существует'});
   }
 
   const id = uuid();
-  const user = {name, surname, email, password};
+  const user = {
+    first_name: name,
+    surname: surname,
+    email: email,
+    password: password,
+    password_repeat: passwordRepeat,
+  };
   ids[id] = email;
   users[email] = user;
 
@@ -480,21 +527,30 @@ app.post('/signup', function (req, res) {
   res.status(201).json({id});
 });
 
-app.post('/login', function (req, res) {
+app.post('/api/user/login', function (req, res) {
   const password = req.body.password;
   const email = req.body.email;
   if (!password || !email) {
     return res.status(400).json({error: 'Не указан E-Mail или пароль'});
   }
   if (!users[email] || users[email].password !== password) {
-    return res.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+    return res.status(401).json({error: 'Не верный E-Mail и/или пароль'});
   }
 
   const id = uuid();
   ids[id] = email;
 
   res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.status(200).json({id});
+  res.status(200).json({
+    status: 200,
+    body: {
+      id: 1,
+      first_name: "Vasya",
+      surname: "Petrov",
+      email: "v@v.v",
+      profile_pic: "/user/images/avatar.jpg",
+    }
+  });
 });
 
 const port = process.env.PORT || 8085;

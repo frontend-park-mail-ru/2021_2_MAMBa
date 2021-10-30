@@ -142,6 +142,7 @@ export class Router {
     }
 
     this.currentController.view.render(data);
+    eventBus.emit(Events.Router.Go, path);
   }
 
   /**

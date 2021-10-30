@@ -23,7 +23,6 @@ export const convertArrayToActorPage = (actorInfoJson) => (
  */
 export const convertArrayToFilm = (arrayContent) => {
   return arrayContent.reduce((arrayFilms, jsonFilm) => {
-    console.log(jsonFilm)
     arrayFilms.push({
       id: jsonFilm?.id,
       title: jsonFilm?.title,
@@ -76,9 +75,9 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
  */
 export const convertArrayToFilmPage = (filmInfoJson) => (
     {
-      film: convertArrayToFilmInfo(filmInfoJson.body.film),
-      reviews:convertArrayToReviewArrayInFilmPage(filmInfoJson.body.reviews.review_list),
-      recommendations: convertArrayToFilm(filmInfoJson.body.recommendations.recommendation_list),
+      film: convertArrayToFilmInfo(filmInfoJson.film),
+      reviews:convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
+      recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
     }
 );
 /**
@@ -87,7 +86,6 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
  * @return {Object} - Object for render list of reviews.
  */
 export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
-  console.log(arrayContent);
   return arrayContent.reduce((arrayReview, jsonReview) => {
     arrayReview.push({
       author: jsonReview.author_name,

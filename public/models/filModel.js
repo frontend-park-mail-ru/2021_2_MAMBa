@@ -1,5 +1,8 @@
 import {Events} from '../consts/events.js';
 import {getInfoAboutFilm} from '../modules/http';
+import {convertArrayToFilmPage} from '../modules/adapters.js';
+import {authModule} from "../modules/authorization";
+
 
 /** Class representing film page model.
  */
@@ -13,11 +16,18 @@ export class FilmPageModel {
   }
 
   getPageContent = (film) => {
-    getInfoAboutFilm(film.id).then((contentData) => {
-      console.log(contentData);
-      this.eventBus.emit(Events.FilmPage.Render.Content, contentData);
-    }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    getInfoAboutFilm(film.id).then((response) => {
+      if (!response) {
+        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      }
+      if (response.status === 200) {
+        this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson.body));
+      }
     });
+    console.log(authModule.user);
+    if (!authModule.user) {
+      console.log("auth");
+      this.eventBus.emit(Events.FilmPage.Render.WriteReview);
+    }
   }
 }

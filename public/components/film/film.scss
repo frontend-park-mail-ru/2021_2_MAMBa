@@ -2,8 +2,10 @@
 
 .film-info {
   background-color: $white;
+  margin-top: 30px;
   width: 1200px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 
   &__container {
     column-gap: 5%;
@@ -150,8 +152,25 @@
     padding: 30px;
   }
 
-  &__container-rec-films {
-    padding: 30px;
+  &__white-container {
+    padding-right: 30px;
+    padding-left: 30px;
+
+    &_rec-films {
+      //padding: 30px;
+    }
+
+    &_review {
+      font-family: "Montserrat-Bold", "Arial", sans-serif;
+      font-size: 30px;
+    }
   }
 }
+
+.film-info__white-container_review_no-auth {
+  margin-top: 20px;
+  font-family: 'Montserrat-Regular', sans-serif;
+  font-size: 16px;
+}
+
 

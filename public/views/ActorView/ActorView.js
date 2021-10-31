@@ -21,7 +21,6 @@ export class ActorView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.ActorPage.GetPageContent, pathArgs);
   }
 

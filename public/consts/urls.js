@@ -25,7 +25,7 @@ export const URLS = {
     actor: `${currentUrl}/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=`,
     actorFilms: `${currentUrl}/api/person/getPersonFilms/id=`,
 
-    review: `${currentUrl}/api/review/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=`,
+    review: `${currentUrl}/api/film/getReview/id=`,
 
     film: `${currentUrl}/api/film/getFilm/skipReview=0&limitReview=11&skipRec=0&limitRec=11&id=`,
   },

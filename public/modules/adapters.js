@@ -76,7 +76,7 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
 export const convertArrayToFilmPage = (filmInfoJson) => (
     {
       film: convertArrayToFilmInfo(filmInfoJson.film),
-      reviews:convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
+      reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
       recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
     }
 );
@@ -121,9 +121,9 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     trailerUrl: arrayContent?.trailer_url,
     totalRevenue: arrayContent?.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres),
-    director:convertPersonaToFilmPage(arrayContent?.director),
-    screenwriter: convertPersonaToFilmPage(arrayContent?.screenwriter),
-    actors:convertArrayToActorArray(arrayContent?.actors),
+    director: convertPersonToFilmPage(arrayContent?.director),
+    screenwriter: convertPersonToFilmPage(arrayContent?.screenwriter),
+    actors: convertArrayToActorArray(arrayContent?.actors),
   }
 };
 
@@ -157,9 +157,39 @@ export const convertArrayToGenresArray = (arrayContent) => {
   }, []);
 };
 
-export const convertPersonaToFilmPage = (personaInfoJson) => (
+export const convertPersonToFilmPage = (personaInfoJson) => (
     {
       name: personaInfoJson.name_rus,
       href: `/actor/${personaInfoJson.id}`,
     }
 );
+
+
+/**
+ * Union actors and their ids.
+ * @param {Object} actorInfoJson - Info about actor from json.
+ * @return {Object} - Object for render actor information
+ */
+export const convertReviewToReviewPage = (reviewInfoJson) => {
+  let classType, classButtonType = ""
+  if (reviewInfoJson.review_type === 1) {
+    classType = "positive-review"
+    classButtonType = "positive-button"
+  } else if (reviewInfoJson.review_type === 0) {
+    classType = "neutral-review"
+    classButtonType = "neutral-button"
+  } else {
+    classType = "negative-review"
+    classButtonType = "negative-button"
+  }
+  return {
+    filmName: reviewInfoJson.film_title_ru,
+    filmHref: `/film/${reviewInfoJson.film_id}`,
+    authorName: reviewInfoJson.author_name,
+    authorAvatar: reviewInfoJson.author_picture_url,
+    reviewText: reviewInfoJson.review_text,
+    classType: classType,
+    date: reviewInfoJson.date,
+    classButtonType:classButtonType,
+  }
+};

@@ -24,10 +24,9 @@ export class FilmPageModel {
         this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson.body));
       }
     });
-    console.log(authModule.user);
-    if (!authModule.user) {
-      console.log("auth");
-      this.eventBus.emit(Events.FilmPage.Render.WriteReview);
-    }
+    // console.log(authModule.user);
+    // if (!authModule.user) {
+    //   this.eventBus.emit(Events.FilmPage.Render.WriteReview);
+    // }
   }
 }

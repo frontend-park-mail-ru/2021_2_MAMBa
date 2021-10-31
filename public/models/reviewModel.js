@@ -1,31 +1,35 @@
 import {Events} from '../consts/events.js';
-import {getActorFilms, getInfoAboutActor} from '../modules/http';
+import {getInfoAboutFilm, getInfoAboutReview} from '../modules/http';
+import {convertReviewToReviewPage} from "../modules/adapters";
 
 /** Class representing actor page model.
  * @param {Object} actor - info about review(id).
  */
 export class ReviewPageModel {
   /**
-   * Create a actor page model.
+   * Create a review page model.
    * @param {EventBus} eventBus - Global Event Bus.
    */
   constructor(eventBus) {
     this.eventBus = eventBus;
   }
 
-  getPageContent = (actor) => {
-    getInfoAboutActor(actor.id).then((contentData) => {
-      this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
-    }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+  getPageContent = (review) => {
+    getInfoAboutReview(review.id).then((response) => {
+      if (!response) {
+        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      }
+      if (response.status === 200) {
+        this.eventBus.emit(Events.ReviewPage.Render.Content, convertReviewToReviewPage(response.parsedJson.body));
+      }
     });
   }
 
-  getActorFilmsContent = (actor) => {
-    getActorFilms(actor.id, actor.limit, actor.skip).then((contentData) => {
-      this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
-    }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-    });
-  }
+  // getActorFilmsContent = (actor) => {
+  //   getActorFilms(actor.id, actor.limit, actor.skip).then((contentData) => {
+  //     this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
+  //   }).catch(() => {
+  //     this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+  //   });
+  // }
 }

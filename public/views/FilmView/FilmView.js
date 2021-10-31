@@ -1,9 +1,9 @@
-import {BaseView} from './BaseView/BaseView.js';
-import filmPageContent from './../components/film/film.pug';
-import inputReviewContent from './../components/writeReview/writeReview.pug';
-import {Events} from '../consts/events.js';
-import {getPathArgs} from '../modules/router.js';
-import actorFilmsContent from "../components/filmsWithDescription/filmCardsWithDescription.pug";
+import {BaseView} from '../BaseView/BaseView.js';
+import filmPageContent from '../../components/film/film.pug';
+import inputReviewContent from '../../components/writeReview/writeReview.pug';
+import {Events} from '../../consts/events.js';
+import {getPathArgs} from '../../modules/router.js';
+import actorFilmsContent from "../../components/filmsWithDescription/filmCardsWithDescription.pug";
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -15,6 +15,7 @@ export class FilmView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
     this.dataFilm;
+
   }
 
   /**
@@ -22,7 +23,6 @@ export class FilmView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/film/:id');
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.FilmPage.GetPageContent, pathArgs);
   }
 
@@ -38,34 +38,30 @@ export class FilmView extends BaseView {
       content.innerHTML = template;
       this.setSliderReviewActions();
       this.setSliderActions();
+      // this.eventBus.on(Events.Authorization.GotUser, this.renderInputReview);
+      // this.eventBus.on(Events.Header.LogOut, this.renderNoInputReview);
+
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
 
-  addEventListenerToLogout = () => {
-    const logoutButton = document.querySelector('.logout-btn');
-    if (!logoutButton) {
-      return;
+  /**
+   * Render html input for review.
+   */
+  renderInputReview = () => {
+    console.log("inp");
+    const inputReview = document.querySelector('.input_review');
+    const template = inputReviewContent();
+    if (inputReview) {
+      inputReview.innerHTML = template;
     }
-    logoutButton.addEventListener('click', (e) => {
-      this.eventBus.emit(Events.FilmPage.Render.WriteReview);
-    });
   }
 
-  renderInputReview = () => {
-    const d = document.querySelector('.input_review');
-    console.log("кут");
-    const template = inputReviewContent();
-
-    console.log(d);
-    if (d) {
-      d.innerHTML += template;
-    }
-    // this.dataActor.moreAvailable = data.moreAvailable;
-    // this.dataActor.skip = data.skip;
-    // this.dataActor.limit = data.limit;
-    // this.checkShowMoreButton(this.dataActor.moreAvailable);
+  renderNoInputReview =()=>{
+    console.log("no inp");
+    const inputReview = document.querySelector('.input_review');
+    inputReview.innerHTML='<div class="film-info__white-container_review_no-auth">Чтобы написать отзыв, пожалуйста, авторизуйтесь</div>';
   }
 
   /**

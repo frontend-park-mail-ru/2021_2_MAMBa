@@ -74,12 +74,6 @@ const getInfoAboutFilm = async (filmId) => {
 
   try {
     return await sendRequest(params);
-    // const {status: responseStatus, parsedJson: responseBody} =
-    //     await sendRequest(params);
-    // if (responseStatus === 200) {
-    //   return convertArrayToFilmPage(responseBody);
-    // }
-    // return null;
   } catch {
     return null;
   }
@@ -87,7 +81,7 @@ const getInfoAboutFilm = async (filmId) => {
 
 /**
  * Send async get request using async func.
- * @param {Object} filmId - Contains id of review to render.
+ * @param {Object} reviewId - Contains id of review to render.
  * @return {Array} - Array of objects for render review page.
  */
 const getInfoAboutReview = async (reviewId) => {
@@ -97,12 +91,7 @@ const getInfoAboutReview = async (reviewId) => {
   };
 
   try {
-    const {status: responseStatus, parsedJson: responseBody} =
-        await sendRequest(params);
-    if (responseStatus === 200) {
-      return convertArrayToFilmPage(responseBody);
-    }
-    return null;
+    return await sendRequest(params);
   } catch {
     return null;
   }
@@ -227,6 +216,7 @@ const getCurrentUser = async (id) => {
 export {
   getActorFilms,
   getCollections,
+  getInfoAboutReview,
   sendRequest,
   getCurrentUser,
   getInfoAboutActor,

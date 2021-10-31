@@ -1,6 +1,7 @@
 include ../filmCard/filmCard
 include ../slider/slider
 include ../reviewSlider/reviewSlider
+include ../writeReview/writeReview
 div.film-info
     div.film-info__container
         div.film-info__container_pic-film
@@ -71,7 +72,7 @@ div.film-info
             +slider(recommendations)
         div.place-between-blocks
         div.film-info__white-container_review Написать отзыв
-            div.input_review
+            +inputReview
 
 
 

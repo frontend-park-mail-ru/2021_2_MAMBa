@@ -37,5 +37,4 @@ export class ReviewView extends BaseView {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
-
 }

@@ -15,7 +15,6 @@ app.use(cookie());
 
 app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
   res.json(COLLECTIONS);
-  console.log("in col");
 });
 
 app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=1', (req, res) => {
@@ -23,7 +22,6 @@ app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=
 });
 
 app.get('/api/film/getFilm/skipReview=0&limitReview=11&skipRec=0&limitRec=11&id=1', (req, res) => {
-  console.log("in film api");
   res.json(FILM);
 });
 

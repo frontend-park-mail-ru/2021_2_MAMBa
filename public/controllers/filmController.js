@@ -15,17 +15,16 @@ export class FilmPagePageController extends BaseController {
 
   subscribe = () => {
     this.eventBus.on(Events.FilmPage.GetPageContent, this.model.getPageContent);
+    this.eventBus.on(Events.FilmPage.PostReview, this.model.postReview);
     this.eventBus.on(Events.FilmPage.Render.Page, this.view.render);
     this.eventBus.on(Events.FilmPage.Render.Content, this.view.renderContent);
-    this.eventBus.on(Events.Authorization.GotUser, this.view.renderInputReview);
-    this.eventBus.on(Events.Header.LogOut, this.view.renderNoInputReview);
+    this.eventBus.on(Events.FilmPage.Render.WarningSend, this.view.renderWarning);
+    this.eventBus.on(Events.FilmPage.Render.SuccessfulSend, this.view.renderSuccessfulSend);
   }
 
   unsubscribe = () => {
     this.eventBus.off(Events.FilmPage.GetPageContent, this.model.getPageContent);
     this.eventBus.off(Events.FilmPage.Render.Page, this.view.render);
     this.eventBus.off(Events.FilmPage.Render.Content, this.view.renderContent);
-    this.eventBus.off(Events.Authorization.GotUser, this.model.renderInputReview);
-    this.eventBus.off(Events.Authorization.LogOut, this.model.renderNoInputReview);
   }
 }

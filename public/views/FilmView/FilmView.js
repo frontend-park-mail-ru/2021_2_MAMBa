@@ -1,9 +1,8 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import filmPageContent from '../../components/film/film.pug';
-import inputReviewContent from '../../components/writeReview/writeReview.pug';
+import successfulSendButton from '../../components/authWarningButton/authWarningButton.pug';
 import {Events} from '../../consts/events.js';
 import {getPathArgs} from '../../modules/router.js';
-import actorFilmsContent from "../../components/filmsWithDescription/filmCardsWithDescription.pug";
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -15,7 +14,6 @@ export class FilmView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
     this.dataFilm;
-
   }
 
   /**
@@ -38,38 +36,111 @@ export class FilmView extends BaseView {
       content.innerHTML = template;
       this.setSliderReviewActions();
       this.setSliderActions();
-      // this.eventBus.on(Events.Authorization.GotUser, this.renderInputReview);
-      // this.eventBus.on(Events.Header.LogOut, this.renderNoInputReview);
-
+      this.addSubmitSendReviewListener(data.film.id);
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
 
+  addSubmitSendReviewListener = (filmId) => {
+    const review={
+      film_id: filmId,
+      text: '',
+      review_type: -2,
+    };
+
+    const positiveButton= document.querySelector('.type-positive');
+    const neutralButton= document.querySelector('.type-neutral');
+    const negativeButton= document.querySelector('.type-negative');
+    positiveButton.addEventListener('click', (e) => {
+      review.review_type = 1;
+      positiveButton.classList.add('positive-chosen');
+      negativeButton.classList.remove('negative-chosen');
+      neutralButton.classList.remove('neutral-chosen');
+      this.removeWarning('warning_type');
+    });
+    neutralButton.addEventListener('click', (e) => {
+      review.review_type = 0;
+      positiveButton.classList.remove('positive-chosen');
+      negativeButton.classList.remove('negative-chosen');
+      neutralButton.classList.add('neutral-chosen');
+      this.removeWarning('warning_type');
+    });
+    negativeButton.addEventListener('click', (e) => {
+      review.review_type = -1;
+      positiveButton.classList.remove('positive-chosen');
+      negativeButton.classList.add('negative-chosen');
+      neutralButton.classList.remove('neutral-chosen');
+      this.removeWarning('warning_type');
+    });
+
+    const clearButton= document.querySelector('.clear-button');
+    clearButton.addEventListener('click', (e) => {
+      document.getElementById('input').value = '';
+    });
+
+    const sendButton = this.getSendButtonFromDom();
+    sendButton.addEventListener('click', (e) => {
+      if (review.review_type===-2) {
+        this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
+        return;
+      }
+
+      const textInput =document.querySelector('.write_review__text').value;
+      if (textInput==='') {
+        this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+        return;
+      }
+      review.text=textInput;
+
+      this.eventBus.emit(Events.FilmPage.PostReview, review);
+      this.removeWarning('warning_empty-text');
+    });
+  }
+
+
+  getSendButtonFromDom = () => {
+    return document.querySelector('.send-review');
+  }
+
   /**
-   * Render html input for review.
+   * Render warning to auth.
    */
-  renderInputReview = () => {
-    console.log("inp");
-    const inputReview = document.querySelector('.input_review');
-    const template = inputReviewContent();
-    if (inputReview) {
-      inputReview.innerHTML = template;
+  renderWarning = (text, className) => {
+    const errorBlock= document.querySelector(`.${className}`);
+    errorBlock.innerHTML = text;
+  }
+
+  /**
+   * Remove warning to auth.
+   */
+  removeWarning = (className) => {
+    if (className===undefined) {
+      className='warning_no-auth';
+    }
+    const errorBlock= document.querySelector(`.${className}`);
+    if (errorBlock) {
+      errorBlock.innerHTML = '';
     }
   }
 
-  renderNoInputReview =()=>{
-    console.log("no inp");
-    const inputReview = document.querySelector('.input_review');
-    inputReview.innerHTML='<div class="film-info__white-container_review_no-auth">Чтобы написать отзыв, пожалуйста, авторизуйтесь</div>';
+  /**
+   * Render button to successful sending.
+   */
+  renderSuccessfulSend = () => {
+    const template = successfulSendButton();
+    const sendButton = this.getSendButtonFromDom();
+    if (sendButton) {
+      sendButton.innerHTML = template;
+    }
   }
 
   /**
    * Set slider actions.
    */
   setSliderReviewActions = () => {
-    let gap = 20;
-    let padding = 40;
+    const gap = 20;
+    const padding = 40;
     let position = 0;
     const reviewSlidesToShow = 3;
     const reviewSlidesToScroll = 1;
@@ -80,7 +151,7 @@ export class FilmView extends BaseView {
     const btvPrev = document.querySelector('.review-slider-container_button-left');
     const btvNext = document.querySelector('.review-slider-container_button-right');
     const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding * 2 * reviewSlidesToShow) / reviewSlidesToShow;
-    const itemWidthWithMargin = itemWidth + gap + padding * 2
+    const itemWidthWithMargin = itemWidth + gap + padding * 2;
     const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
 
     reviews.forEach((item) => {
@@ -181,7 +252,6 @@ export class FilmView extends BaseView {
     };
     checkButtons();
   }
-
 }
 
 

@@ -2,7 +2,7 @@ import {URLS} from '../consts/urls.js';
 
 import {
   convertArrayToActorFilms,
-  convertArrayToActorPage, convertArrayToFilmPage,
+  convertArrayToActorPage,
 } from './adapters.js';
 
 const login = async (user) => {
@@ -52,6 +52,20 @@ const getProfile = async () => {
     url: URLS.api.profile,
     method: 'GET',
     credentials: 'include',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+const sendReview = async (user) => {
+  const params = {
+    url: URLS.api.sendReview,
+    method: 'POST',
+    body: JSON.stringify(user),
   };
 
   try {
@@ -214,6 +228,7 @@ const getCurrentUser = async (id) => {
 };
 
 export {
+  sendReview,
   getActorFilms,
   getCollections,
   getInfoAboutReview,

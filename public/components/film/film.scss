@@ -154,10 +154,6 @@
     padding-right: 30px;
     padding-left: 30px;
 
-    &_rec-films {
-      //padding: 30px;
-    }
-
     &_review {
       font-family: "Montserrat-Bold", "Arial", sans-serif;
       font-size: 30px;
@@ -165,7 +161,7 @@
   }
 }
 
-.film-info__white-container_review_no-auth {
+.film-info__white-container_review_warning {
   margin-top: 20px;
   font-family: 'Montserrat-Regular', sans-serif;
   font-size: 16px;

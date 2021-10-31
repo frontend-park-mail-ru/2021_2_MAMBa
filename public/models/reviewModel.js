@@ -1,6 +1,6 @@
 import {Events} from '../consts/events.js';
-import {getInfoAboutFilm, getInfoAboutReview} from '../modules/http';
-import {convertReviewToReviewPage} from "../modules/adapters";
+import {convertReviewToReviewPage} from '../modules/adapters';
+import {getInfoAboutReview} from "../modules/http";
 
 /** Class representing actor page model.
  * @param {Object} actor - info about review(id).
@@ -24,12 +24,4 @@ export class ReviewPageModel {
       }
     });
   }
-
-  // getActorFilmsContent = (actor) => {
-  //   getActorFilms(actor.id, actor.limit, actor.skip).then((contentData) => {
-  //     this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
-  //   }).catch(() => {
-  //     this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-  //   });
-  // }
 }

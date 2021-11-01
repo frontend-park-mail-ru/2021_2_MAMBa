@@ -1,96 +1,39 @@
 @import '../../css/consts';
 
 .collections-main {
+  margin-top: 30px;
   background-color: $white;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-right: 12%;
   margin-left: 12%;
-}
 
-.heading {
-  margin-bottom: 0;
-  color: $black;
-  display: flex;
-  font-family: "Montserrat-Bold", "Arial", sans-serif;;
-  font-size: 40px;
-  margin-top: 25px;
-}
+  &_heading {
+    display: flex;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;;
+    font-size: 40px;
+  }
 
-.detailed-collection {
-  margin-top: 10px;
-  margin-bottom: 25px;
-  font-size: 16px;
-  line-height: normal;
-  color: $grey-background;
-  display: flex;
-  position: relative;
-}
+  &_detailed {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: $grey-background;
+    display: flex;
+  }
 
-.background {
-  background-color: $grey-background;
-  border-radius: 20px;
-  padding: 3% 3% 0.9% 3%;
-  width: 94%;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  display: grid;
-  gap: 10px;
-}
+  &_black-background {
+    background-color: $grey-background;
+    border-radius: 20px;
+    padding: 3% 3% 3% 3%;
+    width: 94%;
 
-.container {
-  margin-bottom: 1.875%;
-  display: flex;
-  align-items: flex-start;
-  column-gap: 2%;
+    &_container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+  }
 }
-
-.collection {
-  transition: .3s ease-in-out;
-  cursor: pointer;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 32.19%;
-}
-
-.pic_container {
-  position: relative;
-  padding-bottom: 64%;
-  height: 0;
-  overflow: hidden;
-  margin-bottom: 10px;
-  object-fit:cover;
-  background-size: cover;
-}
-
-.pic_container img {
-  align-self: stretch;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.collection:hover {
-  position: relative;
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.name-of-collection {
-  font-weight: 600;
-  margin-left: 3px;
-  margin-top: 0px;
-  margin-bottom: 0;
-  font-size: 18px;
-  line-height: normal;
-  color: $white;
-  display: flex;
-}
-
 

@@ -1,3 +1,4 @@
+//TODO: переименовать на заглавные
 export const Events = {
   PathChanged: 'pathChanged',
   RedirectBack: 'redirectBack',
@@ -6,7 +7,6 @@ export const Events = {
 
   Homepage: {
     Render: {
-      Page: 'homepage:render',
       ErrorPage: 'homepage:renderErrorPage',
       Header: 'homepage:renderHeader',
       Content: 'homepage:renderContent',
@@ -18,7 +18,6 @@ export const Events = {
   },
   ActorPage: {
     Render: {
-      Page: 'actorPage:render',
       Content: 'actorPage:renderContent',
       Films: 'actorPage:renderFilms',
     },
@@ -27,7 +26,6 @@ export const Events = {
   },
   FilmPage: {
     Render: {
-      Page: 'filmPage:render',
       Content: 'filmPage:renderContent',
     },
     GetPageContent: 'filmPage:getMainPageContent',

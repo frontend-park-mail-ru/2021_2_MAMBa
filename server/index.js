@@ -21,18 +21,19 @@ app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=
   res.json(ACTOR);
 });
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/../dist/index.html`));
-});
-
 app.get('/api/person/getPersonFilms/id=1&skip=3&limit=3', (req, res) => {
   res.json(PERSONFILMS);
 });
 
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/../dist/index.html`));
+});
+
+
 const PERSONFILMS = {
   full_actor_film_current_limit: 3,
   full_actor_current_skip: 3,
-  more_available: true,
+  more_available: false,
   film_with_description_list: [
     {
       id: 18,
@@ -279,7 +280,7 @@ app.post('/login', function (req, res) {
   res.status(200).json({id});
 });
 
-const port = process.env.PORT || 8088;
+const port = process.env.PORT || 8085;
 
 app.listen(port, function () {
   console.log(`Server listening port ${port}`);

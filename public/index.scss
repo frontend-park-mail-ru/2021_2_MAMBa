@@ -8,6 +8,7 @@
 @import 'components/pinkButton/pinkButton.scss';
 @import 'components/buttonWithBorder/buttonWithBorder';
 @import 'components/buttonShowMore/buttonShowMore.scss';
+@import 'components/collection/collection.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';
@@ -29,6 +30,7 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: $white;
+  color: $black;
 }
 
 #root {
@@ -42,20 +44,16 @@ html, body {
   margin-bottom: 40px;
 }
 
-.name-of-topic {
+.block-subtitle {
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 30px;
   margin-bottom: 20px;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
 .scroll-to {
   text-decoration: none;
 }
-
-
-
-

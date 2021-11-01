@@ -1,10 +1,8 @@
 include ../filmCard/filmCard
 include ../slider/slider
-div.place-between-blocks
 div.actor-info
     div.actor-info__container
-        div.actor-info__container_pic-actor
-            img(src=picture_url)
+        img(src=picture_url)
         div.actor-info__container_text
             div.actor-info__container_text_name
                 div.actor-info__container_text_name_rus #{name_rus}
@@ -36,18 +34,16 @@ div.actor-info
                     div.actor-info__container_text_facts_container_key  Всего фильмов
                     div.actor-info__container_text_facts_container_value #{film_number}
             a(class="button-with-border scroll-to" href="#biography") Биография
-    div.place-between-blocks
     div.actor-info__black-container
-        div.name-of-topic Популярные фильмы с актером
+        div.block-subtitle Популярные фильмы с актером
         +slider(filmsToSlide)
-        div.place-between-blocks
-        div.name-of-topic Полная фильмография
         div.actor-info__black-container_films-with-description
+            div.block-subtitle Полная фильмография
             div.actor-info__black-container_films-with-description_container
               - for (let i = 0; i < limit; i++)
               +filmCard(filmsWithDescription[i])
             button(type="button" class=" show-more-films button-more ") Показать еще
-    div.place-between-blocks
-    div.name-of-topic#biography Биография
-    div.actor-info__biography #{biography}
+    div.actor-info__biography
+        div.block-subtitle#biography Биография
+        div.actor-info__biography_text #{biography}
 

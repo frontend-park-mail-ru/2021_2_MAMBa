@@ -1,6 +1,7 @@
+//TODO: переименовать на заглавные
 export const Routes = {
   homePage: '/',
   collections: '/collections',
-  actorPage: '/actor/\\d+',
-  filmPage: '\\/film\\/\\d+',
+  actorPage: '/actors/\\d+',
+  filmPage: '/films/\\d+',
 };

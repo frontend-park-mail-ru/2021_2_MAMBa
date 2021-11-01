@@ -13,10 +13,17 @@ export class ActorPageModel {
     this.eventBus = eventBus;
   }
 
+  /**
+   * Get info for actor page emit render content.
+   */
   getPageContent = (actor) => {
-    getInfoAboutActor(actor.id).then((contentData) => {
-      this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
-    }).catch(() => {
+    if (actor === undefined || actor.id === undefined) {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    }
+    getInfoAboutActor(actor.id)
+        .then((contentData) => {
+          this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
+        }).catch(() => {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
   }

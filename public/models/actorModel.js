@@ -22,16 +22,20 @@ export class ActorPageModel {
     }
     getInfoAboutActor(actor.id)
         .then((contentData) => {
-          this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
+          if (contentData !== undefined)
+            console.log(contentData);
+            this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
         }).catch(() => {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
   }
 
   getActorFilmsContent = (actor) => {
-    getActorFilms(actor.id, actor.limit, actor.skip).then((contentData) => {
-      this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
-    }).catch(() => {
+    getActorFilms(actor.id, actor.limit, actor.skip)
+        .then((contentData) => {
+          if (contentData !== undefined)
+            this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
+        }).catch(() => {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
   }

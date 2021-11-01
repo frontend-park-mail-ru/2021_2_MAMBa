@@ -1,5 +1,104 @@
+.profile {
+  width:100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile_header {
-  background-image: url(../../static/pics/Header.png);
-  height: 200px;
-  width: 1000px;
+  background: no-repeat center/cover url(./static/pics/Header.png);
+  width: 1370px;
+  height: 270px;
+  margin: 20px 7% 0;
+  position: relative;
+}
+
+.profile-img {
+  box-shadow: 0 0 20px 1px rgb(255 255 255 / 30%);
+  border-radius: 100px;
+  height: 170px;
+  width: 170px;
+  position: absolute;
+  top: 50px;
+  left: 60px;
+  object-fit: cover;
+}
+
+.name-surname {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  position: absolute;
+  top: 80px;
+  left: 260px;
+  font-size: 26px;
+  color: #F2F2F2;
+}
+
+.label-subscribers-count {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  position: absolute;
+  top: 140px;
+  right: 340px;
+  font-size: 14px;
+  color: #F2F2F2;
+}
+
+.label-bookmark-count {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  position: absolute;
+  top: 140px;
+  right: 140px;
+  font-size: 14px;
+  color: #F2F2F2;
+}
+
+.bookmark-count {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  position: absolute;
+  top: 95px;
+  left: 1190px;
+  font-size: 30px;
+  color: #F2F2F2;
+}
+
+.subscribers-count {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  position: absolute;
+  top: 95px;
+  left: 1005px;
+  font-size: 30px;
+  color: #F2F2F2;
+}
+
+.label-reg-data {
+  position: absolute;
+  top: 120px;
+  left: 260px;
+  font-size: 16px;
+  color: #716E6E;
+}
+
+.reg-data {
+  position: absolute;
+  top: 140px;
+  left: 260px;
+  font-size: 16px;
+  color: #716E6E;
+}
+
+.profile-menu {
+  margin-top: 20px;
+  width: 1170px;
+  color: #716E6E;
+  font-size: 16px;
+}
+
+.profile-menu-link {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #716E6E;
+}
+
+.profile-menu-link:hover {
+  color: $pink;
 }

@@ -1,4 +1,6 @@
 .profile-menu
     each link in menuLinks
-      span.profile-menu-link #{link.name}
+        if (!thisUser & link.name === 'Настройки')
+          continue
+        a.profile-menu-link(href=link.href) #{link.name}
     hr.profile-menu-line

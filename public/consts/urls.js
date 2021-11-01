@@ -21,6 +21,10 @@ export const URLS = {
     checkAuth: `${currentUrl}/api/user/checkAuth`,
     getUser: `${currentUrl}/api/user/`, // +user_id
     getProfile: `${currentUrl}/api/user/getProfile`,
+    changeSettings: `${currentUrl}/api/user/changeProfile`,
+    getBookmarks: `${currentUrl}/api/user/getBookmarks`,
+    getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
+    getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
     collections: `${currentUrl}/api/collections/getCollections/skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
     actor: `${currentUrl}/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=`,
   },

@@ -108,9 +108,23 @@ const register = async (user) => {
   }
 };
 
-const getProfile = async () => {
+const changeSettings = async (user) => {
   const params = {
-    url: URLS.api.profile,
+    url: URLS.api.changeSettings,
+    method: 'POST',
+    body: JSON.stringify(user),
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+const getProfile = async (id) => {
+  const params = {
+    url: URLS.api.profile + `/${id}`,
     method: 'GET',
     credentials: 'include',
   };
@@ -154,6 +168,20 @@ const getCurrentUser = async (id) => {
   }
 };
 
+const getNProfilePagesBlocks = async (url, id, limit, skip) => {
+  const params = {
+    url: url + `?id=${id}&limit=${limit}&skip=${skip}`,
+    method: 'GET',
+    credentials: 'include',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 
 export {
   getCollections,
@@ -161,6 +189,8 @@ export {
   getCurrentUser,
   getInfoAboutActor,
   checkAuth,
+  getNProfilePagesBlocks,
+  changeSettings,
   getProfile,
   register,
   login,

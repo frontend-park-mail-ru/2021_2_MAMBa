@@ -39,7 +39,7 @@ app.get('/api/user/checkAuth', (req, res) => {
   });
 });
 
-app.get('/api/user/getProfile', (req, res) => {
+app.get('/api/user/getProfile/354', (req, res) => {
   res.json({
     "status": 200,
     "body": {
@@ -56,6 +56,13 @@ app.get('/api/user/getProfile', (req, res) => {
   });
 });
 
+app.get('/api/user/getBookmarks?id=354&limit=6&skip=0', (req, res) => {
+  res.json(Bookmarks);
+});
+
+app.get('/api/user/getReviewsAndStars?id=354&limit=6&skip=0', (req, res) => {
+  res.json(ReviewsAndStars);
+});
 
 app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=1', (req, res) => {
   res.json(ACTOR);
@@ -65,6 +72,30 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../dist/index.html`));
 });
 
+const Bookmarks = {
+
+}
+
+const ReviewsAndStars = {
+  "status": 200,
+  "body": {
+    "review_list": [
+      {
+        "id": 1,
+        "film_id": 2,
+        "film_title_ru": "Шиша",
+        "film_title_original": "Shisha",
+        "film_picture_url": "server/images/film.png",
+        "review_text": "Описание фильма ыыыыы",
+        "stars": 5
+      }
+    ],
+    "more_avaliable": false,
+    "review_total": 0,
+    "current_limit": 6,
+    "current_skip": 0
+  }
+}
 
 const COLLECTIONS = {
   collections_list: [

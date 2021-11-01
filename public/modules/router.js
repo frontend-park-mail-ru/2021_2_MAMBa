@@ -144,7 +144,6 @@ export class Router {
     if (window.location.pathname !== path) {
       window.history.pushState(null, null, path);
     }
-
     this.currentController.view.render(data);
     eventBus.emit(Events.Router.Go, path);
   }

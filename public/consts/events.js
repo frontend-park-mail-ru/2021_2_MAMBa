@@ -70,7 +70,14 @@ export const Events = {
   ProfilePage: {
     Render: {
       Content: 'profilePage:renderContent',
+      Bookmarks: 'profilePage:renderBookmarks',
+      ReviewsMarks: 'profilePage:renderReviewsMarks',
+      Subscriptions: 'profilePage:renderSubscriptions',
+      Settings: 'profilePage:renderSettings',
     },
+    SubmitSettings: 'profilePage:submitSettings',
+    GetCurrentPageBlocks: 'profilePage:getCurrentPageBlocks',
     GetContent: 'profilePage:getContent',
+    PrependMenuLinks: 'profilePage:prependMenuLinks',
   },
 };

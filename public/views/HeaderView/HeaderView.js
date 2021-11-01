@@ -64,7 +64,11 @@ export class HeaderView extends BaseView {
     if (!enterButton) {
       return;
     }
-    enterButton.innerHTML = UserBlock({userName: authModule.user.first_name, imgSrc: authModule.user.profile_pic});
+    const userName = authModule.user.first_name;
+    enterButton.innerHTML = UserBlock({
+      userName: userName.length > 11 ? userName.substr(0, 11) + '...' : userName,
+      imgSrc: authModule.user.profile_pic,
+      userId: authModule.user.id});
     enterButton.classList.remove('login-btn');
     enterButton.classList.add('user-block');
     enterButton.removeAttribute('href');

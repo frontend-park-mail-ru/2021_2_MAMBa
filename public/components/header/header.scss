@@ -81,6 +81,7 @@
 .user-img {
   box-shadow: 0 0 20px 1px rgba(255, 255, 255, 0.3);
   border-radius: 300px;
+  object-fit: cover;
   height: 42px;
   width: 46px;
 }
@@ -150,7 +151,7 @@
   transform: scale(1.1);
 }
 
-.logout-btn, .profile {
+.logout-btn, .profile-link {
   color: $white;
   cursor: pointer;
   text-decoration: none;
@@ -158,7 +159,7 @@
   transition: .2s ease-in-out;
 }
 
-.logout-btn:hover, .profile:hover {
+.logout-btn:hover, .profile-link:hover {
   color: $pink;
 }
 

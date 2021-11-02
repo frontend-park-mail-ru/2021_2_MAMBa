@@ -4,15 +4,15 @@
  * @return {object} - Object for render actor information
  */
 export const convertArrayToActorPage = (fullActorInfoJson) => (
-    {
-      actor:convertActorToActorPage(fullActorInfoJson.actor),
-      moreAvailable: fullActorInfoJson.films.film_list.more_available,
-      skip: fullActorInfoJson.films.current_skip,
-      limit: fullActorInfoJson.films.current_limit,
-      filmsWithDescription:
+  {
+    actor: convertActorToActorPage(fullActorInfoJson.actor),
+    moreAvailable: fullActorInfoJson.films.film_list.more_available,
+    skip: fullActorInfoJson.films.current_skip,
+    limit: fullActorInfoJson.films.current_limit,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(fullActorInfoJson.films.film_list),
-      filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
-    }
+    filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
+  }
 );
 
 /**
@@ -22,13 +22,13 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
  */
 export const convertActorToActorPage = (actorInfoJson) => (
   {
-    name:actorInfoJson.name_rus,
-    nameEnglish:actorInfoJson.name_en,
-    avatar:actorInfoJson.picture_url,
-    heightMetre:`${actorInfoJson.height} м`,
+    name: actorInfoJson.name_rus,
+    nameEnglish: actorInfoJson.name_en,
+    avatar: actorInfoJson.picture_url,
+    heightMetre: `${actorInfoJson.height} м`,
     date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
-    filmTotal:actorInfoJson.film_number,
-    ...actorInfoJson
+    filmTotal: actorInfoJson.film_number,
+    ...actorInfoJson,
   }
 );
 

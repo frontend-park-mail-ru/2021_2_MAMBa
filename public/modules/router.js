@@ -26,10 +26,12 @@ export const getPathArgs = (path, template) => {
 export class Router {
   /**
    * Create an base router.
+   * @param {HTMLElement} app - html of the page.
    */
   constructor(app) {
     this.routes = new Set();
     this.application = app;
+    console.log(app);
     this.currentController = null;
     eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
     eventBus.on(Events.RedirectBack, this.back.bind(this));

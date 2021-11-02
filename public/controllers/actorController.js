@@ -12,7 +12,7 @@ export class ActorPageController extends BaseController {
     super(ActorView, ActorPageModel);
     this.subscribe();
   }
-//TODO: заменить на массив
+  // TODO: заменить на массив
   subscribe = () => {
     this.eventBus.on(Events.ActorPage.GetPageContent, this.model.getPageContent);
     this.eventBus.on(Events.ActorPage.Render.Content, this.view.renderContent);

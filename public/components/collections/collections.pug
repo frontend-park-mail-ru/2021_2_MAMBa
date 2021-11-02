@@ -1,26 +1,8 @@
 include ../collection/collection
 div.collections-main
-    p.heading Подборки
-    p.detailed-collection Коллекции фильмов и сериалов на все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивально екино и многое другое
-    div.background
-        div.container
-          each input, index in collections_list
-              if index < 4
-                  div.collection
-                      div.pic_container
-                          img(src=input.picture_url)
-                      p.name-of-collection #{input.title}
-        div.container
-          each input, index in collections_list
-              if index >= 4 && index < 8
-                  div.collection
-                      div.pic_container
-                          img(src=input.picture_url)
-                      p.name-of-collection #{input.title}
-        div.container
-          each input, index in collections_list
-              if index >= 8 && index < 12
-                  div.collection
-                      div.pic_container
-                          img(src=input.picture_url)
-                      p.name-of-collection #{input.title}
+    div.collections-main_heading Подборки
+    div.collections-main_detailed Коллекции фильмов и сериалов на все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивально екино и многое другое
+    div.collections-main_black-background
+        div.collections-main_black-background_container
+          each input, _ in collections_list
+              +collection(input)

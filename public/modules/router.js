@@ -1,12 +1,12 @@
 import {eventBus} from './eventBus.js';
 import {Events} from '../consts/events.js';
-import {Routes} from '../consts/routes.js';
+import {ROUTES} from '../consts/routes.js';
 
 /**
- * Получить параметры из пути
- * @param {string} path - Путь, в котором будем искать аргументы
- * @param {string} template - Шаблон пути
- * @return {Object} - Возвращает найденный аргумент из пути
+ * Get path arguments
+ * @param {string} path - path in which we will look for arguments
+ * @param {string} template - path Template
+ * @return {object} - returns the found argument from the path
  */
 export const getPathArgs = (path, template) => {
   if (!template) return {};
@@ -26,35 +26,39 @@ export const getPathArgs = (path, template) => {
 export class Router {
   /**
    * Create an base router.
+   * @param {HTMLElement} app - html of the page.
    */
   constructor(app) {
     this.routes = new Set();
     this.application = app;
     this.currentController = null;
-    eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
+    eventBus.on(Events.PathChanged, this.onPathChanged);
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
-    this.application.addEventListener('click', (e) => {
-      const target = e.target;
-      const closestLink = target.closest('a');
-      if (e.target.matches('.scroll-to')) {
-        return;
-      }
-      if (closestLink instanceof HTMLAnchorElement ) {
-        e.preventDefault();
-        const data = {...closestLink.dataset};
-        data.path = closestLink.getAttribute('href');
-        eventBus.emit(Events.PathChanged, data);
-      }
-    });
+    if (app != null) {
+      this.application = app;
+      this.application.addEventListener('click', (e) => {
+        const target = e.target;
+        const closestLink = target.closest('a');
+        if (e.target.matches('.scroll-to')) {
+          return;
+        }
+        if (closestLink instanceof HTMLAnchorElement) {
+          e.preventDefault();
+          const data = {...closestLink.dataset};
+          data.path = closestLink.getAttribute('href');
+          eventBus.emit(Events.PathChanged, data);
+        }
+      });
+    }
   }
 
   /**
-   * Регистрирует путь - Добавляет в массив роутеров путь
-   * @param {string} path - Путь, который нужно добавить
-   * @param {BaseController} controller - Контроллер, который соответствует этому пути
-   * @return {Object} - Возвращает этот путь
+   * Registers a path - Adds a path to the router array
+   * @param {string} path - The path to add
+   * @param {BaseController} controller - The controller that corresponds to this path
+   * @return {object} - Return the path
    */
   register(path, controller) {
     this.routes.add({path, controller});
@@ -62,15 +66,15 @@ export class Router {
   }
 
   /**
-   * При изменении
-   * @param {string} data - Путь, который нужно добавить
+   * On path
+   * @param {string} data - The path to add
    */
-  onPathChanged(data) {
+  onPathChanged = (data) => {
     this.go(data.path);
   }
 
   /**
-   * Запустить роутер
+   * Start router
    */
   start() {
     window.addEventListener('popstate', () => {
@@ -81,9 +85,9 @@ export class Router {
   }
 
   /**
-   * Получить информацию о пути
-   * @param {string} path - Путь, по которому перешел пользователь
-   * @return {Object} - Возвращает информацию о пути
+   * Get information about path
+   * @param {string} path - The path that the user followed
+   * @return {object} - Returns path information
    */
   getRouteData(path) {
     let targetController = null;
@@ -107,9 +111,9 @@ export class Router {
   }
 
   /**
-   * Получить параметры пути
-   * @param {string} path - Путь, по которому перешел пользователь
-   * @return {Object} - Возвращает парпметры пути
+   * Get path parameters
+   * @param {string} path - The path that the user followed
+   * @return {Object} - Returns path parameters
    */
   getParam(path = '/') {
     const parsedURL = new URL(window.location.origin + path);
@@ -123,8 +127,8 @@ export class Router {
   }
 
   /**
-   * Перейти по пути
-   * @param {string} path - Путь, по которому перешел пользователь
+   * Follow the path
+   * @param {string} path - The path that the user followed
    */
   go(path = '/') {
     const routeData = this.getRouteData(path);
@@ -132,7 +136,7 @@ export class Router {
     this.currentController = routeData.controller;
 
     if (!this.currentController) {
-      path = Routes.homePage;
+      path = ROUTES.homePage;
       this.currentController = this.getRouteData(path).controller;
     }
 
@@ -145,17 +149,16 @@ export class Router {
   }
 
   /**
-   * Переход назад по истории браузера
+   * Navigating back through the browser history
    */
-  back() {
+  back = () =>{
     window.history.back();
   }
 
   /**
-   * Переход вперёд по истории браузера
+   * Moving forward through the browser history
    */
-  forward() {
+  forward=()=> {
     window.history.forward();
   }
 }
-

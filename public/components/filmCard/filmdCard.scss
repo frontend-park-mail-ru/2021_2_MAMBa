@@ -4,11 +4,11 @@
   background: linear-gradient(
                   104deg,
                   $grey-background 0%,
-                  rgba(67, 54, 73, 1) 100%
+                  $light-grey 100%
   );
   border-radius: 10px;
-  padding: 2% 2% 2% 2%;
-  box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
+  padding: 30px;
+  box-shadow: 0 0 4px 0 $grey-shadow;
   color: $white;
   display: grid;
   grid-template-columns:  1fr 8fr;

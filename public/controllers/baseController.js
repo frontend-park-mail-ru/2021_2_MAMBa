@@ -1,9 +1,12 @@
 import {eventBus} from '../modules/eventBus.js';
 
-/** Class representing constructor for controller. */
+/**
+ * Create an base controller.
+ */
 export class BaseController {
-  /**
-   * Create an base controller.
+  /** Class representing constructor for controller.
+   * @param {function} view - View .
+   * @param {function} model - Model.
    */
   constructor(view, model) {
     this.eventBus = eventBus;
@@ -11,4 +14,3 @@ export class BaseController {
     this.model = new model(eventBus);
   }
 }
-

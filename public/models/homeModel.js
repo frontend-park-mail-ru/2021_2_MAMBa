@@ -1,9 +1,9 @@
 import {getCollections} from '../modules/http.js';
 import {Events} from '../consts/events.js';
 
-/** Class representing home page model.
+/**
+ * Class representing home page model.
  */
-
 export class HomePageModel {
   /**
    * Create a actor page model.

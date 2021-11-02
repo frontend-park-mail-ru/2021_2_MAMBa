@@ -9,7 +9,7 @@ export class ActorView extends BaseView {
   /**
    * Create actor page view.
    * @param {EventBus} eventBus - Global Event Bus.
-   * @param {Object}- Parameters for home page view.
+   * @param {object} data - Parameters for home page view.
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
@@ -56,7 +56,8 @@ export class ActorView extends BaseView {
       limit: data.limit,
     };
     const buttonShowMore = document.querySelector('.show-more-films');
-    buttonShowMore.addEventListener('click', () => {
+    buttonShowMore.addEventListener('click', (e) => {
+      e.preventDefault();
       this.eventBus.emit(Events.ActorPage.GetFilms, newData);
     });
   }
@@ -97,14 +98,16 @@ export class ActorView extends BaseView {
       item.style.minWidth = `${itemWidth}px`;
     });
 
-    btvNext.addEventListener('click', () => {
+    btvNext.addEventListener('click', (e) => {
+      e.preventDefault();
       const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
       position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();
       checkButtons();
     });
 
-    btvPrev.addEventListener('click', () => {
+    btvPrev.addEventListener('click', (e) => {
+      e.preventDefault();
       const itemLeft = Math.abs(position) / itemWidth;
       position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();
@@ -141,7 +144,7 @@ export class ActorView extends BaseView {
     const anchors = document.querySelectorAll('a.scroll-to');
 
     for (const anchor of anchors) {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', (e) =>{
         e.preventDefault();
 
         const blockID = anchor.getAttribute('href');

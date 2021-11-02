@@ -2,11 +2,10 @@
   "name": "2021_2_MAMBA",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack serve --mode=development --open --config ./webpack.config.dev.js",
-    "scss": "node-sass public/index.scss -o public/",
+    "start": "webpack serve --mode=development --open --config ./webpack.common.config.js",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "build": "webpack --mode=production --config ./webpack.config.js"
+    "build": "webpack --mode=production --config ./webpack.common.config.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

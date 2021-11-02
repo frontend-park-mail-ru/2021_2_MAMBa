@@ -1,10 +1,10 @@
-export const Routes = {
+export const ROUTES = {
   homePage: '/',
   collections: '/collections',
-  actorPage: '/actor/\\d+',
-  filmPage: '/film/\\d+',
   reviewPage: '/review/\\d+',
   AuthPage: '/auth',
   RegPage: '/reg',
   Profile: '/profile',
+  actorPage: '/actors/\\d+',
+  filmPage: '/films/\\d+',
 };

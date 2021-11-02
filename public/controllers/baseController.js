@@ -14,4 +14,3 @@ export class BaseController {
     this.model = new model(eventBus);
   }
 }
-

@@ -42,7 +42,7 @@ export const convertArrayToFilm = (arrayContent) => {
     arrayFilms.push({
       id: jsonFilm?.id,
       title: jsonFilm?.title,
-      film_avatar: `${jsonFilm?.poster_url}`,
+      filmAvatar: `${jsonFilm?.poster_url}`,
       href: `/film/${jsonFilm.id}`,
     });
     return arrayFilms;
@@ -76,12 +76,10 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
       id: jsonFilm?.id,
       title: jsonFilm?.title,
       year: jsonFilm?.year,
-      film_avatar: `${jsonFilm?.poster_url}`,
+      filmAvatar: `${jsonFilm?.poster_url}`,
       description: jsonFilm?.description,
       href: `/film/${jsonFilm.id}`,
     });
     return arrayFilmsWithDescription;
   }, []);
 };
-
-

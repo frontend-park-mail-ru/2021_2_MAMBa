@@ -9,7 +9,7 @@ export class ActorView extends BaseView {
   /**
    * Create actor page view.
    * @param {EventBus} eventBus - Global Event Bus.
-   * @param {Object}- Parameters for home page view.
+   * @param {object} data - Parameters for home page view.
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);

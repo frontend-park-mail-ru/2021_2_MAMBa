@@ -31,7 +31,6 @@ export class Router {
   constructor(app) {
     this.routes = new Set();
     this.application = app;
-    console.log(app);
     this.currentController = null;
     eventBus.on(Events.PathChanged, this.onPathChanged);
     eventBus.on(Events.RedirectBack, this.back.bind(this));
@@ -71,7 +70,6 @@ export class Router {
    * @param {string} data - The path to add
    */
   onPathChanged = (data) => {
-    // console.log(path);
     this.go(data.path);
   }
 
@@ -163,4 +161,3 @@ export class Router {
     window.history.forward();
   }
 }
-

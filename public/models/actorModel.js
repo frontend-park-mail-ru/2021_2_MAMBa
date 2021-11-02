@@ -2,7 +2,7 @@ import {Events} from '../consts/events.js';
 import {getActorFilms, getInfoAboutActor} from '../modules/http';
 
 /** Class representing actor page model.
- * @param {Object} actor - info about actor(id).
+ * @param {object} actor - info about actor(id).
  */
 export class ActorPageModel {
   /**
@@ -15,6 +15,7 @@ export class ActorPageModel {
 
   /**
    * Get info for actor page emit render content.
+   * @param {object} actor - actor to render.
    */
   getPageContent = (actor) => {
     if (actor === undefined || actor.id === undefined) {

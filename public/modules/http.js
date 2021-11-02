@@ -108,11 +108,29 @@ const register = async (user) => {
   }
 };
 
-const changeSettings = async (user) => {
+const changeAvatar = (formData) => {
+  try {
+    // console.log(formData);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', URLS.api.changeAvatar);
+    xhr.send(formData);
+    xhr.onloadend = () => {
+      if (xhr.status === 200) {
+        console.log(xhr.response);
+      } else {
+        console.log("Ошибка " + this.status);
+      }
+    };
+  } catch (err) {
+    return null;
+  }
+};
+
+const changeSettings = async (settings) => {
   const params = {
     url: URLS.api.changeSettings,
     method: 'POST',
-    body: JSON.stringify(user),
+    body: JSON.stringify(settings),
   };
 
   try {
@@ -190,6 +208,7 @@ export {
   checkAuth,
   getNProfilePagesBlocks,
   changeSettings,
+  changeAvatar,
   getProfile,
   register,
   login,

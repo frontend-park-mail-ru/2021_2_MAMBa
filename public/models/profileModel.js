@@ -2,7 +2,7 @@ import {Events} from '../consts/events.js';
 import {Model} from './model';
 import {getProfile, getNProfilePagesBlocks} from '../modules/http';
 import {authModule} from '../modules/authorization';
-import {getMenuLinks, menuObjects, menuLinks} from '../consts/profileMenu';
+import {getMenuLinks, menuObjects} from '../consts/profileMenu';
 import {URLS} from '../consts/urls';
 
 export class ProfileModel extends Model {

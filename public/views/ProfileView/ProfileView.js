@@ -6,6 +6,7 @@ import settingsPug from '../../components/profile/settings.pug';
 import {Events} from '../../consts/events.js';
 import {menuLinks} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
+import {changeSettings, changeAvatar} from '../../modules/http.js';
 
 
 export class ProfileView extends BaseView {
@@ -22,19 +23,19 @@ export class ProfileView extends BaseView {
       return;
     }
     this.user = user;
-    user.thisUser = isThisUser;
-    const template = profilePug(Object.assign(user, menuLinks));
+    this.user.thisUser = isThisUser;
+    const template = profilePug(Object.assign(this.user, menuLinks));
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
       this.changeActiveMenuButton(this.routeData.path.path);
       this.submitMoreButton();
-      this.submitSettingsButton();
     } else {
       // TODO ERROR
       return;
     }
     this.eventBus.emit(Events.ProfilePage.GetCurrentPageBlocks);
+    this.submitSettingsButton();
   }
 
   renderSettingsInMenu = () => {
@@ -83,26 +84,32 @@ export class ProfileView extends BaseView {
   }
 
   submitSettingsButton = () => {
-    const settingsButton = document.querySelector('.settings-btn');
-    if (!settingsButton) {
-      return;
-    }
     const settingsForm = document.forms.settingsForm;
     if (!settingsForm) {
       return;
     }
-    const formTextInputs = settingsForm.querySelectorAll('.settings-inputs');
-    if (!formTextInputs.length) {
+    const settingsButton = document.querySelector('.settings-btn');
+    if (!settingsButton) {
       return;
-    }
-    const inputsData = {};
-    console.log(settingsForm.avatar.files[0]);
-    for (const input of formTextInputs) {
-      inputsData[input.name] = input.value;
     }
 
     settingsButton.addEventListener('click', () => {
-      this.eventBus.emit(Events.ProfilePage.GetCurrentPageBlocks);
+      let formData = new FormData(document.forms.settingsForm);
+      console.log(formData.getAll('avatar'));
+      if (settingsForm.avatar.files[0]) {
+        changeAvatar(formData.getAll('avatar'));
+      }
+      const formTextInputs = settingsForm.querySelectorAll('.settings-inputs');
+      if (!formTextInputs.length) {
+        return;
+      }
+      const inputsData = {};
+      for (const input of formTextInputs) {
+        inputsData[input.name] = input.value;
+      }
+      changeSettings(inputsData).then((response) => {
+        this.user = response.parsedJson.body;
+      });
     });
   }
 

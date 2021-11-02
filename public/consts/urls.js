@@ -22,6 +22,7 @@ export const URLS = {
     getUser: `${currentUrl}/api/user/`, // +user_id
     getProfile: `${currentUrl}/api/user/getProfile`,
     changeSettings: `${currentUrl}/api/user/changeProfile`,
+    changeAvatar: `${currentUrl}/api/user/changeAvatar`,
     getBookmarks: `${currentUrl}/api/user/getBookmarks`,
     getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,

@@ -56,11 +56,7 @@ app.get('/api/user/getProfile/354', (req, res) => {
   });
 });
 
-app.get('/api/user/getBookmarks?id=354&limit=6&skip=0', (req, res) => {
-  res.json(Bookmarks);
-});
-
-app.get('/api/user/getReviewsAndStars?id=354&limit=6&skip=0', (req, res) => {
+app.get('/api/user/getReviewsAndStars', (req, res) => {
   res.json(ReviewsAndStars);
 });
 
@@ -85,10 +81,37 @@ const ReviewsAndStars = {
         "film_id": 2,
         "film_title_ru": "Шиша",
         "film_title_original": "Shisha",
-        "film_picture_url": "server/images/film.png",
-        "review_text": "Описание фильма ыыыыы",
+        "film_picture_url": "filmSlider1.webp",
+        "review_text": "Описание фильма ыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыы",
         "stars": 5
-      }
+      },
+      {
+        "id": 1,
+        "film_id": 2,
+        "film_title_ru": "Шиша",
+        "film_title_original": "Shisha",
+        "film_picture_url": "filmSlider1.webp",
+        "review_text": "Описание фильма ыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыы",
+        "stars": 5
+      },
+      {
+        "id": 1,
+        "film_id": 2,
+        "film_title_ru": "Шиша",
+        "film_title_original": "Shisha",
+        "film_picture_url": "filmSlider1.webp",
+        "review_text": "Описание фильма ыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыыы",
+        "stars": 5
+      },
+      {
+        "id": 1,
+        "film_id": 2,
+        "film_title_ru": "Шиша",
+        "film_title_original": "Shisha",
+        "film_picture_url": "filmSlider1.webp",
+        "review_text": "",
+        "stars": 5
+      },
     ],
     "more_avaliable": false,
     "review_total": 0,

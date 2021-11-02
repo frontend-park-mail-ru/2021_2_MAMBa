@@ -1,14 +1,14 @@
 export const menuObjects = {
-  bookmarks: {
-    href: '/bookmarks',
-    name: 'Закладки',
-    limit: 6,
-  },
-  subscriptions: {
-    href: '/subscriptions',
-    name: 'Подписки',
-    limit: 6,
-  },
+  // bookmarks: {
+//   href: '/bookmarks',
+//   name: 'Закладки',
+//   limit: 6,
+// },
+// subscriptions: {
+//   href: '/subscriptions',
+//   name: 'Подписки',
+//   limit: 6,
+// },
   reviewsMarks: {
     href: '/reviews_marks',
     name: 'Отзывы и оценки',
@@ -22,8 +22,8 @@ export const menuObjects = {
 
 export const menuLinks = {
   menuLinks: [
-    menuObjects.bookmarks,
-    menuObjects.subscriptions,
+    // menuObjects.bookmarks,
+    // menuObjects.subscriptions,
     menuObjects.reviewsMarks,
     menuObjects.settings,
   ]};

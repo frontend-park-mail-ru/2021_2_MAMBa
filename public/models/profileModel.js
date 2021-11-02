@@ -2,7 +2,7 @@ import {Events} from '../consts/events.js';
 import {Model} from './model';
 import {getProfile, getNProfilePagesBlocks} from '../modules/http';
 import {authModule} from '../modules/authorization';
-import {getMenuLinks, menuObjects} from '../consts/profileMenu';
+import {getMenuLinks, menuObjects, menuLinks} from '../consts/profileMenu';
 import {URLS} from '../consts/urls';
 
 export class ProfileModel extends Model {
@@ -54,11 +54,8 @@ export class ProfileModel extends Model {
   }
 
   getCurrentPageBlocks = () => {
-    const currentPage = this.path.slice(this.path.lastIndexOf('/'));
-    console.log(currentPage);
-    console.log(menuObjects.reviewsMarks.href);
     switch (this.path) {
-      case `/${this.userId}`: {
+      case `profile/${this.userId}`: {
         return;
       }
       case menuObjects.settings.href: {
@@ -66,8 +63,7 @@ export class ProfileModel extends Model {
         break;
       }
       case menuObjects.reviewsMarks.href: {
-        console.log('tut');
-        this.clearCurrentPagePag(currentPage, menuObjects.reviewsMarks);
+        this.clearCurrentPagePag(this.path, menuObjects.reviewsMarks);
         this.getNBlocks(URLS.api.getReviewsAndStars, Events.ProfilePage.Render.ReviewsMarks);
         break;
       }
@@ -95,6 +91,11 @@ export class ProfileModel extends Model {
       }
       if (response.status === 200) {
         this.currentPagePag.skip += this.currentPagePag.limit;
+        if (event === Events.ProfilePage.Render.ReviewsMarks) {
+          this.cutStrings(response.parsedJson.body.review_list, 'review_text');
+          this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
+          this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
+        }
         this.eventBus.emit(event, response.parsedJson.body);
       } else if (response.status === 404) {
         // TODO ERROR 404
@@ -102,6 +103,40 @@ export class ProfileModel extends Model {
     });
   }
 
+  cutStrings = (stringArray, fieldName) => {
+    if (!stringArray || !stringArray[0][fieldName]) {
+      return;
+    }
+    for (let item of stringArray) {
+      if (item[fieldName].length < 25) {
+        continue;
+      }
+      if (item[fieldName].length > 25) {
+        item[fieldName] = item[fieldName].slice(0, 25) + '\n' + item[fieldName].slice(25);
+      }
+      if (item[fieldName].length > 40) {
+        item[fieldName] = item[fieldName].slice(0, 40) + '...';
+      }
+    }
+  }
+
+  makeFilmUrl = (stringArray, fieldName) => {
+    if (!stringArray || !stringArray[0][fieldName]) {
+      return;
+    }
+    for (let item of stringArray) {
+      item.film_url = `/films/${item[fieldName]}`;
+    }
+  }
+
+  makeReviewUrl = (stringArray, fieldName) => {
+    if (!stringArray || !stringArray[0][fieldName]) {
+      return;
+    }
+    for (let item of stringArray) {
+      item.review_url = `/reviews/${item[fieldName]}`;
+    }
+  }
 
   redirectToAuth = () => {
     this.eventBus.emit(Events.PathChanged, '/auth');

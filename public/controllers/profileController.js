@@ -2,6 +2,7 @@ import {ProfileModel} from '../models/profileModel.js';
 import {ProfileView} from '../views/ProfileView/ProfileView.js';
 import {BaseController} from './baseController.js';
 import {Events} from '../consts/events';
+import {eventBus} from "../modules/eventBus";
 
 /** Class representing profile page controller. */
 export class ProfileController extends BaseController {
@@ -22,6 +23,8 @@ export class ProfileController extends BaseController {
     this.eventBus.on(Events.ProfilePage.Render.Bookmarks, this.view.renderBookmarksPage);
     this.eventBus.on(Events.ProfilePage.Render.Subscriptions, this.view.renderSubscriptionsPage);
     this.eventBus.on(Events.ProfilePage.Render.ReviewsMarks, this.view.renderReviewsMarksPage);
+    this.eventBus.on(Events.ProfilePage.ChangeActiveMenuButton, this.view.changeActiveMenuButton);
+    this.eventBus.on(Events.ProfilePage.NoMoreAvailable, this.view.hideMoreButton);
   }
 
   unsubscribe = () => {
@@ -34,5 +37,7 @@ export class ProfileController extends BaseController {
     this.eventBus.off(Events.ProfilePage.Render.Bookmarks, this.view.renderBookmarksPage);
     this.eventBus.off(Events.ProfilePage.Render.Subscriptions, this.view.renderSubscriptionsPage);
     this.eventBus.off(Events.ProfilePage.Render.ReviewsMarks, this.view.renderReviewsMarksPage);
+    this.eventBus.off(Events.ProfilePage.ChangeActiveMenuButton, this.view.changeActiveMenuButton);
+    this.eventBus.off(Events.ProfilePage.NoMoreAvailable, this.view.hideMoreButton);
   }
 }

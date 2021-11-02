@@ -75,9 +75,11 @@ export const Events = {
       Subscriptions: 'profilePage:renderSubscriptions',
       Settings: 'profilePage:renderSettings',
     },
+    ChangeActiveMenuButton: 'profilePage:changeActiveMenuButton',
     SubmitSettings: 'profilePage:submitSettings',
     GetCurrentPageBlocks: 'profilePage:getCurrentPageBlocks',
     GetContent: 'profilePage:getContent',
     PrependMenuLinks: 'profilePage:prependMenuLinks',
+    NoMoreAvailable: 'profilePage:noMoreAvailable',
   },
 };

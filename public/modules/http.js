@@ -172,7 +172,6 @@ const getNProfilePagesBlocks = async (url, id, limit, skip) => {
   const params = {
     url: url + `?id=${id}&limit=${limit}&skip=${skip}`,
     method: 'GET',
-    credentials: 'include',
   };
 
   try {

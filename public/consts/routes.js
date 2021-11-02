@@ -1,5 +1,4 @@
-// TODO: переименовать на заглавные
-export const Routes = {
+export const ROUTES = {
   homePage: '/',
   collections: '/collections',
   actorPage: '/actors/\\d+',

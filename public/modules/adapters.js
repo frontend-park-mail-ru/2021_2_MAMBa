@@ -34,18 +34,17 @@ export const convertActorToActorPage = (actorInfoJson) => (
 
 /**
  * Union popular actor`s films.
- * @param {Object} arrayContent - Info about collections from json.
- * @return {Object} - Object for render films in carousel.
+ * @param {object} arrayContent - Info about collections from json.
+ * @return {object} - Object for render films in carousel.
  */
 export const convertArrayToFilm = (arrayContent) => {
-  return arrayContent.reduce((arrayFilms, jsonFilm) => {
-    arrayFilms.push({
-      id: jsonFilm?.id,
-      title: jsonFilm?.title,
-      filmAvatar: `${jsonFilm?.poster_url}`,
-      href: `/film/${jsonFilm.id}`,
-    });
-    return arrayFilms;
+  return arrayContent.map( (jsonFilm) => {
+    const filmPopular ={};
+    filmPopular.id= jsonFilm?.id;
+    filmPopular.title= jsonFilm?.title;
+    filmPopular.filmAvatar= `${jsonFilm?.poster_url}`;
+    filmPopular.href= `/film/${jsonFilm.id}`;
+    return filmPopular;
   }, []);
 };
 
@@ -71,15 +70,13 @@ export const convertArrayToActorFilms = (actorFilmsJson) => (
  * @return {object} - Object for render films with descriptions.
  */
 export const convertArrayToFilmWithDescription = (arrayContent) => {
-  return arrayContent.reduce((arrayFilmsWithDescription, jsonFilm) => {
-    arrayFilmsWithDescription.push({
-      id: jsonFilm?.id,
-      title: jsonFilm?.title,
-      year: jsonFilm?.year,
-      filmAvatar: `${jsonFilm?.poster_url}`,
-      description: jsonFilm?.description,
-      href: `/film/${jsonFilm.id}`,
-    });
-    return arrayFilmsWithDescription;
+  return arrayContent.map((jsonFilm) => {
+    const filmWithDescription ={};
+    filmWithDescription.id= jsonFilm?.id;
+    filmWithDescription.title= jsonFilm?.title;
+    filmWithDescription.year= jsonFilm?.year;
+    filmWithDescription.filmAvatar= `${jsonFilm?.poster_url}`;
+    filmWithDescription.href= `/film/${jsonFilm?.id}`;
+    return filmWithDescription;
   }, []);
 };

@@ -1,6 +1,6 @@
 import {eventBus} from './eventBus.js';
 import {Events} from '../consts/events.js';
-import {Routes} from '../consts/routes.js';
+import {ROUTES} from '../consts/routes.js';
 
 /**
  * Get path arguments
@@ -136,7 +136,7 @@ export class Router {
     this.currentController = routeData.controller;
 
     if (!this.currentController) {
-      path = Routes.homePage;
+      path = ROUTES.homePage;
       this.currentController = this.getRouteData(path).controller;
     }
 

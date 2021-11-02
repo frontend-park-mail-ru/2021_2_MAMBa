@@ -66,6 +66,7 @@ const getCollections = async () => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
+    console.log(responseBody);
     if (responseStatus === 200) {
       return responseBody;
     }

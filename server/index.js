@@ -15,7 +15,6 @@ app.use(cookie());
 
 app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
   res.json(COLLECTIONS);
-  console.log("in col");
 });
 
 app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=1', (req, res) => {
@@ -23,12 +22,15 @@ app.get('/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=
 });
 
 app.get('/api/film/getFilm/skipReview=0&limitReview=11&skipRec=0&limitRec=11&id=1', (req, res) => {
-  console.log("in film api");
   res.json(FILM);
 });
 
 app.get('/api/person/getPersonFilms/id=1&skip=3&limit=3', (req, res) => {
   res.json(PERSONFILMS);
+});
+
+app.get('/api/film/getReview/id=1', (req, res) => {
+  res.json(REVIEW);
 });
 
 app.get('/api/user/354', (req, res) => {
@@ -85,7 +87,7 @@ const REVIEW = {
     "film_id": 1,
     "film_title_ru": "Еще по одной",
     "author_name": "Макс Дудник",
-    "author_picture_url": "string",
+    "author_picture_url": "server/images/avatar.webp",
     "review_text": "После просмотра этого фильма в ушах продолжает играет крутая песня, которая звучала в конце, а после стала главным саундтреком. Мадс Миккельсен просто бесподобен в этой роли. До этого я его видел(а) только в роли Ганнибала, где он не менее поразил меня.\n" +
         "\n" +
         "Глядя на постер, я и не думала, что фильм будет таким глубоким и серьёзным. Я ждала какую-то комедию про веселуху и пьянки. А тут намного серьёзнее история. Посыл очень хороший, но может не до всех дойти. Кто-то может воспринять фильм так: мол, я взрослый и могу делать, что хочу. А другой увидит в этой картине главную мысль, что, взрослея, мы несём с каждым днём всё больше ответственности за свои поступки. Любой кураж несёт за собой необратимые последствия, о чём не стоит забывать! В этом и разница нас, взрослых, от молодых школьников. Что в 18 лет казалось крутым и безбашенным, то в 40 лет может сыграть злую шутку.",

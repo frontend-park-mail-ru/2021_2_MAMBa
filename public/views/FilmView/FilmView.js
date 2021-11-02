@@ -1,9 +1,8 @@
-import {BaseView} from './BaseView/BaseView.js';
-import filmPageContent from './../components/film/film.pug';
-import inputReviewContent from './../components/writeReview/writeReview.pug';
-import {Events} from '../consts/events.js';
-import {getPathArgs} from '../modules/router.js';
-import actorFilmsContent from "../components/filmsWithDescription/filmCardsWithDescription.pug";
+import {BaseView} from '../BaseView/BaseView.js';
+import filmPageContent from '../../components/film/film.pug';
+import successfulSendButton from '../../components/authWarningButton/authWarningButton.pug';
+import {Events} from '../../consts/events.js';
+import {getPathArgs} from '../../modules/router.js';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -22,7 +21,6 @@ export class FilmView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/film/:id');
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.FilmPage.GetPageContent, pathArgs);
   }
 
@@ -38,42 +36,111 @@ export class FilmView extends BaseView {
       content.innerHTML = template;
       this.setSliderReviewActions();
       this.setSliderActions();
+      this.addSubmitSendReviewListener(data.film.id);
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
 
-  addEventListenerToLogout = () => {
-    const logoutButton = document.querySelector('.logout-btn');
-    if (!logoutButton) {
-      return;
-    }
-    logoutButton.addEventListener('click', (e) => {
-      this.eventBus.emit(Events.FilmPage.Render.WriteReview);
+  addSubmitSendReviewListener = (filmId) => {
+    const review={
+      film_id: filmId,
+      review_text: '',
+      review_type: 0,
+    };
+
+    const positiveButton= document.querySelector('.type-positive');
+    const neutralButton= document.querySelector('.type-neutral');
+    const negativeButton= document.querySelector('.type-negative');
+    positiveButton.addEventListener('click', (e) => {
+      review.review_type = 3;
+      positiveButton.classList.add('positive-chosen');
+      negativeButton.classList.remove('negative-chosen');
+      neutralButton.classList.remove('neutral-chosen');
+      this.removeWarning('warning_type');
+    });
+    neutralButton.addEventListener('click', (e) => {
+      review.review_type = 2;
+      positiveButton.classList.remove('positive-chosen');
+      negativeButton.classList.remove('negative-chosen');
+      neutralButton.classList.add('neutral-chosen');
+      this.removeWarning('warning_type');
+    });
+    negativeButton.addEventListener('click', (e) => {
+      review.review_type = 1;
+      positiveButton.classList.remove('positive-chosen');
+      negativeButton.classList.add('negative-chosen');
+      neutralButton.classList.remove('neutral-chosen');
+      this.removeWarning('warning_type');
+    });
+
+    const clearButton= document.querySelector('.clear-button');
+    clearButton.addEventListener('click', (e) => {
+      document.getElementById('input').value = '';
+    });
+
+    const sendButton = this.getSendButtonFromDom();
+    sendButton.addEventListener('click', (e) => {
+      if (review.review_type===0) {
+        this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
+        return;
+      }
+
+      const textInput =document.querySelector('.write_review__text').value;
+      if (textInput==='') {
+        this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+        return;
+      }
+      review.review_text=textInput;
+
+      this.eventBus.emit(Events.FilmPage.PostReview, review);
+      this.removeWarning('warning_empty-text');
     });
   }
 
-  renderInputReview = () => {
-    const d = document.querySelector('.input_review');
-    console.log("кут");
-    const template = inputReviewContent();
 
-    console.log(d);
-    if (d) {
-      d.innerHTML += template;
+  getSendButtonFromDom = () => {
+    return document.querySelector('.send-review');
+  }
+
+  /**
+   * Render warning to auth.
+   */
+  renderWarning = (text, className) => {
+    const errorBlock= document.querySelector(`.${className}`);
+    errorBlock.innerHTML = text;
+  }
+
+  /**
+   * Remove warning to auth.
+   */
+  removeWarning = (className) => {
+    if (className===undefined) {
+      className='warning_no-auth';
     }
-    // this.dataActor.moreAvailable = data.moreAvailable;
-    // this.dataActor.skip = data.skip;
-    // this.dataActor.limit = data.limit;
-    // this.checkShowMoreButton(this.dataActor.moreAvailable);
+    const errorBlock= document.querySelector(`.${className}`);
+    if (errorBlock) {
+      errorBlock.innerHTML = '';
+    }
+  }
+
+  /**
+   * Render button to successful sending.
+   */
+  renderSuccessfulSend = () => {
+    const template = successfulSendButton();
+    const sendButton = this.getSendButtonFromDom();
+    if (sendButton) {
+      sendButton.innerHTML = template;
+    }
   }
 
   /**
    * Set slider actions.
    */
   setSliderReviewActions = () => {
-    let gap = 20;
-    let padding = 40;
+    const gap = 20;
+    const padding = 40;
     let position = 0;
     const reviewSlidesToShow = 3;
     const reviewSlidesToScroll = 1;
@@ -84,7 +151,7 @@ export class FilmView extends BaseView {
     const btvPrev = document.querySelector('.review-slider-container_button-left');
     const btvNext = document.querySelector('.review-slider-container_button-right');
     const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding * 2 * reviewSlidesToShow) / reviewSlidesToShow;
-    const itemWidthWithMargin = itemWidth + gap + padding * 2
+    const itemWidthWithMargin = itemWidth + gap + padding * 2;
     const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
 
     reviews.forEach((item) => {
@@ -185,7 +252,6 @@ export class FilmView extends BaseView {
     };
     checkButtons();
   }
-
 }
 
 

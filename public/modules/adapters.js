@@ -4,16 +4,16 @@
  * @return {Object} - Object for render actor information
  */
 export const convertArrayToActorPage = (actorInfoJson) => (
-    {
-      ...actorInfoJson,
-      moreAvailable: actorInfoJson.more_available,
-      skip: actorInfoJson.full_actor_current_skip,
-      limit: actorInfoJson.full_actor_film_current_limit,
-      date: `${actorInfoJson.born}  ·  ${actorInfoJson.age}`,
-      filmsToSlide: convertArrayToFilm(actorInfoJson.film_list_with_actor),
-      filmsWithDescription:
+  {
+    ...actorInfoJson,
+    moreAvailable: actorInfoJson.more_available,
+    skip: actorInfoJson.full_actor_current_skip,
+    limit: actorInfoJson.full_actor_film_current_limit,
+    date: `${actorInfoJson.born}  ·  ${actorInfoJson.age}`,
+    filmsToSlide: convertArrayToFilm(actorInfoJson.film_list_with_actor),
+    filmsWithDescription:
           convertArrayToFilmWithDescription(actorInfoJson.film_with_description_list),
-    }
+  }
 );
 
 /**
@@ -40,13 +40,13 @@ export const convertArrayToFilm = (arrayContent) => {
  * @return {Object} - Object for render actor information
  */
 export const convertArrayToActorFilms = (actorFilmsJson) => (
-    {
-      moreAvailable: actorFilmsJson.more_available,
-      skip: actorFilmsJson.full_actor_current_skip,
-      limit: actorFilmsJson.full_actor_film_current_limit,
-      filmsWithDescription:
+  {
+    moreAvailable: actorFilmsJson.more_available,
+    skip: actorFilmsJson.full_actor_current_skip,
+    limit: actorFilmsJson.full_actor_film_current_limit,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(actorFilmsJson.film_with_description_list),
-    }
+  }
 );
 
 /**
@@ -74,11 +74,11 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
  * @return {Object} - Object for render film information
  */
 export const convertArrayToFilmPage = (filmInfoJson) => (
-    {
-      film: convertArrayToFilmInfo(filmInfoJson.film),
-      reviews:convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
-      recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
-    }
+  {
+    film: convertArrayToFilmInfo(filmInfoJson.film),
+    reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
+    recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
+  }
 );
 /**
  * Union actors and their ids.
@@ -103,11 +103,12 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
  * @return {Object} - Object for render films with descriptions.
  */
 export const convertArrayToFilmInfo = (arrayContent) => {
-  let duration = ""
-  if (arrayContent.content_type === "film") {
-    duration = `${arrayContent.duration} минут`
-  } else
-    duration = `${arrayContent.duration} сезонов`
+  let duration = '';
+  if (arrayContent.content_type === 'film') {
+    duration = `${arrayContent.duration} минут`;
+  } else {
+    duration = `${arrayContent.duration} сезонов`;
+  }
   return {
     id: arrayContent?.id,
     title: arrayContent?.title,
@@ -121,10 +122,10 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     trailerUrl: arrayContent?.trailer_url,
     totalRevenue: arrayContent?.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres),
-    director:convertPersonaToFilmPage(arrayContent?.director),
-    screenwriter: convertPersonaToFilmPage(arrayContent?.screenwriter),
-    actors:convertArrayToActorArray(arrayContent?.actors),
-  }
+    director: convertPersonToFilmPage(arrayContent?.director),
+    screenwriter: convertPersonToFilmPage(arrayContent?.screenwriter),
+    actors: convertArrayToActorArray(arrayContent?.actors),
+  };
 };
 
 /**
@@ -157,9 +158,39 @@ export const convertArrayToGenresArray = (arrayContent) => {
   }, []);
 };
 
-export const convertPersonaToFilmPage = (personaInfoJson) => (
-    {
-      name: personaInfoJson.name_rus,
-      href: `/actor/${personaInfoJson.id}`,
-    }
+export const convertPersonToFilmPage = (personaInfoJson) => (
+  {
+    name: personaInfoJson.name_rus,
+    href: `/actor/${personaInfoJson.id}`,
+  }
 );
+
+
+/**
+ * Union actors and their ids.
+ * @param {Object} actorInfoJson - Info about actor from json.
+ * @return {Object} - Object for render actor information
+ */
+export const convertReviewToReviewPage = (reviewInfoJson) => {
+  let classType; let classButtonType = '';
+  if (reviewInfoJson.review_type === 1) {
+    classType = 'positive-review';
+    classButtonType = 'positive-button';
+  } else if (reviewInfoJson.review_type === 0) {
+    classType = 'neutral-review';
+    classButtonType = 'neutral-button';
+  } else {
+    classType = 'negative-review';
+    classButtonType = 'negative-button';
+  }
+  return {
+    filmName: reviewInfoJson.film_title_ru,
+    filmHref: `/film/${reviewInfoJson.film_id}`,
+    authorName: reviewInfoJson.author_name,
+    authorAvatar: reviewInfoJson.author_picture_url,
+    reviewText: reviewInfoJson.review_text,
+    classType: classType,
+    date: reviewInfoJson.date,
+    classButtonType: classButtonType,
+  };
+};

@@ -3,7 +3,9 @@
 .actor-info {
   background-color: $white;
   width: 1200px;
-  margin: auto;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
 
   &__container {
     grid-template-columns:  3fr 8fr;

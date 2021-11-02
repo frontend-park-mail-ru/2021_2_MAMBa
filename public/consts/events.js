@@ -2,8 +2,25 @@ export const Events = {
   PathChanged: 'pathChanged',
   RedirectBack: 'redirectBack',
   RedirectForward: 'redirectForward',
-  SliderActions: 'sliderActions',
 
+  App: {
+    Start: 'app:start',
+  },
+  Router: {
+    Go: 'router:go',
+  },
+  Homepage: {
+    Render: {
+      Page: 'homepage:render',
+      ErrorPage: 'homepage:renderErrorPage',
+      Header: 'homepage:renderHeader',
+      Content: 'homepage:renderContent',
+    },
+    Get: {
+      InfoForHeader: 'homepage:InfoForHeader',
+      MainPageContent: 'homepage:getCollections',
+    },
+  },
   AuthPage: {
     Render: {
       Page: 'authPage:render',
@@ -16,27 +33,6 @@ export const Events = {
     Validate: 'authPage:validate',
     HavingWrongInput: 'authPage:havingWrongInputs',
     GetContent: 'authPage:getContent',
-  },
-
-  App: {
-    Start: 'app:start',
-  },
-
-  Router: {
-    Go: 'router:go',
-  },
-
-  Homepage: {
-    Render: {
-      Page: 'homepage:render',
-      ErrorPage: 'homepage:renderErrorPage',
-      Header: 'homepage:renderHeader',
-      Content: 'homepage:renderContent',
-    },
-    Get: {
-      InfoForHeader: 'homepage:InfoForHeader',
-      MainPageContent: 'homepage:getCollections',
-    },
   },
   ActorPage: {
     Render: {
@@ -51,9 +47,11 @@ export const Events = {
     Render: {
       Page: 'filmPage:render',
       Content: 'filmPage:renderContent',
-      WriteReview: 'filmPage:renderReviewToWrite',
+      WarningSend: 'filmPage:renderWarningSend',
+      SuccessfulSend: 'filmPage:renderSuccessfulSend',
     },
     GetPageContent: 'filmPage:getMainPageContent',
+    PostReview: 'filmPage:postReview',
   },
   ReviewPage: {
     Render: {

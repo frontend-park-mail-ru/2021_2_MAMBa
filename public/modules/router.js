@@ -112,7 +112,6 @@ export class Router {
    * @return {Object} - Возвращает парпметры пути
    */
   getParam(path = '/') {
-    console.log(path);
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;
     const resultPath = parsedURL.pathname;
@@ -130,7 +129,11 @@ export class Router {
   go(path = '/') {
     const routeData = this.getRouteData(path);
     const data = {...routeData};
+    if (this.currentController) {
+      this.currentController.unsubscribe();
+    }
     this.currentController = routeData.controller;
+    this.currentController.subscribe();
 
     if (!this.currentController) {
       path = Routes.homePage;

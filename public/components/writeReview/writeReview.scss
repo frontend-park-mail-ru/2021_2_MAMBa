@@ -26,16 +26,25 @@
   }
 }
 
-.positive {
+.type-positive {
   border: 2px solid $green-border;
 }
-
-.neutral {
-  border: 2px solid $grey-base;
+.positive-chosen {
+  background-color:rgba(85, 202, 91, 0.5);
 }
 
-.negative {
+.type-neutral {
+  border: 2px solid $grey-base;
+}
+.neutral-chosen {
+  background-color:rgba(82, 82, 82, 0.5);
+}
+
+.type-negative {
   border: 2px solid $red-border;
+}
+.negative-chosen {
+  background-color:rgba(209, 51, 48, 0.5);
 }
 
 .button-type {

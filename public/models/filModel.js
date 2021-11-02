@@ -1,7 +1,7 @@
 import {Events} from '../consts/events.js';
-import {getInfoAboutFilm} from '../modules/http';
+import {getInfoAboutFilm, sendReview} from '../modules/http';
 import {convertArrayToFilmPage} from '../modules/adapters.js';
-import {authModule} from "../modules/authorization";
+import {authModule} from '../modules/authorization';
 
 
 /** Class representing film page model.
@@ -15,6 +15,10 @@ export class FilmPageModel {
     this.eventBus = eventBus;
   }
 
+  /**
+   * Get content for film page
+   * @param {Object} film - film to render.
+   */
   getPageContent = (film) => {
     getInfoAboutFilm(film.id).then((response) => {
       if (!response) {
@@ -24,10 +28,26 @@ export class FilmPageModel {
         this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson.body));
       }
     });
-    console.log(authModule.user);
+  }
+
+  /**
+   * Post review
+   * @param {Object} inputsData - review to post.
+   */
+  postReview = (inputsData = {}, routeData) => {
     if (!authModule.user) {
-      console.log("auth");
-      this.eventBus.emit(Events.FilmPage.Render.WriteReview);
+      this.eventBus.emit(Events.FilmPage.Render.WarningSend, 'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь', 'warning_no-auth');
+      return;
     }
+
+    sendReview(inputsData).then((response) => {
+      if (!response) {
+        return;
+      }
+      if (response.status === 200) {
+        this.eventBus.emit(Events.FilmPage.Render.SuccessfulSend);
+        return;
+      }
+    });
   }
 }

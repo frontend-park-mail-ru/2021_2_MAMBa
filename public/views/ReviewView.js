@@ -20,7 +20,6 @@ export class ReviewView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/review/:id');
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.ReviewPage.GetPageContent, pathArgs);
   }
 
@@ -38,5 +37,4 @@ export class ReviewView extends BaseView {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
-
 }

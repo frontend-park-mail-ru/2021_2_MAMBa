@@ -1,7 +1,7 @@
 include ../filmCard/filmCard
 include ../slider/slider
 include ../reviewSlider/reviewSlider
-div.place-between-blocks
+include ../writeReview/writeReview
 div.film-info
     div.film-info__container
         div.film-info__container_pic-film
@@ -25,7 +25,7 @@ div.film-info
                     div.film-info__container_text_facts_container_key  Жанр
                     div.film-info__container_text_facts_container_value
                         each genre, index in film.genres
-                            if index != 0
+                            if index !== 0
                                 span
                                     = ',    '
                             a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
@@ -36,7 +36,7 @@ div.film-info
                     div.film-info__container_text_facts_container_key  В главных ролях
                     div.film-info__container_text_facts_container_value
                       each actor, index in film.actors
-                          if index != 0
+                          if index !== 0
                               span
                                   = ',    '
                           a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
@@ -72,14 +72,4 @@ div.film-info
             +slider(recommendations)
         div.place-between-blocks
         div.film-info__white-container_review Написать отзыв
-            div.input_review
-                div.film-info__white-container_review_no-auth Чтобы написать отзыв, пожалуйста, авторизуйтесь
-
-
-
-
-
-
-
-
-
+            +inputReview

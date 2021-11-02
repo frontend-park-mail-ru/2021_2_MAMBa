@@ -31,23 +31,26 @@ export class Router {
     this.routes = new Set();
     this.application = app;
     this.currentController = null;
-    eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
+    eventBus.on(Events.PathChanged, this.onPathChanged);
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
-    this.application.addEventListener('click', (e) => {
-      const target = e.target;
-      const closestLink = target.closest('a');
-      if (e.target.matches('.scroll-to')) {
-        return;
-      }
-      if (closestLink instanceof HTMLAnchorElement ) {
-        e.preventDefault();
-        const data = {...closestLink.dataset};
-        data.path = closestLink.getAttribute('href');
-        eventBus.emit(Events.PathChanged, data);
-      }
-    });
+    if (app != null) {
+      this.application = app;
+      this.application.addEventListener('click', (e) => {
+        const target = e.target;
+        const closestLink = target.closest('a');
+        if (e.target.matches('.scroll-to')) {
+          return;
+        }
+        if (closestLink instanceof HTMLAnchorElement) {
+          e.preventDefault();
+          const data = {...closestLink.dataset};
+          data.path = closestLink.getAttribute('href');
+          eventBus.emit(Events.PathChanged, data);
+        }
+      });
+    }
   }
 
   /**
@@ -65,7 +68,8 @@ export class Router {
    * On path
    * @param {string} data - The path to add
    */
-  onPathChanged(data) {
+  onPathChanged = (data) => {
+    // console.log(path);
     this.go(data.path);
   }
 
@@ -146,14 +150,14 @@ export class Router {
   /**
    * Navigating back through the browser history
    */
-  back() {
+  back = () =>{
     window.history.back();
   }
 
   /**
    * Moving forward through the browser history
    */
-  forward() {
+  forward=()=> {
     window.history.forward();
   }
 }

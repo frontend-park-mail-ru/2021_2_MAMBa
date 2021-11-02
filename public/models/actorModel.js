@@ -17,12 +17,12 @@ export class ActorPageModel {
    * Get info for actor page emit render content.
    */
   getPageContent = (actor) => {
-    if (actor === undefined || actor.id === undefined) {
+    if (actor === null || actor.id === null) {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
     getInfoAboutActor(actor.id)
         .then((contentData) => {
-          if (contentData !== undefined)
+          if (contentData !== null)
             console.log(contentData);
             this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
         }).catch(() => {

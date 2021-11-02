@@ -13,6 +13,7 @@ class EventBus {
    * @param {function} callback - Callback function.
    */
   on(event, callback) {
+    //TODO:заменить на Set
     (this._listeners[event] || (this._listeners[event] = new Map())).set(callback.name, callback);
   }
 

@@ -5,7 +5,7 @@
  */
 export const convertArrayToActorPage = (fullActorInfoJson) => (
     {
-      actor:convertActorToActorPage(fullActorInfoJson.actor),
+      actor: convertActorToActorPage(fullActorInfoJson.actor),
       moreAvailable: fullActorInfoJson.films.film_list.more_available,
       skip: fullActorInfoJson.films.current_skip,
       limit: fullActorInfoJson.films.current_limit,
@@ -17,38 +17,20 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
 
 /**
  * Union actor information
- * @param {Object} actorInfoJson - Info about actor from json.
-* @return {Object} - Object for render actor information
+ * @param {object} actorInfoJson - Info about actor from json.
+ * @return {object} - Object for render actor information
  */
 export const convertActorToActorPage = (actorInfoJson) => (
-  {
-    name:actorInfoJson.name_rus,
-    nameEnglish:actorInfoJson.name_en,
-    avatar:actorInfoJson.picture_url,
-    heightMetre:`${actorInfoJson.height} м`,
-    date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
-    filmTotal:actorInfoJson.film_number,
-    ...actorInfoJson
-  }
+    {
+      name: actorInfoJson.name_rus,
+      nameEnglish: actorInfoJson.name_en,
+      avatar: actorInfoJson.picture_url,
+      heightMetre: `${actorInfoJson.height} м`,
+      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
+      filmTotal: actorInfoJson.film_number,
+      ...actorInfoJson
+    }
 );
-
-/**
- * Union popular actor`s films.
- * @param {Object} arrayContent - Info about collections from json.
- * @return {Object} - Object for render films in carousel.
- */
-export const convertArrayToFilm = (arrayContent) => {
-  return arrayContent.reduce((arrayFilms, jsonFilm) => {
-    arrayFilms.push({
-      id: jsonFilm?.id,
-      title: jsonFilm?.title,
-      film_avatar: `${jsonFilm?.poster_url}`,
-      href: `/film/${jsonFilm.id}`,
-    });
-    return arrayFilms;
-  }, []);
-};
-
 
 /**
  * Union actors and their ids.
@@ -56,13 +38,13 @@ export const convertArrayToFilm = (arrayContent) => {
  * @return {Object} - Object for render actor information
  */
 export const convertArrayToActorFilms = (actorFilmsJson) => (
-  {
-    moreAvailable: actorFilmsJson.more_available,
-    skip: actorFilmsJson.current_skip,
-    limit: actorFilmsJson.current_limit,
-    filmsWithDescription:
+    {
+      moreAvailable: actorFilmsJson.more_available,
+      skip: actorFilmsJson.current_skip,
+      limit: actorFilmsJson.current_limit,
+      filmsWithDescription:
           convertArrayToFilmWithDescription(actorFilmsJson.film_list),
-  }
+    }
 );
 
 /**
@@ -71,17 +53,30 @@ export const convertArrayToActorFilms = (actorFilmsJson) => (
  * @return {object} - Object for render films with descriptions.
  */
 export const convertArrayToFilmWithDescription = (arrayContent) => {
-  return arrayContent.reduce((arrayFilmsWithDescription, jsonFilm) => {
-    arrayFilmsWithDescription.push({
-      id: jsonFilm?.id,
-      title: jsonFilm?.title,
-      year: jsonFilm?.year,
-      film_avatar: `${jsonFilm?.poster_url}`,
-      description: jsonFilm?.description,
-      href: `/film/${jsonFilm.id}`,
-    });
-    return arrayFilmsWithDescription;
+  return arrayContent.map((jsonFilm) => {
+    let filmWithDescription ={};
+    filmWithDescription.id= jsonFilm?.id;
+    filmWithDescription.title= jsonFilm?.title;
+    filmWithDescription.year= jsonFilm?.year;
+    filmWithDescription.filmAvatar= `${jsonFilm?.poster_url}`;
+    filmWithDescription.href= `/film/${jsonFilm?.id}`;
+    return filmWithDescription;
   }, []);
 };
 
+/**
+ * Union popular actor`s films.
+ * @param {object} arrayContent - Info about collections from json.
+ * @return {object} - Object for render films in carousel.
+ */
+export const convertArrayToFilm = (arrayContent) => {
+  return arrayContent.map( (jsonFilm) => {
+    let filmPopular ={};
+    filmPopular.id= jsonFilm?.id;
+    filmPopular.title= jsonFilm?.title;
+    filmPopular.filmAvatar= `${jsonFilm?.poster_url}`;
+    filmPopular.href= `/film/${jsonFilm.id}`;
+    return filmPopular;
+  }, []);
+};
 

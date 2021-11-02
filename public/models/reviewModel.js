@@ -1,9 +1,9 @@
 import {Events} from '../consts/events.js';
 import {convertReviewToReviewPage} from '../modules/adapters';
-import {getInfoAboutReview} from "../modules/http";
+import {getInfoAboutReview} from '../modules/http';
 
 /** Class representing actor page model.
- * @param {Object} actor - info about review(id).
+ * @param {Object} review - info about review(id).
  */
 export class ReviewPageModel {
   /**
@@ -15,13 +15,14 @@ export class ReviewPageModel {
   }
 
   getPageContent = (review) => {
-    getInfoAboutReview(review.id).then((response) => {
-      if (!response) {
-        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-      }
-      if (response.status === 200) {
-        this.eventBus.emit(Events.ReviewPage.Render.Content, convertReviewToReviewPage(response.parsedJson.body));
-      }
-    });
+    getInfoAboutReview(review.id)
+        .then((response) => {
+          if (!response) {
+            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+          }
+          if (response.status === 200) {
+            this.eventBus.emit(Events.ReviewPage.Render.Content, convertReviewToReviewPage(response.parsedJson));
+          }
+        });
   }
 }

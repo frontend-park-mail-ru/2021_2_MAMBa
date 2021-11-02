@@ -43,15 +43,15 @@ export class FilmView extends BaseView {
   }
 
   addSubmitSendReviewListener = (filmId) => {
-    const review={
+    const review = {
       film_id: filmId,
       review_text: '',
       review_type: 0,
     };
 
-    const positiveButton= document.querySelector('.type-positive');
-    const neutralButton= document.querySelector('.type-neutral');
-    const negativeButton= document.querySelector('.type-negative');
+    const positiveButton = document.querySelector('.type-positive');
+    const neutralButton = document.querySelector('.type-neutral');
+    const negativeButton = document.querySelector('.type-negative');
     positiveButton.addEventListener('click', (e) => {
       review.review_type = 3;
       positiveButton.classList.add('positive-chosen');
@@ -74,24 +74,24 @@ export class FilmView extends BaseView {
       this.removeWarning('warning_type');
     });
 
-    const clearButton= document.querySelector('.clear-button');
+    const clearButton = document.querySelector('.clear-button');
     clearButton.addEventListener('click', (e) => {
       document.getElementById('input').value = '';
     });
 
     const sendButton = this.getSendButtonFromDom();
     sendButton.addEventListener('click', (e) => {
-      if (review.review_type===0) {
+      if (review.review_type === 0) {
         this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
         return;
       }
 
-      const textInput =document.querySelector('.write_review__text').value;
-      if (textInput==='') {
+      const textInput = document.querySelector('.write_review__text').value;
+      if (textInput === '') {
         this.renderWarning('Введите текст отзыва', 'warning_empty-text');
         return;
       }
-      review.review_text=textInput;
+      review.review_text = textInput;
 
       this.eventBus.emit(Events.FilmPage.PostReview, review);
       this.removeWarning('warning_empty-text');
@@ -107,7 +107,7 @@ export class FilmView extends BaseView {
    * Render warning to auth.
    */
   renderWarning = (text, className) => {
-    const errorBlock= document.querySelector(`.${className}`);
+    const errorBlock = document.querySelector(`.${className}`);
     errorBlock.innerHTML = text;
   }
 
@@ -115,10 +115,10 @@ export class FilmView extends BaseView {
    * Remove warning to auth.
    */
   removeWarning = (className) => {
-    if (className===undefined) {
-      className='warning_no-auth';
+    if (className === undefined) {
+      className = 'warning_no-auth';
     }
-    const errorBlock= document.querySelector(`.${className}`);
+    const errorBlock = document.querySelector(`.${className}`);
     if (errorBlock) {
       errorBlock.innerHTML = '';
     }
@@ -150,7 +150,8 @@ export class FilmView extends BaseView {
     const reviewCount = reviews.length;
     const btvPrev = document.querySelector('.review-slider-container_button-left');
     const btvNext = document.querySelector('.review-slider-container_button-right');
-    const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding * 2 * reviewSlidesToShow) / reviewSlidesToShow;
+    const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding *
+        2 * reviewSlidesToShow) / reviewSlidesToShow;
     const itemWidthWithMargin = itemWidth + gap + padding * 2;
     const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
 
@@ -158,14 +159,17 @@ export class FilmView extends BaseView {
       item.style.minWidth = `${itemWidth}px`;
     });
 
-    btvNext.addEventListener('click', () => {
-      const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow * itemWidthWithMargin) / itemWidthWithMargin;
+    btvNext.addEventListener('click', (e) => {
+      e.preventDefault();
+      const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *
+          itemWidthWithMargin) / itemWidthWithMargin;
       position -= itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
       setPosition();
       checkButtons();
     });
 
-    btvPrev.addEventListener('click', () => {
+    btvPrev.addEventListener('click', (e) => {
+      e.preventDefault();
       const itemLeft = Math.abs(position) / itemWidthWithMargin;
       position += itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
       setPosition();
@@ -222,7 +226,8 @@ export class FilmView extends BaseView {
       checkButtons();
     });
 
-    btvPrev.addEventListener('click', () => {
+    btvPrev.addEventListener('click', (e) => {
+      e.preventDefault();
       const itemLeft = Math.abs(position) / itemWidth;
       position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();

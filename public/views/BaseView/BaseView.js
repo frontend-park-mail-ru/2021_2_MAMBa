@@ -1,6 +1,6 @@
 import {ROOT} from '../../main.js';
-import BaseViewPug from './BaseView.pug';
-import Loader from '../../components/loader/loader.pug';
+import baseViewPug from './BaseView.pug';
+import loader from '../../components/loader/loader.pug';
 import {headerLinks} from '../../consts/header';
 
 /** Abstract class representing base view. */
@@ -20,9 +20,9 @@ export class BaseView {
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = BaseViewPug(headerLinks);
+      ROOT.innerHTML = baseViewPug(headerLinks);
     } else {
-      content.innerHTML = Loader();
+      content.innerHTML = loader();
     }
     this.emitGetContent();
   }

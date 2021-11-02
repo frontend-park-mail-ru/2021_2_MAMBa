@@ -5,11 +5,11 @@ export const headerLinks = {
       title: 'Подборки',
     },
     {
-      href: '/actor/1',
+      href: '/actors/1',
       title: 'Актер',
     },
     {
-      href: '/film/1',
+      href: '/films/1',
       title: 'Фильм',
     },
     {

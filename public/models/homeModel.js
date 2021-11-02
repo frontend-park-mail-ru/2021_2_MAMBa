@@ -14,10 +14,13 @@ export class HomePageModel {
   }
 
   getMainPageContent = () => {
-    getCollections().then((data) => {
-      this.eventBus.emit(Events.Homepage.Render.Content, data);
-    }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-    });
+    getCollections()
+        .then((data) => {
+          if (data !== null) {
+            this.eventBus.emit(Events.Homepage.Render.Content, data);
+          }
+        }).catch(() => {
+          this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+        });
   }
 }

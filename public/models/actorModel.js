@@ -18,14 +18,14 @@ export class ActorPageModel {
    * @param {object} actor - actor to render.
    */
   getPageContent = (actor) => {
-    if (actor === undefined || actor.id === undefined) {
+    if (actor === null || actor.id === null) {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
     getInfoAboutActor(actor.id)
         .then((contentData) => {
-          if (contentData !== undefined) {
+          if (contentData !== null) {
+            this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
           }
-          this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
         }).catch(() => {
           this.eventBus.emit(Events.Homepage.Render.ErrorPage);
         });
@@ -34,7 +34,7 @@ export class ActorPageModel {
   getActorFilmsContent = (actor) => {
     getActorFilms(actor.id, actor.limit, actor.skip)
         .then((contentData) => {
-          if (contentData !== undefined) {
+          if (contentData !== null) {
             this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
           }
         }).catch(() => {

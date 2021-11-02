@@ -1,8 +1,7 @@
 @import '../../css/consts';
 
 .film-info {
-  background-color: $white;
-  margin-top: 30px;
+  margin-top: $header_indentation;
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -139,7 +138,8 @@
     }
 
     &_summery {
-      font-size: 18px;
+      letter-spacing: 0.8px;
+      font-size: 16px;
     }
   }
 

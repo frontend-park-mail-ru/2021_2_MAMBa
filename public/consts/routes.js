@@ -1,7 +1,7 @@
 export const ROUTES = {
   homePage: '/',
   collections: '/collections',
-  reviewPage: '/review/\\d+',
+  reviewPage: '/reviews/\\d+',
   AuthPage: '/auth',
   RegPage: '/reg',
   Profile: '/profile',

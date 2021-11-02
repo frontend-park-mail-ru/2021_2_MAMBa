@@ -20,14 +20,15 @@ export class FilmPageModel {
    * @param {Object} film - film to render.
    */
   getPageContent = (film) => {
-    getInfoAboutFilm(film.id).then((response) => {
-      if (!response) {
-        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-      }
-      if (response.status === 200) {
-        this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson.body));
-      }
-    });
+    getInfoAboutFilm(film.id)
+        .then((response) => {
+          if (!response) {
+            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+          }
+          if (response.status === 200) {
+            this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson));
+          }
+        });
   }
 
   /**
@@ -36,7 +37,8 @@ export class FilmPageModel {
    */
   postReview = (inputsData = {}, routeData) => {
     if (!authModule.user) {
-      this.eventBus.emit(Events.FilmPage.Render.WarningSend, 'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь', 'warning_no-auth');
+      this.eventBus.emit(Events
+          .FilmPage.Render.WarningSend, 'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь', 'warning_no-auth');
       return;
     }
 

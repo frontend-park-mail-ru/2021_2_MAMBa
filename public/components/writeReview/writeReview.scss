@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid rgba(34, 34, 59, 1);
+  border: 1px solid $dark-blue;
 
   &__button-type {
     display: flex;
@@ -16,7 +16,7 @@
 
   &__text {
     border: 0;
-    background-color: rgba(196, 196, 196, 0.4);
+    background-color:$grey-text;
     border-radius: 10px;
     padding: 20px;
     min-height: 100px;
@@ -30,21 +30,21 @@
   border: 2px solid $green-border;
 }
 .positive-chosen {
-  background-color:rgba(85, 202, 91, 0.5);
+  background-color:$light-green;
 }
 
 .type-neutral {
   border: 2px solid $grey-base;
 }
 .neutral-chosen {
-  background-color:rgba(82, 82, 82, 0.5);
+  background-color:$grey;
 }
 
 .type-negative {
   border: 2px solid $red-border;
 }
 .negative-chosen {
-  background-color:rgba(209, 51, 48, 0.5);
+  background-color:$vinous;
 }
 
 .button-type {

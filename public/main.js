@@ -1,9 +1,7 @@
 import {HomePageController} from './controllers/homeController.js';
 import {FilmPagePageController} from './controllers/filmController.js';
 import {ReviewPagePageController} from './controllers/reviewController.js';
-import {HeaderController} from './controllers/header.js';
 import {AuthPageController} from './controllers/authController.js';
-import {authModule} from './modules/authorization.js';
 import {ProfileController} from './controllers/profileController.js';
 import {ActorPageController} from './controllers/actorController.js';
 
@@ -16,17 +14,19 @@ export const ROOT = document.getElementById('root');
 
 const homePageController = new HomePageController();
 const actorPageController = new ActorPageController();
+const authPageController = new AuthPageController();
+const profileController = new ProfileController();
+const filmPagePageController = new FilmPagePageController();
+const reviewPagePageController = new ReviewPagePageController();
 
 const router = new Router(ROOT);
 
-router.register(Routes.homePage, homePageController)
-    .register(Routes.actorPage, actorPagePageController)
-    .register(Routes.filmPage, filmPagePageController)
-    .register(Routes.reviewPage, reviewPagePageController)
-    .register(Routes.AuthPage, authPageController)
-    .register(Routes.RegPage, authPageController)
-    .register(Routes.Profile, profileController)
 router.register(ROUTES.homePage, homePageController)
+    .register(ROUTES.filmPage, filmPagePageController)
+    .register(ROUTES.reviewPage, reviewPagePageController)
+    .register(ROUTES.AuthPage, authPageController)
+    .register(ROUTES.RegPage, authPageController)
+    .register(ROUTES.Profile, profileController)
     .register(ROUTES.actorPage, actorPageController)
     .start();
 

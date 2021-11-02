@@ -42,12 +42,10 @@ div.film-info
                           a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
                 div.film-info__container_text_facts_container
                     div.actor-info__container_text_facts_container_key  Режиссёр
-                    div.actor-info__container_text_facts_container_value
-                        a(class='change-color-text-href' href=`${film.director.href}`) #{film.director.name}
+                    div.actor-info__container_text_facts_container_value #{film.director}
                 div.film-info__container_text_facts_container-last
                     div.film-info__container_text_facts_container_key  Сценарист
-                    div.film-info__container_text_facts_container_value
-                        a(class='change-color-text-href' href=`${film.screenwriter.href}`) #{film.screenwriter.name}
+                    div.film-info__container_text_facts_container_value #{film.screenwriter}
     div.place-between-blocks
     div.film-info__container-trailer
         div.film-info__container-trailer_video
@@ -58,12 +56,12 @@ div.film-info
         div.film-info__container-trailer_summery #{film.description}
     div.place-between-blocks
     div.film-info__black-container
-        div.name-of-topic Отзывы
+        div.block-subtitle Отзывы
         +reviewSlider(reviews)
     div.place-between-blocks
     div.film-info__white-container
         div.film-info__white-container_rec-films
-            div.name-of-topic С фильмом
+            div.block-subtitle С фильмом
                 span
                     = ' '
                 span.color-text-pink #{film.title}

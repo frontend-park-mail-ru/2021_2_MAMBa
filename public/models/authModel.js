@@ -4,7 +4,7 @@ import {AuthConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
 import {Model} from './model';
 import {login, register} from '../modules/http';
 import {eventBus} from '../modules/eventBus';
-import {Routes} from '../consts/routes.js';
+import {ROUTES} from '../consts/routes.js';
 
 export class AuthPageModel extends Model {
   constructor(eventBus) {
@@ -13,7 +13,7 @@ export class AuthPageModel extends Model {
   }
 
   getContent = (routeData) => {
-    if (routeData.path.path === Routes.AuthPage) {
+    if (routeData.path.path === ROUTES.AuthPage) {
       this.getAuthContent();
     } else {
       this.getRegContent();
@@ -117,7 +117,7 @@ export class AuthPageModel extends Model {
       }
     }
     if (!hasErrorInputs) {
-      if (routeData.path.path === Routes.AuthPage) {
+      if (routeData.path.path === ROUTES.AuthPage) {
         login(inputsData).then((response) => {
           if (!response) {
             return;

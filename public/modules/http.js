@@ -8,12 +8,12 @@ import {
 
 /**
  * Send async get request using async func.
- * @param {Object} actorId - Contains id of actor to render.
- * @return {Array} - Array of objects for render actor page.
+ * @param {object} actorId - Contains id of actor to render.
+ * @return {array} - Array of objects for render actor page.
  */
 const getInfoAboutActor = async (actorId) => {
   const params = {
-    url: URLS.api.actor + actorId,
+    url: `${URLS.api.actor}${actorId}`,
     method: 'GET',
   };
 
@@ -31,14 +31,14 @@ const getInfoAboutActor = async (actorId) => {
 
 /**
  * Send async get request using async func.
- * @param {Integer} actorId - Contains id of actor to render.
- * @param {Integer} limit - Contains count of films to render.
- * @param {Integer} skip - Contains count 0f rendered films.
- * @return {Array} - Array of objects for render actor page.
+ * @param {integer} actorId - Contains id of actor to render.
+ * @param {integer} limit - Contains count of films to render.
+ * @param {integer} skip - Contains count 0f rendered films.
+ * @return {array} - Array of objects for render actor page.
  */
 const getActorFilms = async (actorId, limit, skip) => {
   const params = {
-    url: URLS.api.actorFilms + actorId+ '&skip='+ limit +'&limit='+skip,
+    url: `${URLS.api.actorFilms}${actorId}&skip=${limit}&limit=${skip}`,
     method: 'GET',
   };
 
@@ -55,7 +55,7 @@ const getActorFilms = async (actorId, limit, skip) => {
 };
 /**
  * Send async get request using async func.
- * @return {Array} - Array of objects for render collections page.
+ * @return {array} - Array of objects for render collections page.
  */
 const getCollections = async () => {
   const params = {
@@ -77,8 +77,8 @@ const getCollections = async () => {
 
 /**
  * Send async request to the server.
- * @param {Object} params - parameters for request.
- * @return {Object} - returns status and parsed response.
+ * @param {object} params - parameters for request.
+ * @return {object} - returns status and parsed response.
  */
 const sendRequest = async ({url, method, body} = {}) => {
   const response = await fetch(url, {
@@ -106,7 +106,7 @@ const sendRequest = async ({url, method, body} = {}) => {
 
 /**
  * Send async get request using async func.
- * @return {Promise} - user id if you authorized, null in another case.
+ * @return {promise} - user id if you authorized, null in another case.
  */
 const getCurrentUser = async () => {
   const params = {

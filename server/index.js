@@ -1,3 +1,4 @@
+//TODO: сделать моковый файл
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
@@ -120,7 +121,7 @@ const COLLECTIONS = {
 const ACTOR = {
   actor: {
     id: 1,
-    picture_url: 'server/images/mad_mikkelsen.webp',
+    picture_url: '/server/images/mad_mikkelsen.webp',
     name_rus: 'Мадс Миккельсон',
     name_en: 'Mads Mikkelsen',
     career: ['Актер', 'Сценарист', 'Продюсер'],

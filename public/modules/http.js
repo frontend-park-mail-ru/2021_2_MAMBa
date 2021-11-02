@@ -137,11 +137,15 @@ const sendRequest = async ({url, method, body} = {}) => {
       'Content-Type': 'application/json',
     },
     body: body,
-    mode: 'cors',
+    mode: 'no-cors',
     credentials: 'include',
   });
 
   try {
+    if (url === URLS.api.checkAuth) {
+      const parsedJson = await response;
+      return {status: response.status};
+    }
     const parsedJson = await response?.json();
     return {
       status: response.status,

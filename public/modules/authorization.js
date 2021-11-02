@@ -12,7 +12,7 @@ class Authorization {
   }
 
   getUserFromSubmit = (parsedResponse) => {
-    this.user = parsedResponse.body;
+    this.user = parsedResponse;
     this.eventBus.emit(Events.Authorization.GotUser);
   }
 
@@ -22,19 +22,21 @@ class Authorization {
         return;
       }
       if (response.status === 200) {
-        const id = response.parsedJson.body.id;
+        const id = response.parsedJson.id;
         if (id) {
           getCurrentUser(id).then((response) => {
             if (!response) {
               return;
             }
             if (response.status === 200) {
-              this.user = response.parsedJson.body;
+              this.user = response.parsedJson;
               this.eventBus.emit(Events.Authorization.GotUser);
             }
           });
         }
       }
+    }).catch(() => {
+      console.log('4');
     });
   }
 

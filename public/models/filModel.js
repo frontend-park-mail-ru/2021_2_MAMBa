@@ -25,7 +25,7 @@ export class FilmPageModel {
         this.eventBus.emit(Events.Homepage.Render.ErrorPage);
       }
       if (response.status === 200) {
-        this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson.body));
+        this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.parsedJson));
       }
     });
   }

@@ -44,7 +44,7 @@ export class ProfileModel extends Model {
         return;
       }
       if (response.status === 200) {
-        const user = response.parsedJson.body;
+        const user = response.parsedJson;
         getMenuLinks(user.id);
         this.eventBus.emit(Events.ProfilePage.Render.Content, user, this.isThisUser());
       } else if (response.status === 404) {
@@ -92,11 +92,11 @@ export class ProfileModel extends Model {
       if (response.status === 200) {
         this.currentPagePag.skip += this.currentPagePag.limit;
         if (event === Events.ProfilePage.Render.ReviewsMarks) {
-          this.cutStrings(response.parsedJson.body.review_list, 'review_text');
-          this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
-          this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
+          this.cutStrings(response.parsedJson.review_list, 'review_text');
+          this.makeReviewUrl(response.parsedJson.review_list, 'id');
+          this.makeFilmUrl(response.parsedJson.review_list, 'film_id');
         }
-        this.eventBus.emit(event, response.parsedJson.body);
+        this.eventBus.emit(event, response.parsedJson);
       } else if (response.status === 404) {
         // TODO ERROR 404
       }

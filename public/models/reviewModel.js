@@ -20,7 +20,7 @@ export class ReviewPageModel {
         this.eventBus.emit(Events.Homepage.Render.ErrorPage);
       }
       if (response.status === 200) {
-        this.eventBus.emit(Events.ReviewPage.Render.Content, convertReviewToReviewPage(response.parsedJson.body));
+        this.eventBus.emit(Events.ReviewPage.Render.Content, convertReviewToReviewPage(response.parsedJson));
       }
     });
   }

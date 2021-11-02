@@ -35,40 +35,31 @@ app.get('/api/film/getReview/id=1', (req, res) => {
 
 app.get('/api/user/354', (req, res) => {
   res.json({
-    "status": 200,
-    "body": {
-      "id": 354,
-      "first_name": 'Vasya',
-      "surname": 'Petrov',
-      "email": 'v@v.v',
-      "profile_pic": "/user/images/avatar.jpg"
-    }
+    "id": 354,
+    "first_name": 'Vasya',
+    "surname": 'Petrov',
+    "email": 'v@v.v',
+    "profile_pic": "/user/images/avatar.jpg"
   });
 });
 
 app.get('/api/user/checkAuth', (req, res) => {
   res.json({
-    "status": 200,
-    "body": {
-      "id": 354
-    }
+    "id": 354
   });
 });
 
 app.get('/api/user/getProfile/354', (req, res) => {
   res.json({
-    "status": 200,
-    "body": {
-      "id": 354,
-      "first_name": "Vasya",
-      "surname": "Petrov",
-      "picture_url": "/user/images/avatar.jpg",
-      "email": "v@v.v",
-      "gender": "male",
-      "register_date": "2021-10-29",
-      "sub_count": 3,
-      "bookmark_count": 10,
-    }
+    "id": 354,
+    "first_name": "Vasya",
+    "surname": "Petrov",
+    "picture_url": "/user/images/avatar.jpg",
+    "email": "v@v.v",
+    "gender": "male",
+    "register_date": "2021-10-29",
+    "sub_count": 3,
+    "bookmark_count": 10,
   });
 });
 
@@ -81,25 +72,20 @@ app.get('/*', (req, res) => {
 });
 
 const REVIEW = {
-  "status": 200,
-  "body": {
-    "id": 0,
-    "film_id": 1,
-    "film_title_ru": "Еще по одной",
-    "author_name": "Макс Дудник",
-    "author_picture_url": "server/images/avatar.webp",
-    "review_text": "После просмотра этого фильма в ушах продолжает играет крутая песня, которая звучала в конце, а после стала главным саундтреком. Мадс Миккельсен просто бесподобен в этой роли. До этого я его видел(а) только в роли Ганнибала, где он не менее поразил меня.\n" +
-        "\n" +
-        "Глядя на постер, я и не думала, что фильм будет таким глубоким и серьёзным. Я ждала какую-то комедию про веселуху и пьянки. А тут намного серьёзнее история. Посыл очень хороший, но может не до всех дойти. Кто-то может воспринять фильм так: мол, я взрослый и могу делать, что хочу. А другой увидит в этой картине главную мысль, что, взрослея, мы несём с каждым днём всё больше ответственности за свои поступки. Любой кураж несёт за собой необратимые последствия, о чём не стоит забывать! В этом и разница нас, взрослых, от молодых школьников. Что в 18 лет казалось крутым и безбашенным, то в 40 лет может сыграть злую шутку.",
-    "review_type": 1,
-    "stars": 0,
-    "date": "2021-10-30"
-  }
+  "id": 0,
+  "film_id": 1,
+  "film_title_ru": "Еще по одной",
+  "author_name": "Макс Дудник",
+  "author_picture_url": "server/images/avatar.webp",
+  "review_text": "После просмотра этого фильма в ушах продолжает играет крутая песня, которая звучала в конце, а после стала главным саундтреком. Мадс Миккельсен просто бесподобен в этой роли. До этого я его видел(а) только в роли Ганнибала, где он не менее поразил меня.\n" +
+      "\n" +
+      "Глядя на постер, я и не думала, что фильм будет таким глубоким и серьёзным. Я ждала какую-то комедию про веселуху и пьянки. А тут намного серьёзнее история. Посыл очень хороший, но может не до всех дойти. Кто-то может воспринять фильм так: мол, я взрослый и могу делать, что хочу. А другой увидит в этой картине главную мысль, что, взрослея, мы несём с каждым днём всё больше ответственности за свои поступки. Любой кураж несёт за собой необратимые последствия, о чём не стоит забывать! В этом и разница нас, взрослых, от молодых школьников. Что в 18 лет казалось крутым и безбашенным, то в 40 лет может сыграть злую шутку.",
+  "review_type": 1,
+  "stars": 0,
+  "date": "2021-10-30"
 };
 
 const FILM = {
-  "status": 200,
-  "body": {
     "film": {
       "id": 1,
       "title": "Еще по одной",
@@ -309,7 +295,6 @@ const FILM = {
       "current_skip": 0
     },
     "my_rating": -1
-  }
 };
 
 const PERSONFILMS = {
@@ -346,8 +331,6 @@ const Bookmarks = {
 }
 
 const ReviewsAndStars = {
-  "status": 200,
-  "body": {
     "review_list": [
       {
         "id": 1,
@@ -390,7 +373,6 @@ const ReviewsAndStars = {
     "review_total": 0,
     "current_limit": 6,
     "current_skip": 0
-  }
 }
 
 const COLLECTIONS = {
@@ -598,14 +580,11 @@ app.post('/api/user/login', function (req, res) {
 
   res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
   res.status(200).json({
-    status: 200,
-    body: {
       id: 1,
       first_name: "Vasya",
       surname: "Petrov",
       email: "v@v.v",
       profile_pic: "/user/images/avatar.jpg",
-    }
   });
 });
 

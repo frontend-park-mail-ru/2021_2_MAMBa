@@ -7,7 +7,7 @@ const deployUrl = 'https://film4u.club';
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;
 
-export const currentUrl = localUrl;
+export const currentUrl = deployUrl;
 
 export const URLS = {
   pages: {
@@ -26,11 +26,12 @@ export const URLS = {
     getBookmarks: `${currentUrl}/api/user/getBookmarks`,
     getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
-    collections: `${currentUrl}/api/collections/getCollections/skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
-    actor: `${currentUrl}/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=3&id=`,
-    actorFilms: `${currentUrl}/api/person/getPersonFilms/id=`,
-    review: `${currentUrl}/api/film/getReview/id=`,
+    me: `${currentUrl}/api/me`,
+    collections: `${currentUrl}/api/collections/getCollections?skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
+    actor: `${currentUrl}/api/person/getPerson?id=`,
+    actorFilms: `${currentUrl}/api/person/getPersonFilms?id=`,
+    review: `${currentUrl}/api/film/getReview?id=`,
     sendReview: `${currentUrl}/api/film/postReview`,
-    film: `${currentUrl}/api/film/getFilm/skipReview=0&limitReview=11&skipRec=0&limitRec=11&id=`,
+    film: `${currentUrl}/api/film/getFilm?id=`,
   },
 };

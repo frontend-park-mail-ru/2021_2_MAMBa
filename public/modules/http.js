@@ -1,11 +1,79 @@
 import {URLS} from '../consts/urls.js';
 
 import {
-  convertArrayToActorPage,
+  convertArrayToActorFilms,
+  convertArrayToActorPage, convertArrayToFilmPage,
 } from './adapters.js';
 
 
-// const api_url = process.env.API_URL || '';
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+const getProfile = async () => {
+  const params = {
+    url: URLS.api.profile,
+    method: 'GET',
+    credentials: 'include',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {Object} filmId - Contains id of film to render.
+ * @return {Array} - Array of objects for render film page.
+ */
+const getInfoAboutFilm = async (filmId) => {
+  const params = {
+    url: URLS.api.film + filmId,
+    method: 'GET',
+  };
+
+  try {
+    return await sendRequest(params);
+    // const {status: responseStatus, parsedJson: responseBody} =
+    //     await sendRequest(params);
+    // if (responseStatus === 200) {
+    //   return convertArrayToFilmPage(responseBody);
+    // }
+    // return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {Object} filmId - Contains id of review to render.
+ * @return {Array} - Array of objects for render review page.
+ */
+const getInfoAboutReview = async (reviewId) => {
+  const params = {
+    url: URLS.api.review + reviewId,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return convertArrayToFilmPage(responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 /**
  * Send async get request using async func.
  * @param {Object} actorId - Contains id of actor to render.
@@ -29,6 +97,30 @@ const getInfoAboutActor = async (actorId) => {
   }
 };
 
+/**
+ * Send async get request using async func.
+ * @param {Integer} actorId - Contains id of actor to render.
+ * @param {Integer} limit - Contains count of films to render.
+ * @param {Integer} skip - Contains count 0f rendered films.
+ * @return {Array} - Array of objects for render actor page.
+ */
+const getActorFilms = async (actorId, limit, skip) => {
+  const params = {
+    url: URLS.api.actorFilms + actorId + '&skip=' + skip + '&limit=' + limit,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return convertArrayToActorFilms(responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 /**
  * Send async get request using async func.
  * @return {Array} - Array of objects for render collections page.
@@ -201,10 +293,12 @@ const getNProfilePagesBlocks = async (url, id, limit, skip) => {
 
 
 export {
+  getActorFilms,
   getCollections,
   sendRequest,
   getCurrentUser,
   getInfoAboutActor,
+  getInfoAboutFilm,
   checkAuth,
   getNProfilePagesBlocks,
   changeSettings,

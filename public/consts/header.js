@@ -6,11 +6,11 @@ export const headerLinks = {
     },
     {
       href: '/actor/1',
-      title: 'Жанры',
+      title: 'Актер',
     },
     {
-      href: '/releases',
-      title: 'Релизы',
+      href: '/film/1',
+      title: 'Фильм',
     },
     {
       href: '/random',

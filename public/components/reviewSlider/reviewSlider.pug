@@ -1,0 +1,21 @@
+mixin reviewSlider(i)
+    div.review-slider-container
+        div.review-slider-container__track
+          each review, _ in i
+            if review.type===1
+                a(class='green review-slider-container__track_review' href=`${review.href}`)
+                    div.review-slider-container__track_review_name #{review.author} #{i.type}
+                    div.review-slider-container__track_review_text #{review.text}
+                    div.review-slider-container__track_review_date #{review.date}
+            else if review.type===0
+                a(class='grey review-slider-container__track_review' href=`${review.href}`)
+                    div.review-slider-container__track_review_name #{review.author} #{i.type}
+                    div.review-slider-container__track_review_text #{review.text}
+                    div.review-slider-container__track_review_date #{review.date}
+            else
+                a(class='red review-slider-container__track_review' href=`${review.href}`)
+                    div.review-slider-container__track_review_name #{review.author} #{i.type}
+                    div.review-slider-container__track_review_text #{review.text}
+                    div.review-slider-container__track_review_date #{review.date}
+        img(class="review-slider-container_button  review-slider-container_button-left " src= "../../static/pics/left_arrow.webp" alt= "")
+        img(class="review-slider-container_button  review-slider-container_button-right " src="../../static/pics/right_arrow.webp" alt= "")

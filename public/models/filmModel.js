@@ -48,7 +48,6 @@ export class FilmPageModel {
       }
       if (response.status === 200) {
         this.eventBus.emit(Events.FilmPage.Render.SuccessfulSend);
-        return;
       }
     });
   }

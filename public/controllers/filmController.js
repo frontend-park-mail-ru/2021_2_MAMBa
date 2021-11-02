@@ -1,5 +1,5 @@
 import {BaseController} from './baseController.js';
-import {FilmPageModel} from '../models/filModel.js';
+import {FilmPageModel} from '../models/filmModel.js';
 import {FilmView} from '../views/FilmView/FilmView.js';
 import {Events} from '../consts/events';
 

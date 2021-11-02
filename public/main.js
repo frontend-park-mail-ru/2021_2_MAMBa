@@ -29,4 +29,3 @@ router.register(ROUTES.homePage, homePageController)
     .register(ROUTES.Profile, profileController)
     .register(ROUTES.actorPage, actorPageController)
     .start();
-

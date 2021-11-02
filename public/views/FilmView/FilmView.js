@@ -258,5 +258,3 @@ export class FilmView extends BaseView {
     checkButtons();
   }
 }
-
-

@@ -116,7 +116,7 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
  * @return {Object} - Object for render films with descriptions.
  */
 export const convertArrayToFilmInfo = (arrayContent) => {
-  let duration = '';
+  let duration;
   if (arrayContent.content_type === 'фильм') {
     duration = `${arrayContent.duration} минут`;
   } else {

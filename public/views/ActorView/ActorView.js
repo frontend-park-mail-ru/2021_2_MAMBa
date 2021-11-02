@@ -1,5 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
+import actorFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
 import {Events} from '../../consts/events.js';
 import {getPathArgs} from '../../modules/router.js';
 
@@ -12,11 +13,11 @@ export class ActorView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.eventBus.on(Events.SliderActions, this.setSliderActions);
+    this.dataActor;
   }
 
   /**
-   * Render html favourites page from pug template.
+   * Render html actor page from pug template.
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
@@ -25,86 +26,71 @@ export class ActorView extends BaseView {
   }
 
   /**
-   * Render content favourites page from pug template to content div.
+   * Render content actor page from pug template to content div.
    * @param {Object} data - Contains info about actor.
    */
   renderContent = (data) => {
     const template = actorPageContent(data);
+    this.dataActor= data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      const anchors = document.querySelectorAll('a.scroll-to');
-
-      for (const anchor of anchors) {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-
-          const blockID = anchor.getAttribute('href');
-
-          document.querySelector(blockID).scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-        });
-      }
-      let position = 0;
-      const slidesToShow = 6;
-      const slidesToScroll = 1;
-      const container = document.querySelector('.slider-container');
-      const track = document.querySelector('.slider-track');
-      const items = document.querySelectorAll('.film-collection_pics');
-      const itemCount = items.length;
-      const btvPrev = document.querySelector('.btn-prev');
-      const btvNext = document.querySelector('.btn-next');
-      const itemWidth = container.clientWidth / slidesToShow;
-      const movePosition = slidesToScroll * itemWidth;
-
-      items.forEach((item) => {
-        item.style.minWidth = `${itemWidth}px`;
-      });
-
-      btvNext.addEventListener('click', () => {
-        const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
-        position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
-        setPosition();
-        checkBnts();
-      });
-
-      btvPrev.addEventListener('click', () => {
-        const itemLeft = Math.abs(position) / itemWidth;
-        position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
-        setPosition();
-        checkBnts();
-      });
-
-      const setPosition = () => {
-        track.style.transform = `translateX(${position}px`;
-      };
-
-      const checkBnts = () => {
-        btvPrev.disabled = position === 0;
-        btvNext.disabled = position <= -(itemCount-slidesToShow) * itemWidth;
-      };
-      checkBnts();
+      this.setAnchorActions();
+      this.setSliderActions();
+      this.showMore(this.dataActor);
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
+  }
+
+  checkShowMoreButton = (available) => {
+    const buttonShowMore = document.querySelector('.show-more-films');
+    if (!available) {
+      buttonShowMore.classList.add('hidden');
+    }
+  }
+
+  showMore = (data) => {
+    const newData = {
+      id: data.id,
+      skip: data.skip + data.limit,
+      limit: data.limit,
+    };
+    const buttonShowMore = document.querySelector('.show-more-films');
+    buttonShowMore.addEventListener('click', () => {
+      this.eventBus.emit(Events.ActorPage.GetFilms, newData);
+    });
+  }
+
+  /**
+   * Render content favourites page from pug template to content div.
+   * @param {Object} data - Contains info about actor films.
+   */
+  renderFilms = (data) => {
+    const template = actorFilmsContent(data);
+    const showMoreContainer = document.querySelector('.actor-info__black-container_films-with-description_container');
+    if (showMoreContainer) {
+      showMoreContainer.innerHTML += template;
+    }
+    this.dataActor.moreAvailable=data.moreAvailable;
+    this.dataActor.skip= data.skip;
+    this.dataActor.limit=data.limit;
+    this.checkShowMoreButton(this.dataActor.moreAvailable);
   }
 
   /**
    * Set slider actions.
    */
   setSliderActions = () => {
-    // slider top
     let position = 0;
     const slidesToShow = 6;
     const slidesToScroll = 1;
     const container = document.querySelector('.slider-container');
-    const track = document.querySelector('.slider-track');
-    const items = document.querySelectorAll('.film-collection_pic');
+    const track = document.querySelector('.slider-container__track');
+    const items = document.querySelectorAll('.slider-container__track_film');
     const itemCount = items.length;
-    const btvPrev = document.querySelector('.btn-prev');
-    const btvNext = document.querySelector('.btn-next');
+    const btvPrev = document.querySelector('.slider-container_button-left');
+    const btvNext = document.querySelector('.slider-container_button-right');
     const itemWidth = container.clientWidth / slidesToShow;
     const movePosition = slidesToScroll * itemWidth;
 
@@ -114,26 +100,58 @@ export class ActorView extends BaseView {
 
     btvNext.addEventListener('click', () => {
       const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
-      position -= itemLeft >= slidesToShow ? movePosition : itemLeft * itemWidth;
+      position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();
-      checkBnts();
+      checkButtons();
     });
 
     btvPrev.addEventListener('click', () => {
       const itemLeft = Math.abs(position) / itemWidth;
-      position += itemLeft >= slidesToShow ? movePosition : itemLeft * itemWidth;
+      position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
       setPosition();
-      checkBnts();
+      checkButtons();
     });
-
+    /**
+     * Set film to the right position.
+     */
     const setPosition = () => {
       track.style.transform = `translateX(${position}px`;
     };
+    /**
+     * Check buttons.
+     */
+    const checkButtons = () => {
+      if (position === 0) {
+        btvPrev.classList.add('hidden');
+      } else {
+        btvPrev.classList.remove('hidden');
+      }
 
-    const checkBnts = () => {
-      btvPrev.disabled = position === 0;
-      btvNext.disabled = position <= -(itemCount - slidesToShow) * itemWidth;
+      if (position <= -(itemCount - slidesToShow) * itemWidth) {
+        btvNext.classList.add('hidden');
+      } else {
+        btvNext.classList.remove('hidden');
+      }
     };
-    checkBnts();
+    checkButtons();
+  }
+  /**
+   * Set anchor actions.
+   */
+  setAnchorActions = () => {
+    const anchors = document.querySelectorAll('a.scroll-to');
+
+    for (const anchor of anchors) {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const blockID = anchor.getAttribute('href');
+
+        document.querySelector(blockID).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      });
+    }
   }
 }

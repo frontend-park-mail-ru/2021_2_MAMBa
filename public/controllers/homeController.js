@@ -10,6 +10,7 @@ export class HomePageController extends BaseController {
    */
   constructor() {
     super(HomePageView, HomePageModel);
+    this.subscribe();
   }
 
   subscribe = () => {

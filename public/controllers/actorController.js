@@ -10,17 +10,20 @@ export class ActorPagePageController extends BaseController {
    */
   constructor() {
     super(ActorView, ActorPageModel);
+    this.subscribe();
   }
 
   subscribe = () => {
     this.eventBus.on(Events.ActorPage.GetPageContent, this.model.getPageContent);
     this.eventBus.on(Events.ActorPage.Render.Page, this.view.render);
     this.eventBus.on(Events.ActorPage.Render.Content, this.view.renderContent);
+    this.eventBus.on(Events.ActorPage.GetFilms, this.model.getActorFilmsContent);
+    this.eventBus.on(Events.ActorPage.Render.Films, this.view.renderFilms);
   }
 
   unsubscribe = () => {
-    this.eventBus.on(Events.ActorPage.GetPageContent, this.model.getPageContent);
-    this.eventBus.on(Events.ActorPage.Render.Page, this.view.render);
-    this.eventBus.on(Events.ActorPage.Render.Content, this.view.renderContent);
+    this.eventBus.off(Events.ActorPage.GetPageContent, this.model.getPageContent);
+    this.eventBus.off(Events.ActorPage.Render.Page, this.view.render);
+    this.eventBus.off(Events.ActorPage.Render.Content, this.view.renderContent);
   }
 }

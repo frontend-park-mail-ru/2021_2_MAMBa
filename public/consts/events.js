@@ -4,6 +4,20 @@ export const Events = {
   RedirectForward: 'redirectForward',
   SliderActions: 'sliderActions',
 
+  AuthPage: {
+    Render: {
+      Page: 'authPage:render',
+      Content: 'authPage:renderContent',
+    },
+    Submit: 'authPage:submit',
+    SuccessLogReg: 'authPage:successLogReg',
+    AddValidateError: 'authPage:addValidateError',
+    DeleteValidateError: 'authPage:deleteValidateError',
+    Validate: 'authPage:validate',
+    HavingWrongInput: 'authPage:havingWrongInputs',
+    GetContent: 'authPage:getContent',
+  },
+
   App: {
     Start: 'app:start',
   },
@@ -24,32 +38,29 @@ export const Events = {
       MainPageContent: 'homepage:getCollections',
     },
   },
-
   ActorPage: {
     Render: {
       Page: 'actorPage:render',
       Content: 'actorPage:renderContent',
+      Films: 'actorPage:renderFilms',
     },
     GetPageContent: 'actorPage:getPageContent',
+    GetFilms: 'actorPage:getFilms',
   },
-
-  AuthPage: {
+  FilmPage: {
     Render: {
-      Page: 'authPage:render',
-      Content: 'authPage:renderContent',
+      Page: 'filmPage:render',
+      Content: 'filmPage:renderContent',
+      WriteReview: 'filmPage:renderReviewToWrite',
     },
-    Submit: 'authPage:submit',
-    SuccessLogReg: 'authPage:successLogReg',
-    AddValidateError: 'authPage:addValidateError',
-    DeleteValidateError: 'authPage:deleteValidateError',
-    Validate: 'authPage:validate',
-    HavingWrongInput: 'authPage:havingWrongInputs',
-    GetContent: 'authPage:getContent',
+    GetPageContent: 'filmPage:getMainPageContent',
   },
-
-  Authorization: {
-    GotUser: 'authorization:gotUser',
-    LogOut: 'authorization:logOut',
+  ReviewPage: {
+    Render: {
+      Page: 'reviewPage:render',
+      Content: 'reviewPage:renderContent',
+    },
+    GetPageContent: 'reviewPage:getReviewPageContent',
   },
 
   Header: {
@@ -59,12 +70,9 @@ export const Events = {
     ChangeActiveButton: 'header:changeActiveButton',
   },
 
-  FilmPage: {
-    Render: {
-      Page: 'filmPage:render',
-      Content: 'filmPage:renderContent',
-    },
-    GetPageContent: 'filmPage:getMainPageContent',
+  Authorization: {
+    GotUser: 'authorization:gotUser',
+    LogOut: 'authorization:logOut',
   },
 
   ProfilePage: {
@@ -83,3 +91,4 @@ export const Events = {
     NoMoreAvailable: 'profilePage:noMoreAvailable',
   },
 };
+

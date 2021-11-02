@@ -38,14 +38,13 @@ export class Router {
     this.application.addEventListener('click', (e) => {
       const target = e.target;
       const closestLink = target.closest('a');
-
-      if (closestLink instanceof HTMLAnchorElement) {
+      if (e.target.matches('.scroll-to')) {
+        return;
+      }
+      if (closestLink instanceof HTMLAnchorElement ) {
         e.preventDefault();
-
         const data = {...closestLink.dataset};
-
         data.path = closestLink.getAttribute('href');
-
         eventBus.emit(Events.PathChanged, data);
       }
     });
@@ -77,6 +76,7 @@ export class Router {
     window.addEventListener('popstate', () => {
       this.go(window.location.pathname + window.location.search);
     });
+
     this.go(window.location.pathname + window.location.search);
   }
 
@@ -88,7 +88,6 @@ export class Router {
   getRouteData(path) {
     let targetController = null;
     const result = this.getParam(path);
-
 
     this.routes.forEach(({path, controller}) => {
       const res = result.path.match(path);
@@ -113,6 +112,7 @@ export class Router {
    * @return {Object} - Возвращает парпметры пути
    */
   getParam(path = '/') {
+    console.log(path);
     const parsedURL = new URL(window.location.origin + path);
     const pathParams = null;
     const resultPath = parsedURL.pathname;
@@ -130,14 +130,10 @@ export class Router {
   go(path = '/') {
     const routeData = this.getRouteData(path);
     const data = {...routeData};
-    if (this.currentController) {
-      this.currentController.unsubscribe();
-    }
     this.currentController = routeData.controller;
-    this.currentController.subscribe();
 
     if (!this.currentController) {
-      path = Routes.HomePage;
+      path = Routes.homePage;
       this.currentController = this.getRouteData(path).controller;
     }
 
@@ -162,3 +158,4 @@ export class Router {
     window.history.forward();
   }
 }
+

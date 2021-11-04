@@ -1,9 +1,8 @@
 import {BaseView} from '../BaseView/BaseView.js';
-import {AuthConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfig';
+import {authConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfig';
 import AuthContent from '../../components/auth/auth.pug';
 import {Events} from '../../consts/events.js';
 
-// TODO CHANGE SUBMIT BUTTON AFTER CLICK OR INSERT LOADER
 export class AuthView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
@@ -73,7 +72,7 @@ export class AuthView extends BaseView {
     for (const input of formTextInputs) {
       input.addEventListener('keyup', () => {
         this.eventBus.emit(Events.AuthPage.Validate, input.name, input.value, input.name ===
-          AuthConfig.repPasswordInput.name ? this.getAuthFormFromDom()[AuthConfig.passwordInput.name].value : '');
+          authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
       });
       input.addEventListener('animationend', () => {
         input.classList.remove('animated');

@@ -28,13 +28,16 @@ export class Router {
    * Create an base router.
    */
   constructor(app) {
-    this.routes = new Set();
     this.application = app;
+    this.routes = new Set();
     this.currentController = null;
     eventBus.on(Events.PathChanged, this.onPathChanged.bind(this));
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
+    if (!this.application) {
+      return;
+    }
     this.application.addEventListener('click', (e) => {
       const target = e.target;
       const closestLink = target.closest('a');

@@ -19,23 +19,17 @@ app.get('/api/collections/getCollections/skip=0&limit=12', (req, res) => {
 
 app.get('/api/user/354', (req, res) => {
   res.json({
-    "status": 200,
-    "body": {
       "id": 354,
       "first_name": 'Vasya',
       "surname": 'Petrov',
       "email": 'v@v.v',
       "profile_pic": "/user/images/avatar.jpg"
-    }
   });
 });
 
 app.get('/api/user/checkAuth', (req, res) => {
   res.json({
-    "status": 200,
-    "body": {
       "id": 354
-    }
   });
 });
 
@@ -345,14 +339,11 @@ app.post('/api/user/login', function (req, res) {
 
   res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
   res.status(200).json({
-    status: 200,
-    body: {
       id: 1,
       first_name: "Vasya",
       surname: "Petrov",
       email: "v@v.v",
       profile_pic: "/user/images/avatar.jpg",
-    }
   });
 });
 

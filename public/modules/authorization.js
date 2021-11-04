@@ -1,6 +1,7 @@
 import {Events} from '../consts/events.js';
+import {statuses} from '../consts/reqStatuses.js';
 import {eventBus} from './eventBus';
-import {checkAuth, getCurrentUser} from './http';
+import {checkAuth, getCurrentUser, logout} from './http';
 
 class Authorization {
   constructor(eventBus) {
@@ -12,7 +13,10 @@ class Authorization {
   }
 
   getUserFromSubmit = (parsedResponse) => {
-    this.user = parsedResponse.body;
+    if (!parsedResponse) {
+      return;
+    }
+    this.user = parsedResponse;
     this.eventBus.emit(Events.Authorization.GotUser);
   }
 
@@ -21,26 +25,35 @@ class Authorization {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
-        const id = response.parsedJson.body.id;
+      if (response.status === statuses.OK) {
+        const id = response.parsedJson?.id;
         if (id) {
           getCurrentUser(id).then((response) => {
             if (!response) {
               return;
             }
-            if (response.status === 200) {
-              this.user = response.parsedJson.body;
+            if (response.status === statuses.OK) {
+              this.user = response.parsedJson;
               this.eventBus.emit(Events.Authorization.GotUser);
             }
+          }).catch(() => {
+            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
           });
         }
       }
+    }).catch(() => {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     });
   }
 
   logOutUser = () => {
-    this.user = null;
-    // TODO fetch to server /logoutUser
+    logout().then((response) => {
+      if (response?.status === statuses.OK) {
+        this.user = null;
+      }
+    }).catch(() => {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    });
   }
 }
 

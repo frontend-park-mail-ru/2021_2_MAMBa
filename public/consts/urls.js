@@ -19,7 +19,7 @@ export const URLS = {
     register: `${currentUrl}/api/user/register`,
     logout: `${currentUrl}/api/user/logout`,
     checkAuth: `${currentUrl}/api/user/checkAuth`,
-    getUser: `${currentUrl}/api/user/`, // +user_id
+    getUser: `${currentUrl}/api/user/`,
     getProfile: `${currentUrl}/api/user/getProfile`,
     changeSettings: `${currentUrl}/api/user/changeProfile`,
     changeAvatar: `${currentUrl}/api/user/changeAvatar`,

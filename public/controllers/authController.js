@@ -6,27 +6,16 @@ import {Events} from '../consts/events';
 export class AuthPageController extends BaseController {
   constructor() {
     super(AuthView, AuthPageModel);
-  }
-  subscribe = () => {
-    this.eventBus.on(Events.AuthPage.Render.Page, this.view.render);
-    this.eventBus.on(Events.AuthPage.Render.Content, this.view.renderContent);
-    this.eventBus.on(Events.AuthPage.AddValidateError, this.view.addErrorMessage);
-    this.eventBus.on(Events.AuthPage.DeleteValidateError, this.view.deleteErrorMessage);
-    this.eventBus.on(Events.AuthPage.HavingWrongInput, this.view.animateWrongInput);
-    this.eventBus.on(Events.AuthPage.GetContent, this.model.getContent);
-    this.eventBus.on(Events.AuthPage.Validate, this.model.validateOneInput);
-    this.eventBus.on(Events.AuthPage.Submit, this.model.submit);
-    this.eventBus.on(Events.Authorization.GotUser, this.model.redirectToHomePage);
-  }
-  unsubscribe = () => {
-    this.eventBus.off(Events.AuthPage.Render.Page, this.view.render);
-    this.eventBus.off(Events.AuthPage.Render.Content, this.view.renderContent);
-    this.eventBus.off(Events.AuthPage.AddValidateError, this.view.addErrorMessage);
-    this.eventBus.off(Events.AuthPage.DeleteValidateError, this.view.deleteErrorMessage);
-    this.eventBus.off(Events.AuthPage.HavingWrongInput, this.view.animateWrongInput);
-    this.eventBus.off(Events.AuthPage.GetContent, this.model.getContent);
-    this.eventBus.off(Events.AuthPage.Validate, this.model.validateOneInput);
-    this.eventBus.off(Events.AuthPage.Submit, this.model.submit);
-    this.eventBus.off(Events.Authorization.GotUser, this.model.redirectToHomePage);
+    this.events.push(
+        {event: Events.AuthPage.Render.Page, handler: this.view.render},
+        {event: Events.AuthPage.Render.Content, handler: this.view.renderContent},
+        {event: Events.AuthPage.AddValidateError, handler: this.view.addErrorMessage},
+        {event: Events.AuthPage.DeleteValidateError, handler: this.view.deleteErrorMessage},
+        {event: Events.AuthPage.HavingWrongInput, handler: this.view.animateWrongInput},
+        {event: Events.AuthPage.GetContent, handler: this.model.getContent},
+        {event: Events.AuthPage.Validate, handler: this.model.validateOneInput},
+        {event: Events.AuthPage.Submit, handler: this.model.submit},
+        {event: Events.Authorization.GotUser, handler: this.model.redirectToHomePage},
+    );
   }
 }

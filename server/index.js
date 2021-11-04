@@ -35,8 +35,6 @@ app.get('/api/user/checkAuth', (req, res) => {
 
 app.get('/api/user/getProfile/354', (req, res) => {
   res.json({
-    "status": 200,
-    "body": {
       "id": 354,
       "first_name": "Vasya",
       "surname": "Petrov",
@@ -46,7 +44,6 @@ app.get('/api/user/getProfile/354', (req, res) => {
       "register_date": "2021-10-29",
       "sub_count": 3,
       "bookmark_count": 10,
-    }
   });
 });
 

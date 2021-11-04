@@ -3,6 +3,7 @@ import {URLS} from '../consts/urls.js';
 import {
   convertArrayToActorPage,
 } from './adapters.js';
+import {statuses} from "../consts/reqStatuses";
 
 
 // const api_url = process.env.API_URL || '';
@@ -20,7 +21,7 @@ const getInfoAboutActor = async (actorId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return convertArrayToActorPage(responseBody);
     }
     return null;
@@ -42,7 +43,7 @@ const getCollections = async () => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -94,6 +95,19 @@ const login = async (user) => {
   }
 };
 
+const logout = async () => {
+  const params = {
+    url: URLS.api.logout,
+    method: 'GET',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 const register = async (user) => {
   const params = {
     url: URLS.api.register,
@@ -128,7 +142,7 @@ const checkAuth = async () => {
  */
 const getCurrentUser = async (id) => {
   const params = {
-    url: URLS.api.getUser + id,
+    url: URLS.api.getUser.concat(id),
     method: 'GET',
     credentials: 'include',
   };
@@ -149,4 +163,5 @@ export {
   checkAuth,
   register,
   login,
+  logout,
 };

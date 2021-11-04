@@ -11,7 +11,7 @@ export class HeaderView extends BaseView {
   }
 
   render = () => {
-    const template = Header(headerLinks);
+    const template = Header({headerLinks: headerLinks});
     const header = document.querySelector('.header');
     if (header) {
       header.innerHTML = template;
@@ -22,7 +22,7 @@ export class HeaderView extends BaseView {
 
   changeActiveButton = (buttonHref) => {
     this.unActiveAllButtons();
-    if (buttonHref === null) {
+    if (!buttonHref) {
       return;
     }
     const header = this.getHeaderFromDom();

@@ -18,7 +18,7 @@ export const URLS = {
     register: `${currentUrl}/api/user/register`,
     logout: `${currentUrl}/api/user/logout`,
     checkAuth: `${currentUrl}/api/user/checkAuth`,
-    getUser: `${currentUrl}/api/user/`, // +user_id
+    getUser: `${currentUrl}/api/user/`,
     getProfile: `${currentUrl}/api/user/getProfile`,
     collections: `${currentUrl}/api/collections/getCollections/skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
     actor: `${currentUrl}/api/actor/getActor/skipPopular=0&limitPopular=11&skipFull=0&limitFull=6&id=`,

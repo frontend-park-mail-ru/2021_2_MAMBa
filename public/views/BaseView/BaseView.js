@@ -19,7 +19,7 @@ export class BaseView {
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = BaseViewPug(headerLinks);
+      ROOT.innerHTML = BaseViewPug({headerLinks: headerLinks});
     } else {
       content.innerHTML = Loader();
     }

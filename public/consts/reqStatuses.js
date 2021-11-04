@@ -1,0 +1,9 @@
+export const statuses = {
+  OK: 200,
+  AUTHORIZED: 201,
+  NOT_FOUND: 404,
+  NOT_AUTHORIZED: 401,
+  NOT_ENTERED: 403,
+  SERVER_ERROR: 500,
+  ALREADY_EXIST: 500,
+};

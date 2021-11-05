@@ -1,0 +1,59 @@
+@import 'components/header/header.scss';
+@import 'components/footer/footer.scss';
+@import 'components/collections/collections.scss';
+@import 'components/loader/loader.scss';
+@import 'components/actor/actor.scss';
+@import 'components/slider/slider.scss';
+@import 'components/filmCard/filmdCard.scss';
+@import 'components/pinkButton/pinkButton.scss';
+@import 'components/buttonWithBorder/buttonWithBorder';
+@import 'components/buttonShowMore/buttonShowMore.scss';
+@import 'components/collection/collection.scss';
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('static/fonts/Montserrat-Regular.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('static/fonts/Montserrat-Bold.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('static/fonts/Montserrat-Black.woff2') format('truetype');
+}
+
+html, body {
+  font-family: 'Montserrat-Regular', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: $white;
+  color: $black;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.place-between-blocks {
+  margin-bottom: 40px;
+}
+
+.block-subtitle {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.scroll-to {
+  text-decoration: none;
+}

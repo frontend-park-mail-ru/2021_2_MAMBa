@@ -1,0 +1,52 @@
+@import '../../css/consts';
+
+.footer {
+  background-color: $grey-base;
+  flex: 0 0 125px;
+  display: flex;
+  margin-top:50px;
+}
+
+.copyright {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  flex: 0 0 200px;
+  color:#5F5E5E;
+  align-self: flex-end;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.social {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:#525252;
+  font-size: 15px;
+}
+
+.inst-hrefs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 0 0 20px;
+}
+
+.inst-hrefs a {
+  text-decoration: none;
+  color: currentcolor;
+  padding: 3px;
+}
+
+.social-btn {
+  padding:20px;
+}
+
+.social-btn path {
+  transition: .5s ease-in-out;
+}
+
+.social-btn:hover path {
+  fill: white;
+}

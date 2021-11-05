@@ -12,6 +12,9 @@
         "sourceType": "module"
     },
     "rules": {
+        "max-len": [2, 120, 4, {"ignoreUrls": true}],
+        "no-invalid-this": "off",
+        "no-console": "error",
         "no-inline-comments": "error",
         "linebreak-style": [
             "error",
@@ -34,5 +37,7 @@
                 "FunctionExpression": true
             }
         }]
-    }
+    },
+    "parser": "babel-eslint"
+
 }

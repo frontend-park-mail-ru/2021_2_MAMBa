@@ -1,0 +1,43 @@
+include ../filmCard/filmCard
+include ../slider/slider
+div.actor-info
+    div.actor-info__container
+        img(src=actor.avatar)
+        div.actor-info__container_text
+            div.actor-info__container_text_name
+                div.actor-info__container_text_name_rus #{actor.name}
+                div.actor-info__container_text_name_en #{actor.nameEnglish}
+            div.actor-info__container_text_title-facts О персоне
+            div.actor-info__container_text_facts
+                div.actor-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key Карьера
+                    div.actor-info__container_text_facts_container_value #{actor.career}
+                div.actor-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Рост
+                    div.actor-info__container_text_facts_container_value #{actor.heightMetre}
+                div.actor-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Дата рождения
+                    div.actor-info__container_text_facts_container_value #{actor.date}
+                div.actor-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Место рождения
+                    div.actor-info__container_text_facts_container_value #{actor.birth_place}
+                div.actor-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Семейное положение
+                    div.actor-info__container_text_facts_container_value #{actor.family_status}
+                div.actor-info__container_text_facts_container
+                    div.actor-info__container_text_facts_container_key  Всего фильмов
+                    div.actor-info__container_text_facts_container_value #{actor.filmTotal}
+            a(class="button-with-border scroll-to" href="#biography") Биография
+    div.actor-info__black-container
+        div.block-subtitle Популярные фильмы с актером
+        +slider(filmsToSlide)
+        div.actor-info__black-container_films-with-description
+            div.block-subtitle Полная фильмография
+            div.actor-info__black-container_films-with-description_container
+              - for (let i = 0; i < limit; i++)
+              +filmCard(filmsWithDescription[i])
+            button(type="button" class=" show-more-films button-more ") Показать еще
+    div.actor-info__biography
+        div.block-subtitle#biography Биография
+        div.actor-info__biography_text #{actor.biography}
+

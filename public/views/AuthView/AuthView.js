@@ -82,7 +82,7 @@ export class AuthView extends BaseView {
 
   addSubmitListener = () => {
     const authForm = this.getAuthFormFromDom();
-    const submitBtn = authForm[SubmitButtonName];
+    const submitBtn = document.querySelector('.auth-btn');
     if (!submitBtn) {
       return;
     }

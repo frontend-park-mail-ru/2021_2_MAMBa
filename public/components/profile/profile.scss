@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.profile_header {
+.profile-header {
   background: no-repeat center/cover url(./static/pics/Header.png);
   width: 1370px;
   height: 270px;
@@ -89,6 +89,7 @@
 .profile-menu {
   margin-top: 20px;
   width: 1170px;
+  position: relative;
   font-family: "Montserrat-Medium", sans-serif;
   color: #716E6E;
   font-size: 16px;
@@ -106,6 +107,21 @@
 
 .active-profile-menu-button {
   color: $pink;
+  border-bottom: 5px solid;
+  border-radius: 5px;
+}
+
+.settings-inputs {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  padding-left: 15px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  width: 310px;
+  height: 36px;
+  font-size: 18px;
+  outline: none;
+  border: 0;
+  background-color: lightgray;
 }
 
 .review-block {
@@ -235,5 +251,34 @@
 }
 
 q {
+  width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
   quotes: '“' '”'
+}
+
+.settings-form {
+  display: flex;
+  height: 300px;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.settings-btn {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 18px;
+  border-radius: 15px;
+  background-color: $pink;
+  color: white;
+  margin: 10px auto;
+  height: 40px;
+  outline:none;
+  border: 0;
+  cursor: pointer;
+  width: 280px;
+}
+
+.settings-btn:hover {
+  transform: scale(0.95);
 }

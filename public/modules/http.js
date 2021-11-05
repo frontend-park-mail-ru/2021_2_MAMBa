@@ -1,12 +1,10 @@
+import {statuses} from '../consts/reqStatuses';
 import {URLS} from '../consts/urls.js';
-
 import {
   convertArrayToActorPage,
 } from './adapters.js';
-import {statuses} from "../consts/reqStatuses";
 
 
-// const api_url = process.env.API_URL || '';
 /**
  * Send async get request using async func.
  * @param {Object} actorId - Contains id of actor to render.
@@ -124,13 +122,12 @@ const register = async (user) => {
 
 const changeAvatar = (formData) => {
   try {
-    // console.log(formData);
     const xhr = new XMLHttpRequest();
     xhr.open('POST', URLS.api.changeAvatar);
     xhr.send(formData);
     xhr.onloadend = () => {
-      if (xhr.status === 200) {
-        console.log(xhr.response);
+      if (xhr.status === statuses.OK) {
+        return xhr.response;
       } else {
         console.log("Ошибка " + this.status);
       }

@@ -23,14 +23,12 @@
 }
 
 .reg {
-    min-height: 400px;
-    height: 75%;
+    min-height: 450px;
     width: 412px;
 }
 
 .auth {
     min-height: 280px;
-    height: 45%;
     width: 412px;
 }
 
@@ -74,12 +72,16 @@
     border-radius: 15px;
     background-color: $pink;
     color: white;
-    margin: 0 auto;
+    margin: 10px auto;
     height: 40px;
     outline:none;
-    border:0;
+    border: 0;
     cursor: pointer;
     width: 221px;
+}
+
+.auth-btn:hover {
+    transform: scale(0.95);
 }
 
 .auth-a {

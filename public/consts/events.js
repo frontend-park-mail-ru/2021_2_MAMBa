@@ -81,5 +81,8 @@ export const Events = {
     GetContent: 'profilePage:getContent',
     PrependMenuLinks: 'profilePage:prependMenuLinks',
     NoMoreAvailable: 'profilePage:noMoreAvailable',
+    ChangeProfile: 'profilePage:changeProfile',
+    ChangeAvatar: 'profilePage:changeAvatar',
+    ReRenderHeader: 'profilePage:reRenderHeader',
   },
 };

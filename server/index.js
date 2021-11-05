@@ -64,8 +64,6 @@ const Bookmarks = {
 }
 
 const ReviewsAndStars = {
-  "status": 200,
-  "body": {
     "review_list": [
       {
         "id": 1,
@@ -108,7 +106,6 @@ const ReviewsAndStars = {
     "review_total": 0,
     "current_limit": 6,
     "current_skip": 0
-  }
 }
 
 const COLLECTIONS = {

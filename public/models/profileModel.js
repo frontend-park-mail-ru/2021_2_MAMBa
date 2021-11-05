@@ -1,9 +1,11 @@
 import {Events} from '../consts/events.js';
 import {Model} from './model';
-import {getProfile, getNProfilePagesBlocks} from '../modules/http';
+import {getProfile, getNProfilePagesBlocks, changeAvatar, changeSettings} from '../modules/http';
 import {authModule} from '../modules/authorization';
 import {getMenuLinks, menuObjects} from '../consts/profileMenu';
 import {URLS} from '../consts/urls';
+import {statuses} from '../consts/reqStatuses';
+import {Routes} from '../consts/routes';
 
 export class ProfileModel extends Model {
   constructor(eventBus) {
@@ -11,7 +13,7 @@ export class ProfileModel extends Model {
     this.currentPagePag = {
       limit: 0,
       skip: 0,
-      path: '/',
+      path: URLS.pages.main,
       haveMore: false,
     };
   }
@@ -43,11 +45,11 @@ export class ProfileModel extends Model {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
-        const user = response.parsedJson.body;
+      if (response.status === statuses.OK) {
+        const user = response.parsedJson;
         getMenuLinks(user.id);
         this.eventBus.emit(Events.ProfilePage.Render.Content, user, this.isThisUser());
-      } else if (response.status === 404) {
+      } else if (response.status === statuses.NOT_FOUND) {
         // TODO ERROR 404
       }
     });
@@ -55,7 +57,7 @@ export class ProfileModel extends Model {
 
   getCurrentPageBlocks = () => {
     switch (this.path) {
-      case `profile/${this.userId}`: {
+      case `${Routes.Profile}/${this.userId}`: {
         return;
       }
       case menuObjects.settings.href: {
@@ -89,42 +91,48 @@ export class ProfileModel extends Model {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
+      if (response.status === statuses.OK) {
         this.currentPagePag.skip += this.currentPagePag.limit;
         if (event === Events.ProfilePage.Render.ReviewsMarks) {
-          this.cutStrings(response.parsedJson.body.review_list, 'review_text');
-          this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
-          this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
+          this.makeReviewUrl(response.parsedJson.review_list, 'id');
+          this.makeFilmUrl(response.parsedJson.review_list, 'film_id');
         }
-        this.eventBus.emit(event, response.parsedJson.body);
-      } else if (response.status === 404) {
+        this.eventBus.emit(event, response.parsedJson);
+      } else if (response.status === statuses.NOT_FOUND) {
         // TODO ERROR 404
       }
     });
   }
 
-  cutStrings = (stringArray, fieldName) => {
-    if (!stringArray || !stringArray[0][fieldName]) {
+  changeProfile = (inputsData) => {
+    if (!inputsData) {
       return;
     }
-    for (let item of stringArray) {
-      if (item[fieldName].length < 25) {
-        continue;
+    changeSettings(inputsData).then((response) => {
+      if (!response) {
+        return;
       }
-      if (item[fieldName].length > 25) {
-        item[fieldName] = item[fieldName].slice(0, 25) + '\n' + item[fieldName].slice(25);
+      if (response.status === statuses.OK) {
+        this.user = response.parsedJson;
+        this.eventBus.emit(Events.ProfilePage.ReRenderHeader, response.parsedJson);
       }
-      if (item[fieldName].length > 40) {
-        item[fieldName] = item[fieldName].slice(0, 40) + '...';
-      }
+    }).catch(() => {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    });
+  }
+
+  changeProfileAvatar = (avatar) => {
+    if (!avatar) {
+      return;
     }
+    this.eventBus.emit(Events.ProfilePage.ReRenderHeader, changeAvatar(avatar));
   }
 
   makeFilmUrl = (stringArray, fieldName) => {
     if (!stringArray || !stringArray[0][fieldName]) {
       return;
     }
-    for (let item of stringArray) {
+    for (const item of stringArray) {
       item.film_url = `/films/${item[fieldName]}`;
     }
   }
@@ -133,7 +141,7 @@ export class ProfileModel extends Model {
     if (!stringArray || !stringArray[0][fieldName]) {
       return;
     }
-    for (let item of stringArray) {
+    for (const item of stringArray) {
       item.review_url = `/reviews/${item[fieldName]}`;
     }
   }

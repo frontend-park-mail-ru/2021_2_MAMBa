@@ -1,17 +1,34 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import profilePug from '../../components/profile/profile.pug';
+import profileHeader from '../../components/profile/profileHeader.pug';
 import starsAndReviews from '../../components/profile/starsAndReviews.pug';
-import profileMenuPug from '../../components/profile/profileMenu.pug';
 import settingsPug from '../../components/profile/settings.pug';
 import {Events} from '../../consts/events.js';
-import {menuLinks} from '../../consts/profileMenu';
+import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
-import {changeSettings, changeAvatar} from '../../modules/http.js';
+import {ROOT} from '../../main';
+import BaseViewPug from '../BaseView/BaseView.pug';
+import {headerLinks} from '../../consts/header';
+import Loader from '../../components/loader/loader.pug';
 
 
 export class ProfileView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
+  }
+
+  render = (routeData) => {
+    this.routeData = routeData;
+    const content = document.querySelector('.content');
+    if (!content) {
+      ROOT.innerHTML = BaseViewPug({headerLinks: headerLinks});
+    } else {
+      const profileContent = document.querySelector('.profile-content');
+      if (profileContent) {
+        profileContent.innerHTML = Loader();
+      }
+    }
+    this.emitGetContent();
   }
 
   emitGetContent = () => {
@@ -24,36 +41,31 @@ export class ProfileView extends BaseView {
     }
     this.user = user;
     this.user.thisUser = isThisUser;
-    const template = profilePug(Object.assign(this.user, menuLinks));
     const content = document.querySelector('.content');
     if (content) {
-      content.innerHTML = template;
-      this.changeActiveMenuButton(this.routeData.path.path);
-      this.submitMoreButton();
+      const profileHeader = document.querySelector('.profile-header');
+      const profileMenu = document.querySelector('.profile-menu');
+      if (!profileHeader || !profileMenu) {
+        content.innerHTML = profilePug(Object.assign(this.user, menuLinks));
+      }
     } else {
       // TODO ERROR
       return;
     }
+    this.changeActiveMenuButton(this.routeData.path.path);
     this.eventBus.emit(Events.ProfilePage.GetCurrentPageBlocks);
-    this.submitSettingsButton();
-  }
-
-  renderSettingsInMenu = () => {
-    const menu = document.querySelector('.profile-menu');
-    if (!menu) {
-      return;
-    }
-    menuLinks.thisUser = true;
-    menu.outerHTML = profileMenuPug(menuLinks);
   }
 
   deleteSettingsFromMenu = () => {
-    const menu = document.querySelector('.profile-menu');
-    if (!menu) {
+    if (!this.user.thisUser) {
       return;
     }
+    const settingsLink = [...document.querySelectorAll('.profile-menu-link')]
+        .find((elem) => elem.textContent.includes(menuObjects.settings.name));
+    if (settingsLink) {
+      settingsLink.remove();
+    }
     menuLinks.thisUser = false;
-    menu.outerHTML = profileMenuPug(menuLinks);
   }
 
   changeActiveMenuButton = (href) => {
@@ -65,8 +77,8 @@ export class ProfileView extends BaseView {
     if (!buttons.length) {
       return;
     }
-    for (let button of buttons) {
-      if (button.href.includes(href)) {
+    for (const button of buttons) {
+      if (button.getAttribute('href') === href) {
         button.classList.add('active-profile-menu-button');
         break;
       }
@@ -94,10 +106,9 @@ export class ProfileView extends BaseView {
     }
 
     settingsButton.addEventListener('click', () => {
-      let formData = new FormData(document.forms.settingsForm);
-      console.log(formData.getAll('avatar'));
+      const formData = new FormData(document.forms.settingsForm);
       if (settingsForm.avatar.files[0]) {
-        changeAvatar(formData.getAll('avatar'));
+        this.eventBus.emit(Events.ProfilePage.ChangeAvatar, formData.getAll('avatar'));
       }
       const formTextInputs = settingsForm.querySelectorAll('.settings-inputs');
       if (!formTextInputs.length) {
@@ -107,9 +118,7 @@ export class ProfileView extends BaseView {
       for (const input of formTextInputs) {
         inputsData[input.name] = input.value;
       }
-      changeSettings(inputsData).then((response) => {
-        this.user = response.parsedJson.body;
-      });
+      this.eventBus.emit(Events.ProfilePage.ChangeProfile, inputsData);
     });
   }
 
@@ -118,8 +127,18 @@ export class ProfileView extends BaseView {
     if (!moreButton) {
       return;
     }
-    moreButton.style.opacity = '0';
-    moreButton.style.cursor = 'default';
+    moreButton.style.visibility = 'hidden';
+  }
+
+  reRenderHeader = (changedUser) => {
+    if (!changedUser) {
+      return;
+    }
+    const header = document.querySelector('.profile-header');
+    if (!header) {
+      return;
+    }
+    header.innerHTML = profileHeader(changedUser);
   }
 
   renderSettingsPage = () => {
@@ -127,14 +146,11 @@ export class ProfileView extends BaseView {
     if (!profileContent) {
       return;
     }
-    for (let input of SettingsInput) {
+    for (const input of SettingsInput) {
       input.value = this.user[input.name];
     }
-    const inputs = {
-      inputs: SettingsInput,
-    };
-    const template = settingsPug(inputs);
-    profileContent.innerHTML = template;
+    profileContent.innerHTML = settingsPug({inputs: SettingsInput});
+    this.submitSettingsButton();
   }
 
   renderBookmarksPage = (bookmarks) => {
@@ -154,9 +170,10 @@ export class ProfileView extends BaseView {
     const template = starsAndReviews(reviewsMarks);
     if (profileContent.querySelector('.loader')) {
       profileContent.innerHTML = template;
-      return;
+    } else {
+      profileContent.innerHTML += template;
     }
-    profileContent.innerHTML += template;
+    this.submitMoreButton();
     if (!reviewsMarks.more_avaliable) {
       this.hideMoreButton();
     }

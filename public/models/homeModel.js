@@ -16,11 +16,11 @@ export class HomePageModel {
   getMainPageContent = () => {
     getCollections()
         .then((data) => {
-          if (data !== null) {
+          if (data) {
             this.eventBus.emit(Events.Homepage.Render.Content, data);
+          } else {
+            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
           }
-        }).catch(() => {
-          this.eventBus.emit(Events.Homepage.Render.ErrorPage);
         });
   }
 }

@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
 
 const PATHS = {
   public: path.resolve(__dirname, 'public'),
@@ -12,6 +11,8 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
     publicPath: '/',
+    sourceMapFilename: '[name].[fullhash:8].map',
+    chunkFilename: '[id].[fullhash:8].js',
   },
   module: {
     rules: [
@@ -49,24 +50,7 @@ module.exports = {
     ],
   },
 
-  devServer: {
-    contentBase: 'server',
-    historyApiFallback: true,
-    hot: true,
-    port: 8087,
-    proxy: {
-      '/api': {
-        target: {
-          host: '0.0.0.0',
-          protocol: 'http:',
-          port: 8085,
-        },
-      },
-    },
-  },
-
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       filename: 'index.html',

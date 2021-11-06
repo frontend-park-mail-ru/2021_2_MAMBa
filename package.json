@@ -2,10 +2,10 @@
   "name": "2021_2_MAMBA",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack serve --mode=development --open --config ./webpack.common.config.js",
+    "start": "webpack serve --mode=development --open --config ./webpack.dev.config.js",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "build": "webpack --mode=production --config ./webpack.common.config.js"
+    "build": "webpack --mode=production --config ./webpack.prod.config.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -21,6 +21,7 @@
     "css-loader": "^5.2.1",
     "dotenv-webpack": "^7.0.2",
     "eslint": "^7.32.0",
+    "webpack-merge": "^4.1.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-google": "^0.14.0",
     "eslint-config-standard": "^16.0.3",

@@ -15,6 +15,10 @@ export class ReviewPageModel {
   }
 
   getPageContent = (review) => {
+    if (!review?.id) {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      return;
+    }
     getInfoAboutReview(review.id)
         .then((response) => {
           if (!response) {

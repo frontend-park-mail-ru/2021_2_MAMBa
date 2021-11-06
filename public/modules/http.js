@@ -61,11 +61,11 @@ const getProfile = async () => {
   }
 };
 
-const sendReview = async (user) => {
+const sendReview = async (review) => {
   const params = {
     url: URLS.api.sendReview,
     method: 'POST',
-    body: JSON.stringify(user),
+    body: JSON.stringify(review),
   };
 
   try {

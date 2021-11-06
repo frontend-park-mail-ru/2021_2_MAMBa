@@ -16,5 +16,5 @@ export const headerLinks = {
       href: '/random',
       title: 'Рандомный фильм',
     },
-  ]
+  ],
 };

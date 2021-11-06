@@ -18,27 +18,32 @@ export class ActorPageModel {
    * @param {object} actor - actor to render.
    */
   getPageContent = (actor) => {
-    if (actor === null || actor.id === null) {
+    if (!actor?.id) {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      return;
     }
     getInfoAboutActor(actor.id)
         .then((contentData) => {
-          if (contentData !== null) {
+          if (!contentData) {
+            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+          } else {
             this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
           }
-        }).catch(() => {
-          this.eventBus.emit(Events.Homepage.Render.ErrorPage);
         });
   }
 
   getActorFilmsContent = (actor) => {
-    getActorFilms(actor.id, actor.limit, actor.skip)
+    if (!actor?.id && !actor?.limit && !actor?.limit) {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      return;
+    }
+    getActorFilms(actor.id, actor.limit, actor.limit)
         .then((contentData) => {
-          if (contentData !== null) {
+          if (!contentData) {
+            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+          } else {
             this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
           }
-        }).catch(() => {
-          this.eventBus.emit(Events.Homepage.Render.ErrorPage);
         });
   }
 }

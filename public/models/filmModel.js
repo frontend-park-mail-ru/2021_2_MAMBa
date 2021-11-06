@@ -20,6 +20,10 @@ export class FilmPageModel {
    * @param {Object} film - film to render.
    */
   getPageContent = (film) => {
+    if (!film?.id) {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      return;
+    }
     getInfoAboutFilm(film.id)
         .then((response) => {
           if (!response) {
@@ -35,7 +39,7 @@ export class FilmPageModel {
    * Post review
    * @param {Object} inputsData - review to post.
    */
-  postReview = (inputsData = {}, routeData) => {
+  postReview = (inputsData = {}) => {
     if (!authModule.user) {
       this.eventBus.emit(Events
           .FilmPage.Render.WarningSend, 'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь', 'warning_no-auth');

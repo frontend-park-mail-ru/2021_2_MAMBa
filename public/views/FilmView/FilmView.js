@@ -52,21 +52,21 @@ export class FilmView extends BaseView {
     const positiveButton = document.querySelector('.type-positive');
     const neutralButton = document.querySelector('.type-neutral');
     const negativeButton = document.querySelector('.type-negative');
-    positiveButton.addEventListener('click', (e) => {
+    positiveButton.addEventListener('click', () => {
       review.review_type = 3;
       positiveButton.classList.add('positive-chosen');
       negativeButton.classList.remove('negative-chosen');
       neutralButton.classList.remove('neutral-chosen');
       this.removeWarning('warning_type');
     });
-    neutralButton.addEventListener('click', (e) => {
+    neutralButton.addEventListener('click', () => {
       review.review_type = 2;
       positiveButton.classList.remove('positive-chosen');
       negativeButton.classList.remove('negative-chosen');
       neutralButton.classList.add('neutral-chosen');
       this.removeWarning('warning_type');
     });
-    negativeButton.addEventListener('click', (e) => {
+    negativeButton.addEventListener('click', () => {
       review.review_type = 1;
       positiveButton.classList.remove('positive-chosen');
       negativeButton.classList.add('negative-chosen');
@@ -76,28 +76,27 @@ export class FilmView extends BaseView {
 
     const clearButton = document.querySelector('.clear-button');
     clearButton.addEventListener('click', (e) => {
+      e.preventDefault();
       document.getElementById('input').value = '';
     });
 
     const sendButton = this.getSendButtonFromDom();
     sendButton.addEventListener('click', (e) => {
+      e.preventDefault();
       if (review.review_type === 0) {
         this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
         return;
       }
-
       const textInput = document.querySelector('.write_review__text').value;
       if (textInput === '') {
         this.renderWarning('Введите текст отзыва', 'warning_empty-text');
         return;
       }
       review.review_text = textInput;
-
       this.eventBus.emit(Events.FilmPage.PostReview, review);
       this.removeWarning('warning_empty-text');
     });
   }
-
 
   getSendButtonFromDom = () => {
     return document.querySelector('.send-review');

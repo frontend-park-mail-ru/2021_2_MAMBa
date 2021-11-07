@@ -129,7 +129,7 @@ const changeAvatar = (formData) => {
       if (xhr.status === statuses.OK) {
         return xhr.response;
       } else {
-        console.log("Ошибка " + this.status);
+        console.log('Ошибка ' + this.status);
       }
     };
   } catch (err) {

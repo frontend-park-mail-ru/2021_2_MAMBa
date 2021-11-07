@@ -46,10 +46,13 @@ export const Events = {
     Render: {
       Content: 'filmPage:renderContent',
       WarningSend: 'filmPage:renderWarningSend',
+      WarningRatingSend: 'filmPage:renderWarningRatingSend',
       SuccessfulSend: 'filmPage:renderSuccessfulSend',
+      SuccessfulRatingSend: 'filmPage:renderSuccessfulRatingSend',
     },
     GetPageContent: 'filmPage:getMainPageContent',
     PostReview: 'filmPage:postReview',
+    PostRating: 'filmPage:postRating',
   },
   ReviewPage: {
     Render: {

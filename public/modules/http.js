@@ -61,11 +61,32 @@ const getProfile = async () => {
   }
 };
 
+/**
+ * Send async post request using async func.
+ * @param {Object} review - review to post.
+ */
 const sendReview = async (review) => {
   const params = {
     url: URLS.api.sendReview,
     method: 'POST',
     body: JSON.stringify(review),
+  };
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+/**
+ * Send async post request using async func.
+ * @param {Integer} filmId - film`s id of rating.
+ * @param {Integer} rating - rating to post.
+ */
+const sendRating = async (filmId, rating) => {
+  const params = {
+    url: `${URLS.api.sendRating}${filmId}${rating}`,
+    method: 'POST',
   };
 
   try {
@@ -82,7 +103,7 @@ const sendReview = async (review) => {
  */
 const getInfoAboutFilm = async (filmId) => {
   const params = {
-    url: URLS.api.film + filmId,
+    url: `${URLS.api.film}${filmId}`,
     method: 'GET',
   };
 
@@ -100,7 +121,7 @@ const getInfoAboutFilm = async (filmId) => {
  */
 const getInfoAboutReview = async (reviewId) => {
   const params = {
-    url: URLS.api.review + reviewId,
+    url: `${URLS.api.review}${reviewId}`,
     method: 'GET',
   };
 
@@ -229,6 +250,7 @@ const getCurrentUser = async () => {
 
 export {
   sendReview,
+  sendRating,
   getActorFilms,
   getCollections,
   getInfoAboutReview,

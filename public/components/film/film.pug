@@ -46,7 +46,6 @@ div.film-info
                 div.film-info__container_text_facts_container-last
                     div.film-info__container_text_facts_container_key  Сценарист
                     div.film-info__container_text_facts_container_value #{film.screenwriter}
-    div.place-between-blocks
     div.film-info__container-trailer
         div.film-info__container-trailer_video
             a(class="film-info__container-trailer_video_button" href="#")
@@ -54,11 +53,31 @@ div.film-info
                 | Трейлер
         div.film-info__container-trailer_name Обзор
         div.film-info__container-trailer_summery #{film.description}
-    div.place-between-blocks
     div.film-info__black-container
-        div.block-subtitle Отзывы
-        +reviewSlider(reviews)
-    div.place-between-blocks
+        div.film-info__black-container_rating
+            div.block-subtitle Рейтинг фильма
+            div.rating
+                div.rating_stars
+                  - for (let i = 1; i <= 10; i++)
+                    div.rating_stars_item
+                        if (i===1)
+                          div(class="rating-item active" data-rate=`${i}`)
+                        else
+                            div(class="rating-item" data-rate=`${i}`)
+                        div.rating_stars_item_number #{i}
+
+                div.rating_stars_number
+                    div.rating_stars_number_text #{film.rating}
+                        div.rating_stars_number_text_line
+                a(class="button-write-review scroll-to" href="#review") Написать отзыв
+
+            div.user_rating
+                if myRating > 1
+                    include ../userRating/userRating.pug
+
+        div.film-info__black-container_reviews
+            div.block-subtitle Отзывы
+            +reviewSlider(reviews)
     div.film-info__white-container
         div.film-info__white-container_rec-films
             div.block-subtitle С фильмом
@@ -68,6 +87,5 @@ div.film-info
                 span
                     = ' смотрят'
             +slider(recommendations)
-        div.place-between-blocks
-        div.film-info__white-container_review Написать отзыв
+        div.film-info__white-container_review#review Написать отзыв
             +inputReview

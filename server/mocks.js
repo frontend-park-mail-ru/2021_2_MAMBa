@@ -750,7 +750,7 @@ const FILM = {
     "current_limit": 11,
     "current_skip": 0
   },
-  "my_rating": -1
+  "my_rating": 1
 };
 
 

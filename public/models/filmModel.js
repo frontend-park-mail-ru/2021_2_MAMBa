@@ -1,5 +1,5 @@
 import {Events} from '../consts/events.js';
-import {getInfoAboutFilm, sendReview} from '../modules/http';
+import {getInfoAboutFilm, sendReview, sendRating} from '../modules/http';
 import {convertArrayToFilmPage} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
 
@@ -46,12 +46,40 @@ export class FilmPageModel {
       return;
     }
 
-    sendReview(inputsData).then((response) => {
+    sendReview(inputsData)
+        .then((response) => {
+          if (!response) {
+            return;
+          }
+          if (response.status === 200) {
+            this.eventBus.emit(Events.FilmPage.Render.SuccessfulSend);
+          }
+        });
+  }
+
+  /**
+   * Post rating
+   * @param {Integer} filmId - film`s id of rating.
+   * @param {Integer} rating - rating to post.
+   */
+  postRating = (filmId, rating) => {
+    if (!authModule.user) {
+      this.eventBus.emit(Events
+          .FilmPage.Render.WarningRatingSend, 'Чтобы поставить рейтинг, пожалуйста, зарегистрируйтесь');
+      return;
+    }
+    if (!filmId && !rating) {
+      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      return;
+    }
+
+    sendRating(filmId, rating).then((response) => {
       if (!response) {
         return;
       }
       if (response.status === 200) {
-        this.eventBus.emit(Events.FilmPage.Render.SuccessfulSend);
+        this.eventBus.emit(Events.FilmPage.Render.renderSuccessfulRatingSend, rating);
+        // TODO изменить рейтинг фильма
       }
     });
   }

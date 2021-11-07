@@ -14,6 +14,7 @@
 @import 'components/reviewSlider/reviewSlider.scss';
 @import 'components/writeReview/writeReview.scss';
 @import 'components/review/review.scss';
+@import 'components/userRating/userRating.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';
@@ -55,10 +56,6 @@ body {
   min-height: 100vh;
   flex-direction: column;
   position: relative;
-}
-
-.place-between-blocks {
-  margin-bottom: 40px;
 }
 
 .block-subtitle {

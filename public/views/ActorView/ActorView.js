@@ -141,7 +141,7 @@ export class ActorView extends BaseView {
    * Set anchor actions.
    */
   setAnchorActions = () => {
-    const anchors = document.querySelectorAll('a.scroll-to');
+    const anchors = document.querySelectorAll('.scroll-to');
 
     for (const anchor of anchors) {
       anchor.addEventListener('click', (e) =>{

@@ -1,5 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import filmPageContent from '../../components/film/film.pug';
+import userRating from '../../components/userRating/userRating.pug';
 import successfulSendButton from '../../components/authWarningButton/authWarningButton.pug';
 import {Events} from '../../consts/events.js';
 import {getPathArgs} from '../../modules/router.js';
@@ -37,8 +38,90 @@ export class FilmView extends BaseView {
       this.setSliderReviewActions();
       this.setSliderActions();
       this.addSubmitSendReviewListener(data.film.id);
+      this.rating(data.film.id);
+      this.setAnchorActions();
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    }
+  }
+
+  renderWarningRatingSend = (text) => {
+    const ratingArea = document.querySelector('.user_rating');
+    ratingArea.innerHTML = text;
+  }
+
+  renderSuccessfulRatingSend = (rating) => {
+    const ratingArea = document.querySelector('.user_rating');
+    const template = userRating(rating);
+    if (ratingArea) {
+      ratingArea.innerHTML = template;
+    }
+  }
+
+  rating = (filmId) => {
+    const rating = document.querySelector('.rating_stars');
+    const ratingItem = document.querySelectorAll('.rating-item');
+
+    rating.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = e.target;
+      if (target.classList.contains('rating-item')) {
+        removeClass(ratingItem, 'current-active');
+        target.classList.add('active', 'current-active');
+        const rating = {
+          myRating: target.getAttribute('data-rate'),
+        };
+        this.eventBus.emit(Events.FilmPage.PostRating, filmId, rating.myRating);
+      }
+    });
+
+    rating.onmouseover = function(e) {
+      const target = e.target;
+      if (target.classList.contains('rating-item')) {
+        removeClass(ratingItem, 'active');
+        target.classList.add('active');
+        mouseOverActiveClass(ratingItem);
+      }
+    };
+    rating.onmouseout = function() {
+      addClass(ratingItem, 'active');
+      mouseOutActiveClass(ratingItem);
+    };
+
+    function removeClass(arr) {
+      for (let i = 0, iLen = arr.length; i < iLen; i++) {
+        for (let j = 1; j < arguments.length; j++) {
+          ratingItem[i].classList.remove(arguments[j]);
+        }
+      }
+    }
+
+    function addClass(arr) {
+      for (let i = 0, iLen = arr.length; i < iLen; i++) {
+        for (let j = 1; j < arguments.length; j++) {
+          ratingItem[i].classList.add(arguments[j]);
+        }
+      }
+    }
+
+    function mouseOverActiveClass(arr) {
+      for (let i = 0, iLen = arr.length; i < iLen; i++) {
+        if (arr[i].classList.contains('active')) {
+          break;
+        } else {
+          arr[i].classList.add('active');
+        }
+      }
+    }
+
+    function mouseOutActiveClass(arr) {
+      for (let i = arr.length - 1; i >= 1; i--) {
+        if (arr[i].classList.contains('current-active')) {
+          break;
+        } else {
+          arr[i].classList.remove('active');
+        }
+      }
     }
   }
 
@@ -104,6 +187,8 @@ export class FilmView extends BaseView {
 
   /**
    * Render warning to auth.
+   * @param {string} text - Warning text to render.
+   * @param {string} className - Class of warning.
    */
   renderWarning = (text, className) => {
     const errorBlock = document.querySelector(`.${className}`);
@@ -112,6 +197,7 @@ export class FilmView extends BaseView {
 
   /**
    * Remove warning to auth.
+   * @param {string} className - Class of warning.
    */
   removeWarning = (className) => {
     if (className === undefined) {
@@ -255,5 +341,24 @@ export class FilmView extends BaseView {
       }
     };
     checkButtons();
+  }
+  /**
+   * Set anchor actions.
+   */
+  setAnchorActions = () => {
+    const anchors = document.querySelectorAll('a.scroll-to');
+
+    for (const anchor of anchors) {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const blockID = anchor.getAttribute('href');
+
+        document.querySelector(blockID).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      });
+    }
   }
 }

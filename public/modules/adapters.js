@@ -91,6 +91,7 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     film: convertArrayToFilmInfo(filmInfoJson.film),
     reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
     recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
+    myRating: filmInfoJson?.my_rating,
   }
 );
 /**
@@ -117,7 +118,7 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
  */
 export const convertArrayToFilmInfo = (arrayContent) => {
   let duration;
-  if (arrayContent.content_type === 'фильм') {
+  if (arrayContent.content_type === 'film') {
     duration = `${arrayContent.duration} минут`;
   } else {
     duration = `${arrayContent.duration} сезонов`;

@@ -1,6 +1,7 @@
 @import '../../css/consts';
 
 .button-with-border {
+  background-color: $white;
   grid-row-start: 5;
   grid-row-end: 6;
   border-radius: 10px;

@@ -1,0 +1,7 @@
+div.user_rating_text Моя оценка
+if myRating<5
+    span(class ="user_rating_number negative-chosen") #{myRating}
+else if myRating < 7
+    span(class ="user_rating_number neutral-chosen") #{myRating}
+else
+    span(class ="user_rating_number positive-chosen") #{myRating}

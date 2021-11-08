@@ -1,0 +1,19 @@
+.error-input {
+  border: 2px solid $pink;
+
+  &_animated {
+    animation: errorField  0.3s 1 ease-in-out;
+  }
+}
+
+.error-text {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  font-size: 13px;
+  color: $purple-text;
+}
+
+@keyframes errorField {
+  from {background-color: white;}
+  50% {background-color: $pink;}
+  to {background-color: white;}
+}

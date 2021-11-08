@@ -12,7 +12,6 @@ export class BaseController {
     this.events = [];
   }
   subscribe = () => {
-    console.log(this.events);
     this.events.forEach((item) => this.eventBus.on(item.event, item.handler));
   }
   unsubscribe = () => {

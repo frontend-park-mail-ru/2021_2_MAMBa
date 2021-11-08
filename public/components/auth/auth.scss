@@ -1,17 +1,11 @@
 @import '../../css/consts.scss';
 
 .auth-content {
-    background: url("./static/pics/bg_auth.jpg") center;
+    background: url('./static/pics/bg_auth.jpg') center;
     flex: 1 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-@keyframes errorField {
-    from {background-color: white;}
-    50% {background-color: $pink;}
-    to {background-color: white;}
 }
 
 .auth, .reg {
@@ -20,6 +14,50 @@
     color: $purple-text;
     display: flex;
     flex-direction: column;
+
+    &__auth-head {
+        font-family: "Montserrat-Bold", "Arial", sans-serif;
+        font-size: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        background-color: #FFFFFF9A;
+        height: 63px;
+    }
+
+    &__auth-form {
+        margin-top: 15px;
+        flex: 1 0 auto;
+        padding: 0 50px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__auth-btn {
+        font-family: "Montserrat-Bold", "Arial", sans-serif;
+        font-size: 18px;
+        border-radius: 15px;
+        background-color: $pink;
+        color: white;
+        margin: 0 auto;
+        height: 40px;
+        outline:none;
+        border:0;
+        cursor: pointer;
+        width: 221px;
+    }
+
+    &__auth-a {
+        font-family: "Montserrat-Bold", "Arial", sans-serif;
+        text-decoration: underline;
+        color: currentcolor;
+        cursor: pointer;
+        margin: 0 auto 25px auto;
+    }
 }
 
 .reg {
@@ -32,74 +70,4 @@
     min-height: 280px;
     height: 45%;
     width: 412px;
-}
-
-.auth-form {
-    margin-top: 15px;
-    flex: 1 0 auto;
-    padding: 0 50px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.auth-head {
-    font-family: "Montserrat-Bold", "Arial", sans-serif;
-    font-size: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    background-color: #FFFFFF9A;
-    height: 63px;
-}
-
-.text-inputs {
-    font-family: "Montserrat-Regular", "Arial", sans-serif;
-    padding-left: 15px;
-    flex: 1 0 auto;
-    border-radius: 10px;
-    width:290px;
-    height: 36px;
-    outline:none;
-    border:0;
-}
-
-.auth-btn {
-    font-family: "Montserrat-Bold", "Arial", sans-serif;
-    font-size: 18px;
-    border-radius: 15px;
-    background-color: $pink;
-    color: white;
-    margin: 0 auto;
-    height: 40px;
-    outline:none;
-    border:0;
-    cursor: pointer;
-    width: 221px;
-}
-
-.auth-a {
-    font-family: "Montserrat-Bold", "Arial", sans-serif;
-    text-decoration: underline;
-    color: currentcolor;
-    cursor: pointer;
-    margin: 0 auto 25px auto;
-}
-
-.error {
-    border: 2px solid $pink !important;
-}
-
-.animated {
-    animation: errorField  0.3s 1 ease-in-out;
-}
-
-.error-text {
-    font-family: "Montserrat-Regular", "Arial", sans-serif;
-    font-size: 13px;
-    color: $purple-text;
 }

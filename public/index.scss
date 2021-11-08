@@ -1,8 +1,10 @@
 @import 'components/header/navbar.scss';
 @import 'components/header/search.scss';
-@import 'components/header/user.scss';
+@import 'components/header/userBlock';
 @import 'components/footer/footer.scss';
 @import 'components/auth/auth.scss';
+@import 'components/auth/authError.scss';
+@import 'components/textInputs/textInputs.scss';
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
 @import 'css/consts.scss';
@@ -45,7 +47,3 @@ body {
   flex-direction: column;
   position: relative;
 }
-
-
-
-

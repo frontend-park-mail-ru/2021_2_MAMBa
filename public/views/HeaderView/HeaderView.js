@@ -32,7 +32,7 @@ export class HeaderView extends BaseView {
     }
     for (const button of buttons) {
       if (button.getAttribute('href') === buttonHref) {
-        button.classList.add('active-btn');
+        button.classList.add('header__menu-btn_active');
         return;
       }
     }
@@ -43,12 +43,12 @@ export class HeaderView extends BaseView {
   }
 
   unActiveAllButtons = () => {
-    const activeButtons = document.querySelectorAll('.active-btn');
+    const activeButtons = document.querySelectorAll('.header__menu-btn_active');
     if (!activeButtons.length) {
       return;
     }
     for (const button of activeButtons) {
-      button.classList.remove('active-btn');
+      button.classList.remove('header__menu-btn_active');
     }
   }
 

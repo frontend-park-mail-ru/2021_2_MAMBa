@@ -3,7 +3,7 @@ import {URLS} from '../consts/urls.js';
 import {
   convertArrayToActorPage,
 } from './adapters.js';
-import {statuses} from "../consts/reqStatuses";
+import {statuses} from '../consts/reqStatuses';
 
 
 // const api_url = process.env.API_URL || '';

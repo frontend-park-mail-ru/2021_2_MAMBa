@@ -375,51 +375,51 @@ const COLLECTIONS = {
   collections_list: [
     {
       id: 1, title: 'Для ценителей Хогвардса',
-      picture_url: '/server/images/collections1.png',
+      picture_url: '/server/images/1.webp',
     },
     {
       id: 2, title: 'Про настоящую любовь',
-      picture_url: '/server/images/collections2.png',
+      picture_url: '/server/images/2.webp',
     },
     {
       id: 3, title: 'Аферы века',
-      picture_url: '/server/images/collections3.png',
+      picture_url: '/server/images/3.webp',
     },
     {
       id: 4, title: 'Про Вторую Мировую',
-      picture_url: '/server/images/collections4.jpg',
+      picture_url: '/server/images/4.webp',
     },
     {
       id: 5, title: 'Осеннее настроение',
-      picture_url: '/server/images/collections5.png',
+      picture_url: '/server/images/5.webp',
     },
     {
       id: 6, title: 'Летняя атмосфера',
-      picture_url: '/server/images/collections6.png',
+      picture_url: '/server/images/6.webp',
     },
     {
       id: 7, title: 'Под Новый Год',
-      picture_url: '/server/images/collections7.png',
+      picture_url: '/server/images/7.webp',
     },
     {
       id: 8, title: 'Романтические фильмы',
-      picture_url: '/server/images/collections8.jpg',
+      picture_url: '/server/images/8.webp',
     },
     {
       id: 9, title: 'Джунгли зовут',
-      picture_url: '/server/images/collections9.jpg',
+      picture_url: '/server/images/9.webp',
     },
     {
       id: 10, title: 'Фантастические фильмы',
-      picture_url: '/server/images/collections10.jpg',
+      picture_url: '/server/images/10.webp',
     },
     {
       id: 11, title: 'Про петлю времени',
-      picture_url: 'server/images/collections11.png',
+      picture_url: 'server/images/11.webp',
     },
     {
       id: 12, title: 'Классика на века',
-      picture_url: '/server/images/collections12.jpg',
+      picture_url: '/server/images/12.webp',
     },
   ],
   collection_total: 16,
@@ -553,7 +553,7 @@ const FILM = {
     "poster_url": "/server/images/one-more-drink.webp",
     "trailer_url": "string",
     "content_type": "film",
-    "release_year": 2020,
+    // "release_year": 2020,
     "duration": 132,
     "total_revenue": "12 миллионов $",
     "description": "В ресторане собираются учитель истории, психологии, музыки и физрук, чтобы отметить 40-летие одного из них. И решают проверить научную теорию о том, что c самого рождения человек страдает от нехватки алкоголя в крови, а чтобы стать по-настоящему счастливым, нужно быть немного нетрезвым. Друзья договариваются наблюдать, как возлияния скажутся на их работе и личной жизни, и устанавливают правила: не пить вечером и по выходным. Казалось бы, что может пойти не так?",

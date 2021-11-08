@@ -17,7 +17,7 @@ export class FilmPageModel {
 
   /**
    * Get content for film page
-   * @param {Object} film - film to render.
+   * @param {object} film - film to render.
    */
   getPageContent = (film) => {
     if (!film?.id) {
@@ -37,12 +37,14 @@ export class FilmPageModel {
 
   /**
    * Post review
-   * @param {Object} inputsData - review to post.
+   * @param {object} inputsData - review to post.
    */
   postReview = (inputsData = {}) => {
     if (!authModule.user) {
-      this.eventBus.emit(Events
-          .FilmPage.Render.WarningSend, 'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь', 'warning_no-auth');
+      this.eventBus.emit
+      (Events.FilmPage.Render.WarningSend,
+          'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь',
+          'warning_no-auth');
       return;
     }
 
@@ -59,13 +61,14 @@ export class FilmPageModel {
 
   /**
    * Post rating
-   * @param {Integer} filmId - film`s id of rating.
-   * @param {Integer} rating - rating to post.
+   * @param {number} filmId - film`s id of rating.
+   * @param {number} rating - rating to post.
    */
   postRating = (filmId, rating) => {
     if (!authModule.user) {
-      this.eventBus.emit(Events
-          .FilmPage.Render.WarningRatingSend, 'Чтобы поставить рейтинг, пожалуйста, зарегистрируйтесь');
+      this.eventBus.emit
+      (Events.FilmPage.Render.WarningRatingSend,
+          'Чтобы поставить рейтинг, пожалуйста, зарегистрируйтесь');
       return;
     }
     if (!filmId && !rating) {

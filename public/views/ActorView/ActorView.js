@@ -64,7 +64,7 @@ export class ActorView extends BaseView {
 
   /**
    * Render content favourites page from pug template to content div.
-   * @param {Object} data - Contains info about actor films.
+   * @param {object} data - Contains info about actor films.
    */
   renderFilms = (data) => {
     const template = actorFilmsContent(data);

@@ -63,7 +63,7 @@ const getProfile = async () => {
 
 /**
  * Send async post request using async func.
- * @param {Object} review - review to post.
+ * @param {object} review - review to post.
  */
 const sendReview = async (review) => {
   const params = {
@@ -80,8 +80,8 @@ const sendReview = async (review) => {
 
 /**
  * Send async post request using async func.
- * @param {Integer} filmId - film`s id of rating.
- * @param {Integer} rating - rating to post.
+ * @param {number} filmId - film`s id of rating.
+ * @param {number} rating - rating to post.
  */
 const sendRating = async (filmId, rating) => {
   const params = {
@@ -98,8 +98,8 @@ const sendRating = async (filmId, rating) => {
 
 /**
  * Send async get request using async func.
- * @param {Object} filmId - Contains id of film to render.
- * @return {Array} - Array of objects for render film page.
+ * @param {object} filmId - Contains id of film to render.
+ * @return {array} - Array of objects for render film page.
  */
 const getInfoAboutFilm = async (filmId) => {
   const params = {
@@ -116,8 +116,8 @@ const getInfoAboutFilm = async (filmId) => {
 
 /**
  * Send async get request using async func.
- * @param {Object} reviewId - Contains id of review to render.
- * @return {Array} - Array of objects for render review page.
+ * @param {object} reviewId - Contains id of review to render.
+ * @return {array} - Array of objects for render review page.
  */
 const getInfoAboutReview = async (reviewId) => {
   const params = {
@@ -157,9 +157,9 @@ const getInfoAboutActor = async (actorId) => {
 
 /**
  * Send async get request using async func.
- * @param {Integer} actorId - Contains id of actor to render.
- * @param {Integer} limit - Contains count of films to render.
- * @param {Integer} skip - Contains count 0f rendered films.
+ * @param {number} actorId - Contains id of actor to render.
+ * @param {number} limit - Contains count of films to render.
+ * @param {number} skip - Contains count 0f rendered films.
  * @return {array} - Array of objects for render actor page.
  */
 const getActorFilms = async (actorId, limit, skip) => {

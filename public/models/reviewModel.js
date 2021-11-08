@@ -3,7 +3,7 @@ import {convertReviewToReviewPage} from '../modules/adapters';
 import {getInfoAboutReview} from '../modules/http';
 
 /** Class representing actor page model.
- * @param {Object} review - info about review(id).
+ * @param {object} review - info about review(id).
  */
 export class ReviewPageModel {
   /**

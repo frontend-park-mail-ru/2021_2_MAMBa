@@ -24,11 +24,11 @@ div.film-info
                 div.film-info__container_text_facts_container
                     div.film-info__container_text_facts_container_key  Жанр
                     div.film-info__container_text_facts_container_value
-                        each genre, index in film.genres
-                            if index !== 0
-                                span
-                                    = ',    '
-                            a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
+                      each genre, index in film.genres
+                          if index !== 0
+                              span
+                                  = ',    '
+                          a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
                 div.film-info__container_text_facts_container
                     div.actor-info__container_text_facts_container_key  Продолжительность
                     div.actor-info__container_text_facts_container_value #{film.duration}
@@ -65,16 +65,13 @@ div.film-info
                         else
                             div(class="rating-item" data-rate=`${i}`)
                         div.rating_stars_item_number #{i}
-
                 div.rating_stars_number
                     div.rating_stars_number_text #{film.rating}
                         div.rating_stars_number_text_line
                 a(class="button-write-review scroll-to" href="#review") Написать отзыв
-
             div.user_rating
                 if myRating > 1
                     include ../userRating/userRating.pug
-
         div.film-info__black-container_reviews
             div.block-subtitle Отзывы
             +reviewSlider(reviews)

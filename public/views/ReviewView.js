@@ -8,7 +8,7 @@ export class ReviewView extends BaseView {
   /**
    * Create review page view.
    * @param {EventBus} eventBus - Global Event Bus.
-   * @param {Object}- Parameters for review page view.
+   * @param {object}- Parameters for review page view.
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
@@ -25,7 +25,7 @@ export class ReviewView extends BaseView {
 
   /**
    * Render content review page from pug template to content div.
-   * @param {Object} data - Contains info about review.
+   * @param {object} data - Contains info about review.
    */
   renderContent = (data) => {
     const template = reviewPageContent(data);

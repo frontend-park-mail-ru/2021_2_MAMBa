@@ -10,7 +10,7 @@ export class FilmView extends BaseView {
   /**
    * Create film page view.
    * @param {EventBus} eventBus - Global Event Bus.
-   * @param {Object}- Parameters for film page view.
+   * @param {object}- Parameters for film page view.
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
@@ -27,7 +27,7 @@ export class FilmView extends BaseView {
 
   /**
    * Render content film page from pug template to content div.
-   * @param {Object} data - Contains info about film.
+   * @param {object} data - Contains info about film.
    */
   renderContent = (data) => {
     const template = filmPageContent(data);
@@ -47,7 +47,9 @@ export class FilmView extends BaseView {
 
   renderWarningRatingSend = (text) => {
     const ratingArea = document.querySelector('.user_rating');
-    ratingArea.innerHTML = text;
+    if (ratingArea) {
+      ratingArea.innerHTML = text;
+    }
   }
 
   renderSuccessfulRatingSend = (rating) => {
@@ -61,7 +63,6 @@ export class FilmView extends BaseView {
   rating = (filmId) => {
     const rating = document.querySelector('.rating_stars');
     const ratingItem = document.querySelectorAll('.rating-item');
-
     rating.addEventListener('click', (e) => {
       e.preventDefault();
       const target = e.target;
@@ -74,7 +75,6 @@ export class FilmView extends BaseView {
         this.eventBus.emit(Events.FilmPage.PostRating, filmId, rating.myRating);
       }
     });
-
     rating.onmouseover = function(e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
@@ -87,7 +87,6 @@ export class FilmView extends BaseView {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
-
     function removeClass(arr) {
       for (let i = 0, iLen = arr.length; i < iLen; i++) {
         for (let j = 1; j < arguments.length; j++) {
@@ -95,7 +94,6 @@ export class FilmView extends BaseView {
         }
       }
     }
-
     function addClass(arr) {
       for (let i = 0, iLen = arr.length; i < iLen; i++) {
         for (let j = 1; j < arguments.length; j++) {
@@ -103,7 +101,6 @@ export class FilmView extends BaseView {
         }
       }
     }
-
     function mouseOverActiveClass(arr) {
       for (let i = 0, iLen = arr.length; i < iLen; i++) {
         if (arr[i].classList.contains('active')) {
@@ -113,7 +110,6 @@ export class FilmView extends BaseView {
         }
       }
     }
-
     function mouseOutActiveClass(arr) {
       for (let i = arr.length - 1; i >= 1; i--) {
         if (arr[i].classList.contains('current-active')) {
@@ -160,7 +156,10 @@ export class FilmView extends BaseView {
     const clearButton = document.querySelector('.clear-button');
     clearButton.addEventListener('click', (e) => {
       e.preventDefault();
-      document.getElementById('input').value = '';
+      const content = document.getElementById('input');
+      if (content) {
+        content.value =" ";
+      }
     });
 
     const sendButton = this.getSendButtonFromDom();
@@ -171,11 +170,13 @@ export class FilmView extends BaseView {
         return;
       }
       const textInput = document.querySelector('.write_review__text').value;
-      if (textInput === '') {
-        this.renderWarning('Введите текст отзыва', 'warning_empty-text');
-        return;
+      if (textInput) {
+        if (textInput === '') {
+          this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+          return;
+        }
+        review.review_text = textInput;
       }
-      review.review_text = textInput;
       this.eventBus.emit(Events.FilmPage.PostReview, review);
       this.removeWarning('warning_empty-text');
     });
@@ -192,7 +193,8 @@ export class FilmView extends BaseView {
    */
   renderWarning = (text, className) => {
     const errorBlock = document.querySelector(`.${className}`);
-    errorBlock.innerHTML = text;
+    if (errorBlock)
+      errorBlock.innerHTML = text;
   }
 
   /**
@@ -200,7 +202,7 @@ export class FilmView extends BaseView {
    * @param {string} className - Class of warning.
    */
   removeWarning = (className) => {
-    if (className === undefined) {
+    if (!className) {
       className = 'warning_no-auth';
     }
     const errorBlock = document.querySelector(`.${className}`);

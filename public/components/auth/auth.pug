@@ -3,10 +3,10 @@
 .auth-content
     div(class=currClass)
         if auth
-            div(class=`${currClass}__auth-head`) Авторизация
+            div(class=`${currClass}__head`) Авторизация
         else
-            div(class=`${currClass}__auth-head`) Регистрация
-        form(class=`${currClass}__auth-form` name=authFormName)
+            div(class=`${currClass}__head`) Регистрация
+        form(class=`${currClass}__form` name=authFormName)
             each input in inputs
                 input(
                     type=input.type
@@ -14,8 +14,8 @@
                     placeholder=input.placeholder
                     class='text-inputs'
                 )
-            input(class=`${currClass}__auth-btn` type='button' name=submitButtonName value=auth ? 'Войти' : 'Создать аккаунт')
+            input(class=`${currClass}__btn` type='button' name=submitButtonName value=auth ? 'Войти' : 'Создать аккаунт')
         if auth
-            a(class=`${currClass}__auth-a` href='/reg') Еще нет аккаунта?
+            a(href='/reg') Еще нет аккаунта?
         else
-            a(class=`${currClass}__auth-a` href='/auth') Уже есть аккаунт?
+            a(href='/auth') Уже есть аккаунт?

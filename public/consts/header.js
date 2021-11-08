@@ -4,7 +4,7 @@ export const headerLinks = [
     title: 'Подборки',
   },
   {
-    href: '/actor/1',
+    href: '/actor/3',
     title: 'Жанры',
   },
   {

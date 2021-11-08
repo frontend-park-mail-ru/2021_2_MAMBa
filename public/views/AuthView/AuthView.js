@@ -4,6 +4,7 @@ import authContent from '../../components/auth/auth.pug';
 import authError from '../../components/auth/authError/authError.pug';
 import {Events} from '../../consts/events.js';
 import {createElementFromHTML} from '../../utils/utils';
+import {Routes} from '../../consts/routes';
 
 export class AuthView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
@@ -23,7 +24,7 @@ export class AuthView extends BaseView {
       this.addValidateListeners();
       this.addSubmitListener();
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     }
   }
 
@@ -33,7 +34,7 @@ export class AuthView extends BaseView {
     }
     const authForm = this.getAuthFormFromDom();
     const errorInput = authForm[inputName];
-    errorInput.classList.add('error-input');
+    errorInput.classList.add('auth-error-input');
     authForm.insertBefore(this.createError(errorMessage), errorInput);
   }
 
@@ -42,8 +43,8 @@ export class AuthView extends BaseView {
       return;
     }
     const errorInput = document.forms[AuthFormName][inputName];
-    errorInput.classList.remove('error-input');
-    const errorBlocks = document.forms[AuthFormName].querySelectorAll('.error-text');
+    errorInput.classList.remove('auth-error-input');
+    const errorBlocks = document.forms[AuthFormName].querySelectorAll('.auth-error-text');
     if (!errorBlocks.length) {
       return;
     }
@@ -59,7 +60,7 @@ export class AuthView extends BaseView {
     if (!errorInput) {
       return;
     }
-    errorInput.classList.add('error-input_animated');
+    errorInput.classList.add('auth-error-input_animated');
   }
 
   addValidateListeners = () => {
@@ -77,14 +78,15 @@ export class AuthView extends BaseView {
           authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
       });
       input.addEventListener('animationend', () => {
-        input.classList.remove('error-input_animated');
+        input.classList.remove('auth-error-input_animated');
       });
     }
   }
 
   addSubmitListener = () => {
     const authForm = this.getAuthFormFromDom();
-    const submitBtn = document.querySelector('.auth-btn');
+    const submitBtn = document.querySelector(
+        this.routeData.path.path === Routes.AuthPage ? '.auth__btn' : '.reg__btn');
     if (!submitBtn) {
       return;
     }

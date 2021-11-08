@@ -1,8 +1,6 @@
-import {ROOT} from '../../main.js';
 import {BaseView} from '../BaseView/BaseView.js';
 import header from '../../components/header/navbar.pug';
 import homeContent from '../../components/collections/collections.pug';
-import errorPage from '../../components/errorPage/errorPage.pug';
 import {Events} from '../../consts/events.js';
 
 /** Class representing home page view. */
@@ -33,7 +31,7 @@ export class HomePageView extends BaseView {
     if (headerTag) {
       headerTag.outerHTML = template;
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     }
   }
 
@@ -47,14 +45,7 @@ export class HomePageView extends BaseView {
     if (content) {
       content.innerHTML = template;
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     }
-  }
-
-  /**
-   * Render error page from pug template.
-   */
-  renderErrorPage = () => {
-    ROOT.innerHTML = errorPage();
   }
 }

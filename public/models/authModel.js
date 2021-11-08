@@ -128,7 +128,7 @@ export class AuthPageModel extends Model {
           this.redirectToHomePage();
         }
       }).catch(() => {
-        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+        this.eventBus.emit(Events.App.ErrorPage);
       });
     } else {
       register(inputsData).then((response) => {
@@ -140,7 +140,7 @@ export class AuthPageModel extends Model {
           this.redirectToHomePage();
         }
       }).catch(() => {
-        this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+        this.eventBus.emit(Events.App.ErrorPage);
       });
     }
   }

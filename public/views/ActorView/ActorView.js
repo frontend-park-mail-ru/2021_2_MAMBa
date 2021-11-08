@@ -89,7 +89,7 @@ export class ActorView extends BaseView {
       };
       checkBnts();
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     }
   }
 

@@ -37,12 +37,12 @@ class Authorization {
               this.eventBus.emit(Events.Authorization.GotUser);
             }
           }).catch(() => {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+            this.eventBus.emit(Events.App.ErrorPage);
           });
         }
       }
     }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     });
   }
 
@@ -52,7 +52,7 @@ class Authorization {
         this.user = null;
       }
     }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     });
   }
 }

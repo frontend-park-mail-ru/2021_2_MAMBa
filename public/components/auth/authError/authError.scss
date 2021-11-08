@@ -1,4 +1,4 @@
-.error-input {
+.auth-error-input {
   border: 2px solid $pink;
 
   &_animated {
@@ -6,7 +6,7 @@
   }
 }
 
-.error-text {
+.auth-error-text {
   font-family: "Montserrat-Regular", "Arial", sans-serif;
   font-size: 13px;
   color: $purple-text;

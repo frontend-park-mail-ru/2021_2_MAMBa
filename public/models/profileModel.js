@@ -31,13 +31,13 @@ export class ProfileModel extends Model {
 
   getContent = (routeData) => {
     if (!routeData || !routeData.path || !routeData.path.path || routeData.path.path.split('/').length > 4) {
-      // TODO ERROR 404
+      this.eventBus.emit(Events.App.ErrorPage);
       return;
     }
     this.path = routeData.path.path;
     this.userId = this.getUserIdFromPath(routeData.path.path);
     if (!this.userId) {
-      // TODO ERROR 404
+      this.eventBus.emit(Events.App.ErrorPage);
       return;
     }
 
@@ -64,6 +64,7 @@ export class ProfileModel extends Model {
         return;
       }
       case menuObjects.settings.href: {
+        this.clearCurrentPagePag(this.path, menuObjects.reviewsMarks);
         this.eventBus.emit(Events.ProfilePage.Render.Settings);
         break;
       }
@@ -73,7 +74,7 @@ export class ProfileModel extends Model {
         break;
       }
       default:
-        // TODO 404
+        this.eventBus.emit(Events.App.ErrorPage);
     }
   }
 
@@ -102,7 +103,7 @@ export class ProfileModel extends Model {
         }
         this.eventBus.emit(event, response.parsedJson);
       } else if (response.status === statuses.NOT_FOUND) {
-        // TODO ERROR 404
+        this.eventBus.emit(Events.App.ErrorPage);
       }
     });
   }
@@ -120,7 +121,7 @@ export class ProfileModel extends Model {
         this.eventBus.emit(Events.ProfilePage.ReRenderHeader, response.parsedJson);
       }
     }).catch(() => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     });
   }
 
@@ -150,7 +151,7 @@ export class ProfileModel extends Model {
   }
 
   redirectToAuth = () => {
-    this.eventBus.emit(Events.PathChanged, '/auth');
+    this.eventBus.emit(Events.PathChanged, Routes.AuthPage);
   }
 
   isThisUser = () => {

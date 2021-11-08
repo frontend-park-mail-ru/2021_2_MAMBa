@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
 
-    &__auth-head {
+    &__head {
         font-family: "Montserrat-Bold", "Arial", sans-serif;
         font-size: 26px;
         display: flex;
@@ -27,7 +27,7 @@
         height: 63px;
     }
 
-    &__auth-form {
+    &__form {
         margin-top: 15px;
         flex: 1 0 auto;
         padding: 0 50px;
@@ -37,7 +37,7 @@
         align-items: center;
     }
 
-    &__auth-btn {
+    &__btn {
         font-family: "Montserrat-Bold", "Arial", sans-serif;
         font-size: 18px;
         border-radius: 15px;
@@ -55,7 +55,7 @@
         }
     }
 
-    &__auth-a {
+    & a {
         font-family: "Montserrat-Bold", "Arial", sans-serif;
         text-decoration: underline;
         color: currentcolor;

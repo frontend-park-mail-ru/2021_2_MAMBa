@@ -6,6 +6,7 @@ import {ActorPagePageController} from './controllers/actorController.js';
 import {ProfileController} from './controllers/profileController.js';
 
 import {Router} from './modules/router.js';
+import {errorPage} from './modules/404.js';
 import {Routes} from './consts/routes.js';
 
 import './index.scss';
@@ -13,6 +14,7 @@ import './index.scss';
 export const ROOT = document.getElementById('root');
 
 const AuthModule = authModule;
+const error = new errorPage();
 const headerController = new HeaderController();
 const homePageController = new HomePageController();
 const actorPagePageController = new ActorPagePageController();

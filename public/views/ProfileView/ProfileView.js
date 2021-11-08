@@ -49,7 +49,7 @@ export class ProfileView extends BaseView {
         content.innerHTML = profilePug(Object.assign(this.user, menuLinks));
       }
     } else {
-      // TODO ERROR
+      this.eventBus.emit(Events.App.ErrorPage);
       return;
     }
     this.changeActiveMenuButton(this.routeData.path.path);
@@ -168,13 +168,14 @@ export class ProfileView extends BaseView {
       return;
     }
     const template = starsAndReviews(reviewsMarks);
+    console.log(reviewsMarks);
     if (profileContent.querySelector('.loader')) {
       profileContent.innerHTML = template;
     } else {
       profileContent.innerHTML += template;
     }
     this.submitMoreButton();
-    if (!reviewsMarks.more_avaliable) {
+    if (!reviewsMarks.more_available) {
       this.hideMoreButton();
     }
   }

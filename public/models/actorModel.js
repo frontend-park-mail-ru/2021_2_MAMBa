@@ -16,8 +16,8 @@ export class ActorPageModel {
   getPageContent = (actor) => {
     getInfoAboutActor(actor.id).then((contentData) => {
       this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
-    }).catch((err) => {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+    }).catch(() => {
+      this.eventBus.emit(Events.App.ErrorPage);
     });
   }
 }

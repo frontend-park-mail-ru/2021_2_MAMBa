@@ -18,7 +18,7 @@ export class HeaderView extends BaseView {
     if (header) {
       header.innerHTML = template;
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     }
   }
 
@@ -58,11 +58,7 @@ export class HeaderView extends BaseView {
     if (!authModule.user) {
       return;
     }
-    const header = this.getHeaderFromDom();
-    if (!header) {
-      return;
-    }
-    const enterButton = header.querySelector('.navbar__login-btn');
+    const enterButton = document.querySelector('.navbar__login-btn');
     if (!enterButton) {
       return;
     }

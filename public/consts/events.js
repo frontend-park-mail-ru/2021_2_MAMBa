@@ -6,6 +6,7 @@ export const Events = {
 
   App: {
     Start: 'app:start',
+    ErrorPage: 'app:errorPage',
   },
 
   Router: {
@@ -15,7 +16,6 @@ export const Events = {
   Homepage: {
     Render: {
       Page: 'homepage:render',
-      ErrorPage: 'homepage:renderErrorPage',
       Header: 'homepage:renderHeader',
       Content: 'homepage:renderContent',
     },

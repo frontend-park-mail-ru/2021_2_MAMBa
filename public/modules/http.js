@@ -12,7 +12,7 @@ import {
  */
 const getInfoAboutActor = async (actorId) => {
   const params = {
-    url: URLS.api.actor + actorId,
+    url: URLS.api.actor,
     method: 'GET',
   };
 
@@ -153,7 +153,7 @@ const changeSettings = async (settings) => {
 
 const getProfile = async (id) => {
   const params = {
-    url: URLS.api.profile + `/${id}`,
+    url: URLS.api.profile + `?id=${id}`,
     method: 'GET',
     credentials: 'include',
   };

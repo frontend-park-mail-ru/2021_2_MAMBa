@@ -1,7 +1,9 @@
 import {BaseView} from '../BaseView/BaseView.js';
-import {authConfig, AuthFormName, SubmitButtonName} from '../../consts/authConfig';
-import AuthContent from '../../components/auth/auth.pug';
+import {authConfig, AuthFormName} from '../../consts/authConfig';
+import authContent from '../../components/auth/auth.pug';
+import authError from '../../components/auth/authError.pug';
 import {Events} from '../../consts/events.js';
+import {createElementFromHTML} from '../../utils/utils';
 
 export class AuthView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
@@ -14,7 +16,7 @@ export class AuthView extends BaseView {
 
   renderContent = (data) => {
     this._data = data;
-    const template = AuthContent(this._data);
+    const template = authContent(this._data);
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
@@ -57,7 +59,7 @@ export class AuthView extends BaseView {
     if (!errorInput) {
       return;
     }
-    errorInput.classList.add('animated');
+    errorInput.classList.add('error-input_animated');
   }
 
   addValidateListeners = () => {
@@ -75,7 +77,7 @@ export class AuthView extends BaseView {
           authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
       });
       input.addEventListener('animationend', () => {
-        input.classList.remove('animated');
+        input.classList.remove('error-input_animated');
       });
     }
   }
@@ -100,10 +102,7 @@ export class AuthView extends BaseView {
   }
 
   createError = (text) => {
-    const errorBlock = document.createElement('div');
-    errorBlock.innerText = text;
-    errorBlock.classList.add('error-text');
-    return errorBlock;
+    return createElementFromHTML(authError({text: text}));
   }
 
   getAuthFormFromDom = () => {

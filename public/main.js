@@ -1,4 +1,4 @@
-import {HeaderController} from './controllers/header.js';
+import {HeaderController} from './controllers/headerController.js';
 import {AuthPageController} from './controllers/authController.js';
 import {authModule} from './modules/authorization.js';
 import {HomePageController} from './controllers/homeController.js';

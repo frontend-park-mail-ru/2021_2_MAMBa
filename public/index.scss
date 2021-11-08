@@ -1,8 +1,13 @@
-@import 'components/header/header.scss';
+@import 'components/header/navbar.scss';
+@import 'components/header/search.scss';
+@import 'components/header/userBlock';
 @import 'components/footer/footer.scss';
-@import './components/auth/auth.scss';
+@import 'components/auth/auth.scss';
+@import 'components/auth/authError.scss';
+@import 'components/textInputs/textInputs.scss';
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
+@import 'css/consts.scss';
 @import 'components/actor/actor.scss';
 @import 'components/profile/profile.scss';
 
@@ -48,7 +53,3 @@ body {
   flex-direction: column;
   position: relative;
 }
-
-
-
-

@@ -1,12 +1,12 @@
 header.navbar
-    img.logo(src = '../../static/pics/logo.svg')
-    .wide-menu
+    img.navbar__logo(src = '../../static/pics/logo.svg')
+    .navbar__wide-menu
       each btn in headerLinks
             if  btn.title == 'Рандомный фильм'
-                a.menu-btn
+                a.navbar__menu-btn
                     include ../../static/pics/cube.svg
             else
-                a.menu-btn(href = btn.href)= btn.title
-    .search-div
-        input.search-input(placeholder = 'Фильмы, сериалы, актёры')
-    a.login-btn(href = '/auth') Войти
+                a.navbar__menu-btn(href = btn.href)= btn.title
+    .search
+        input.search__input(placeholder = 'Фильмы, сериалы, актёры')
+    include enterButton.pug

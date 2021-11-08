@@ -1,15 +1,15 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import profilePug from '../../components/profile/profile.pug';
-import profileHeader from '../../components/profile/profileHeader.pug';
-import starsAndReviews from '../../components/profile/starsAndReviews.pug';
-import settingsPug from '../../components/profile/settings.pug';
+import profileHeader from '../../components/profile/profileHeader/profileHeader.pug';
+import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
+import settingsPug from '../../components/profile/settings/settings.pug';
 import {Events} from '../../consts/events.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
-import BaseViewPug from '../BaseView/BaseView.pug';
+import baseViewPug from '../BaseView/BaseView.pug';
 import {headerLinks} from '../../consts/header';
-import Loader from '../../components/loader/loader.pug';
+import loader from '../../components/loader/loader.pug';
 
 
 export class ProfileView extends BaseView {
@@ -21,11 +21,11 @@ export class ProfileView extends BaseView {
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = BaseViewPug({headerLinks: headerLinks});
+      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks});
     } else {
-      const profileContent = document.querySelector('.profile-content');
+      const profileContent = document.querySelector('.profile__profile-content');
       if (profileContent) {
-        profileContent.innerHTML = Loader();
+        profileContent.innerHTML = loader();
       }
     }
     this.emitGetContent();
@@ -60,7 +60,7 @@ export class ProfileView extends BaseView {
     if (!this.user.thisUser) {
       return;
     }
-    const settingsLink = [...document.querySelectorAll('.profile-menu-link')]
+    const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     if (settingsLink) {
       settingsLink.remove();
@@ -69,24 +69,24 @@ export class ProfileView extends BaseView {
   }
 
   changeActiveMenuButton = (href) => {
-    const oldButton = document.querySelector('.active-profile-menu-button');
+    const oldButton = document.querySelector('.profile-menu__link_active');
     if (oldButton) {
-      oldButton.classList.remove('active-profile-menu-button');
+      oldButton.classList.remove('profile-menu__link_active');
     }
-    const buttons = document.querySelectorAll('.profile-menu-link');
+    const buttons = document.querySelectorAll('.profile-menu__link');
     if (!buttons.length) {
       return;
     }
     for (const button of buttons) {
       if (button.getAttribute('href') === href) {
-        button.classList.add('active-profile-menu-button');
+        button.classList.add('profile-menu__link_active');
         break;
       }
     }
   }
 
   submitMoreButton = () => {
-    const moreButton = document.querySelector('.more-btn');
+    const moreButton = document.querySelector('.review-block__more-btn');
     if (!moreButton) {
       return;
     }
@@ -100,7 +100,7 @@ export class ProfileView extends BaseView {
     if (!settingsForm) {
       return;
     }
-    const settingsButton = document.querySelector('.settings-btn');
+    const settingsButton = document.querySelector('.settings-form__btn');
     if (!settingsButton) {
       return;
     }
@@ -110,7 +110,7 @@ export class ProfileView extends BaseView {
       if (settingsForm.avatar.files[0]) {
         this.eventBus.emit(Events.ProfilePage.ChangeAvatar, formData.getAll('avatar'));
       }
-      const formTextInputs = settingsForm.querySelectorAll('.settings-inputs');
+      const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');
       if (!formTextInputs.length) {
         return;
       }
@@ -123,7 +123,7 @@ export class ProfileView extends BaseView {
   }
 
   hideMoreButton = () => {
-    const moreButton = document.querySelector('.more-btn');
+    const moreButton = document.querySelector('.review-block__more-btn');
     if (!moreButton) {
       return;
     }
@@ -142,7 +142,7 @@ export class ProfileView extends BaseView {
   }
 
   renderSettingsPage = () => {
-    const profileContent = document.querySelector('.profile-content');
+    const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;
     }
@@ -163,7 +163,7 @@ export class ProfileView extends BaseView {
     if (!reviewsMarks) {
       return;
     }
-    const profileContent = document.querySelector('.profile-content');
+    const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;
     }

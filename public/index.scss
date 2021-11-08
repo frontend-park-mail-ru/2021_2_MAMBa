@@ -1,15 +1,19 @@
 @import 'components/header/navbar.scss';
-@import 'components/header/search.scss';
-@import 'components/header/userBlock';
+@import 'components/header/searchBlock/search';
+@import 'components/header/userBlock/userBlock';
 @import 'components/footer/footer.scss';
 @import 'components/auth/auth.scss';
-@import 'components/auth/authError.scss';
+@import 'components/auth/authError/authError';
 @import 'components/textInputs/textInputs.scss';
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
 @import 'css/consts.scss';
 @import 'components/actor/actor.scss';
 @import 'components/profile/profile.scss';
+@import 'components/profile/settings/settings.scss';
+@import 'components/profile/profileHeader/profileHeader.scss';
+@import 'components/profile/profileMenu/profileMenu.scss';
+@import 'components/profile/starsAndReviews/starsAndReviews.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';

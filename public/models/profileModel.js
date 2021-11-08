@@ -47,10 +47,13 @@ export class ProfileModel extends Model {
       }
       if (response.status === statuses.OK) {
         const user = response.parsedJson;
+        if (!user || !user.id) {
+          return null;
+        }
         getMenuLinks(user.id);
         this.eventBus.emit(Events.ProfilePage.Render.Content, user, this.isThisUser());
       } else if (response.status === statuses.NOT_FOUND) {
-        // TODO ERROR 404
+        return null;
       }
     });
   }
@@ -151,14 +154,9 @@ export class ProfileModel extends Model {
   }
 
   isThisUser = () => {
-    if (!this.userId) {
+    if (!this.userId || !authModule || !authModule.user || !authModule.user.id) {
       return false;
     }
-    if (authModule.user) {
-      if (authModule.user.id === this.userId) {
-        return true;
-      }
-    }
-    return false;
+    return authModule.user.id === this.userId;
   }
 }

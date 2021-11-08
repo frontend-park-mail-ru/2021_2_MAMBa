@@ -2,5 +2,5 @@
     each link in menuLinks
         if (!thisUser & link.name === 'Настройки')
           continue
-        a.profile-menu-link(href=link.href) #{link.name}
-    hr.profile-menu-line
+        a.profile-menu__link(href=link.href) #{link.name}
+    hr.profile-menu__line

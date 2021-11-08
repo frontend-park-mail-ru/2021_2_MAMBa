@@ -1,7 +1,7 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import {authConfig, AuthFormName} from '../../consts/authConfig';
 import authContent from '../../components/auth/auth.pug';
-import authError from '../../components/auth/authError.pug';
+import authError from '../../components/auth/authError/authError.pug';
 import {Events} from '../../consts/events.js';
 import {createElementFromHTML} from '../../utils/utils';
 

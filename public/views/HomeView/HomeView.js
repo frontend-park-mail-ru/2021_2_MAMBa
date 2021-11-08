@@ -1,6 +1,6 @@
 import {ROOT} from '../../main.js';
 import {BaseView} from '../BaseView/BaseView.js';
-import header from '../../components/header/header.pug';
+import header from '../../components/header/navbar.pug';
 import homeContent from '../../components/collections/collections.pug';
 import errorPage from '../../components/errorPage/errorPage.pug';
 import {Events} from '../../consts/events.js';

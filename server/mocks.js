@@ -380,7 +380,7 @@ const REVIEW = {
 const PERSONFILMS = {
   current_skip: 3,
   current_limit: 3,
-  more_available: false,
+  more_available: true,
   film_list: [
     {
       id: 18,

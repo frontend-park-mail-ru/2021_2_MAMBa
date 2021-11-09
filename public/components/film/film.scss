@@ -23,8 +23,9 @@
       gap: 40px;
 
       &_main {
-        position: relative;
-        display: inline-block;
+        display:grid;
+        grid-template-columns: auto 94px;
+        gap:20px;
 
         &_rus {
           font-family: "Montserrat-Black", "Arial", sans-serif;
@@ -37,16 +38,16 @@
         }
 
         &_rating {
-          position: absolute;
-          right: 0;
-          top: 0;
+          position: relative;
+          width:94px;
+          height: 94px;
 
           &_scors {
             font-size: 30px;
             color: $white;
             position: absolute;
-            right: 26px;
-            bottom: 31px;
+            right: 28px;
+            bottom: 25px;
           }
         }
       }
@@ -61,8 +62,9 @@
         }
 
         &_container {
-          margin-bottom: 5px;
           display: grid;
+          margin-bottom: 5px;
+          gap:10px;
           grid-template-columns: 2fr 5fr;
 
           &_key {
@@ -78,6 +80,7 @@
         }
 
         &_container-last {
+          gap:10px;
           display: grid;
           grid-template-columns: 2fr 5fr;
         }

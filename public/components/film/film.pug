@@ -8,8 +8,9 @@ div.film-info
             img(src=film.filmAvatar)
         div.film-info__container_text
             div.film-info__container_text_main
-                div.film-info__container_text_main_rus #{film.title}
-                div.film-info__container_text_main_en #{film.titleOriginal}
+                div.film-info__container_text_main_name
+                    div.film-info__container_text_main_rus #{film.title}
+                    div.film-info__container_text_main_en #{film.titleOriginal}
                 div.film-info__container_text_main_rating
                     img(src="../../static/pics/pink_star.webp" alt= "")
                     div.film-info__container_text_main_rating_scors  #{film.rating}
@@ -51,7 +52,7 @@ div.film-info
             a(class="film-info__container-trailer_video_button" href="#")
                 img(class="film-info__container-trailer_video_button_img" src="../../static/pics/play.webp" alt= "")
                 | Трейлер
-        div.text
+        div.film-description
             div.film-info__container-trailer_name Обзор
             div.film-info__container-trailer_summery #{film.description}
     div.film-info__black-container

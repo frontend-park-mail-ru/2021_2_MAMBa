@@ -1,6 +1,7 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import filmPageContent from '../../components/film/film.pug';
 import userRating from '../../components/userRating/userRating.pug';
+import readMore from '../../components/textReadMore/textReadMore.pug';
 import successfulSendButton from '../../components/authWarningButton/authWarningButton.pug';
 import {Events} from '../../consts/events.js';
 import {getPathArgs} from '../../modules/router.js';
@@ -39,11 +40,24 @@ export class FilmView extends BaseView {
       this.setSliderActions();
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
+      this.setReadMore(data)
       this.setAnchorActions();
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
   }
+
+  setReadMore =(data)=>{
+    const heightText = document.querySelector('.film-info__container-trailer_summery').clientHeight;
+    if (heightText > 115) {
+      const template = readMore(data);
+      const content = document.querySelector('.film-info__container-trailer_summery');
+      if (content) {
+        content.innerHTML = template;
+      }
+    }
+  }
+
 
   renderWarningRatingSend = (text) => {
     const ratingArea = document.querySelector('.user_rating');

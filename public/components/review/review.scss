@@ -47,6 +47,7 @@
         }
 
         &_date {
+          margin-bottom: 5px;
           font-size: 16px;
           font-weight: 500;
           color: $grey;
@@ -87,3 +88,11 @@
   border: 2px solid $red;
   color: $red;
 }
+
+.read-more-button {
+  cursor: pointer;
+  display: inline-block;
+  color: #777;
+  text-decoration: underline;
+}
+

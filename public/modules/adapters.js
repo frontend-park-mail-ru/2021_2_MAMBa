@@ -210,6 +210,7 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     filmTitle: reviewInfoJson.film_title_ru,
     authorName: reviewInfoJson.author_name,
     reviewText: reviewInfoJson.review_text,
+    date:reviewInfoJson.date,
   }
 };
 

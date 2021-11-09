@@ -2,12 +2,12 @@ mixin reviewSlider(i)
     div.review-slider-container
         div.review-slider-container__track
           each review, _ in i
-            if review.type===1
+            if review.type===3
                 a(class='green review-slider-container__track_review' href=`${review.href}`)
                     div.review-slider-container__track_review_name #{review.author} #{i.type}
                     div.review-slider-container__track_review_text #{review.text}
                     div.review-slider-container__track_review_date #{review.date}
-            else if review.type===0
+            else if review.type===2
                 a(class='grey review-slider-container__track_review' href=`${review.href}`)
                     div.review-slider-container__track_review_name #{review.author} #{i.type}
                     div.review-slider-container__track_review_text #{review.text}

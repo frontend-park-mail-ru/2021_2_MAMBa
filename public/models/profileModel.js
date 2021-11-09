@@ -121,8 +121,11 @@ export class ProfileModel extends Model {
         return;
       }
       if (response?.parsedJson?.status === statuses.OK) {
-        this.user = response.parsedJson;
-        this.eventBus.emit(EVENTS.ProfilePage.ChangedProfile, response.parsedJson?.body);
+        if (!response.parsedJson.body) {
+          return;
+        }
+        this.user = response.parsedJson.body;
+        this.eventBus.emit(EVENTS.ProfilePage.ChangedProfile, this.user);
       }
     }).catch(() => {
       this.eventBus.emit(EVENTS.App.ErrorPage);

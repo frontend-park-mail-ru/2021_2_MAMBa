@@ -84,7 +84,6 @@ const getInfoAboutReview = async (reviewId) => {
  * @return {array} - Array of objects for render actor page.
  */
 const getInfoAboutActor = async (actorId) => {
-  console.log(actorId)
   const params = {
     url: `${URLS.api.actor}${actorId}`,
     method: 'GET',
@@ -93,7 +92,6 @@ const getInfoAboutActor = async (actorId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    console.log(responseBody)
     if (responseStatus === 200) {
       return responseBody;
     }

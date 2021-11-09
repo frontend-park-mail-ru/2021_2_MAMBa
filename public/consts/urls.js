@@ -2,7 +2,7 @@
 const localUrl = 'http://localhost:8086';
 
 // eslint-disable-next-line no-unused-vars
-const deployUrl = 'https://film4u.club';
+export const deployUrl = 'https://film4u.club';
 
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;

@@ -2,6 +2,7 @@ import {ROOT} from '../../main.js';
 import baseViewPug from './BaseView.pug';
 import {headerLinks} from '../../consts/header';
 import loader from '../../components/loader/loader.pug';
+
 /** Abstract class representing base view. */
 export class BaseView {
   /**

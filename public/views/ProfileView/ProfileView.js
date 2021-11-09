@@ -11,7 +11,7 @@ import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
 import baseViewPug from '../BaseView/BaseView.pug';
 import {headerLinks} from '../../consts/header';
-import {statuses} from '../../consts/reqStatuses';
+import {statuses} from '../../consts/reqStatuses.js';
 
 
 export class ProfileView extends BaseView {
@@ -111,8 +111,6 @@ export class ProfileView extends BaseView {
       const formData = new FormData();
       if (settingsForm.avatar.files[0]) {
         formData.append('avatar', settingsForm.avatar.files[0]);
-        console.log(settingsForm.avatar.files[0]);
-        console.log(formData.getAll('avatar'));
         this.eventBus.emit(EVENTS.ProfilePage.ChangeAvatar, formData);
       }
       const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');

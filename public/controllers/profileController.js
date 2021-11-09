@@ -20,7 +20,6 @@ export class ProfileController extends BaseController {
         {event: Events.ProfilePage.Render.Subscriptions, handler: this.view.renderSubscriptionsPage},
         {event: Events.ProfilePage.Render.ReviewsMarks, handler: this.view.renderReviewsMarksPage},
         {event: Events.ProfilePage.ChangeActiveMenuButton, handler: this.view.changeActiveMenuButton},
-        {event: Events.ProfilePage.NoMoreAvailable, handler: this.view.hideMoreButton},
         {event: Events.ProfilePage.ChangeProfile, handler: this.model.changeProfile},
         {event: Events.ProfilePage.ChangeAvatar, handler: this.model.changeProfileAvatar},
         {event: Events.ProfilePage.ReRenderHeader, handler: this.view.reRenderHeader},

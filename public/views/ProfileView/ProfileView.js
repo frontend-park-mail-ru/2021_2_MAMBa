@@ -3,6 +3,7 @@ import profilePug from '../../components/profile/profile.pug';
 import profileHeader from '../../components/profile/profileHeader/profileHeader.pug';
 import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
+import moreButtonPug from '../../components/profile/moreButton/moreButton.pug';
 import {Events} from '../../consts/events.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
@@ -86,7 +87,7 @@ export class ProfileView extends BaseView {
   }
 
   submitMoreButton = () => {
-    const moreButton = document.querySelector('.review-block__more-btn');
+    const moreButton = document.querySelector('.profile__more-btn');
     if (!moreButton) {
       return;
     }
@@ -122,12 +123,12 @@ export class ProfileView extends BaseView {
     });
   }
 
-  hideMoreButton = () => {
-    const moreButton = document.querySelector('.review-block__more-btn');
+  deleteMoreButton = () => {
+    const moreButton = document.querySelector('.profile__more-btn');
     if (!moreButton) {
       return;
     }
-    moreButton.style.visibility = 'hidden';
+    moreButton.remove();
   }
 
   reRenderHeader = (changedUser) => {
@@ -167,16 +168,16 @@ export class ProfileView extends BaseView {
     if (!profileContent) {
       return;
     }
+    this.deleteMoreButton();
     const template = starsAndReviews(reviewsMarks);
-    console.log(reviewsMarks);
     if (profileContent.querySelector('.loader')) {
       profileContent.innerHTML = template;
     } else {
       profileContent.innerHTML += template;
     }
-    this.submitMoreButton();
-    if (!reviewsMarks.more_available) {
-      this.hideMoreButton();
+    if (reviewsMarks.more_available) {
+      profileContent.innerHTML += moreButtonPug();
     }
+    this.submitMoreButton();
   }
 }

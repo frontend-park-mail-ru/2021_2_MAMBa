@@ -17,11 +17,15 @@
   }
 
   &__film-name-ru {
+    max-width: 330px;
     text-decoration: none;
     position: absolute;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     top: 22px;
     left: 230px;
-    color: black;
+    color: $dark-blue-text;
     font-family: "Montserrat-Bold", sans-serif;
     font-size: 18px;
 
@@ -31,7 +35,12 @@
   }
 
   &__film-name-en {
+    max-width: 330px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     position: absolute;
+    color: $dark-blue-text;
     top: 49px;
     left: 230px;
     font-size: 14px;
@@ -45,6 +54,7 @@
 
   &__review-text {
     position: absolute;
+    color:$dark-blue-text;
     top: 77px;
     left: 225px;
     font-size: 16px;

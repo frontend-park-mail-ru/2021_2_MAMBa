@@ -21,7 +21,7 @@ export class HomePageModel {
     promise.then((data) => {
       this.eventBus.emit(Events.Homepage.Render.Content, data);
     }).catch(() => {
-      // this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(Events.App.ErrorPage);
     });
   }
 }

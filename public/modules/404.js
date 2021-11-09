@@ -1,8 +1,6 @@
 import {Events} from '../consts/events.js';
 import errorPagePug from '../components/404/404.pug';
 import {eventBus} from './eventBus';
-import {ROOT} from '../main';
-import {headerLinks} from '../consts/header';
 
 export class errorPage {
   constructor() {
@@ -11,9 +9,10 @@ export class errorPage {
   }
 
   render = () => {
-    if (!ROOT) {
+    const content = document.querySelector('.content');
+    if (!content) {
       return;
     }
-    ROOT.innerHTML = errorPagePug({headerLinks: headerLinks});
+    content.innerHTML = errorPagePug();
   }
 }

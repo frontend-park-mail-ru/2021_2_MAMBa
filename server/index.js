@@ -33,7 +33,7 @@ app.get('/api/user/checkAuth', (req, res) => {
   });
 });
 
-app.get('/api/user/getProfile/354', (req, res) => {
+app.get('/api/user/getProfile', (req, res) => {
   res.json({
       "id": 354,
       "first_name": "Vasya",

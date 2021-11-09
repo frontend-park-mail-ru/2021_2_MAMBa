@@ -1,20 +1,18 @@
-export const headerLinks = {
-  headerLinks: [
-    {
-      href: '/',
-      title: 'Подборки',
-    },
-    {
-      href: '/actors/1',
-      title: 'Актер',
-    },
-    {
-      href: '/films/1',
-      title: 'Фильм',
-    },
-    {
-      href: '/random',
-      title: 'Рандомный фильм',
-    },
-  ],
-};
+export const headerLinks = [
+  {
+    href: '/',
+    title: 'Подборки',
+  },
+  {
+    href: '/actor/3',
+    title: 'Жанры',
+  },
+  {
+    href: '/releases',
+    title: 'Релизы',
+  },
+  {
+    href: '/random',
+    title: 'Рандомный фильм',
+  },
+];

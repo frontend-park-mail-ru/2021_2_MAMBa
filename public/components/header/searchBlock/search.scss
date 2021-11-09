@@ -1,0 +1,26 @@
+.search {
+  font-family: "Montserrat-Regular", "Arial", sans-serif;
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+  margin: auto;
+  padding: 0 15px;
+  width: 30%;
+
+  &__input {
+    border-radius: 20px;
+    width: 100%;
+    visibility: hidden;
+    min-width: 124px;
+    height: 20px;
+    border: 0;
+    padding: 5px 15px;
+    outline: none;
+    text-align: center;
+  }
+
+  &__btn {
+    cursor: pointer;
+    visibility: hidden;
+  }
+}

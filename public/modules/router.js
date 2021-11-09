@@ -36,7 +36,7 @@ export class Router {
     eventBus.on(Events.RedirectBack, this.back.bind(this));
     eventBus.on(Events.RedirectForward, this.forward.bind(this));
 
-    if (app != null) {
+    if (app) {
       this.application = app;
       this.application.addEventListener('click', (e) => {
         const target = e.target;
@@ -133,7 +133,11 @@ export class Router {
   go(path = '/') {
     const routeData = this.getRouteData(path);
     const data = {...routeData};
+    if (this.currentController) {
+      this.currentController.unsubscribe();
+    }
     this.currentController = routeData.controller;
+    this.currentController.subscribe();
 
     if (!this.currentController) {
       path = ROUTES.homePage;
@@ -158,7 +162,7 @@ export class Router {
   /**
    * Moving forward through the browser history
    */
-  forward=()=> {
+  forward = () => {
     window.history.forward();
   }
 }

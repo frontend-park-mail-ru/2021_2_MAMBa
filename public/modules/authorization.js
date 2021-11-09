@@ -1,6 +1,7 @@
 import {Events} from '../consts/events.js';
+import {statuses} from '../consts/reqStatuses.js';
 import {eventBus} from './eventBus';
-import {checkAuth, getCurrentUser} from './http';
+import {checkAuth, getCurrentUser, logout} from './http';
 
 class Authorization {
   constructor(eventBus) {
@@ -9,11 +10,27 @@ class Authorization {
     this.getUserFromServer();
     this.eventBus.on(Events.AuthPage.SuccessLogReg, this.getUserFromSubmit);
     this.eventBus.on(Events.Header.LogOut, this.logOutUser);
+    this.eventBus.on(Events.ProfilePage.ChangedProfile, this.changeUser);
   }
 
   getUserFromSubmit = (parsedResponse) => {
-    this.user = parsedResponse.body;
-    this.eventBus.emit(Events.Authorization.GotUser);
+    if (!parsedResponse) {
+      return;
+    }
+    this.user = parsedResponse?.body;
+    if (this.user) {
+      this.eventBus.emit(Events.Authorization.GotUser);
+    }
+  }
+
+  changeUser = (parsedResponse) => {
+    if (!parsedResponse) {
+      return;
+    }
+    this.user = parsedResponse?.body;
+    if (this.user) {
+      this.eventBus.emit(Events.Authorization.GotUser);
+    }
   }
 
   getUserFromServer = () => {
@@ -21,26 +38,40 @@ class Authorization {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
-        const id = response.parsedJson.body.id;
+      if (response?.parsedJson?.status === statuses.OK) {
+        const id = response.parsedJson?.body?.id;
         if (id) {
           getCurrentUser(id).then((response) => {
             if (!response) {
               return;
             }
-            if (response.status === 200) {
-              this.user = response.parsedJson.body;
-              this.eventBus.emit(Events.Authorization.GotUser);
+            if (response?.parsedJson?.status === statuses.OK) {
+              this.user = response.parsedJson?.body;
+              if (this.user) {
+                this.eventBus.emit(Events.Authorization.GotUser);
+              }
             }
+          }).catch(() => {
+            this.eventBus.emit(Events.App.ErrorPage);
           });
         }
       }
+    }).catch(() => {
+      this.eventBus.emit(Events.App.ErrorPage);
     });
   }
 
   logOutUser = () => {
-    this.user = null;
-    // TODO fetch to server /logoutUser
+    logout().then((response) => {
+      if (!response) {
+        this.eventBus.emit(Events.App.ErrorPage);
+      }
+      if (response?.parsedJson?.status === statuses.OK) {
+        this.user = null;
+      }
+    }).catch(() => {
+      this.eventBus.emit(Events.App.ErrorPage);
+    });
   }
 }
 

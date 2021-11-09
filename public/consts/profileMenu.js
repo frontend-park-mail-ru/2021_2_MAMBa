@@ -1,0 +1,29 @@
+export const menuObjects = {
+  reviewsMarks: {
+    href: '/reviews_marks',
+    name: 'Отзывы и оценки',
+    limit: 6,
+  },
+  settings: {
+    href: '/settings',
+    name: 'Настройки',
+  },
+};
+
+export const menuLinks = {
+  menuLinks: [
+    menuObjects.reviewsMarks,
+    menuObjects.settings,
+  ]};
+
+export const getMenuLinks = (id) => {
+  const regExp = /^\/profile\/\d+/;
+  for (const link of menuLinks.menuLinks) {
+    if (link.href.match(regExp)) {
+      link.href.replace(regExp, `/profile/${id}`);
+    } else {
+      link.href = `/profile/${id}` + link.href;
+    }
+  }
+  return menuLinks;
+};

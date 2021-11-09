@@ -1,7 +1,5 @@
-import {ROOT} from '../../main.js';
 import {BaseView} from '../BaseView/BaseView.js';
 import homeContent from '../../components/collections/collections.pug';
-import errorPage from '../../components/errorPage/errorPage.pug';
 import {Events} from '../../consts/events.js';
 
 /** Class representing home page view. */
@@ -34,12 +32,5 @@ export class HomePageView extends BaseView {
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
     }
-  }
-
-  /**
-   * Render error page from pug template.
-   */
-  renderErrorPage = () => {
-    ROOT.innerHTML = errorPage();
   }
 }

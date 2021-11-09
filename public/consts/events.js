@@ -6,12 +6,14 @@ export const Events = {
 
   App: {
     Start: 'app:start',
+    ErrorPage: 'app:errorPage',
   },
   Router: {
     Go: 'router:go',
   },
   Homepage: {
     Render: {
+      Page: 'homepage:render',
       ErrorPage: 'homepage:renderErrorPage',
       Header: 'homepage:renderHeader',
       Content: 'homepage:renderContent',
@@ -83,7 +85,21 @@ export const Events = {
   ProfilePage: {
     Render: {
       Content: 'profilePage:renderContent',
+      Bookmarks: 'profilePage:renderBookmarks',
+      ReviewsMarks: 'profilePage:renderReviewsMarks',
+      Subscriptions: 'profilePage:renderSubscriptions',
+      Settings: 'profilePage:renderSettings',
     },
+    MoreButton: 'profilePage:moreButton',
+    ChangeActiveMenuButton: 'profilePage:changeActiveMenuButton',
+    SubmitSettings: 'profilePage:submitSettings',
+    GetCurrentPageBlocks: 'profilePage:getCurrentPageBlocks',
     GetContent: 'profilePage:getContent',
+    PrependMenuLinks: 'profilePage:prependMenuLinks',
+    NoMoreAvailable: 'profilePage:noMoreAvailable',
+    ChangeProfile: 'profilePage:changeProfile',
+    ChangedProfile: 'profilePage:changedProfile',
+    ChangeAvatar: 'profilePage:changeAvatar',
+    ReRenderHeader: 'profilePage:reRenderHeader',
   },
 };

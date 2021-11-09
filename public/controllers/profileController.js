@@ -10,15 +10,20 @@ export class ProfileController extends BaseController {
    */
   constructor() {
     super(ProfileView, ProfileModel);
-  }
-
-  subscribe = () => {
-    this.eventBus.on(Events.ProfilePage.Render.Content, this.view.renderContent);
-    this.eventBus.on(Events.ProfilePage.GetContent, this.model.getContent);
-  }
-
-  unsubscribe = () => {
-    this.eventBus.off(Events.ProfilePage.Render.Content, this.view.renderContent);
-    this.eventBus.off(Events.ProfilePage.GetContent, this.model.getContent);
+    this.events.push(
+        {event: Events.ProfilePage.Render.Content, handler: this.view.renderContent},
+        {event: Events.ProfilePage.GetContent, handler: this.model.getContent},
+        {event: Events.Header.LogOut, handler: this.view.deleteSettingsFromMenu},
+        {event: Events.ProfilePage.GetCurrentPageBlocks, handler: this.model.getCurrentPageBlocks},
+        {event: Events.ProfilePage.Render.Settings, handler: this.view.renderSettingsPage},
+        {event: Events.ProfilePage.Render.Bookmarks, handler: this.view.renderBookmarksPage},
+        {event: Events.ProfilePage.Render.Subscriptions, handler: this.view.renderSubscriptionsPage},
+        {event: Events.ProfilePage.Render.ReviewsMarks, handler: this.view.renderReviewsMarksPage},
+        {event: Events.ProfilePage.ChangeActiveMenuButton, handler: this.view.changeActiveMenuButton},
+        {event: Events.ProfilePage.ChangeProfile, handler: this.model.changeProfile},
+        {event: Events.ProfilePage.ChangeAvatar, handler: this.model.changeProfileAvatar},
+        {event: Events.ProfilePage.ChangedProfile, handler: this.view.reRenderHeader},
+        {event: Events.ProfilePage.MoreButton, handler: this.model.changePagAndGetNBlocks},
+    );
   }
 }

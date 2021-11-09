@@ -1,4 +1,6 @@
 import {HomePageController} from './controllers/homeController.js';
+import {HeaderController} from './controllers/headerController.js';
+import {authModule} from './modules/authorization.js';
 import {FilmPageController} from './controllers/filmController.js';
 import {ReviewPageController} from './controllers/reviewController.js';
 import {AuthPageController} from './controllers/authController.js';
@@ -8,11 +10,15 @@ import {CollectionPageController} from './controllers/collectionController.js';
 
 import {Router} from './modules/router.js';
 import {ROUTES} from './consts/routes.js';
+import {errorPage} from './modules/404.js';
 
 import './index.scss';
 
 export const ROOT = document.getElementById('root');
 
+const AuthModule = authModule;
+const error = new errorPage();
+const headerController = new HeaderController();
 const homePageController = new HomePageController();
 const actorPageController = new ActorPageController();
 const authPageController = new AuthPageController();

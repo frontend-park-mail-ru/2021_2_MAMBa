@@ -30,5 +30,10 @@ export const URLS = {
     actor: `${currentUrl}/api/person/getPerson?id=`,
     actorFilms: `${currentUrl}/api/person/getPersonFilms?id=`,
     collectionFilms: `${currentUrl}/api/collections/getCollectionFilms?id=`,
+    changeSettings: `${currentUrl}/api/user/changeProfile`,
+    changeAvatar: `${currentUrl}/api/user/avatar`,
+    getBookmarks: `${currentUrl}/api/user/getBookmarks`,
+    getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
+    getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
   },
 };

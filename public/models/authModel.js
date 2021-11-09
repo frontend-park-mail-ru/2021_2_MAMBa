@@ -1,10 +1,11 @@
 import {Events} from '../consts/events.js';
 import {ErrorMessages} from '../consts/validateErrors';
-import {AuthConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
+import {authConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
 import {Model} from './model';
 import {login, register} from '../modules/http';
 import {eventBus} from '../modules/eventBus';
 import {ROUTES} from '../consts/routes.js';
+import {statuses} from '../consts/reqStatuses.js';
 
 export class AuthPageModel extends Model {
   constructor(eventBus) {
@@ -25,8 +26,8 @@ export class AuthPageModel extends Model {
     this.initializeErrorMessages();
     this.eventBus.emit(Events.AuthPage.Render.Content, {
       inputs: [
-        AuthConfig.emailInput,
-        AuthConfig.passwordInput,
+        authConfig.emailInput,
+        authConfig.passwordInput,
       ],
       authFormName: AuthFormName,
       submitButtonName: SubmitButtonName,
@@ -35,7 +36,7 @@ export class AuthPageModel extends Model {
   }
 
   redirectToHomePage = () => {
-    eventBus.emit(Events.PathChanged, '/');
+    eventBus.emit(Events.PathChanged, ROUTES.HomePage);
   }
 
   getRegContent = () => {
@@ -43,11 +44,11 @@ export class AuthPageModel extends Model {
     this.initializeErrorMessages();
     this.eventBus.emit(Events.AuthPage.Render.Content, {
       inputs: [
-        AuthConfig.emailInput,
-        AuthConfig.surnameInput,
-        AuthConfig.nameInput,
-        AuthConfig.passwordInput,
-        AuthConfig.repPasswordInput,
+        authConfig.emailInput,
+        authConfig.surnameInput,
+        authConfig.nameInput,
+        authConfig.passwordInput,
+        authConfig.repPasswordInput,
       ],
       authFormName: AuthFormName,
       submitButtonName: SubmitButtonName,
@@ -56,8 +57,8 @@ export class AuthPageModel extends Model {
   }
 
   initializeErrorMessages = () => {
-    for (const input in AuthConfig) {
-      this.errorMessages.set(AuthConfig[input].name, new Set());
+    for (const input in authConfig) {
+      this.errorMessages.set(authConfig[input].name, new Set());
     }
   }
 
@@ -89,13 +90,11 @@ export class AuthPageModel extends Model {
     }
 
     for (const error of ErrorMessages[inputName]) {
-      if (error.regexp === undefined) {
-        if (inputName === AuthConfig.repPasswordInput.name) {
-          if (inputValue !== passwordValue) {
-            this.addAndEmitError(inputName, error.text);
-          } else {
-            this.deleteAndEmitError(inputName, error.text);
-          }
+      if (!error.regex && inputName === authConfig.repPasswordInput.name) {
+        if (inputValue !== passwordValue) {
+          this.addAndEmitError(inputName, error.text);
+        } else {
+          this.deleteAndEmitError(inputName, error.text);
         }
         return;
       }
@@ -110,34 +109,41 @@ export class AuthPageModel extends Model {
   submit = (inputsData = {}, routeData) => {
     let hasErrorInputs = false;
     for (const inputName in inputsData) {
-      this.validateOneInput(inputName, inputsData[inputName], inputsData[AuthConfig.passwordInput.name]);
+      this.validateOneInput(inputName, inputsData[inputName], inputsData[authConfig.passwordInput.name]);
       if (this.errorMessages.get(inputName).size) {
         this.eventBus.emit(Events.AuthPage.HavingWrongInput, inputName);
         hasErrorInputs = true;
       }
     }
-    if (!hasErrorInputs) {
-      if (routeData.path.path === ROUTES.AuthPage) {
-        login(inputsData).then((response) => {
-          if (!response) {
-            return;
-          }
-          if (response.status === 200) {
-            this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
-            this.redirectToHomePage();
-          }
-        });
-      } else {
-        register(inputsData).then((response) => {
-          if (!response) {
-            return;
-          }
-          if (response.status === 200) {
-            this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
-            this.redirectToHomePage();
-          }
-        });
-      }
+    if (hasErrorInputs) {
+      return;
+    }
+    if (routeData?.path?.path === ROUTES.AuthPage) {
+      login(inputsData).then((response) => {
+        if (!response) {
+          return;
+        }
+        if (response?.parsedJson?.status === statuses.OK) {
+          this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+          this.redirectToHomePage();
+        }
+        // TODO MAKE ERRORS
+      }).catch(() => {
+        this.eventBus.emit(Events.App.ErrorPage);
+      });
+    } else {
+      register(inputsData).then((response) => {
+        if (!response) {
+          return;
+        }
+        if (response?.parsedJson?.status === statuses.AUTHORIZED) {
+          this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+          this.redirectToHomePage();
+        }
+        // TODO MAKE ERRORS
+      }).catch(() => {
+        this.eventBus.emit(Events.App.ErrorPage);
+      });
     }
   }
 }

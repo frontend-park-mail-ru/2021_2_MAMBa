@@ -1,4 +1,4 @@
-// TODO: переименовать на заглавные
+// TODO: переименовать на маленькие
 export const EVENTS = {
   PathChanged: 'pathChanged',
   RedirectBack: 'redirectBack',

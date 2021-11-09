@@ -1,7 +1,7 @@
 import {HomePageModel} from '../models/homeModel';
 import {HomePageView} from '../views/HomeView/HomeView.js';
 import {BaseController} from './baseController.js';
-import {Events} from '../consts/events';
+import {EVENTS} from '../consts/EVENTS';
 
 /** Class representing home page controller. */
 export class HomePageController extends BaseController {
@@ -10,18 +10,10 @@ export class HomePageController extends BaseController {
    */
   constructor() {
     super(HomePageView, HomePageModel);
-    this.subscribe();
-  }
-
-  subscribe = () => {
-    this.eventBus.on(Events.Homepage.Get.MainPageContent, this.model.getMainPageContent);
-    this.eventBus.on(Events.Homepage.Render.Page, this.view.render);
-    this.eventBus.on(Events.Homepage.Render.Content, this.view.renderContent);
-  }
-
-  unsubscribe = () => {
-    this.eventBus.off(Events.Homepage.Get.MainPageContent, this.model.getMainPageContent);
-    this.eventBus.off(Events.Homepage.Render.Page, this.view.render);
-    this.eventBus.off(Events.Homepage.Render.Content, this.view.renderContent);
+    this.events.push(
+        {event: EVENTS.homepage.get.mainPageContent, handler: this.model.getMainPageContent},
+        {event: EVENTS.homepage.render.page, handler: this.view.render},
+        {event: EVENTS.homepage.render.content, handler: this.view.renderContent}
+    );
   }
 }

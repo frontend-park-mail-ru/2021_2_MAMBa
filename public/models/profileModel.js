@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {Model} from './model';
 import {getProfile, getNProfilePagesBlocks, changeAvatar, changeSettings} from '../modules/http';
 import {authModule} from '../modules/authorization';
@@ -31,13 +31,13 @@ export class ProfileModel extends Model {
 
   getContent = (routeData) => {
     if (!routeData || !routeData?.path?.path || routeData.path.path.split('/').length > 4) {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     this.path = routeData.path.path;
     this.userId = this.getUserIdFromPath(routeData.path.path);
     if (!this.userId) {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     this.clearCurrentPagePag(this.path, menuObjects.reviewsMarks);
@@ -52,9 +52,9 @@ export class ProfileModel extends Model {
           return null;
         }
         getMenuLinks(user.id);
-        this.eventBus.emit(Events.ProfilePage.Render.Content, user, this.isThisUser());
+        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser());
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
-        this.eventBus.emit(Events.App.ErrorPage);
+        this.eventBus.emit(EVENTS.App.ErrorPage);
         return null;
       }
     });
@@ -71,15 +71,15 @@ export class ProfileModel extends Model {
         return;
       }
       case menuObjects.settings.href: {
-        this.eventBus.emit(Events.ProfilePage.Render.Settings);
+        this.eventBus.emit(EVENTS.ProfilePage.Render.Settings);
         break;
       }
       case menuObjects.reviewsMarks.href: {
-        this.getNBlocks(URLS.api.getReviewsAndStars, Events.ProfilePage.Render.ReviewsMarks);
+        this.getNBlocks(URLS.api.getReviewsAndStars, EVENTS.ProfilePage.Render.ReviewsMarks);
         break;
       }
       default:
-        this.eventBus.emit(Events.App.ErrorPage);
+        this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
@@ -99,13 +99,13 @@ export class ProfileModel extends Model {
         return;
       }
       if (response?.parsedJson?.status === statuses.OK) {
-        if (event === Events.ProfilePage.Render.ReviewsMarks) {
+        if (event === EVENTS.ProfilePage.Render.ReviewsMarks) {
           this.makeReviewUrl(response.parsedJson.review_list, 'id');
           this.makeFilmUrl(response.parsedJson.review_list, 'film_id');
         }
         this.eventBus.emit(event, response.parsedJson);
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
-        this.eventBus.emit(Events.App.ErrorPage);
+        this.eventBus.emit(EVENTS.App.ErrorPage);
       } else if (response?.parsedJson?.status === statuses.NO_BLOCKS) {
         this.eventBus.emit(event, response.parsedJson);
       }
@@ -122,10 +122,10 @@ export class ProfileModel extends Model {
       }
       if (response?.parsedJson?.status === statuses.OK) {
         this.user = response.parsedJson;
-        this.eventBus.emit(Events.ProfilePage.ChangedProfile, response.parsedJson?.body);
+        this.eventBus.emit(EVENTS.ProfilePage.ChangedProfile, response.parsedJson?.body);
       }
     }).catch(() => {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     });
   }
 
@@ -139,10 +139,10 @@ export class ProfileModel extends Model {
       }
       if (response?.parsedJson?.status === statuses.OK) {
         this.user = response.parsedJson;
-        this.eventBus.emit(Events.ProfilePage.ChangedProfile, response.parsedJson?.body);
+        this.eventBus.emit(EVENTS.ProfilePage.ChangedProfile, response.parsedJson?.body);
       }
     }).catch(() => {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     });
   }
 

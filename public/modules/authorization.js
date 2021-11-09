@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {statuses} from '../consts/reqStatuses.js';
 import {eventBus} from './eventBus';
 import {checkAuth, getCurrentUser, logout} from './http';
@@ -8,9 +8,9 @@ class Authorization {
     this.eventBus = eventBus;
     this.user = null;
     this.getUserFromServer();
-    this.eventBus.on(Events.AuthPage.SuccessLogReg, this.getUserFromSubmit);
-    this.eventBus.on(Events.Header.LogOut, this.logOutUser);
-    this.eventBus.on(Events.ProfilePage.ChangedProfile, this.changeUser);
+    this.eventBus.on(EVENTS.AuthPage.SuccessLogReg, this.getUserFromSubmit);
+    this.eventBus.on(EVENTS.Header.LogOut, this.logOutUser);
+    this.eventBus.on(EVENTS.ProfilePage.ChangedProfile, this.changeUser);
   }
 
   getUserFromSubmit = (parsedResponse) => {
@@ -19,7 +19,7 @@ class Authorization {
     }
     this.user = parsedResponse?.body;
     if (this.user) {
-      this.eventBus.emit(Events.Authorization.GotUser);
+      this.eventBus.emit(EVENTS.Authorization.GotUser);
     }
   }
 
@@ -29,7 +29,7 @@ class Authorization {
     }
     this.user = parsedResponse?.body;
     if (this.user) {
-      this.eventBus.emit(Events.Authorization.GotUser);
+      this.eventBus.emit(EVENTS.Authorization.GotUser);
     }
   }
 
@@ -48,29 +48,29 @@ class Authorization {
             if (response?.parsedJson?.status === statuses.OK) {
               this.user = response.parsedJson?.body;
               if (this.user) {
-                this.eventBus.emit(Events.Authorization.GotUser);
+                this.eventBus.emit(EVENTS.Authorization.GotUser);
               }
             }
           }).catch(() => {
-            this.eventBus.emit(Events.App.ErrorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           });
         }
       }
     }).catch(() => {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     });
   }
 
   logOutUser = () => {
     logout().then((response) => {
       if (!response) {
-        this.eventBus.emit(Events.App.ErrorPage);
+        this.eventBus.emit(EVENTS.App.ErrorPage);
       }
       if (response?.parsedJson?.status === statuses.OK) {
         this.user = null;
       }
     }).catch(() => {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     });
   }
 }

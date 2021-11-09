@@ -1,5 +1,5 @@
 // TODO: переименовать на заглавные
-export const Events = {
+export const EVENTS = {
   PathChanged: 'pathChanged',
   RedirectBack: 'redirectBack',
   RedirectForward: 'redirectForward',
@@ -11,16 +11,16 @@ export const Events = {
   Router: {
     Go: 'router:go',
   },
-  Homepage: {
-    Render: {
-      Page: 'homepage:render',
-      ErrorPage: 'homepage:renderErrorPage',
-      Header: 'homepage:renderHeader',
-      Content: 'homepage:renderContent',
+  homepage: {
+    render: {
+      page: 'homepage:render',
+      errorPage: 'homepage:renderErrorPage',
+      header: 'homepage:renderHeader',
+      content: 'homepage:renderContent',
     },
-    Get: {
-      InfoForHeader: 'homepage:InfoForHeader',
-      MainPageContent: 'homepage:getCollections',
+    get: {
+      infoForHeader: 'homepage:InfoForHeader',
+      mainPageContent: 'homepage:getCollections',
     },
   },
   AuthPage: {

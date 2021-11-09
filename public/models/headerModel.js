@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {headerLinks} from '../consts/header';
 import {Model} from './model';
 
@@ -9,6 +9,6 @@ export class HeaderModel extends Model {
 
   compareLinksWithPath = (path) => {
     const activeLink = headerLinks.find((item) => item.href === path);
-    this.eventBus.emit(Events.Header.ChangeActiveButton, activeLink ? activeLink.href : null);
+    this.eventBus.emit(EVENTS.Header.ChangeActiveButton, activeLink ? activeLink.href : null);
   }
 }

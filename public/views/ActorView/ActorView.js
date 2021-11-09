@@ -1,7 +1,7 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
 import actorFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 
 /** Class representing actor page view. */
@@ -21,7 +21,7 @@ export class ActorView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
-    this.eventBus.emit(Events.ActorPage.GetPageContent, pathArgs);
+    this.eventBus.emit(EVENTS.ActorPage.GetPageContent, pathArgs);
   }
 
   /**
@@ -39,7 +39,7 @@ export class ActorView extends BaseView {
       this.checkShowMoreButton(this.dataActor.moreAvailable);
       this.showMore(this.dataActor);
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.errorPage);
     }
   }
 
@@ -59,7 +59,7 @@ export class ActorView extends BaseView {
     const buttonShowMore = document.querySelector('.show-more-films');
     buttonShowMore.addEventListener('click', (e) => {
       e.preventDefault();
-      this.eventBus.emit(Events.ActorPage.GetFilms, newData);
+      this.eventBus.emit(EVENTS.ActorPage.GetFilms, newData);
     });
   }
 

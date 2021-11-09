@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {ErrorMessages} from '../consts/validateErrors';
 import {authConfig, AuthFormName, SubmitButtonName} from '../consts/authConfig';
 import {Model} from './model';
@@ -24,7 +24,7 @@ export class AuthPageModel extends Model {
   getAuthContent = () => {
     this.errorMessages.clear();
     this.initializeErrorMessages();
-    this.eventBus.emit(Events.AuthPage.Render.Content, {
+    this.eventBus.emit(EVENTS.AuthPage.Render.Content, {
       inputs: [
         authConfig.emailInput,
         authConfig.passwordInput,
@@ -36,13 +36,13 @@ export class AuthPageModel extends Model {
   }
 
   redirectToHomePage = () => {
-    eventBus.emit(Events.PathChanged, ROUTES.HomePage);
+    eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
   }
 
   getRegContent = () => {
     this.errorMessages.clear();
     this.initializeErrorMessages();
-    this.eventBus.emit(Events.AuthPage.Render.Content, {
+    this.eventBus.emit(EVENTS.AuthPage.Render.Content, {
       inputs: [
         authConfig.emailInput,
         authConfig.surnameInput,
@@ -65,7 +65,7 @@ export class AuthPageModel extends Model {
   addAndEmitError = (inputName, errorText) => {
     const currInputErrSet = this.errorMessages.get(inputName);
     if (!currInputErrSet.has(errorText)) {
-      this.eventBus.emit(Events.AuthPage.AddValidateError, inputName, errorText);
+      this.eventBus.emit(EVENTS.AuthPage.AddValidateError, inputName, errorText);
       currInputErrSet.add(errorText);
     }
   }
@@ -73,7 +73,7 @@ export class AuthPageModel extends Model {
   deleteAndEmitError = (inputName, errorText) => {
     const currInputErrSet = this.errorMessages.get(inputName);
     if (currInputErrSet.has(errorText)) {
-      this.eventBus.emit(Events.AuthPage.DeleteValidateError, inputName, errorText);
+      this.eventBus.emit(EVENTS.AuthPage.DeleteValidateError, inputName, errorText);
       currInputErrSet.delete(errorText);
     }
   }
@@ -111,7 +111,7 @@ export class AuthPageModel extends Model {
     for (const inputName in inputsData) {
       this.validateOneInput(inputName, inputsData[inputName], inputsData[authConfig.passwordInput.name]);
       if (this.errorMessages.get(inputName).size) {
-        this.eventBus.emit(Events.AuthPage.HavingWrongInput, inputName);
+        this.eventBus.emit(EVENTS.AuthPage.HavingWrongInput, inputName);
         hasErrorInputs = true;
       }
     }
@@ -124,12 +124,12 @@ export class AuthPageModel extends Model {
           return;
         }
         if (response?.parsedJson?.status === statuses.OK) {
-          this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+          this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
         }
         // TODO MAKE ERRORS
       }).catch(() => {
-        this.eventBus.emit(Events.App.ErrorPage);
+        this.eventBus.emit(EVENTS.App.ErrorPage);
       });
     } else {
       register(inputsData).then((response) => {
@@ -137,12 +137,12 @@ export class AuthPageModel extends Model {
           return;
         }
         if (response?.parsedJson?.status === statuses.AUTHORIZED) {
-          this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
+          this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
         }
         // TODO MAKE ERRORS
       }).catch(() => {
-        this.eventBus.emit(Events.App.ErrorPage);
+        this.eventBus.emit(EVENTS.App.ErrorPage);
       });
     }
   }

@@ -1,7 +1,7 @@
 import headerPug from '../../components/header/navbar.pug';
 import enterButton from '../../components/header/enterButton.pug';
 import userBlock from '../../components/header/userBlock/userBlock.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 import {headerLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
@@ -18,7 +18,7 @@ export class HeaderView extends BaseView {
     if (header) {
       header.innerHTML = template;
     } else {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
@@ -81,7 +81,7 @@ export class HeaderView extends BaseView {
     }
     logoutButton.addEventListener('click', (e) => {
       this.renderEnterButton();
-      this.eventBus.emit(Events.Header.LogOut);
+      this.eventBus.emit(EVENTS.Header.LogOut);
     });
   }
 

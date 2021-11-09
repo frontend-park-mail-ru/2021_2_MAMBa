@@ -5,7 +5,7 @@ import starsAndReviews from '../../components/profile/starsAndReviews/starsAndRe
 import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock/reviewsContent.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
 import loader from '../../components/loader/loader.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
@@ -34,7 +34,7 @@ export class ProfileView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.eventBus.emit(Events.ProfilePage.GetContent, this.routeData);
+    this.eventBus.emit(EVENTS.ProfilePage.GetContent, this.routeData);
   }
 
   renderContent = (user, isThisUser) => {
@@ -51,11 +51,11 @@ export class ProfileView extends BaseView {
         content.innerHTML = profilePug(Object.assign(this.user, menuLinks));
       }
     } else {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     this.changeActiveMenuButton(this.routeData.path.path);
-    this.eventBus.emit(Events.ProfilePage.GetCurrentPageBlocks);
+    this.eventBus.emit(EVENTS.ProfilePage.GetCurrentPageBlocks);
   }
 
   deleteSettingsFromMenu = () => {
@@ -93,7 +93,7 @@ export class ProfileView extends BaseView {
       return;
     }
     moreButton.addEventListener('click', () => {
-      this.eventBus.emit(Events.ProfilePage.MoreButton);
+      this.eventBus.emit(EVENTS.ProfilePage.MoreButton);
     });
   }
 
@@ -113,7 +113,7 @@ export class ProfileView extends BaseView {
         formData.append('avatar', settingsForm.avatar.files[0]);
         console.log(settingsForm.avatar.files[0]);
         console.log(formData.getAll('avatar'));
-        this.eventBus.emit(Events.ProfilePage.ChangeAvatar, formData);
+        this.eventBus.emit(EVENTS.ProfilePage.ChangeAvatar, formData);
       }
       const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');
       if (!formTextInputs.length) {
@@ -126,7 +126,7 @@ export class ProfileView extends BaseView {
       inputsData.gender = this.user.gender;
       inputsData.email = this.user.email;
       inputsData.picture_url = this.user.picture_url;
-      this.eventBus.emit(Events.ProfilePage.ChangeProfile, inputsData);
+      this.eventBus.emit(EVENTS.ProfilePage.ChangeProfile, inputsData);
     });
   }
 

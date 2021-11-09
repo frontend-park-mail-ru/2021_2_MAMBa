@@ -2,7 +2,7 @@ import {BaseView} from '../BaseView/BaseView.js';
 import {authConfig, AuthFormName} from '../../consts/authConfig';
 import authContent from '../../components/auth/auth.pug';
 import authError from '../../components/auth/authError/authError.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 import {createElementFromHTML} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
 
@@ -12,7 +12,7 @@ export class AuthView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.eventBus.emit(Events.AuthPage.GetContent, this.routeData);
+    this.eventBus.emit(EVENTS.AuthPage.GetContent, this.routeData);
   }
 
   renderContent = (data) => {
@@ -24,7 +24,7 @@ export class AuthView extends BaseView {
       this.addValidateListeners();
       this.addSubmitListener();
     } else {
-      this.eventBus.emit(Events.App.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
@@ -74,7 +74,7 @@ export class AuthView extends BaseView {
     }
     for (const input of formTextInputs) {
       input.addEventListener('keyup', () => {
-        this.eventBus.emit(Events.AuthPage.Validate, input.name, input.value, input.name ===
+        this.eventBus.emit(EVENTS.AuthPage.Validate, input.name, input.value, input.name ===
           authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
       });
       input.addEventListener('animationend', () => {
@@ -99,7 +99,7 @@ export class AuthView extends BaseView {
       for (const input of formTextInputs) {
         inputsData[input.name] = input.value;
       }
-      this.eventBus.emit(Events.AuthPage.Submit, inputsData, this.routeData);
+      this.eventBus.emit(EVENTS.AuthPage.Submit, inputsData, this.routeData);
     });
   }
 

@@ -1,7 +1,7 @@
 import {BaseController} from './baseController.js';
 import {CollectionPageModel} from '../models/collectionModel.js';
 import {CollectionView} from '../views/CollectionView/CollectionView.js';
-import {Events} from '../consts/events';
+import {EVENTS} from '../consts/EVENTS';
 
 /** Class representing collection page controller. */
 export class CollectionPageController extends BaseController {
@@ -10,16 +10,9 @@ export class CollectionPageController extends BaseController {
    */
   constructor() {
     super(CollectionView, CollectionPageModel);
-    this.subscribe();
-  }
-
-  subscribe = () => {
-    this.eventBus.on(Events.collectionPage.getPageContent, this.model.getPageContent);
-    this.eventBus.on(Events.collectionPage.render.content, this.view.renderContent);
-  }
-
-  unsubscribe = () => {
-    this.eventBus.off(Events.collectionPage.getPageContent, this.model.getPageContent);
-    this.eventBus.off(Events.collectionPage.render.Content, this.view.renderContent);
+    this.events.push(
+        {event: EVENTS.collectionPage.getPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.collectionPage.render.content, handler: this.view.renderContent},
+    );
   }
 }

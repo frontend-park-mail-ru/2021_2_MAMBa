@@ -1,5 +1,5 @@
 import {eventBus} from './eventBus.js';
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {ROUTES} from '../consts/routes.js';
 
 /**
@@ -32,9 +32,9 @@ export class Router {
     this.routes = new Set();
     this.application = app;
     this.currentController = null;
-    eventBus.on(Events.PathChanged, this.onPathChanged);
-    eventBus.on(Events.RedirectBack, this.back.bind(this));
-    eventBus.on(Events.RedirectForward, this.forward.bind(this));
+    eventBus.on(EVENTS.PathChanged, this.onPathChanged);
+    eventBus.on(EVENTS.RedirectBack, this.back.bind(this));
+    eventBus.on(EVENTS.RedirectForward, this.forward.bind(this));
 
     if (app) {
       this.application = app;
@@ -48,7 +48,7 @@ export class Router {
           e.preventDefault();
           const data = {...closestLink.dataset};
           data.path = closestLink.getAttribute('href');
-          eventBus.emit(Events.PathChanged, data);
+          eventBus.emit(EVENTS.PathChanged, data);
         }
       });
     }
@@ -149,7 +149,7 @@ export class Router {
     }
 
     this.currentController.view.render(data);
-    eventBus.emit(Events.Router.Go, path);
+    eventBus.emit(EVENTS.Router.Go, path);
   }
 
   /**

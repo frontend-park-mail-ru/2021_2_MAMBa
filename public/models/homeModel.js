@@ -1,5 +1,5 @@
 import {getCollections} from '../modules/http.js';
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {convertArrayToCollectionsPage} from '../modules/adapters';
 
 /**
@@ -18,10 +18,10 @@ export class HomePageModel {
     getCollections()
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
           }
           if (response.status === 200 && response.body) {
-            this.eventBus.emit(Events.Homepage.Render.Content, convertArrayToCollectionsPage(response.body));
+            this.eventBus.emit(EVENTS.homepage.render.content, convertArrayToCollectionsPage(response.body));
           }
         });
   }

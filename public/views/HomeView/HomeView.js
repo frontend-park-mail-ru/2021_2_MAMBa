@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import homeContent from '../../components/collections/collections.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 
 /** Class representing home page view. */
 export class HomePageView extends BaseView {
@@ -17,7 +17,7 @@ export class HomePageView extends BaseView {
    * Emit event to get content for homepage.
    */
   emitGetContent = () => {
-    this.eventBus.emit(Events.Homepage.Get.MainPageContent);
+    this.eventBus.emit(EVENTS.homepage.get.mainPageContent);
   }
 
   /**
@@ -30,7 +30,7 @@ export class HomePageView extends BaseView {
     if (content) {
       content.innerHTML = template;
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.errorPage);
     }
   }
 }

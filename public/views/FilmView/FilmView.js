@@ -3,7 +3,7 @@ import filmPageContent from '../../components/film/film.pug';
 import userRating from '../../components/userRating/userRating.pug';
 import readMore from '../../components/textReadMore/textReadMore.pug';
 import successfulSendButton from '../../components/authWarningButton/authWarningButton.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 
 /** Class representing film page view. */
@@ -23,7 +23,7 @@ export class FilmView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/film/:id');
-    this.eventBus.emit(Events.FilmPage.GetPageContent, pathArgs);
+    this.eventBus.emit(EVENTS.FilmPage.GetPageContent, pathArgs);
   }
 
   /**
@@ -43,7 +43,7 @@ export class FilmView extends BaseView {
       this.setReadMore(data);
       this.setAnchorActions();
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.errorPage);
     }
   }
 
@@ -86,7 +86,7 @@ export class FilmView extends BaseView {
         const rating = {
           myRating: target.getAttribute('data-rate'),
         };
-        this.eventBus.emit(Events.FilmPage.PostRating, filmId, rating.myRating);
+        this.eventBus.emit(EVENTS.FilmPage.PostRating, filmId, rating.myRating);
       }
     });
     rating.onmouseover = function(e) {
@@ -191,7 +191,7 @@ export class FilmView extends BaseView {
         }
         review.review_text = textInput;
       }
-      this.eventBus.emit(Events.FilmPage.PostReview, review);
+      this.eventBus.emit(EVENTS.FilmPage.PostReview, review);
       this.removeWarning('warning_empty-text');
     });
   }

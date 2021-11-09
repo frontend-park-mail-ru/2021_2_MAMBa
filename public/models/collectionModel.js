@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {getCollectionFilms} from '../modules/http';
 import {convertCollectionToCollectionPage} from '../modules/adapters';
 
@@ -20,15 +20,15 @@ export class CollectionPageModel {
    */
   getPageContent = (collection) => {
     if (!collection?.id) {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
       return;
     }
     getCollectionFilms(collection.id)
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(Events.collectionPage.render.content, convertCollectionToCollectionPage(response.body));
+            this.eventBus.emit(EVENTS.collectionPage.render.content, convertCollectionToCollectionPage(response.body));
           }
         });
   }

@@ -1,6 +1,6 @@
 import {BaseView} from './BaseView/BaseView.js';
 import reviewPageContent from './../components/review/review.pug';
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {getPathArgs} from '../modules/router.js';
 
 /** Class representing review page view. */
@@ -20,7 +20,7 @@ export class ReviewView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/review/:id');
-    this.eventBus.emit(Events.ReviewPage.GetPageContent, pathArgs);
+    this.eventBus.emit(EVENTS.ReviewPage.GetPageContent, pathArgs);
   }
 
   /**
@@ -34,7 +34,7 @@ export class ReviewView extends BaseView {
     if (content) {
       content.innerHTML = template;
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.errorPage);
     }
   }
 }

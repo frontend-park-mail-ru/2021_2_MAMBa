@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {convertReviewToReviewPage} from '../modules/adapters';
 import {getInfoAboutReview} from '../modules/http';
 
@@ -16,16 +16,16 @@ export class ReviewPageModel {
 
   getPageContent = (review) => {
     if (!review?.id) {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.Homepage.Render.ErrorPage);
       return;
     }
     getInfoAboutReview(review.id)
         .then((response) => {
           if (!response) {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+            this.eventBus.emit(EVENTS.Homepage.Render.ErrorPage);
           }
           if (response.status === 200 && response.body) {
-            this.eventBus.emit(Events.ReviewPage.Render.Content, convertReviewToReviewPage(response.body));
+            this.eventBus.emit(EVENTS.ReviewPage.Render.Content, convertReviewToReviewPage(response.body));
           }
         });
   }

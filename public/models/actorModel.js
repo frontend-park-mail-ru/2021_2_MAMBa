@@ -1,4 +1,4 @@
-import {Events} from '../consts/events.js';
+import {EVENTS} from '../consts/EVENTS.js';
 import {getActorFilms, getInfoAboutActor} from '../modules/http';
 import {convertArrayToActorFilms, convertArrayToActorPage} from '../modules/adapters';
 
@@ -20,15 +20,15 @@ export class ActorPageModel {
    */
   getPageContent = (actor) => {
     if (!actor?.id) {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
       return;
     }
     getInfoAboutActor(actor.id)
         .then((response) => {
           if (!response.status) {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(Events.ActorPage.Render.Content, convertArrayToActorPage(response.body));
+            this.eventBus.emit(EVENTS.ActorPage.Render.Content, convertArrayToActorPage(response.body));
           }
           // TODO: отрисовывать стр если актера нет в бд
           // if (response.parsedJson.status === 404) {}
@@ -37,15 +37,15 @@ export class ActorPageModel {
 
   getActorFilmsContent = (actor) => {
     if (!actor?.id && !actor?.limit && !actor?.limit) {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
       return;
     }
     getActorFilms(actor.id, actor.limit, actor.limit)
         .then((response) => {
           if (!response) {
-            this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+            this.eventBus.emit(EVENTS.homepage.render.errorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(Events.ActorPage.Render.Films, convertArrayToActorFilms(response.body));
+            this.eventBus.emit(EVENTS.ActorPage.Render.Films, convertArrayToActorFilms(response.body));
           }
         });
   }

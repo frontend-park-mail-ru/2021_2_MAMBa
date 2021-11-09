@@ -1,5 +1,6 @@
 import {statuses} from '../consts/reqStatuses';
 import {URLS} from '../consts/urls.js';
+import regeneratorRuntime from 'regenerator-runtime';
 
 /**
  * Send async post request using async func.

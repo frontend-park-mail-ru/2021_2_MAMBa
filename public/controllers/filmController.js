@@ -1,7 +1,7 @@
 import {BaseController} from './baseController.js';
 import {FilmPageModel} from '../models/filmModel.js';
 import {FilmView} from '../views/FilmView/FilmView.js';
-import {Events} from '../consts/events';
+import {EVENTS} from '../consts/EVENTS';
 
 /** Class representing film page controller. */
 export class FilmPageController extends BaseController {
@@ -10,30 +10,16 @@ export class FilmPageController extends BaseController {
    */
   constructor() {
     super(FilmView, FilmPageModel);
-    this.subscribe();
-  }
-
-  subscribe = () => {
-    this.eventBus.on(Events.FilmPage.GetPageContent, this.model.getPageContent);
-    this.eventBus.on(Events.FilmPage.PostReview, this.model.postReview);
-    this.eventBus.on(Events.FilmPage.Render.Page, this.view.render);
-    this.eventBus.on(Events.FilmPage.Render.Content, this.view.renderContent);
-    this.eventBus.on(Events.FilmPage.Render.WarningSend, this.view.renderWarning);
-    this.eventBus.on(Events.FilmPage.Render.SuccessfulSend, this.view.renderSuccessfulSend);
-    this.eventBus.on(Events.FilmPage.PostRating, this.model.postRating);
-    this.eventBus.on(Events.FilmPage.Render.WarningRatingSend, this.view.renderWarningRatingSend);
-    this.eventBus.on(Events.FilmPage.Render.SuccessfulRatingSend, this.view.renderSuccessfulRatingSend);
-  }
-
-  unsubscribe = () => {
-    this.eventBus.off(Events.FilmPage.GetPageContent, this.model.getPageContent);
-    this.eventBus.off(Events.FilmPage.Render.Page, this.view.render);
-    this.eventBus.off(Events.FilmPage.Render.Content, this.view.renderContent);
-    this.eventBus.off(Events.FilmPage.PostReview, this.model.postReview);
-    this.eventBus.off(Events.FilmPage.Render.WarningSend, this.view.renderWarning);
-    this.eventBus.off(Events.FilmPage.Render.SuccessfulSend, this.view.renderSuccessfulSend);
-    this.eventBus.off(Events.FilmPage.PostRating, this.model.postRating);
-    this.eventBus.off(Events.FilmPage.Render.WarningRatingSend, this.view.renderWarningRatingSend);
-    this.eventBus.off(Events.FilmPage.Render.SuccessfulRatingSend, this.view.renderSuccessfulRatingSend);
+    this.events.push(
+        {event: EVENTS.FilmPage.GetPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.FilmPage.PostReview, handler: this.model.postReview},
+        {event: EVENTS.FilmPage.Render.Page, handler: this.view.render},
+        {event: EVENTS.FilmPage.Render.Content, handler: this.view.renderContent},
+        {event: EVENTS.FilmPage.Render.WarningSend, handler: this.view.renderWarning},
+        {event: EVENTS.FilmPage.Render.SuccessfulSend, handler:this.view.renderSuccessfulSend},
+        {event: EVENTS.FilmPage.PostRating, handler: this.model.postRating},
+        {event: EVENTS.FilmPage.Render.WarningRatingSend, handler:this.view.renderWarningRatingSend},
+        {event: EVENTS.FilmPage.Render.SuccessfulRatingSend, handler: this.view.renderSuccessfulRatingSend},
+    );
   }
 }

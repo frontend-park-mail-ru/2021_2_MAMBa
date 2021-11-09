@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import collectionFilmsPageContent from '../../components/collectionFilms/collectionFilms.pug';
-import {Events} from '../../consts/events.js';
+import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 
 /** Class representing collection page view. */
@@ -19,7 +19,7 @@ export class CollectionView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/film/:id');
-    this.eventBus.emit(Events.collectionPage.getPageContent, pathArgs);
+    this.eventBus.emit(EVENTS.collectionPage.getPageContent, pathArgs);
   }
 
   /**
@@ -33,7 +33,7 @@ export class CollectionView extends BaseView {
     if (content) {
       content.innerHTML = template;
     } else {
-      this.eventBus.emit(Events.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.errorPage);
     }
   }
 }

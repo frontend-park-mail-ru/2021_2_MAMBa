@@ -303,7 +303,7 @@ export class FilmView extends BaseView {
     const movePosition = slidesToScroll * itemWidth;
 
     items.forEach((item) => {
-      item.style.minWidth = `${itemWidth}px`;
+      item.style.maxWidth = `${itemWidth}px`;
     });
 
     btvNext.addEventListener('click', () => {

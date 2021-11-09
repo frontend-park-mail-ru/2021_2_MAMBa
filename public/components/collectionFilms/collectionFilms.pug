@@ -1,0 +1,9 @@
+include ../filmCard/filmCard
+div.collection-info
+    span.block-subtitle
+        = `Подборка  «${name}»`
+    div.collection-info__desctiption #{description}
+    div.collection-info__black-container
+        div.actor-info__black-container_films-with-description_container
+          each film, _ in filmsWithDescription
+            +filmCard(film)

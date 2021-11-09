@@ -86,10 +86,11 @@
   }
 
   &__container-trailer {
+    display:flex;
+    column-gap: 5%;
     margin-top: $block_indentation;
 
     &_video {
-      margin-right: 5%;
       min-width: 300px;
       float: left;
       position: relative;

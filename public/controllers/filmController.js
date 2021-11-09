@@ -4,7 +4,7 @@ import {FilmView} from '../views/FilmView/FilmView.js';
 import {Events} from '../consts/events';
 
 /** Class representing film page controller. */
-export class FilmPagePageController extends BaseController {
+export class FilmPageController extends BaseController {
   /**
    * Create an film page controller.
    */

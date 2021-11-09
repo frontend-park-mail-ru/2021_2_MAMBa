@@ -6,7 +6,7 @@ const config = {
   devServer: {
     contentBase: 'server',
     historyApiFallback: true,
-    port: 8088,
+    port: 8086,
     hot: true,
     proxy: {
       '/api': {

@@ -1,8 +1,9 @@
 import {URLS} from '../consts/urls.js';
+import regeneratorRuntime from "regenerator-runtime";
 
 import {
   convertArrayToActorFilms,
-  convertArrayToActorPage,
+  convertArrayToActorPage, convertArrayToCollectionsPage, convertCollectionToCollectionPage,
 } from './adapters.js';
 
 const login = async (user) => {
@@ -193,7 +194,30 @@ const getCollections = async () => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      return responseBody;
+      return convertArrayToCollectionsPage(responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {object} collectionId - Contains id of collection to render.
+ * @return {array} - Array of objects for render collection page.
+ */
+const getCollectionFilms = async (collectionId) => {
+  const params = {
+    url: `${URLS.api.collectionFilms}${collectionId}`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return convertCollectionToCollectionPage(responseBody);
     }
     return null;
   } catch {
@@ -249,6 +273,7 @@ const getCurrentUser = async () => {
 };
 
 export {
+  getCollectionFilms,
   sendReview,
   sendRating,
   getActorFilms,

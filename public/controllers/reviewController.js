@@ -4,7 +4,7 @@ import {ReviewView} from '../views/ReviewView';
 import {Events} from '../consts/events';
 
 /** Class representing review page controller. */
-export class ReviewPagePageController extends BaseController {
+export class ReviewPageController extends BaseController {
   /**
    * Create an review page controller.
    */

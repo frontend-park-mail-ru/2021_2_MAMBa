@@ -1,6 +1,7 @@
 @import '../../css/consts';
 
 .collection {
+  text-decoration: none;
   flex-direction: column;
 
   &_wrapper {
@@ -19,6 +20,7 @@
   }
 
   &_name {
+    text-decoration: none;
     font-weight: 600;
     font-size: 18px;
     color: $white;

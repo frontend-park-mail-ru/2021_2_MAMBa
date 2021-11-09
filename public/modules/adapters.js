@@ -6,7 +6,7 @@
 export const convertArrayToActorPage = (fullActorInfoJson) => (
     {
       actor: convertActorToActorPage(fullActorInfoJson.actor),
-      moreAvailable: fullActorInfoJson.films.film_list.more_available,
+      moreAvailable: fullActorInfoJson.films.more_available,
       skip: fullActorInfoJson.films.current_skip,
       limit: fullActorInfoJson.films.current_limit,
       filmsWithDescription:
@@ -14,6 +14,30 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
       filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
     }
 );
+
+/**
+ * Union actors and their ids.
+ * @param {object} collectionsInfoJson - Info about actor from json.
+ * @return {object} - Object for render actor information
+ */
+export const convertArrayToCollectionsPage = (collectionsInfoJson) => (
+    {
+      collections: convertArrayToCollection(collectionsInfoJson.collections_list),
+      moreAvailable: collectionsInfoJson.more_available,
+      skip: collectionsInfoJson.current_skip,
+      limit: collectionsInfoJson.current_limit,
+    }
+);
+
+export const convertArrayToCollection = (arrayContent) => {
+  return arrayContent.map((jsonCollection) => {
+    return {
+      title: jsonCollection?.title,
+      collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
+      href: `/collections/${jsonCollection.id}`,
+    };
+  });
+};
 
 /**
  * Union actor information
@@ -24,7 +48,7 @@ export const convertActorToActorPage = (actorInfoJson) => (
     {
       name: actorInfoJson.name_rus,
       nameEnglish: actorInfoJson.name_en,
-      avatar: actorInfoJson.picture_url,
+      avatar: `https://film4u.club${actorInfoJson.picture_url}`,
       heightMetre: `${actorInfoJson.height} м`,
       date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
       filmTotal: actorInfoJson.film_number,
@@ -42,7 +66,7 @@ export const convertArrayToFilm = (arrayContent) => {
     return {
       id: jsonFilm?.id,
       title: jsonFilm?.title,
-      filmAvatar: `${jsonFilm?.poster_url}`,
+      filmAvatar: `https://film4u.club${jsonFilm?.poster_url}`,
       href: `/films/${jsonFilm.id}`,
     };
   });
@@ -75,8 +99,8 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
       id: jsonFilm.id,
       title: jsonFilm.title,
       description: jsonFilm?.description || '-',
-      year: jsonFilm?.year || '-',
-      filmAvatar: `${jsonFilm.poster_url}`,
+      year: jsonFilm?.release_year || '-',
+      filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
       href: `/films/${jsonFilm.id}`,
     };
   });
@@ -104,7 +128,7 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
     return {
       author: jsonReview.author_name,
       href: `/reviews/${jsonReview.id}`,
-      text: jsonReview.text,
+      text: jsonReview.review_text,
       date: jsonReview.date,
       type: jsonReview.review_type,
     };
@@ -122,14 +146,14 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     titleOriginal: arrayContent?.title_original,
     countryOriginal: arrayContent?.origin_countries,
     year: arrayContent?.release_year || '-',
-    filmAvatar: `${arrayContent.poster_url}`,
+    filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
     trailerUrl: arrayContent.trailer_url,
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
     director: arrayContent?.director.name_rus || '-',
-    screenwriter: arrayContent?.screenwriter.name_rus|| '-',
-    actors: convertArrayToActorArray(arrayContent?.cast)|| '-',
+    screenwriter: arrayContent?.screenwriter.name_rus || '-',
+    actors: convertArrayToActorArray(arrayContent?.cast) || '-',
   };
 };
 
@@ -162,9 +186,9 @@ export const convertArrayToGenresArray = (arrayContent) => {
 };
 
 /**
- * Union actors and their ids.
- * @param {object} reviewInfoJson - Info about actor from json.
- * @return {object} - Object for render actor information
+ * Union review.
+ * @param {object} reviewInfoJson - Info about review from json.
+ * @return {object} - Object for render review information
  */
 export const convertReviewToReviewPage = (reviewInfoJson) => {
   let classType;
@@ -180,13 +204,27 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     classButtonType = 'negative-button';
   }
   return {
-    filmName: reviewInfoJson.film_title_ru,
-    filmHref: `/films/${reviewInfoJson.film_id}`,
-    authorName: reviewInfoJson.author_name,
-    authorAvatar: reviewInfoJson.author_picture_url,
-    reviewText: reviewInfoJson.review_text,
     classType: classType,
-    date: reviewInfoJson.date,
     classButtonType: classButtonType,
-  };
+    authorAvatar: `https://film4u.club${reviewInfoJson.author_picture_url}`,
+    filmTitle: reviewInfoJson.film_title_ru,
+    authorName: reviewInfoJson.author_name,
+    reviewText: reviewInfoJson.review_text,
+  }
 };
+
+/**
+ * Union collection.
+ * @param {object} collectionInfoJson - Info about collection from json.
+ * @return {object} - Object for render collection information
+ */
+export const convertCollectionToCollectionPage = (collectionInfoJson) => (
+    {
+      name: collectionInfoJson.collection.collection_name,
+      description: collectionInfoJson.collection.description,
+      id: collectionInfoJson.collection.id,
+      filmsWithDescription:
+          convertArrayToFilmWithDescription(collectionInfoJson.films),
+    }
+);
+

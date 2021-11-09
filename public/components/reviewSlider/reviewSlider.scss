@@ -7,7 +7,7 @@
   &__track {
     display: flex;
     transition: .2s;
-    row-gap: 20px;
+    row-gap: 30px;
 
     &_review {
       text-decoration: none;
@@ -16,7 +16,7 @@
       flex-direction: column;
       justify-content: space-between;
       margin-right: 20px;
-      padding: 40px;
+      padding: 20px;
       color: $white;
       border-radius: 10px;
 

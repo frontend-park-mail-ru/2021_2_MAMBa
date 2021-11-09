@@ -36,6 +36,7 @@ export class ActorView extends BaseView {
       content.innerHTML = template;
       this.setAnchorActions();
       this.setSliderActions();
+      this.checkShowMoreButton(this.dataActor.moreAvailable);
       this.showMore(this.dataActor);
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
@@ -95,7 +96,7 @@ export class ActorView extends BaseView {
     const movePosition = slidesToScroll * itemWidth;
 
     items.forEach((item) => {
-      item.style.minWidth = `${itemWidth}px`;
+      item.style.maxWidth = `${itemWidth}px`;
     });
 
     btvNext.addEventListener('click', (e) => {

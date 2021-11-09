@@ -7,4 +7,5 @@ export const ROUTES = {
   Profile: '/profile',
   actorPage: '/actors/\\d+',
   filmPage: '/films/\\d+',
+  collectionPage: '/collections/\\d+',
 };

@@ -34,8 +34,8 @@ div.actor-info
         div.actor-info__black-container_films-with-description
             div.block-subtitle Полная фильмография
             div.actor-info__black-container_films-with-description_container
-              - for (let i = 0; i < limit; i++)
-              +filmCard(filmsWithDescription[i])
+              each film, _ in filmsWithDescription
+               +filmCard(film)
             button(type="button" class=" show-more-films button-more ") Показать еще
     div.actor-info__biography
         div.block-subtitle#biography Биография

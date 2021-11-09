@@ -56,10 +56,16 @@ export const Events = {
   },
   ReviewPage: {
     Render: {
-      Page: 'reviewPage:render',
       Content: 'reviewPage:renderContent',
     },
     GetPageContent: 'reviewPage:getReviewPageContent',
+  },
+
+  collectionPage: {
+    render: {
+      content: 'collectionPage:renderContent',
+    },
+    getPageContent: 'reviewPage:getCollectionPageContent',
   },
 
   Header: {

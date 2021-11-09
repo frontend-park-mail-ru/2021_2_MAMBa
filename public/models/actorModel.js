@@ -27,6 +27,7 @@ export class ActorPageModel {
           if (!contentData) {
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
           } else {
+            console.log(contentData)
             this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
           }
         });

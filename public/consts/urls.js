@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const localUrl = 'http://localhost:8088';
+const localUrl = 'http://localhost:8086';
 
 // eslint-disable-next-line no-unused-vars
 const deployUrl = 'https://film4u.club';
@@ -7,7 +7,7 @@ const deployUrl = 'https://film4u.club';
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;
 
-export const currentUrl = localUrl;
+export const currentUrl = deployUrl;
 
 export const URLS = {
   pages: {
@@ -29,5 +29,6 @@ export const URLS = {
     collections: `${currentUrl}/api/collections/getCollections?skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
     actor: `${currentUrl}/api/person/getPerson?id=`,
     actorFilms: `${currentUrl}/api/person/getPersonFilms?id=`,
+    collectionFilms: `${currentUrl}/api/collections/getCollectionFilms?id=`,
   },
 };

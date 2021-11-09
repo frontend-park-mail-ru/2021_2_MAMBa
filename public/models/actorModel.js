@@ -28,7 +28,7 @@ export class ActorPageModel {
           if (!response.status) {
             this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.ActorPage.Render.Content, convertArrayToActorPage(response.body));
+            this.eventBus.emit(EVENTS.actorPage.render.content, convertArrayToActorPage(response.body));
           }
           // TODO: отрисовывать стр если актера нет в бд
           // if (response.parsedJson.status === 404) {}
@@ -45,7 +45,7 @@ export class ActorPageModel {
           if (!response) {
             this.eventBus.emit(EVENTS.homepage.render.errorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.ActorPage.Render.Films, convertArrayToActorFilms(response.body));
+            this.eventBus.emit(EVENTS.actorPage.render.films, convertArrayToActorFilms(response.body));
           }
         });
   }

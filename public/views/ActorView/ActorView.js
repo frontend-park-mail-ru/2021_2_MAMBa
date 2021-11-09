@@ -21,7 +21,7 @@ export class ActorView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
-    this.eventBus.emit(EVENTS.ActorPage.GetPageContent, pathArgs);
+    this.eventBus.emit(EVENTS.actorPage.getPageContent, pathArgs);
   }
 
   /**
@@ -59,7 +59,7 @@ export class ActorView extends BaseView {
     const buttonShowMore = document.querySelector('.show-more-films');
     buttonShowMore.addEventListener('click', (e) => {
       e.preventDefault();
-      this.eventBus.emit(EVENTS.ActorPage.GetFilms, newData);
+      this.eventBus.emit(EVENTS.actorPage.getFilms, newData);
     });
   }
 

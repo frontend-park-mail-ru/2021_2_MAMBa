@@ -36,31 +36,31 @@ export const EVENTS = {
     HavingWrongInput: 'authPage:havingWrongInputs',
     GetContent: 'authPage:getContent',
   },
-  ActorPage: {
-    Render: {
-      Content: 'actorPage:renderContent',
-      Films: 'actorPage:renderFilms',
+  actorPage: {
+    render: {
+      content: 'actorPage:renderContent',
+      films: 'actorPage:renderFilms',
     },
-    GetPageContent: 'actorPage:getPageContent',
-    GetFilms: 'actorPage:getFilms',
+    getPageContent: 'actorPage:getPageContent',
+    getFilms: 'actorPage:getFilms',
   },
-  FilmPage: {
-    Render: {
-      Content: 'filmPage:renderContent',
-      WarningSend: 'filmPage:renderWarningSend',
-      WarningRatingSend: 'filmPage:renderWarningRatingSend',
-      SuccessfulSend: 'filmPage:renderSuccessfulSend',
-      SuccessfulRatingSend: 'filmPage:renderSuccessfulRatingSend',
+  filmPage: {
+    render: {
+      content: 'filmPage:renderContent',
+      warningSend: 'filmPage:renderWarningSend',
+      warningRatingSend: 'filmPage:renderWarningRatingSend',
+      successfulSend: 'filmPage:renderSuccessfulSend',
+      successfulRatingSend: 'filmPage:renderSuccessfulRatingSend',
     },
-    GetPageContent: 'filmPage:getMainPageContent',
-    PostReview: 'filmPage:postReview',
-    PostRating: 'filmPage:postRating',
+    getPageContent: 'filmPage:getMainPageContent',
+    postReview: 'filmPage:postReview',
+    postRating: 'filmPage:postRating',
   },
-  ReviewPage: {
-    Render: {
-      Content: 'reviewPage:renderContent',
+  reviewPage: {
+    render: {
+      content: 'reviewPage:renderContent',
     },
-    GetPageContent: 'reviewPage:getReviewPageContent',
+    getPageContent: 'reviewPage:getReviewPageContent',
   },
 
   collectionPage: {

@@ -13,7 +13,7 @@ export class HomePageController extends BaseController {
     this.events.push(
         {event: EVENTS.homepage.get.mainPageContent, handler: this.model.getMainPageContent},
         {event: EVENTS.homepage.render.page, handler: this.view.render},
-        {event: EVENTS.homepage.render.content, handler: this.view.renderContent}
+        {event: EVENTS.homepage.render.content, handler: this.view.renderContent},
     );
   }
 }

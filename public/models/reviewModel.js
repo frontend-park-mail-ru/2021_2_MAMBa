@@ -25,7 +25,7 @@ export class ReviewPageModel {
             this.eventBus.emit(EVENTS.Homepage.Render.ErrorPage);
           }
           if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.ReviewPage.Render.Content, convertReviewToReviewPage(response.body));
+            this.eventBus.emit(EVENTS.reviewPage.render.content, convertReviewToReviewPage(response.body));
           }
         });
   }

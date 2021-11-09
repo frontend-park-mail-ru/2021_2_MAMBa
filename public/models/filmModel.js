@@ -29,7 +29,7 @@ export class FilmPageModel {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.homepage.render.errorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.FilmPage.Render.Content, convertArrayToFilmPage(response.body));
+            this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
           // TODO: отрисовывать стр если фильма нет в бд
           // if (response.parsedJson.status === 404) {}
@@ -43,7 +43,7 @@ export class FilmPageModel {
   postReview = (inputsData = {}) => {
     if (!authModule.user) {
       this.eventBus.emit(
-          EVENTS.FilmPage.Render.WarningSend,
+          EVENTS.filmPage.render.warningSend,
           'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь',
           'warning_no-auth');
       return;
@@ -55,7 +55,7 @@ export class FilmPageModel {
             return;
           }
           if (response.status === 200) {
-            this.eventBus.emit(EVENTS.FilmPage.Render.SuccessfulSend);
+            this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
           }
         });
   }
@@ -68,7 +68,7 @@ export class FilmPageModel {
   postRating = (filmId, rating) => {
     if (!authModule.user) {
       this.eventBus.emit(
-          EVENTS.FilmPage.Render.WarningRatingSend,
+          EVENTS.filmPage.render.warningRatingSend,
           'Чтобы поставить рейтинг, пожалуйста, зарегистрируйтесь');
       return;
     }
@@ -82,7 +82,7 @@ export class FilmPageModel {
         return;
       }
       if (response.status === 200) {
-        this.eventBus.emit(EVENTS.FilmPage.Render.renderSuccessfulRatingSend, rating);
+        this.eventBus.emit(EVENTS.filmPage.render.renderSuccessfulRatingSend, rating);
         // TODO изменить рейтинг фильма
       }
     });

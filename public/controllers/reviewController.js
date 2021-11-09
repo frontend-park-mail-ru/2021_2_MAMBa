@@ -11,9 +11,9 @@ export class ReviewPageController extends BaseController {
   constructor() {
     super(ReviewView, ReviewPageModel);
     this.events.push(
-        {event: EVENTS.ReviewPage.GetPageContent, handler: this.model.getPageContent},
-        {event: EVENTS.ReviewPage.Render.Page, handler: this.view.render},
-        {event: EVENTS.ReviewPage.Render.Content, handler: this.view.renderContent},
-       );
+        {event: EVENTS.reviewPage.getPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.reviewPage.render.Page, handler: this.view.render},
+        {event: EVENTS.reviewPage.render.content, handler: this.view.renderContent},
+    );
   }
 }

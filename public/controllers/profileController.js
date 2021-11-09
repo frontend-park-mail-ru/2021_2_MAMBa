@@ -22,7 +22,8 @@ export class ProfileController extends BaseController {
         {event: Events.ProfilePage.ChangeActiveMenuButton, handler: this.view.changeActiveMenuButton},
         {event: Events.ProfilePage.ChangeProfile, handler: this.model.changeProfile},
         {event: Events.ProfilePage.ChangeAvatar, handler: this.model.changeProfileAvatar},
-        {event: Events.ProfilePage.ReRenderHeader, handler: this.view.reRenderHeader},
+        {event: Events.ProfilePage.ChangedProfile, handler: this.view.reRenderHeader},
+        {event: Events.ProfilePage.MoreButton, handler: this.model.changePagAndGetNBlocks},
     );
   }
 }

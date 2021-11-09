@@ -2,8 +2,8 @@ import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
 import {Events} from '../../consts/events.js';
 import {getPathArgs} from '../../modules/router.js';
-import {URLS} from "../../consts/urls";
-import {Routes} from "../../consts/routes";
+import {URLS} from '../../consts/urls';
+import {Routes} from '../../consts/routes';
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {

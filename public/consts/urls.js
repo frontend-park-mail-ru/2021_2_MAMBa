@@ -7,7 +7,7 @@ const deployUrl = 'https://film4u.club';
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;
 
-export const currentUrl = localUrl;
+export const currentUrl = deployUrl;
 
 export const URLS = {
   pages: {
@@ -22,7 +22,7 @@ export const URLS = {
     getUser: `${currentUrl}/api/user/`,
     getProfile: `${currentUrl}/api/user/getProfile`,
     changeSettings: `${currentUrl}/api/user/changeProfile`,
-    changeAvatar: `${currentUrl}/api/user/changeAvatar`,
+    changeAvatar: `${currentUrl}/api/user/avatar`,
     getBookmarks: `${currentUrl}/api/user/getBookmarks`,
     getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,

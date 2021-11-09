@@ -118,15 +118,16 @@ export class AuthPageModel extends Model {
     if (hasErrorInputs) {
       return;
     }
-    if (routeData.path.path === Routes.AuthPage) {
+    if (routeData?.path?.path === Routes.AuthPage) {
       login(inputsData).then((response) => {
         if (!response) {
           return;
         }
-        if (response.status === statuses.OK) {
+        if (response?.parsedJson?.status === statuses.OK) {
           this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
         }
+        // TODO MAKE ERRORS
       }).catch(() => {
         this.eventBus.emit(Events.App.ErrorPage);
       });
@@ -135,10 +136,11 @@ export class AuthPageModel extends Model {
         if (!response) {
           return;
         }
-        if (response.status === statuses.AUTHORIZED) {
+        if (response?.parsedJson?.status === statuses.AUTHORIZED) {
           this.eventBus.emit(Events.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
         }
+        // TODO MAKE ERRORS
       }).catch(() => {
         this.eventBus.emit(Events.App.ErrorPage);
       });

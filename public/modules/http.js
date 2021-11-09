@@ -3,6 +3,8 @@ import {URLS} from '../consts/urls.js';
 import {
   convertArrayToActorPage,
 } from './adapters.js';
+import {eventBus} from './eventBus';
+import {Events} from '../consts/events';
 
 
 /**
@@ -68,6 +70,9 @@ const sendRequest = async ({url, method, body} = {}) => {
 
   try {
     const parsedJson = await response?.json();
+    if (response.status !== statuses.OK) {
+      return null;
+    }
     return {
       status: response.status,
       parsedJson,
@@ -120,20 +125,24 @@ const register = async (user) => {
   }
 };
 
-const changeAvatar = (formData) => {
+const changeAvatar = async (formData) => {
+  const response = await fetch(URLS.api.changeAvatar, {
+    method: 'POST',
+    body: formData,
+    mode: 'cors',
+    credentials: 'include',
+  });
+
   try {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', URLS.api.changeAvatar);
-    xhr.send(formData);
-    xhr.onloadend = () => {
-      if (xhr.status === statuses.OK) {
-        return xhr.response;
-      } else {
-        console.log('Ошибка ' + this.status);
-      }
+    const parsedJson = await response?.json();
+    return {
+      status: response.status,
+      parsedJson,
     };
-  } catch (err) {
-    return null;
+  } catch {
+    return {
+      status: response.status,
+    };
   }
 };
 

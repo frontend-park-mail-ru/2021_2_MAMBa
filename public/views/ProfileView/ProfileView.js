@@ -2,15 +2,16 @@ import {BaseView} from '../BaseView/BaseView.js';
 import profilePug from '../../components/profile/profile.pug';
 import profileHeader from '../../components/profile/profileHeader/profileHeader.pug';
 import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
+import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock/reviewsContent.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
-import moreButtonPug from '../../components/profile/moreButton/moreButton.pug';
+import loader from '../../components/loader/loader.pug';
 import {Events} from '../../consts/events.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
 import baseViewPug from '../BaseView/BaseView.pug';
 import {headerLinks} from '../../consts/header';
-import loader from '../../components/loader/loader.pug';
+import {statuses} from '../../consts/reqStatuses';
 
 
 export class ProfileView extends BaseView {
@@ -92,7 +93,7 @@ export class ProfileView extends BaseView {
       return;
     }
     moreButton.addEventListener('click', () => {
-      this.eventBus.emit(Events.ProfilePage.GetCurrentPageBlocks);
+      this.eventBus.emit(Events.ProfilePage.MoreButton);
     });
   }
 
@@ -107,9 +108,12 @@ export class ProfileView extends BaseView {
     }
 
     settingsButton.addEventListener('click', () => {
-      const formData = new FormData(document.forms.settingsForm);
+      const formData = new FormData();
       if (settingsForm.avatar.files[0]) {
-        this.eventBus.emit(Events.ProfilePage.ChangeAvatar, formData.getAll('avatar'));
+        formData.append('avatar', settingsForm.avatar.files[0]);
+        console.log(settingsForm.avatar.files[0]);
+        console.log(formData.getAll('avatar'));
+        this.eventBus.emit(Events.ProfilePage.ChangeAvatar, formData);
       }
       const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');
       if (!formTextInputs.length) {
@@ -119,16 +123,19 @@ export class ProfileView extends BaseView {
       for (const input of formTextInputs) {
         inputsData[input.name] = input.value;
       }
+      inputsData.gender = this.user.gender;
+      inputsData.email = this.user.email;
+      inputsData.picture_url = this.user.picture_url;
       this.eventBus.emit(Events.ProfilePage.ChangeProfile, inputsData);
     });
   }
 
-  deleteMoreButton = () => {
+  hideMoreButton = () => {
     const moreButton = document.querySelector('.profile__more-btn');
     if (!moreButton) {
       return;
     }
-    moreButton.remove();
+    moreButton.style.visibility = 'hidden';
   }
 
   reRenderHeader = (changedUser) => {
@@ -139,7 +146,7 @@ export class ProfileView extends BaseView {
     if (!header) {
       return;
     }
-    header.innerHTML = profileHeader(changedUser);
+    header.outerHTML = profileHeader(changedUser);
   }
 
   renderSettingsPage = () => {
@@ -168,15 +175,21 @@ export class ProfileView extends BaseView {
     if (!profileContent) {
       return;
     }
-    this.deleteMoreButton();
-    const template = starsAndReviews(reviewsMarks);
     if (profileContent.querySelector('.loader')) {
-      profileContent.innerHTML = template;
+      if (reviewsMarks.status === statuses.NO_BLOCKS) {
+        profileContent.innerHTML = '<h1>Пуфто:(</h1>';
+      } else {
+        profileContent.innerHTML = starsAndReviews(reviewsMarks);
+      }
     } else {
-      profileContent.innerHTML += template;
+      const starsAndReviews = document.querySelector('.stars-reviews-block');
+      if (!starsAndReviews) {
+        return;
+      }
+      starsAndReviews.innerHTML += reviewsContent(reviewsMarks);
     }
-    if (reviewsMarks.more_available) {
-      profileContent.innerHTML += moreButtonPug();
+    if (!reviewsMarks.more_available) {
+      this.hideMoreButton();
     }
     this.submitMoreButton();
   }

@@ -1,10 +1,5 @@
 import {URLS} from '../consts/urls.js';
-import regeneratorRuntime from "regenerator-runtime";
-
-import {
-  convertArrayToActorFilms,
-  convertArrayToActorPage, convertArrayToCollectionsPage, convertCollectionToCollectionPage,
-} from './adapters.js';
+import regeneratorRuntime from 'regenerator-runtime';
 
 const login = async (user) => {
   const params = {
@@ -109,7 +104,12 @@ const getInfoAboutFilm = async (filmId) => {
   };
 
   try {
-    return await sendRequest(params);
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
   } catch {
     return null;
   }
@@ -127,7 +127,12 @@ const getInfoAboutReview = async (reviewId) => {
   };
 
   try {
-    return await sendRequest(params);
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
   } catch {
     return null;
   }
@@ -148,7 +153,7 @@ const getInfoAboutActor = async (actorId) => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      return convertArrayToActorPage(responseBody);
+      return responseBody;
     }
     return null;
   } catch {
@@ -173,7 +178,7 @@ const getActorFilms = async (actorId, limit, skip) => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      return convertArrayToActorFilms(responseBody);
+      return responseBody;
     }
     return null;
   } catch {
@@ -194,7 +199,7 @@ const getCollections = async () => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      return convertArrayToCollectionsPage(responseBody);
+      return (responseBody);
     }
     return null;
   } catch {
@@ -217,7 +222,8 @@ const getCollectionFilms = async (collectionId) => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      return convertCollectionToCollectionPage(responseBody);
+      console.log(responseBody);
+      return (responseBody);
     }
     return null;
   } catch {

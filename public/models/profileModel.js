@@ -18,7 +18,7 @@ export class ProfileModel extends Model {
         return;
       }
       if (response.status === 200) {
-        this.eventBus.emit(Events.ProfilePage.Render.Content, response.parsedJson.body);
+        this.eventBus.emit(Events.ProfilePage.Render.Content, response.body);
       }
     });
   }

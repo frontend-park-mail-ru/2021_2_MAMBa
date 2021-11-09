@@ -96,8 +96,8 @@ export class ActorView extends BaseView {
     const movePosition = slidesToScroll * itemWidth;
 
     items.forEach((item) => {
-      console.log(container.clientWidth);
       item.style.maxWidth = `${itemWidth}px`;
+      item.style.minWidth = `${itemWidth}px`;
     });
 
     btvNext.addEventListener('click', (e) => {

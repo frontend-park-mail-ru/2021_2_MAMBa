@@ -1,5 +1,6 @@
 import {Events} from '../consts/events.js';
 import {getActorFilms, getInfoAboutActor} from '../modules/http';
+import {convertArrayToActorFilms, convertArrayToActorPage, convertArrayToFilmPage} from "../modules/adapters";
 
 /** Class representing actor page model.
  * @param {object} actor - info about actor(id).
@@ -23,13 +24,14 @@ export class ActorPageModel {
       return;
     }
     getInfoAboutActor(actor.id)
-        .then((contentData) => {
-          if (!contentData) {
+        .then((response) => {
+          if (!response.status) {
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-          } else {
-            console.log(contentData)
-            this.eventBus.emit(Events.ActorPage.Render.Content, contentData);
+          } else if(response.status === 200 && response.body){
+            this.eventBus.emit(Events.ActorPage.Render.Content, convertArrayToActorPage(response.body));
           }
+          //TODO: отрисовывать стр если актера нет в бд
+          // if (response.parsedJson.status === 404) {}
         });
   }
 
@@ -39,11 +41,11 @@ export class ActorPageModel {
       return;
     }
     getActorFilms(actor.id, actor.limit, actor.limit)
-        .then((contentData) => {
-          if (!contentData) {
+        .then((response) => {
+          if (!response) {
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-          } else {
-            this.eventBus.emit(Events.ActorPage.Render.Films, contentData);
+          } else if (response.status === 200 && response.body) {
+            this.eventBus.emit(Events.ActorPage.Render.Films, convertArrayToActorFilms(response.body));
           }
         });
   }

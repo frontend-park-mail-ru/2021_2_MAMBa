@@ -40,7 +40,7 @@ export class FilmView extends BaseView {
       this.setSliderActions();
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
-      this.setReadMore(data)
+      this.setReadMore(data);
       this.setAnchorActions();
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
@@ -172,7 +172,7 @@ export class FilmView extends BaseView {
       e.preventDefault();
       const content = document.getElementById('input');
       if (content) {
-        content.value =" ";
+        content.value =' ';
       }
     });
 
@@ -207,8 +207,9 @@ export class FilmView extends BaseView {
    */
   renderWarning = (text, className) => {
     const errorBlock = document.querySelector(`.${className}`);
-    if (errorBlock)
+    if (errorBlock) {
       errorBlock.innerHTML = text;
+    }
   }
 
   /**
@@ -258,6 +259,7 @@ export class FilmView extends BaseView {
 
     reviews.forEach((item) => {
       item.style.minWidth = `${itemWidth}px`;
+      item.style.maxWidth = `${itemWidth}px`;
     });
 
     btvNext.addEventListener('click', (e) => {
@@ -318,6 +320,7 @@ export class FilmView extends BaseView {
 
     items.forEach((item) => {
       item.style.maxWidth = `${itemWidth}px`;
+      item.style.minWidth = `${itemWidth}px`;
     });
 
     btvNext.addEventListener('click', () => {

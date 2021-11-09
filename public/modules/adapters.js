@@ -4,15 +4,15 @@
  * @return {object} - Object for render actor information
  */
 export const convertArrayToActorPage = (fullActorInfoJson) => (
-    {
-      actor: convertActorToActorPage(fullActorInfoJson.actor),
-      moreAvailable: fullActorInfoJson.films.more_available,
-      skip: fullActorInfoJson.films.current_skip,
-      limit: fullActorInfoJson.films.current_limit,
-      filmsWithDescription:
+  {
+    actor: convertActorToActorPage(fullActorInfoJson.actor),
+    moreAvailable: fullActorInfoJson.films.more_available,
+    skip: fullActorInfoJson.films.current_skip,
+    limit: fullActorInfoJson.films.current_limit,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(fullActorInfoJson.films.film_list),
-      filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
-    }
+    filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
+  }
 );
 
 /**
@@ -21,14 +21,19 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
  * @return {object} - Object for render actor information
  */
 export const convertArrayToCollectionsPage = (collectionsInfoJson) => (
-    {
-      collections: convertArrayToCollection(collectionsInfoJson.collections_list),
-      moreAvailable: collectionsInfoJson.more_available,
-      skip: collectionsInfoJson.current_skip,
-      limit: collectionsInfoJson.current_limit,
-    }
+  {
+    collections: convertArrayToCollection(collectionsInfoJson.collections_list),
+    moreAvailable: collectionsInfoJson.more_available,
+    skip: collectionsInfoJson.current_skip,
+    limit: collectionsInfoJson.current_limit,
+  }
 );
 
+/**
+ * Union collection information
+ * @param {object} arrayContent - Info about collections from json.
+ * @return {object} - Object for render collections information
+ */
 export const convertArrayToCollection = (arrayContent) => {
   return arrayContent.map((jsonCollection) => {
     return {
@@ -45,15 +50,15 @@ export const convertArrayToCollection = (arrayContent) => {
  * @return {object} - Object for render actor information
  */
 export const convertActorToActorPage = (actorInfoJson) => (
-    {
-      name: actorInfoJson.name_rus,
-      nameEnglish: actorInfoJson.name_en,
-      avatar: `https://film4u.club${actorInfoJson.picture_url}`,
-      heightMetre: `${actorInfoJson.height} м`,
-      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
-      filmTotal: actorInfoJson.film_number,
-      ...actorInfoJson,
-    }
+  {
+    name: actorInfoJson.name_rus,
+    nameEnglish: actorInfoJson.name_en,
+    avatar: `https://film4u.club${actorInfoJson.picture_url}`,
+    heightMetre: `${actorInfoJson.height} м`,
+    date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
+    filmTotal: actorInfoJson.film_number,
+    ...actorInfoJson,
+  }
 );
 
 /**
@@ -79,13 +84,13 @@ export const convertArrayToFilm = (arrayContent) => {
  * @return {object} - Object for render actor information
  */
 export const convertArrayToActorFilms = (actorFilmsJson) => (
-    {
-      moreAvailable: actorFilmsJson.more_available,
-      skip: actorFilmsJson.current_skip,
-      limit: actorFilmsJson.current_limit,
-      filmsWithDescription:
+  {
+    moreAvailable: actorFilmsJson.more_available,
+    skip: actorFilmsJson.current_skip,
+    limit: actorFilmsJson.current_limit,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(actorFilmsJson.film_list),
-    }
+  }
 );
 
 /**
@@ -111,12 +116,12 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
  * @return {object} - Object for render film information
  */
 export const convertArrayToFilmPage = (filmInfoJson) => (
-    {
-      film: convertArrayToFilmInfo(filmInfoJson.film),
-      reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
-      recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
-      myRating: filmInfoJson?.my_rating || 1,
-    }
+  {
+    film: convertArrayToFilmInfo(filmInfoJson.film),
+    reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
+    recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
+    myRating: filmInfoJson?.my_rating || 1,
+  }
 );
 /**
  * Union actors and their ids.
@@ -140,7 +145,9 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
  * @return {object} - Object for render films with descriptions.
  */
 export const convertArrayToFilmInfo = (arrayContent) => {
-  let duration = (arrayContent.content_type === 'film') ? `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
+  const duration = (arrayContent.content_type === 'film') ?
+      `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
+  const rating = !(arrayContent.rating%1)?`${arrayContent.rating}.0`:arrayContent.rating;
   return {
     ...arrayContent,
     titleOriginal: arrayContent?.title_original,
@@ -148,6 +155,7 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     year: arrayContent?.release_year || '-',
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
+    rating:rating,
     trailerUrl: arrayContent.trailer_url,
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
@@ -166,7 +174,7 @@ export const convertArrayToActorArray = (arrayContent) => {
   return arrayContent.map((jsonActor) => {
     return {
       name: jsonActor.name_rus,
-      href: `/actors/${jsonActor.id}`
+      href: `/actors/${jsonActor.id}`,
     };
   });
 };
@@ -210,8 +218,8 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     filmTitle: reviewInfoJson.film_title_ru,
     authorName: reviewInfoJson.author_name,
     reviewText: reviewInfoJson.review_text,
-    date:reviewInfoJson.date,
-  }
+    date: reviewInfoJson.date,
+  };
 };
 
 /**
@@ -220,12 +228,11 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
  * @return {object} - Object for render collection information
  */
 export const convertCollectionToCollectionPage = (collectionInfoJson) => (
-    {
-      name: collectionInfoJson.collection.collection_name,
-      description: collectionInfoJson.collection.description,
-      id: collectionInfoJson.collection.id,
-      filmsWithDescription:
+  {
+    name: collectionInfoJson.collection.collection_name,
+    description: collectionInfoJson.collection.description,
+    id: collectionInfoJson.collection.id,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(collectionInfoJson.films),
-    }
+  }
 );
-

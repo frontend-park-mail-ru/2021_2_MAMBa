@@ -1,6 +1,6 @@
 import {Events} from '../consts/events.js';
 import {getCollectionFilms} from '../modules/http';
-import {convertCollectionToCollectionPage} from "../modules/adapters";
+import {convertCollectionToCollectionPage} from '../modules/adapters';
 
 /** Class representing collection page model.
  * @param {object} collection - info about collection(id).
@@ -27,7 +27,7 @@ export class CollectionPageModel {
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-          } else if (response.status === 200 && response.body){
+          } else if (response.status === 200 && response.body) {
             this.eventBus.emit(Events.collectionPage.render.content, convertCollectionToCollectionPage(response.body));
           }
         });

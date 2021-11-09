@@ -1,6 +1,6 @@
 import {getCollections} from '../modules/http.js';
 import {Events} from '../consts/events.js';
-import {convertArrayToCollectionsPage, convertArrayToFilmPage} from "../modules/adapters";
+import {convertArrayToCollectionsPage} from '../modules/adapters';
 
 /**
  * Class representing home page model.

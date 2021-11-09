@@ -1,5 +1,5 @@
 import {Events} from '../consts/events.js';
-import {convertArrayToFilmPage, convertReviewToReviewPage} from '../modules/adapters';
+import {convertReviewToReviewPage} from '../modules/adapters';
 import {getInfoAboutReview} from '../modules/http';
 
 /** Class representing actor page model.

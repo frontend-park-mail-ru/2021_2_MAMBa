@@ -1,6 +1,6 @@
 import {Events} from '../consts/events.js';
 import {getActorFilms, getInfoAboutActor} from '../modules/http';
-import {convertArrayToActorFilms, convertArrayToActorPage, convertArrayToFilmPage} from "../modules/adapters";
+import {convertArrayToActorFilms, convertArrayToActorPage} from '../modules/adapters';
 
 /** Class representing actor page model.
  * @param {object} actor - info about actor(id).
@@ -27,10 +27,10 @@ export class ActorPageModel {
         .then((response) => {
           if (!response.status) {
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-          } else if(response.status === 200 && response.body){
+          } else if (response.status === 200 && response.body) {
             this.eventBus.emit(Events.ActorPage.Render.Content, convertArrayToActorPage(response.body));
           }
-          //TODO: отрисовывать стр если актера нет в бд
+          // TODO: отрисовывать стр если актера нет в бд
           // if (response.parsedJson.status === 404) {}
         });
   }

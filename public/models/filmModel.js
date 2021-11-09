@@ -28,13 +28,11 @@ export class FilmPageModel {
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(Events.Homepage.Render.ErrorPage);
-          }else if (response.status === 200 && response.body) {
-            console.log(response.body)
+          } else if (response.status === 200 && response.body) {
             this.eventBus.emit(Events.FilmPage.Render.Content, convertArrayToFilmPage(response.body));
           }
-          //TODO: отрисовывать стр если фильма нет в бд
+          // TODO: отрисовывать стр если фильма нет в бд
           // if (response.parsedJson.status === 404) {}
-
         });
   }
 

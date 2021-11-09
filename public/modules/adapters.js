@@ -155,7 +155,7 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     year: arrayContent?.release_year || '-',
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
-    rating:rating,
+    rating: rating,
     trailerUrl: arrayContent.trailer_url,
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',

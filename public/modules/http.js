@@ -222,8 +222,6 @@ const getCollectionFilms = async (collectionId) => {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
     if (responseStatus === 200) {
-      console.log(responseBody);
-      return (responseBody);
     }
     return null;
   } catch {

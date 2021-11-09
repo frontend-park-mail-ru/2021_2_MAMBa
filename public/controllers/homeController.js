@@ -15,14 +15,14 @@ export class HomePageController extends BaseController {
 
   subscribe = () => {
     this.eventBus.on(Events.Homepage.Get.MainPageContent, this.model.getMainPageContent);
-    this.eventBus.on(Events.Homepage.Get.InfoForHeader, this.model.getInfoForHeader);
+    this.eventBus.on(Events.Homepage.Render.Page, this.view.render);
     this.eventBus.on(Events.Homepage.Render.Content, this.view.renderContent);
     this.eventBus.on(Events.Homepage.Render.ErrorPage, this.view.renderErrorPage);
   }
 
   unsubscribe = () => {
     this.eventBus.off(Events.Homepage.Get.MainPageContent, this.model.getMainPageContent);
-    this.eventBus.off(Events.Homepage.Get.InfoForHeader, this.model.getInfoForHeader);
+    this.eventBus.off(Events.Homepage.Render.Page, this.view.render);
     this.eventBus.off(Events.Homepage.Render.Content, this.view.renderContent);
     this.eventBus.off(Events.Homepage.Render.ErrorPage, this.view.renderErrorPage);
   }

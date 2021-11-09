@@ -1,0 +1,98 @@
+@import '../../css/consts';
+
+.review-info {
+  margin-top: $header_indentation;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__review {
+    border: 1px solid $dark-blue;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    color: $dark-blue;
+    padding: 35px;
+    gap: 20px;
+
+    &_user-info {
+      display: flex;
+      gap: 35px;
+
+      &_avatar img {
+        width: 130px;
+        height: 170px;
+        border-radius: 3px;
+        object-fit: cover;
+      }
+
+      &_right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &_review {
+          font-size: 30px;
+
+          &_name {
+            font-weight: 700;
+            font-family: "Montserrat-Bold", "Arial", sans-serif;
+          }
+
+          &_buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 35px;
+          }
+        }
+
+        &_date {
+          margin-bottom: 5px;
+          font-size: 16px;
+          font-weight: 500;
+          color: $grey;
+        }
+      }
+    }
+
+    &_text {
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  }
+}
+
+.positive-review {
+  background-color: $light-green;
+}
+
+.neutral-review {
+  background-color: $grey;
+}
+
+.negative-review {
+  background-color: $vinous;
+}
+
+.positive-button {
+  border: 2px solid #3F6941;
+  color: #3F6941;
+}
+
+.neutral-button {
+  border: 2px solid $grey;
+  color: $grey;
+}
+
+.negative-button {
+  border: 2px solid $red;
+  color: $red;
+}
+
+.read-more-button {
+  cursor: pointer;
+  display: inline-block;
+  color: #777;
+  text-decoration: underline;
+}
+

@@ -1,9 +1,10 @@
-@import '../../css/consts';
+@import '../../css/consts.scss';
 
 .actor-info {
-  background-color: $white;
+  margin-top: $header_indentation;
   width: 1200px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 
   &__container {
     grid-template-columns:  3fr 8fr;
@@ -96,11 +97,3 @@
     }
   }
 }
-
-
-
-
-
-
-
-

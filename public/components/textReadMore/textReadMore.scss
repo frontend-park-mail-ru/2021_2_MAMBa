@@ -1,0 +1,30 @@
+.limiter {
+  max-height: 99px;
+  overflow: hidden;
+  position: relative;
+}
+.limiter .bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  opacity: 1;
+  transition: 0.3s;
+}
+.read-more-checker {
+  opacity: 0;
+  position: absolute;
+}
+.read-more-checker:checked ~ .limiter {
+  max-height: none;
+}
+.read-more-checker:checked ~ .limiter .bottom {
+  opacity: 0;
+  transition: 0.3s;
+}
+.read-more-checker ~ .read-more-button:before {
+  content: "Развернуть »";
+}
+.read-more-checker:checked ~ .read-more-button:before {
+  content: "Свернуть «";
+}

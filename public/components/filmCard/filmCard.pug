@@ -6,4 +6,4 @@ mixin filmCard (i)
             div.film-card_description_name #{i.title}
                 div.film-card_description_name_year #{i.year}
             div.film-card_description_text #{i.description}
-            button(type='button' class="pink-button" ) Подробнее
+            a(class="pink-button" href=`${i.href}`) Подробнее

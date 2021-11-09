@@ -1,0 +1,19 @@
+mixin inputReview
+    div.write_review
+        div.write_review__button-type
+            button(type="button" class="button-type type-positive") Положительный
+            button(type="button" class="button-type type-neutral") Нейтральный
+            button(type="button" class="button-type type-negative") Отрицательный
+        textarea(
+            id="input"
+            name="text"
+            placeholder= "Текст"
+            class=' write_review__text'
+        )
+        div.write_review__button-type
+            button(type="button" class="send-review review_button") Опубликовать отзыв
+            button(type="button" class="review_button clear-button") Очистить отзыв
+        div.film-info__white-container_review_warning
+            div.warning_type
+            div.warning_empty-text
+            div.warning_no-auth

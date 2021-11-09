@@ -17,16 +17,15 @@ export class ActorView extends BaseView {
   }
 
   /**
-   * Render html favourites page from pug template.
+   * Render html actor page from pug template.
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/actor/:id');
-    this.eventBus.emit(Events.Homepage.Get.InfoForHeader);
     this.eventBus.emit(Events.ActorPage.GetPageContent, pathArgs);
   }
 
   /**
-   * Render content favourites page from pug template to content div.
+   * Render content actor page from pug template to content div.
    * @param {Object} data - Contains info about actor.
    */
   renderContent = (data) => {
@@ -37,6 +36,7 @@ export class ActorView extends BaseView {
       content.innerHTML = template;
       this.setAnchorActions();
       this.setSliderActions();
+      this.checkShowMoreButton(this.dataActor.moreAvailable);
       this.showMore(this.dataActor);
     } else {
       this.eventBus.emit(Events.Homepage.Render.ErrorPage);
@@ -65,7 +65,7 @@ export class ActorView extends BaseView {
 
   /**
    * Render content favourites page from pug template to content div.
-   * @param {Object} data - Contains info about actor films.
+   * @param {object} data - Contains info about actor films.
    */
   renderFilms = (data) => {
     const template = actorFilmsContent(data);
@@ -96,6 +96,7 @@ export class ActorView extends BaseView {
     const movePosition = slidesToScroll * itemWidth;
 
     items.forEach((item) => {
+      item.style.maxWidth = `${itemWidth}px`;
       item.style.minWidth = `${itemWidth}px`;
     });
 
@@ -142,7 +143,7 @@ export class ActorView extends BaseView {
    * Set anchor actions.
    */
   setAnchorActions = () => {
-    const anchors = document.querySelectorAll('a.scroll-to');
+    const anchors = document.querySelectorAll('.scroll-to');
 
     for (const anchor of anchors) {
       anchor.addEventListener('click', (e) =>{

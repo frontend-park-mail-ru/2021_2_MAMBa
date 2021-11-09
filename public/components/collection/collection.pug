@@ -1,6 +1,5 @@
 mixin collection(i)
-    div.collection
+    a(class = "collection" href=`${i.href}`)
         div.collection_wrapper
-            img(src=i.picture_url)
+            img(src=i.collectionAvatar)
         div.collection_name #{i.title}
-

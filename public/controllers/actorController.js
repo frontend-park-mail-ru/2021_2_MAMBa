@@ -11,10 +11,10 @@ export class ActorPageController extends BaseController {
   constructor() {
     super(ActorView, ActorPageModel);
     this.events.push(
-        {event: EVENTS.ActorPage.Render.Content, handler: this.view.renderContent},
-        {event: EVENTS.ActorPage.GetPageContent, handler: this.model.getPageContent},
-        {event: EVENTS.ActorPage.GetFilms, handler: this.model.getActorFilmsContent},
-        {event: EVENTS.ActorPage.Render.Films, handler: this.view.renderFilms},
+        {event: EVENTS.actorPage.render.content, handler: this.view.renderContent},
+        {event: EVENTS.actorPage.getPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.actorPage.getFilms, handler: this.model.getActorFilmsContent},
+        {event: EVENTS.actorPage.render.films, handler: this.view.renderFilms},
     );
   }
 }

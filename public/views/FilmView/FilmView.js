@@ -23,7 +23,7 @@ export class FilmView extends BaseView {
    */
   emitGetContent = () => {
     const pathArgs = getPathArgs(window.location.pathname, '/film/:id');
-    this.eventBus.emit(EVENTS.FilmPage.GetPageContent, pathArgs);
+    this.eventBus.emit(EVENTS.filmPage.getPageContent, pathArgs);
   }
 
   /**
@@ -86,7 +86,7 @@ export class FilmView extends BaseView {
         const rating = {
           myRating: target.getAttribute('data-rate'),
         };
-        this.eventBus.emit(EVENTS.FilmPage.PostRating, filmId, rating.myRating);
+        this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
     rating.onmouseover = function(e) {
@@ -191,7 +191,7 @@ export class FilmView extends BaseView {
         }
         review.review_text = textInput;
       }
-      this.eventBus.emit(EVENTS.FilmPage.PostReview, review);
+      this.eventBus.emit(EVENTS.filmPage.postReview, review);
       this.removeWarning('warning_empty-text');
     });
   }

@@ -11,15 +11,15 @@ export class FilmPageController extends BaseController {
   constructor() {
     super(FilmView, FilmPageModel);
     this.events.push(
-        {event: EVENTS.FilmPage.GetPageContent, handler: this.model.getPageContent},
-        {event: EVENTS.FilmPage.PostReview, handler: this.model.postReview},
-        {event: EVENTS.FilmPage.Render.Page, handler: this.view.render},
-        {event: EVENTS.FilmPage.Render.Content, handler: this.view.renderContent},
-        {event: EVENTS.FilmPage.Render.WarningSend, handler: this.view.renderWarning},
-        {event: EVENTS.FilmPage.Render.SuccessfulSend, handler:this.view.renderSuccessfulSend},
-        {event: EVENTS.FilmPage.PostRating, handler: this.model.postRating},
-        {event: EVENTS.FilmPage.Render.WarningRatingSend, handler:this.view.renderWarningRatingSend},
-        {event: EVENTS.FilmPage.Render.SuccessfulRatingSend, handler: this.view.renderSuccessfulRatingSend},
+        {event: EVENTS.filmPage.getPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.filmPage.postReview, handler: this.model.postReview},
+        {event: EVENTS.filmPage.render.Page, handler: this.view.render},
+        {event: EVENTS.filmPage.render.content, handler: this.view.renderContent},
+        {event: EVENTS.filmPage.render.warningSend, handler: this.view.renderWarning},
+        {event: EVENTS.filmPage.render.successfulSend, handler: this.view.renderSuccessfulSend},
+        {event: EVENTS.filmPage.postRating, handler: this.model.postRating},
+        {event: EVENTS.filmPage.render.warningRatingSend, handler: this.view.renderWarningRatingSend},
+        {event: EVENTS.filmPage.render.successfulRatingSend, handler: this.view.renderSuccessfulRatingSend},
     );
   }
 }

@@ -75,11 +75,12 @@ export class FilmView extends BaseView {
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
+    const ratingAdapter = !(newFilmRating%1)?`${newFilmRating}.0`:newFilmRating;
     const ratingItemStar = document.querySelector('.rating-number-stars');
     const ratingItem = document.querySelector('.rating-number');
     if (ratingItem && ratingItemStar) {
-      ratingItem.textContent = `${newFilmRating}`;
-      ratingItemStar.textContent = `${newFilmRating}`;
+      ratingItem.textContent = `${ratingAdapter}`;
+      ratingItemStar.textContent = `${ratingAdapter}`;
     }
   }
 

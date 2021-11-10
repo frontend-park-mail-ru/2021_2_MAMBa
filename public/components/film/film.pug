@@ -12,7 +12,7 @@ div.film-info
                     div.film-info__container_text_main_rus #{film.title}
                     div.film-info__container_text_main_en #{film.titleOriginal}
                 div.film-info__container_text_main_rating
-                    img(src="pics/pink_star.svg" alt= "")
+                    include ../../static/pics/pink_star.svg
                     div(class ="rating-number-stars film-info__container_text_main_rating_scors")  #{film.rating}
             div.film-info__container_text_facts
                 div.film-info__container_text_facts_title О фильме
@@ -50,7 +50,8 @@ div.film-info
     div.film-info__container-trailer
         div.film-info__container-trailer_video
             a(class="film-info__container-trailer_video_button" href="#")
-                img(class="film-info__container-trailer_video_button_img" src="pics/play.svg" alt= "")
+                div(class="film-info__container-trailer_video_button_img")
+                    include ../../static/pics/play.svg
                 | Трейлер
         div.film-description
             div.film-info__container-trailer_name Обзор

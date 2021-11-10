@@ -82,7 +82,7 @@ export class FilmPageModel {
         return;
       }
       if (response.status === 200) {
-        this.eventBus.emit(EVENTS.filmPage.render.renderSuccessfulRatingSend, rating);
+        this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating);
         // TODO изменить рейтинг фильма
       }
     });

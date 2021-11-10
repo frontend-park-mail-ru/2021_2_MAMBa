@@ -1,5 +1,5 @@
 const CACHE = 'offline-fallback-v1';
-const cacheUrls = ['/', '/bundle.js'];
+const cacheUrls = ['/', '/bundle.js', '/pics/logo.svg'];
 const cacheReq = 'https://film4u.club/api/collections/getCollections';
 const fallback = '/cache/api/';
 
@@ -47,7 +47,7 @@ self.addEventListener('fetch', function(event) {
         }
         return new Response('<div style="width: 100%; height: 100%; display: flex; align-items: center; ' +
             'flex-direction: column;">' + '<h1 style="margin: auto;">Internet connection was lost:(</h1>' +
-            '<img alt="logo" src="/static/pics/logo.svg"></div>', {
+            '<img alt="logo" src="/pics/logo.svg"></div>', {
           headers: {'Content-Type': 'text/html'},
         });
       }),

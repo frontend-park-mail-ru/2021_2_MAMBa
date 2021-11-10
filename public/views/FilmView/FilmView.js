@@ -2,7 +2,7 @@ import {BaseView} from '../BaseView/BaseView.js';
 import filmPageContent from '../../components/film/film.pug';
 import userRating from '../../components/userRating/userRating.pug';
 import readMore from '../../components/textReadMore/textReadMore.pug';
-import successfulSendButton from '../../components/authWarningButton/authWarningButton.pug';
+import successfulSendButton from '../../components/successfulSendButton/successfulSendButton.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 

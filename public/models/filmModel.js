@@ -73,7 +73,7 @@ export class FilmPageModel {
       return;
     }
     if (!filmId && !rating) {
-      this.eventBus.emit(EVENTS.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.homepage.render.errorPage);
       return;
     }
 

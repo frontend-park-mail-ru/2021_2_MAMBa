@@ -33,8 +33,8 @@ export class Router {
     this.application = app;
     this.currentController = null;
     eventBus.on(EVENTS.PathChanged, this.onPathChanged);
-    eventBus.on(EVENTS.RedirectBack, this.back.bind(this));
-    eventBus.on(EVENTS.RedirectForward, this.forward.bind(this));
+    eventBus.on(EVENTS.RedirectBack, this.back);
+    eventBus.on(EVENTS.RedirectForward, this.forward);
 
     if (app) {
       this.application = app;

@@ -242,7 +242,7 @@ export class FilmView extends BaseView {
    */
   setSliderReviewActions = () => {
     const gap = 20;
-    const padding = 40;
+    const padding = 20;
     let position = 0;
     const reviewSlidesToShow = 3;
     const reviewSlidesToScroll = 1;
@@ -262,6 +262,7 @@ export class FilmView extends BaseView {
       item.style.maxWidth = `${itemWidth}px`;
     });
 
+    console.log(itemWidthWithMargin)
     btvNext.addEventListener('click', (e) => {
       e.preventDefault();
       const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *

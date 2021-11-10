@@ -20,7 +20,6 @@ if ('serviceWorker' in navigator) {
         console.log('sw registration on scope:', registration.scope);
       })
       .catch((err) => {
-        console.error(err);
       });
 }
 

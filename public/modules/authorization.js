@@ -7,7 +7,9 @@ class Authorization {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.user = null;
-    this.getUserFromServer();
+    if (navigator.onLine) {
+      this.getUserFromServer();
+    }
     this.eventBus.on(EVENTS.AuthPage.SuccessLogReg, this.getUserFromSubmit);
     this.eventBus.on(EVENTS.Header.LogOut, this.logOutUser);
     this.eventBus.on(EVENTS.ProfilePage.ChangedProfile, this.changeUser);

@@ -127,7 +127,6 @@ export class AuthPageModel extends Model {
           this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
         } else {
-          console.log('tut');
           this.eventBus.emit(EVENTS.AuthPage.RenderError, 'Неправильный логин или пароль!');
         }
       }).catch(() => {

@@ -81,7 +81,6 @@ export class FilmPageModel {
       if (!response) {
         return;
       }
-      console.log(response);
       if (response.status === 200) {
         this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
       }

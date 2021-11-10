@@ -28,6 +28,7 @@ export const EVENTS = {
       Page: 'authPage:render',
       Content: 'authPage:renderContent',
     },
+    RenderError: 'authPage:renderError',
     Submit: 'authPage:submit',
     SuccessLogReg: 'authPage:successLogReg',
     AddValidateError: 'authPage:addValidateError',
@@ -75,11 +76,11 @@ export const EVENTS = {
       Content: 'header:renderContent',
     },
     ChangeActiveButton: 'header:changeActiveButton',
+    LogOut: 'header:logOut',
   },
 
   Authorization: {
     GotUser: 'authorization:gotUser',
-    LogOut: 'authorization:logOut',
   },
 
   ProfilePage: {

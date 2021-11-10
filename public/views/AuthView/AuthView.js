@@ -38,6 +38,21 @@ export class AuthView extends BaseView {
     authForm.insertBefore(this.createError(errorMessage), errorInput);
   }
 
+  addNotAuthorizedMessage = (message) => {
+    const oldMessage = document.querySelector('.auth-error-text');
+    if (oldMessage) {
+      oldMessage.remove();
+    }
+    const submitBtn = this.routeData.path.path === ROUTES.AuthPage ? document.querySelector('.auth') :
+        document.querySelector('.reg');
+    if (!submitBtn) {
+      return;
+    }
+    const errorDiv = this.createError(message);
+    errorDiv.style.textAlign = 'center';
+    submitBtn.appendChild(errorDiv);
+  }
+
   deleteErrorMessage = (inputName, errorMessage) => {
     if (!inputName || !errorMessage) {
       return;

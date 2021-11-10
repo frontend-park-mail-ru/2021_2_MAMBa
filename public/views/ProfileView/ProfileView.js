@@ -42,7 +42,7 @@ export class ProfileView extends BaseView {
       return;
     }
     this.user = user;
-    this.user.thisUser = isThisUser;
+    this.user.thisUser = true;
     const content = document.querySelector('.content');
     if (content) {
       const profileHeader = document.querySelector('.profile-header');
@@ -59,9 +59,6 @@ export class ProfileView extends BaseView {
   }
 
   deleteSettingsFromMenu = () => {
-    if (!this.user.thisUser) {
-      return;
-    }
     const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     if (settingsLink) {
@@ -174,7 +171,7 @@ export class ProfileView extends BaseView {
       return;
     }
     if (profileContent.querySelector('.loader')) {
-      if (reviewsMarks.status === statuses.NO_BLOCKS) {
+      if (reviewsMarks.status === statuses.NO_BLOCKS || reviewsMarks.body.review_list.length === 0) {
         profileContent.innerHTML = '<h1>Пуфто:(</h1>';
       } else {
         profileContent.innerHTML = starsAndReviews(reviewsMarks);

@@ -6,7 +6,6 @@ import {headerLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML} from '../../utils/utils';
-import {deployUrl} from '../../consts/urls';
 
 export class HeaderView extends BaseView {
   constructor(eventBus) {

@@ -6,5 +6,5 @@ export const statuses = {
   NOT_AUTHORIZED: 401,
   NOT_ENTERED: 403,
   SERVER_ERROR: 500,
-  ALREADY_EXIST: 500,
+  ALREADY_EXIST: 409,
 };

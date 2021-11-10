@@ -269,7 +269,6 @@ export class FilmView extends BaseView {
       item.style.maxWidth = `${itemWidth}px`;
     });
 
-    console.log(itemWidthWithMargin)
     btvNext.addEventListener('click', (e) => {
       e.preventDefault();
       const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *

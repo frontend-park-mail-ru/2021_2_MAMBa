@@ -126,8 +126,9 @@ export class AuthPageModel extends Model {
         if (response?.parsedJson?.status === statuses.OK) {
           this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
+        } else {
+          this.eventBus.emit(EVENTS.AuthPage.RenderError, 'Неправильный логин или пароль!');
         }
-        // TODO MAKE ERRORS
       }).catch(() => {
         this.eventBus.emit(EVENTS.App.ErrorPage);
       });
@@ -139,8 +140,9 @@ export class AuthPageModel extends Model {
         if (response?.parsedJson?.status === statuses.AUTHORIZED) {
           this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
           this.redirectToHomePage();
+        } else if (response?.parsedJson?.status === statuses.ALREADY_EXIST) {
+          this.eventBus.emit(EVENTS.AuthPage.RenderError, 'Такой пользователь уже есть!');
         }
-        // TODO MAKE ERRORS
       }).catch(() => {
         this.eventBus.emit(EVENTS.App.ErrorPage);
       });

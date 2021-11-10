@@ -39,12 +39,14 @@ export class AuthView extends BaseView {
   }
 
   addNotAuthorizedMessage = (message) => {
+    console.log('tut1');
     const oldMessage = document.querySelector('.auth-error-text');
     if (oldMessage) {
       oldMessage.remove();
     }
     const submitBtn = this.routeData.path.path === ROUTES.AuthPage ? document.querySelector('.auth') :
         document.querySelector('.reg');
+    console.log(submitBtn);
     if (!submitBtn) {
       return;
     }

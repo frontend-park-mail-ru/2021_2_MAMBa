@@ -13,7 +13,7 @@ div.film-info
                     div.film-info__container_text_main_en #{film.titleOriginal}
                 div.film-info__container_text_main_rating
                     img(src="pics/pink_star.svg" alt= "")
-                    div.film-info__container_text_main_rating_scors  #{film.rating}
+                    div(class ="rating-number-stars film-info__container_text_main_rating_scors")  #{film.rating}
             div.film-info__container_text_facts
                 div.film-info__container_text_facts_title О фильме
                 div.film-info__container_text_facts_container
@@ -68,7 +68,7 @@ div.film-info
                             div(class="rating-item" data-rate=`${i}`)
                         div.rating_stars_item_number #{i}
                 div.rating_stars_number
-                    div.rating_stars_number_text #{film.rating}
+                    div(class = "rating-number rating_stars_number_text") #{film.rating}
                         div.rating_stars_number_text_line
                 a(class="button-write-review scroll-to" href="#review") Написать отзыв
             div.user_rating

@@ -47,7 +47,7 @@ export class FilmView extends BaseView {
     }
   }
 
-  setReadMore =(data)=>{
+  setReadMore = (data) => {
     const heightText = document.querySelector('.film-info__container-trailer_summery').clientHeight;
     if (heightText > 115) {
       const template = readMore(data);
@@ -67,8 +67,11 @@ export class FilmView extends BaseView {
   }
 
   renderSuccessfulRatingSend = (rating) => {
+    const Rating = {
+      myRating: rating
+    }
     const ratingArea = document.querySelector('.user_rating');
-    const template = userRating(rating);
+    const template = userRating(Rating);
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
@@ -89,7 +92,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function(e) {
+    rating.onmouseover = function (e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -97,10 +100,11 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function() {
+    rating.onmouseout = function () {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
+
     function removeClass(arr) {
       for (let i = 0, iLen = arr.length; i < iLen; i++) {
         for (let j = 1; j < arguments.length; j++) {
@@ -108,6 +112,7 @@ export class FilmView extends BaseView {
         }
       }
     }
+
     function addClass(arr) {
       for (let i = 0, iLen = arr.length; i < iLen; i++) {
         for (let j = 1; j < arguments.length; j++) {
@@ -115,6 +120,7 @@ export class FilmView extends BaseView {
         }
       }
     }
+
     function mouseOverActiveClass(arr) {
       for (let i = 0, iLen = arr.length; i < iLen; i++) {
         if (arr[i].classList.contains('active')) {
@@ -124,6 +130,7 @@ export class FilmView extends BaseView {
         }
       }
     }
+
     function mouseOutActiveClass(arr) {
       for (let i = arr.length - 1; i >= 1; i--) {
         if (arr[i].classList.contains('current-active')) {
@@ -172,7 +179,7 @@ export class FilmView extends BaseView {
       e.preventDefault();
       const content = document.getElementById('input');
       if (content) {
-        content.value =' ';
+        content.value = ' ';
       }
     });
 

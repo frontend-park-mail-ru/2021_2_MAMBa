@@ -1,6 +1,6 @@
 const CACHE = 'offline-fallback-v1';
-const cacheUrls = ['/', '/bundle.js', '/static/pics/logo.svg', '/static/fonts/Montserrat-Bold.woff2!static',
-  '/static/fonts/Montserrat-Regular.woff2!static'];
+const cacheUrls = ['/', '/bundle.js', '/pics/logo.svg', '/fonts/Montserrat-Bold.woff2!static',
+  '/fonts/Montserrat-Regular.woff2!static'];
 const cacheReq = 'https://film4u.club/api/collections/getCollections';
 const fallback = '/cache/api/';
 

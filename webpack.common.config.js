@@ -71,7 +71,7 @@ module.exports = {
         },
         {
           from: 'public/static',
-          to: '',
+          to: 'static',
         },
       ],
     }),

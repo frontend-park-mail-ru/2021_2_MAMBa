@@ -14,8 +14,13 @@ const sendRating = async (filmId, rating) => {
   };
 
   try {
-    return await sendRequest(params);
-  } catch (err) {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
+  } catch {
     return null;
   }
 };

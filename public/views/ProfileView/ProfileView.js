@@ -174,14 +174,14 @@ export class ProfileView extends BaseView {
       if (reviewsMarks.status === statuses.NO_BLOCKS || reviewsMarks.body.review_list.length === 0) {
         profileContent.innerHTML = '<h1>Пуфто:(</h1>';
       } else {
-        profileContent.innerHTML = starsAndReviews(reviewsMarks);
+        profileContent.innerHTML = starsAndReviews(reviewsMarks.body);
       }
     } else {
       const starsAndReviews = document.querySelector('.stars-reviews-block');
       if (!starsAndReviews) {
         return;
       }
-      starsAndReviews.innerHTML += reviewsContent(reviewsMarks);
+      starsAndReviews.innerHTML += reviewsContent(reviewsMarks.body);
     }
     if (!reviewsMarks.more_available) {
       this.hideMoreButton();

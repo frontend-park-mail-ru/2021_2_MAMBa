@@ -46,7 +46,11 @@ self.addEventListener('fetch', function(event) {
         if (event.request.url.startsWith(cacheReq)) {
           return caches.match(fallback);
         }
-        return caches.match('/static/pics/logo.svg');
+        return new Response('<div style="width: 100%; height: 100%; display: flex; align-items: center; ' +
+            'flex-direction: column;">' + '<h1 style="margin: auto;">Internet connection was lost:(</h1>' +
+            '<img alt="logo" src="/static/pics/logo.svg"></div>', {
+          headers: {'Content-Type': 'text/html'},
+        });
       }),
   );
 });

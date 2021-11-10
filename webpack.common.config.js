@@ -70,7 +70,7 @@ module.exports = {
           to: '',
         },
         {
-          from: 'public/static',
+          from: 'public/statics',
           to: 'statics',
         },
       ],

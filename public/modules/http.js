@@ -9,7 +9,7 @@ import regeneratorRuntime from 'regenerator-runtime';
  */
 const sendRating = async (filmId, rating) => {
   const params = {
-    url: `${URLS.api.sendRating}${filmId}${rating}`,
+    url: `${URLS.api.sendRating}${filmId}&rating=${rating}`,
     method: 'POST',
   };
 

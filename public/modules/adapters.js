@@ -202,14 +202,15 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
   let classType;
   let classButtonType;
   if (reviewInfoJson.review_type === 1) {
-    classType = 'positive-review';
-    classButtonType = 'positive-button';
-  } else if (reviewInfoJson.review_type === 0) {
-    classType = 'neutral-review';
-    classButtonType = 'neutral-button';
-  } else {
     classType = 'negative-review';
     classButtonType = 'negative-button';
+  } else if (reviewInfoJson.review_type === 2) {
+    classType = 'neutral-review';
+    classButtonType = 'neutral-button';
+  } else if (reviewInfoJson.review_type === 3){
+    classType = 'positive-review';
+    classButtonType = 'positive-button';
+
   }
   return {
     classType: classType,

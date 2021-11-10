@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
-        use: 'file-loader?name=static/fonts/[name].[ext]!static',
+        use: 'file-loader?name=fonts/[name].[ext]',
       },
       {
         test: /\.(png|jpg|svg|gif)$/,
@@ -62,18 +62,6 @@ module.exports = {
       template: 'public/index.html',
       filename: 'index.html',
       inject: 'body',
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'public/sw.js',
-          to: '',
-        },
-        {
-          from: 'public/static',
-          to: 'statics',
-        },
-      ],
     }),
   ],
 };

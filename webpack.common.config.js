@@ -63,5 +63,13 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'public/sw.js',
+          to: '',
+        },
+      ],
+    }),
   ],
 };

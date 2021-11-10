@@ -27,7 +27,7 @@ div.actor-info
                 div.actor-info__container_text_facts_container
                     div.actor-info__container_text_facts_container_key  Всего фильмов
                     div.actor-info__container_text_facts_container_value #{actor.filmTotal}
-            a(class="button-with-border scroll-to" href="#biography") Биография
+            a(class="button-with-border scroll-to" href="#facts") Факты
     div.actor-info__black-container
         div.block-subtitle Популярные фильмы с актером
         +slider(filmsToSlide)
@@ -38,5 +38,5 @@ div.actor-info
                +filmCard(film)
             button(type="button" class=" show-more-films button-more ") Показать еще
     div.actor-info__biography
-        div.block-subtitle#facts Биография
-        div.actor-info__biography_text #{actor.biography}
+        div.block-subtitle#facts Знаете ли вы, что…
+        div.actor-info__biography_text Этот раздел в разработке, приносим извинения за доставленные неудобства

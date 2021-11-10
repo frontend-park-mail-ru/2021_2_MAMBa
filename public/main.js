@@ -1,245 +1,49 @@
-import {renderHeader} from './components/header/header.js';
-import {renderFooter} from './components/footer/footer.js';
-import {renderAuth} from './components/auth/auth.js';
-import {renderCollections} from './components/collections/collections.js';
-import {foundErrorFields, addFocusOutListeners} from './utils/utils.js';
+import {HomePageController} from './controllers/homeController.js';
+import {HeaderController} from './controllers/headerController.js';
+import {authModule} from './modules/authorization.js';
+import {FilmPageController} from './controllers/filmController.js';
+import {ReviewPageController} from './controllers/reviewController.js';
+import {AuthPageController} from './controllers/authController.js';
+import {ProfileController} from './controllers/profileController.js';
+import {ActorPageController} from './controllers/actorController.js';
+import {CollectionPageController} from './controllers/collectionController.js';
 
-const root = document.getElementById('root');
+import {Router} from './modules/router.js';
+import {ROUTES} from './consts/routes.js';
+import {errorPage} from './modules/404.js';
 
-const configApp = {
-  signup: {
-    href: '/signup',
-    name: 'Регистрация',
-    open: signupPage,
-  },
-  login: {
-    href: '/login',
-    name: 'Авторизация',
-    open: loginPage,
-  },
-  collections: {
-    href: '/collections',
-    name: 'Подборки',
-    open: collectionsPage,
-  },
-};
+import './index.scss';
 
-function collectionsPage(userData) {
-  root.innerHTML = '';
-  console.log(userData);
-  root.appendChild(renderHeader({
-    staticPath: '/static/',
-    btns: [{title: 'Подборки', class: 'active-btn'},
-      {title: 'Жанры', class: 'menu-btn'},
-      {title: 'Релизы', class: 'menu-btn'}],
-    authorized: true,
-    userName: userData.first_name,
-  }));
-
-  // root.appendChild(renderLoader());
-  // const mask = document.querySelector('.mask');
-  // window.addEventListener('load', () => {
-  //   mask.classList.add('hide');
-  //   setTimeout(() => {
-  //     mask.remove();
-  //   }, 600);
-  // });
-  Ajax.getFetch({url: 'https://film4u.club/api/collections/getCollections?skip=0&limit=12'})
-      .then(({status, parsedBody}) => {
-        root.insertBefore(renderCollections(parsedBody), root.children[1]);
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js', {scope: '/'})
+      .then((registration) => {
+        console.log('sw registration on scope:', registration.scope);
       })
-      .catch((status, parsedBody) => {
-        errorPage();
+      .catch((err) => {
       });
-  root.appendChild(renderFooter({
-    url: {
-      vk: 'https://vk.com/feed',
-      inst: 'https://instagram.com/',
-      alex: '',
-      max: '',
-      mar: '',
-      bor: '',
-    },
-  }));
-  const logoutBtn = document.querySelector('.logout-btn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      Ajax.getFetch({url: 'https://film4u.club/api/user/logout'})
-          .then((response) => {
-          });
-      loginPage();
-    });
-  }
 }
 
-function signupPage() {
-  root.innerHTML ='';
-  root.appendChild(renderHeader({
-    staticPath: '/static/',
-    btns: [{title: 'Подборки', class: 'menu-btn'},
-      {title: 'Жанры', class: 'menu-btn'},
-      {title: 'Релизы', class: 'menu-btn'}],
-    authorized: false,
-  }));
-  root.appendChild(renderAuth({
-    inputs: [
-      {type: 'email', name: 'email', placeholder: 'Email'},
-      {type: 'text', name: 'surname', placeholder: 'Фамилия'},
-      {type: 'text', name: 'name', placeholder: 'Имя'},
-      {type: 'password', name: 'password', placeholder: 'Пароль'},
-      {type: 'password', name: 'reppassword', placeholder: 'Повторите пароль'},
-    ],
-    url: {
-      signup: '/signup',
-      login: '/login',
-    },
-    auth: false,
-  }));
-  root.appendChild(renderFooter({
-    url: {
-      vk: 'https://vk.com/feed',
-      inst: 'https://instagram.com/',
-      alex: '',
-      max: '',
-      mar: '',
-      bor: '',
-    },
-  }));
-  const authForm = document.forms.authForm;
-  const sendBtn = authForm.submitBtn;
-  addFocusOutListeners(authForm);
-  sendBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (foundErrorFields(authForm)) {
-      return;
-    }
+export const ROOT = document.getElementById('root');
 
-    const email = authForm.email.value.trim();
-    const password = authForm.password.value.trim();
-    const name = authForm.name.value.trim();
-    const surname = authForm.surname.value.trim();
-    Ajax.postFetch({
-      url: 'https://film4u.club/api/user/register',
-      body: {email: email, password: password, password_repeat: password,
-        first_name: name, surname: surname},
-    }).then((response) => {
-      if (response && response.status === 201) {
-        collectionsPage(response.parsedBody);
-        return;
-      } else {
-        const oldErrors = root.querySelectorAll('.error-mes');
-        if (oldErrors.length > 0) {
-          root.removeChild(...oldErrors);
-        }
-        const error = document.createElement('div');
-        error.classList.add('error-mes');
-        error.innerText = 'Такой пользователь уже существует!';
-        root.appendChild(error);
-      }
-    });
-    const loginBtn = root.querySelector('.login-btn');
-    if (loginBtn) {
-      loginBtn.addEventListener('click', () => {
-        loginPage();
-      });
-    }
-  });
-};
+const AuthModule = authModule;
+const error = new errorPage();
+const headerController = new HeaderController();
+const homePageController = new HomePageController();
+const actorPageController = new ActorPageController();
+const authPageController = new AuthPageController();
+const profileController = new ProfileController();
+const filmPageController = new FilmPageController();
+const reviewPageController = new ReviewPageController();
+const collectionPageController = new CollectionPageController();
 
-function loginPage() {
-  root.innerHTML = '';
-  root.appendChild(renderHeader({
-    staticPath: '/static/',
-    btns: [{title: 'Подборки', class: 'menu-btn'},
-      {title: 'Жанры', class: 'menu-btn'},
-      {title: 'Релизы', class: 'menu-btn'}],
-    authorized: false,
-  }));
-  root.appendChild(renderAuth({
-    inputs: [
-      {type: 'email', name: 'email', placeholder: 'Email'},
-      {type: 'password', name: 'password', placeholder: 'Пароль'},
-    ],
-    url: {
-      signup: '/signup',
-      login: '/login',
-    },
-    auth: true,
-  }));
-  root.appendChild(renderFooter({
-    url: {
-      vk: 'https://vk.com/feed',
-      inst: 'https://instagram.com/',
-      alex: '',
-      max: '',
-      mar: '',
-      bor: '',
-    },
-  }));
-  const authForm = document.forms.authForm;
-  const sendBtn = authForm.submitBtn;
+const router = new Router(ROOT);
 
-  addFocusOutListeners(authForm);
-  sendBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (foundErrorFields(authForm)) {
-      return;
-    }
-
-    const email = document.forms.authForm.email.value.trim();
-    const password = document.forms.authForm.password.value.trim();
-    Ajax.postFetch({
-      url: 'https://film4u.club/api/user/login',
-      body: {email: email, password: password},
-    }).then((response) => {
-      if (response && response.status === 200) {
-        collectionsPage(response.parsedBody);
-        return;
-      } else {
-        const oldErrors = root.querySelectorAll('.error-mes');
-        if (oldErrors.length > 0) {
-          root.removeChild(...oldErrors);
-        }
-        const error = document.createElement('div');
-        error.classList.add('error-mes');
-        error.innerText = 'Неправильный логин или пароль!';
-        root.appendChild(error);
-      }
-    });
-    const loginBtn = root.querySelector('.login-btn');
-
-    if (loginBtn) {
-      loginBtn.addEventListener('click', () => {
-        loginPage();
-      });
-    }
-  });
-}
-
-function checkAuth() {
-  Ajax.getFetch({
-    url: 'https://film4u.club/api/user/checkAuth',
-  }).then((response) => {
-    if (response && response.status === 200) {
-      Ajax.getFetch({
-        url: `https://film4u.club/api/user/${response.parsedBody.id}`,
-      }).then((response) => {
-        collectionsPage(response.parsedBody);
-      });
-      return;
-    } else {
-      loginPage();
-    }
-  });
-}
-
-checkAuth();
-
-root.addEventListener('click', (e) => {
-  const {target} = e;
-
-  if (target instanceof HTMLAnchorElement) {
-    e.preventDefault();
-    configApp[target.dataset.section].open();
-  }
-});
+router.register(ROUTES.homePage, homePageController)
+    .register(ROUTES.filmPage, filmPageController)
+    .register(ROUTES.reviewPage, reviewPageController)
+    .register(ROUTES.collectionPage, collectionPageController)
+    .register(ROUTES.AuthPage, authPageController)
+    .register(ROUTES.RegPage, authPageController)
+    .register(ROUTES.Profile, profileController)
+    .register(ROUTES.actorPage, actorPageController)
+    .start();

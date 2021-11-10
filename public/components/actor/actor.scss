@@ -1,0 +1,100 @@
+@import '../../css/consts.scss';
+
+.actor-info {
+  margin-top: $header_indentation;
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__container {
+    grid-template-columns:  3fr 8fr;
+    column-gap: 5%;
+    display: grid;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    &_text {
+      color: $black;
+      display: grid;
+      grid-template-rows:  3fr  1fr 5fr 1fr 45px;
+
+      &_name {
+        grid-row-start: 1;
+        grid-row-end: 2;
+
+        &_rus {
+          font-family: "Montserrat-Black", "Arial", sans-serif;
+          font-size: 40px;
+          margin-bottom: 12px;
+        }
+
+        &_en {
+          font-size: 16px;
+        }
+      }
+
+      &_title-facts {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        font-weight: 700;
+        font-size: 26px;
+      }
+
+      &_facts {
+        grid-row-start: 3;
+        grid-row-end: 4;
+        font-size: 20px;
+
+        &_container {
+          margin-bottom: 5px;
+          display: grid;
+          grid-template-columns: 3fr 5fr;
+          column-gap: 2%;
+
+          &_key {
+            grid-column-start: 1;
+            grid-column-end: 2;
+          }
+
+          &_value {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+  &__black-container {
+    margin-top: $block_indentation;
+    background-color: $grey-background;
+    border-radius: 20px;
+    color: $white;
+    padding: 30px;
+
+    &_films-with-description {
+      margin-top: $block_indentation;
+
+      &_container {
+        position: relative;
+        display: grid;
+        row-gap: 30px;
+      }
+    }
+  }
+
+  &__biography {
+    margin-top: $block_indentation;
+    margin-bottom: 50px;
+
+    &_text{
+      color: $grey-background;
+      display: flex;
+      letter-spacing: 0.8px;
+    }
+  }
+}

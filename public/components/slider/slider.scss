@@ -1,0 +1,60 @@
+@import '../../css/consts';
+
+.slider-container {
+  overflow: hidden;
+  position: relative;
+
+  &__track {
+    display: flex;
+    text-align: center;
+    transition: .2s;
+
+    &_film {
+      &_indent{
+        margin-right: 20px;
+       &_link{
+         text-decoration: none;
+       }
+      }
+      &_name {
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $black;
+      }
+
+      &_wrapper {
+        position: relative;
+        padding-top: 144%;
+        & img {
+          text-align: center;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 20px;
+        }
+      }
+    }
+  }
+}
+
+.slider-container_button {
+  position: absolute;
+  top: 40%;
+  color: white;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: 0.24s ease-in-out;
+
+  &-right {
+    right: 0;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

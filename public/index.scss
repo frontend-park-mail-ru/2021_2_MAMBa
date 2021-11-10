@@ -1,0 +1,105 @@
+@import 'components/header/navbar.scss';
+@import 'components/header/searchBlock/search';
+@import 'components/header/userBlock/userBlock';
+@import 'components/footer/footer.scss';
+@import 'components/auth/auth.scss';
+@import 'components/auth/auth.scss';
+@import 'components/auth/authError/authError';
+@import 'components/textInputs/textInputs.scss';
+@import 'components/collections/collections.scss';
+@import 'components/loader/loader.scss';
+@import 'css/consts.scss';
+@import 'components/actor/actor.scss';
+@import 'components/slider/slider.scss';
+@import 'components/filmCard/filmdCard.scss';
+@import 'components/buttonWithBorder/buttonWithBorder';
+@import 'components/buttonShowMore/buttonShowMore.scss';
+@import 'components/collection/collection.scss';
+@import 'components/film/film.scss';
+@import 'components/reviewSlider/reviewSlider.scss';
+@import 'components/writeReview/writeReview.scss';
+@import 'components/review/review.scss';
+@import 'components/userRating/userRating.scss';
+@import 'components/collectionFilms/collectionFlms.scss';
+@import 'components/textReadMore/textReadMore.scss';
+@import 'components/profile/profile.scss';
+@import 'components/profile/settings/settings.scss';
+@import 'components/profile/profileHeader/profileHeader.scss';
+@import 'components/profile/profileMenu/profileMenu.scss';
+@import 'components/profile/starsAndReviews/starsAndReviews.scss';
+@import 'components/profile/starsAndReviews/reviewBlock/reviewBlock.scss';
+@import 'components/404/404.scss';
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('fonts/Montserrat-Regular.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Medium';
+  src: url('fonts/Montserrat-Medium.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('fonts/Montserrat-Bold.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  src: url('fonts/Montserrat-Black.woff2') format('truetype');
+}
+
+html, body {
+  font-family: 'Montserrat-Regular', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: $white;
+  color: $black;
+  width: 100vw;
+  height: 100%;
+  border: 0;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+.content {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  position: relative;
+}
+
+.block-subtitle {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.scroll-to {
+  text-decoration: none;
+}
+
+.change-color-text-href {
+  text-decoration: none;
+  color: $black;
+
+  &:hover {
+    color: $pink;
+  }
+}
+
+.color-text-pink {
+  color: $pink;
+}

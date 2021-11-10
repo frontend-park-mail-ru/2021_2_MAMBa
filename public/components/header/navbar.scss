@@ -1,0 +1,80 @@
+@import '../../css/consts.scss';
+
+.navbar {
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  width: 100%;
+  min-width: 1000px;
+  flex: 0 0 65px;
+  z-index: 1;
+  top: 0;
+  position: sticky;
+  background-color: $grey-base;
+  display: flex;
+  align-items: center;
+
+  &__logo {
+    max-height: 45px;
+    margin-left: 7%;
+  }
+
+  &__wide-menu {
+    display: inherit;
+    font-size: 20px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3%;
+    width: 573px;
+    min-width: 360px;
+  }
+
+  &__menu-btn {
+    text-decoration: none;
+    cursor: default;
+    color: $white;
+    fill: $white;
+    stroke: $white;
+    transition: .2s ease-in-out;
+
+    & > svg > g > path {
+      transition: .5s ease-in-out;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $pink;
+    }
+
+    &:hover > svg > g > path {
+      fill: $pink;
+      stroke: $pink;
+    }
+
+    &_active  > svg > g > path {
+      text-decoration: none;
+      cursor: default;
+      color: $pink;
+      fill: $pink;
+      stroke: $pink;
+    }
+
+    &_active {
+      text-decoration: none;
+      cursor: default;
+      color: $pink;
+    }
+  }
+
+  &__login-btn {
+    text-decoration: none;
+    color: $pink;
+    font-size: 24px;
+    margin-right: 7%;
+    transition: .5s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+}

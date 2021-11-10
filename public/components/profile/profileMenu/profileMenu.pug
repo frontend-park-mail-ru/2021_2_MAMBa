@@ -1,0 +1,8 @@
+.profile-menu
+    each link in menuLinks
+        if !thisUser
+            if link.name !== 'Настройки'
+                a.profile-menu__link(href=link.href) #{link.name}
+        else
+            a.profile-menu__link(href=link.href) #{link.name}
+    hr.profile-menu__line

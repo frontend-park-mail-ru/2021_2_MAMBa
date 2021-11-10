@@ -1,8 +1,29 @@
 {
-  "name": "2021_2_MAMBa",
+  "name": "2021_2_MAMBA",
   "version": "1.0.0",
-  "devDependencies": {
+  "scripts": {
+    "start": "webpack serve --mode=development --open --config ./webpack.dev.config.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "build": "webpack --mode=production --config ./webpack.prod.config.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "sass": "^1.32.8",
+    "uuid": "^8.3.2",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/eslint-parser": "^7.15.8",
+    "@babel/preset-env": "^7.13.15",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^5.2.1",
+    "dotenv-webpack": "^7.0.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-google": "^0.14.0",
@@ -11,22 +32,19 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "pug": "^3.0.2",
-    "uuid": "^8.3.2"
-  },
-  "scripts": {
-    "start": "DEBUG=http node server/server.js",
-    "prestart": "rm -rf public/templates.js & node server/build.js",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "debug": "^4.3.2",
-    "express": "^4.17.1",
-    "i": "^0.3.7",
-    "mime": "^2.5.2",
-    "morgan": "^1.10.0"
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "pug-html-loader": "^1.1.5",
+    "pug-loader": "^2.4.0",
+    "sass-loader": "^11.0.1",
+    "serviceworker-webpack-plugin": "^1.0.1",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.32.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^4.1.0"
   },
   "main": "index.js",
   "repository": {

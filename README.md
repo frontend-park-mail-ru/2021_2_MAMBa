@@ -6,7 +6,7 @@ https://film4u.club/
 
 ## API
 
-https://app.swaggerhub.com/apis/MAMBa/Film4U-API/0.0.5
+https://app.swaggerhub.com/apis/MAMBa/Film4U-API/0.0.8
 
 ## Авторы
 

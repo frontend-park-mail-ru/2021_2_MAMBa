@@ -1,0 +1,11 @@
+.profile-settings
+    form.settings-form(name='settingsForm')
+      each input in inputs
+          input(
+              type=input.type
+              name=input.name
+              value=input.value
+              accept = input.type === 'file' ? input.accept:''
+              class='settings-form__inputs'
+          )
+      input.settings-form__btn(type='button' name=submitButtonName value='Сохранить изменения')

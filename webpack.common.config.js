@@ -69,6 +69,10 @@ module.exports = {
           from: 'public/sw.js',
           to: '',
         },
+        {
+          from: 'public/static',
+          to: '',
+        },
       ],
     }),
   ],

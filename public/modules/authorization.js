@@ -21,17 +21,17 @@ class Authorization {
     }
     this.user = parsedResponse?.body;
     if (this.user) {
-      this.eventBus.emit(EVENTS.Authorization.GotUser);
+      this.eventBus.emit(EVENTS.authorization.gotUser);
     }
   }
 
-  changeUser = (parsedResponse) => {
-    if (!parsedResponse) {
+  changeUser = (user) => {
+    if (!user) {
       return;
     }
-    this.user = parsedResponse?.body;
+    this.user = user;
     if (this.user) {
-      this.eventBus.emit(EVENTS.Authorization.GotUser);
+      this.eventBus.emit(EVENTS.authorization.changedUser);
     }
   }
 
@@ -50,7 +50,7 @@ class Authorization {
             if (response?.parsedJson?.status === statuses.OK) {
               this.user = response.parsedJson?.body;
               if (this.user) {
-                this.eventBus.emit(EVENTS.Authorization.GotUser);
+                this.eventBus.emit(EVENTS.authorization.gotUser);
               }
             }
           }).catch(() => {

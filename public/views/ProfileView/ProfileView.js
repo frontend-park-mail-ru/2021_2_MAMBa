@@ -108,7 +108,6 @@ export class ProfileView extends BaseView {
       const formData = new FormData();
       if (settingsForm.avatar.files[0]) {
         formData.append('avatar', settingsForm.avatar.files[0]);
-        this.eventBus.emit(EVENTS.ProfilePage.ChangeAvatar, formData);
       }
       const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');
       if (!formTextInputs.length) {
@@ -120,8 +119,8 @@ export class ProfileView extends BaseView {
       }
       inputsData.gender = this.user.gender;
       inputsData.email = this.user.email;
-      inputsData.picture_url = this.user.picture_url;
-      this.eventBus.emit(EVENTS.ProfilePage.ChangeProfile, inputsData);
+      inputsData.profile_pic = this.user.profile_pic;
+      this.eventBus.emit(EVENTS.ProfilePage.ChangeProfile, inputsData, formData);
     });
   }
 

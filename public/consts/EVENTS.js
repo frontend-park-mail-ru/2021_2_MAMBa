@@ -79,8 +79,10 @@ export const EVENTS = {
     LogOut: 'header:logOut',
   },
 
-  Authorization: {
-    GotUser: 'authorization:gotUser',
+  authorization: {
+    gotUser: 'authorization:gotUser',
+    changedUser: 'authorization:changedUser',
+    logOutUser: 'authorization:logOutUser',
   },
 
   ProfilePage: {
@@ -100,7 +102,5 @@ export const EVENTS = {
     NoMoreAvailable: 'profilePage:noMoreAvailable',
     ChangeProfile: 'profilePage:changeProfile',
     ChangedProfile: 'profilePage:changedProfile',
-    ChangeAvatar: 'profilePage:changeAvatar',
-    ReRenderHeader: 'profilePage:reRenderHeader',
   },
 };

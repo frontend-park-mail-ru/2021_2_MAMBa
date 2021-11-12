@@ -58,19 +58,21 @@ export class HeaderView extends BaseView {
     if (!authModule.user) {
       return;
     }
-    const enterButton = document.querySelector('.navbar__login-btn');
-    if (!enterButton) {
+    const changeBlock = document.querySelector('.navbar__login-btn') ||
+        document.querySelector('.user-block');
+    if (!changeBlock) {
       return;
     }
     const userName = authModule.user.first_name;
-    enterButton.innerHTML = userBlock({
+    // TODO MAKE CONST INSTEAD OF 11
+    changeBlock.innerHTML = userBlock({
       userName: userName.length > 11 ? userName.substr(0, 11) + '...' : userName,
       imgSrc: authModule.user.profile_pic,
       userId: authModule.user.id,
     });
-    enterButton.classList.remove('navbar__login-btn');
-    enterButton.classList.add('user-block');
-    enterButton.removeAttribute('href');
+    changeBlock.classList.remove('navbar__login-btn');
+    changeBlock.classList.add('user-block');
+    changeBlock.removeAttribute('href');
     this.addEventListenerToLogoutButton();
   }
 

@@ -112,9 +112,16 @@ export class ProfileModel extends Model {
     });
   }
 
-  changeProfile = (inputsData) => {
-    if (!inputsData) {
+  changeProfile = async (inputsData, formData) => {
+    if (!inputsData || !formData) {
       return;
+    }
+    let user = null;
+    if (formData.has('avatar')) {
+      user = await this.changeProfileAvatar(formData);
+    }
+    if (user) {
+      inputsData.profile_pic = user.profile_pic;
     }
     changeSettings(inputsData).then((response) => {
       if (!response) {
@@ -132,21 +139,18 @@ export class ProfileModel extends Model {
     });
   }
 
-  changeProfileAvatar = (avatar) => {
+  changeProfileAvatar = async (avatar) => {
     if (!avatar) {
-      return;
+      return null;
     }
-    changeAvatar(avatar).then((response) => {
-      if (!response) {
-        return;
-      }
-      if (response?.parsedJson?.status === statuses.OK) {
-        this.user = response.parsedJson;
-        this.eventBus.emit(EVENTS.ProfilePage.ChangedProfile, response.parsedJson?.body);
-      }
-    }).catch(() => {
-      this.eventBus.emit(EVENTS.App.ErrorPage);
-    });
+    const response = await changeAvatar(avatar);
+    if (!response) {
+      return null;
+    }
+    if (response?.parsedJson?.status === statuses.OK) {
+      this.user = response.parsedJson.body;
+      return this.user;
+    }
   }
 
   makeFilmUrl = (stringArray, fieldName) => {

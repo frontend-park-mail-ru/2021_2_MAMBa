@@ -21,7 +21,6 @@ export class ProfileController extends BaseController {
         {event: EVENTS.ProfilePage.Render.ReviewsMarks, handler: this.view.renderReviewsMarksPage},
         {event: EVENTS.ProfilePage.ChangeActiveMenuButton, handler: this.view.changeActiveMenuButton},
         {event: EVENTS.ProfilePage.ChangeProfile, handler: this.model.changeProfile},
-        {event: EVENTS.ProfilePage.ChangeAvatar, handler: this.model.changeProfileAvatar},
         {event: EVENTS.ProfilePage.ChangedProfile, handler: this.view.reRenderHeader},
         {event: EVENTS.ProfilePage.MoreButton, handler: this.model.changePagAndGetNBlocks},
     );

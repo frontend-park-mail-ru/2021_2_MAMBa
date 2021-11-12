@@ -9,7 +9,8 @@ export class HeaderController extends BaseController {
     super(HeaderView, HeaderModel);
     this.events.push(
         {event: EVENTS.Header.ChangeActiveButton, handler: this.view.changeActiveButton},
-        {event: EVENTS.Authorization.GotUser, handler: this.view.renderUserBlock},
+        {event: EVENTS.authorization.gotUser, handler: this.view.renderUserBlock},
+        {event: EVENTS.authorization.changedUser, handler: this.view.renderUserBlock},
         {event: EVENTS.Router.Go, handler: this.model.compareLinksWithPath},
     );
     this.subscribe();

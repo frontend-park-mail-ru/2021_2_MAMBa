@@ -20,13 +20,13 @@ export class CollectionPageModel {
    */
   getPageContent = (collection) => {
     if (!collection?.id) {
-      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getCollectionFilms(collection.id)
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
             this.eventBus.emit(EVENTS.collectionPage.render.content, convertCollectionToCollectionPage(response.body));
           }

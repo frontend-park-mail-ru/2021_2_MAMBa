@@ -52,7 +52,7 @@ export class ProfileModel extends Model {
           return null;
         }
         getMenuLinks(user.id);
-        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser());
+        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser(this.userId));
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
         return null;
@@ -171,10 +171,22 @@ export class ProfileModel extends Model {
     }
   }
 
-  isThisUser = () => {
-    if (!this.userId || !authModule || !authModule.user?.id) {
-      return false;
+  isThisUser = (userId = null) => {
+    if (!userId) {
+      const userIdFromUrl = this.getUserIdFromPath(window.location.pathname);
+      if (!userIdFromUrl || !authModule || !authModule.user || !authModule.user.id) {
+        return;
+      }
+      if (authModule.user.id.toString() === userIdFromUrl) {
+        this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+      }
+    } else {
+      if (!authModule || !authModule.user || !authModule.user.id) {
+        return false;
+      }
+      if (authModule.user.id.toString() === userId) {
+        return true;
+      }
     }
-    return authModule.user.id === this.userId;
   }
 }

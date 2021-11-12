@@ -88,7 +88,7 @@ export class AuthView extends BaseView {
       return;
     }
     for (const input of formTextInputs) {
-      input.addEventListener('keyup', () => {
+      input.addEventListener('blur', () => {
         this.eventBus.emit(EVENTS.AuthPage.Validate, input.name, input.value, input.name ===
           authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
       });

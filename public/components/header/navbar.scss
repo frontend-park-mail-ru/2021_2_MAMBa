@@ -15,6 +15,12 @@
   &__logo {
     max-height: 45px;
     margin-left: 7%;
+    display: flex;
+    align-items: center;
+
+    & svg {
+      height: 50px;
+    }
   }
 
   &__wide-menu {

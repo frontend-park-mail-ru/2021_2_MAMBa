@@ -39,7 +39,7 @@ export class ActorView extends BaseView {
       this.checkShowMoreButton(this.dataActor.moreAvailable);
       this.showMore(this.dataActor);
     } else {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 

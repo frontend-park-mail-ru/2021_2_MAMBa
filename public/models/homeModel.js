@@ -18,7 +18,7 @@ export class HomePageModel {
     getCollections()
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === 200 && response.body) {
             this.eventBus.emit(EVENTS.homepage.render.content, convertArrayToCollectionsPage(response.body));

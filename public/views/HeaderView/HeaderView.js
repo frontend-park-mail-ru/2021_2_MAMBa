@@ -6,6 +6,7 @@ import {headerLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML} from '../../utils/utils';
+const symbolCount = 11;
 
 export class HeaderView extends BaseView {
   constructor(eventBus) {
@@ -66,7 +67,7 @@ export class HeaderView extends BaseView {
     const userName = authModule.user.first_name;
     // TODO MAKE CONST INSTEAD OF 11
     changeBlock.innerHTML = userBlock({
-      userName: userName.length > 11 ? userName.substr(0, 11) + '...' : userName,
+      userName: userName.length > symbolCount ? userName.substr(0, symbolCount) + '...' : userName,
       imgSrc: authModule.user.profile_pic,
       userId: authModule.user.id,
     });

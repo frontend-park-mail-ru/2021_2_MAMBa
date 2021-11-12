@@ -4,6 +4,7 @@ import profileHeader from '../../components/profile/profileHeader/profileHeader.
 import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
 import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock/reviewsContent.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
+import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLink.pug';
 import loader from '../../components/loader/loader.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
@@ -12,6 +13,8 @@ import {ROOT} from '../../main';
 import baseViewPug from '../BaseView/BaseView.pug';
 import {headerLinks} from '../../consts/header';
 import {statuses} from '../../consts/reqStatuses.js';
+import {createElementFromHTML} from '../../utils/utils.js';
+import {ROUTES} from '../../consts/routes';
 
 
 export class ProfileView extends BaseView {
@@ -42,7 +45,7 @@ export class ProfileView extends BaseView {
       return;
     }
     this.user = user;
-    this.user.thisUser = true;
+    this.user.isThisUser = isThisUser;
     const content = document.querySelector('.content');
     if (content) {
       const profileHeader = document.querySelector('.profile-header');
@@ -64,7 +67,16 @@ export class ProfileView extends BaseView {
     if (settingsLink) {
       settingsLink.remove();
     }
-    menuLinks.thisUser = false;
+    this.eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
+  }
+
+  addSettingsToMenu = () => {
+    const reviewsLink = [...document.querySelectorAll('.profile-menu__link')]
+        .find((elem) => elem.textContent.includes(menuObjects.reviewsMarks.name));
+    if (reviewsLink) {
+      reviewsLink.after(createElementFromHTML(settingsLinkPug({link: menuObjects.settings})));
+    }
+    this.changeActiveMenuButton(this.routeData.path.path);
   }
 
   changeActiveMenuButton = (href) => {
@@ -148,11 +160,33 @@ export class ProfileView extends BaseView {
     if (!profileContent) {
       return;
     }
+    if (!this.user || !this.user.profile_pic) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+    }
+    if (!this.user.isThisUser) {
+      this.eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage);
+    }
     for (const input of SettingsInput) {
       input.value = this.user[input.name];
     }
-    profileContent.innerHTML = settingsPug({inputs: SettingsInput});
+    profileContent.innerHTML = settingsPug({inputs: SettingsInput, profile_pic: this.user.profile_pic});
+    this.listenAvatarChanged();
     this.submitSettingsButton();
+  }
+
+  listenAvatarChanged = () => {
+    const avatarInput = document.querySelector('#avatar');
+    const avatarDiv = document.querySelector('.settings-form__avatar');
+    if (!avatarInput || !avatarDiv) {
+      return;
+    }
+    avatarInput.addEventListener('change', (event) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', (event) => {
+        avatarDiv.style.backgroundImage = `url(${event.target.result})`;
+      });
+      reader.readAsDataURL(event.target.files[0]);
+    });
   }
 
   renderBookmarksPage = (bookmarks) => {

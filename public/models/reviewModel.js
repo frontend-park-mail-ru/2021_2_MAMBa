@@ -16,13 +16,13 @@ export class ReviewPageModel {
 
   getPageContent = (review) => {
     if (!review?.id) {
-      this.eventBus.emit(EVENTS.Homepage.Render.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getInfoAboutReview(review.id)
         .then((response) => {
           if (!response) {
-            this.eventBus.emit(EVENTS.Homepage.Render.ErrorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === 200 && response.body) {
             this.eventBus.emit(EVENTS.reviewPage.render.content, convertReviewToReviewPage(response.body));

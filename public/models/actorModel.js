@@ -20,13 +20,13 @@ export class ActorPageModel {
    */
   getPageContent = (actor) => {
     if (!actor?.id) {
-      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getInfoAboutActor(actor.id)
         .then((response) => {
           if (!response.status) {
-            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
             this.eventBus.emit(EVENTS.actorPage.render.content, convertArrayToActorPage(response.body));
           }
@@ -37,13 +37,13 @@ export class ActorPageModel {
 
   getActorFilmsContent = (actor) => {
     if (!actor?.id && !actor?.limit && !actor?.limit) {
-      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getActorFilms(actor.id, actor.limit, actor.limit)
         .then((response) => {
           if (!response) {
-            this.eventBus.emit(EVENTS.homepage.render.errorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
             this.eventBus.emit(EVENTS.actorPage.render.films, convertArrayToActorFilms(response.body));
           }

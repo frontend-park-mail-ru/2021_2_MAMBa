@@ -21,13 +21,13 @@ export class FilmPageModel {
    */
   getPageContent = (film) => {
     if (!film?.id) {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getInfoAboutFilm(film.id)
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.homepage.render.errorPage);
+            this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
@@ -73,7 +73,7 @@ export class FilmPageModel {
       return;
     }
     if (!filmId && !rating) {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
 

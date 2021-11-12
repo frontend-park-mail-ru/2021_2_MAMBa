@@ -93,6 +93,7 @@ export const EVENTS = {
       Subscriptions: 'profilePage:renderSubscriptions',
       Settings: 'profilePage:renderSettings',
     },
+    addSettingsToMenu: 'profilePage:addSettingsToMenu',
     MoreButton: 'profilePage:moreButton',
     ChangeActiveMenuButton: 'profilePage:changeActiveMenuButton',
     SubmitSettings: 'profilePage:submitSettings',

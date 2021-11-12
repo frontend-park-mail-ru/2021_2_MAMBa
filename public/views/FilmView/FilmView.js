@@ -43,7 +43,7 @@ export class FilmView extends BaseView {
       this.setReadMore(data);
       this.setAnchorActions();
     } else {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 

@@ -49,7 +49,7 @@ export class FilmView extends BaseView {
 
   setReadMore = (data) => {
     const heightText = document.querySelector('.film-info__container-trailer_summery').clientHeight;
-    if (heightText > 115) {
+    if (heightText > 120) {
       const template = readMore(data);
       const content = document.querySelector('.film-info__container-trailer_summery');
       if (content) {
@@ -75,7 +75,7 @@ export class FilmView extends BaseView {
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
-    const ratingAdapter = !(newFilmRating%1)?`${newFilmRating}.0`:newFilmRating;
+    const ratingAdapter = (!(newFilmRating % 1) || newFilmRating === 10) ? `${newFilmRating}.0` : newFilmRating;
     const ratingItemStar = document.querySelector('.rating-number-stars');
     const ratingItem = document.querySelector('.rating-number');
     if (ratingItem && ratingItemStar) {
@@ -99,7 +99,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function(e) {
+    rating.onmouseover = function (e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -107,7 +107,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function() {
+    rating.onmouseout = function () {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
@@ -159,55 +159,61 @@ export class FilmView extends BaseView {
     const positiveButton = document.querySelector('.type-positive');
     const neutralButton = document.querySelector('.type-neutral');
     const negativeButton = document.querySelector('.type-negative');
-    positiveButton.addEventListener('click', () => {
-      review.review_type = 3;
-      positiveButton.classList.add('positive-chosen');
-      negativeButton.classList.remove('negative-chosen');
-      neutralButton.classList.remove('neutral-chosen');
-      this.removeWarning('warning_type');
-    });
-    neutralButton.addEventListener('click', () => {
-      review.review_type = 2;
-      positiveButton.classList.remove('positive-chosen');
-      negativeButton.classList.remove('negative-chosen');
-      neutralButton.classList.add('neutral-chosen');
-      this.removeWarning('warning_type');
-    });
-    negativeButton.addEventListener('click', () => {
-      review.review_type = 1;
-      positiveButton.classList.remove('positive-chosen');
-      negativeButton.classList.add('negative-chosen');
-      neutralButton.classList.remove('neutral-chosen');
-      this.removeWarning('warning_type');
-    });
+    if (positiveButton && neutralButton && negativeButton) {
+      positiveButton.addEventListener('click', () => {
+        review.review_type = 3;
+        positiveButton.classList.add('positive-chosen');
+        negativeButton.classList.remove('negative-chosen');
+        neutralButton.classList.remove('neutral-chosen');
+        this.removeWarning('warning_type');
+      });
+      neutralButton.addEventListener('click', () => {
+        review.review_type = 2;
+        positiveButton.classList.remove('positive-chosen');
+        negativeButton.classList.remove('negative-chosen');
+        neutralButton.classList.add('neutral-chosen');
+        this.removeWarning('warning_type');
+      });
+      negativeButton.addEventListener('click', () => {
+        review.review_type = 1;
+        positiveButton.classList.remove('positive-chosen');
+        negativeButton.classList.add('negative-chosen');
+        neutralButton.classList.remove('neutral-chosen');
+        this.removeWarning('warning_type');
+      });
+    }
 
     const clearButton = document.querySelector('.clear-button');
-    clearButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      const content = document.getElementById('input');
-      if (content) {
-        content.value = ' ';
-      }
-    });
+    if (clearButton) {
+      clearButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const content = document.getElementById('input');
+        if (content) {
+          content.value = ' ';
+        }
+      });
+    }
 
     const sendButton = this.getSendButtonFromDom();
-    sendButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (review.review_type === 0) {
-        this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
-        return;
-      }
-      const textInput = document.querySelector('.write_review__text').value;
-      if (textInput) {
-        if (textInput === '') {
-          this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+    if (sendButton) {
+      sendButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (review.review_type === 0) {
+          this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
           return;
         }
-        review.review_text = textInput;
-      }
-      this.eventBus.emit(EVENTS.filmPage.postReview, review);
-      this.removeWarning('warning_empty-text');
-    });
+        const textInput = document.querySelector('.write_review__text').value;
+        if (textInput) {
+          if (textInput === '') {
+            this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+            return;
+          }
+          review.review_text = textInput;
+        }
+        this.eventBus.emit(EVENTS.filmPage.postReview, review);
+        this.removeWarning('warning_empty-text');
+      });
+    }
   }
 
   getSendButtonFromDom = () => {
@@ -244,10 +250,18 @@ export class FilmView extends BaseView {
    * Render button to successful sending.
    */
   renderSuccessfulSend = () => {
+
     const template = successfulSendButton();
     const sendButton = this.getSendButtonFromDom();
+    const clearButton = document.querySelector('.clear-button');
+    if (clearButton) {
+      clearButton.classList.add("disabled-clear-button");
+      clearButton.classList.remove("clear-button");
+      clearButton.classList.remove("review_button");
+    }
+
     if (sendButton) {
-      sendButton.innerHTML = template;
+      sendButton.outerHTML = template;
     }
   }
 

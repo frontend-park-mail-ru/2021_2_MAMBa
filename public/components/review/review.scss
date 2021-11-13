@@ -68,7 +68,7 @@
 }
 
 .neutral-review {
-  background-color: $grey;
+  background-color: #BBBDC1;
 }
 
 .negative-review {
@@ -98,4 +98,13 @@
 }
 .send-review-success{
   background-color: #E57EA3;
+  border: 0;
+  border-radius: 10px;
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 16px;
+  color: $white;
+  width: 480px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
 }

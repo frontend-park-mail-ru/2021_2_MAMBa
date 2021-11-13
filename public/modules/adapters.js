@@ -120,7 +120,8 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     film: convertArrayToFilmInfo(filmInfoJson.film),
     reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
     recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
-    myRating: filmInfoJson?.my_rating || 1,
+    myRating: filmInfoJson.my_review.stars|| 1,
+    myReview : convertReviewToReviewPage(filmInfoJson.my_review)
   }
 );
 /**
@@ -147,7 +148,7 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
 export const convertArrayToFilmInfo = (arrayContent) => {
   const duration = (arrayContent.content_type === 'film') ?
       `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
-  const rating = !(arrayContent.rating%1)?`${arrayContent.rating}.0`:arrayContent.rating;
+  const rating = (!(arrayContent.rating%1)||arrayContent.rating===10)?`${arrayContent.rating}.0`:arrayContent.rating;
   return {
     ...arrayContent,
     titleOriginal: arrayContent?.title_original,
@@ -199,7 +200,7 @@ export const convertArrayToGenresArray = (arrayContent) => {
  * @return {object} - Object for render review information
  */
 export const convertReviewToReviewPage = (reviewInfoJson) => {
-  let classType;
+  let classType = 0;
   let classButtonType;
   if (reviewInfoJson.review_type === 1) {
     classType = 'negative-review';
@@ -211,13 +212,14 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     classType = 'positive-review';
     classButtonType = 'positive-button';
   }
+  console.log(reviewInfoJson.date)
   return {
     classType: classType,
     classButtonType: classButtonType,
-    authorAvatar: `https://film4u.club${reviewInfoJson.author_picture_url}`,
-    filmTitle: reviewInfoJson.film_title_ru,
-    authorName: reviewInfoJson.author_name,
-    reviewText: reviewInfoJson.review_text,
+    authorAvatar: `https://film4u.club${reviewInfoJson?.author_picture_url}`,
+    filmTitle: reviewInfoJson?.film_title_ru,
+    authorName: reviewInfoJson?.author_name,
+    reviewText: reviewInfoJson.review_text || 0,
     date: reviewInfoJson.date,
   };
 };

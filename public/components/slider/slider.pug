@@ -1,4 +1,4 @@
-mixin slider(i)
+mixin slider(i, color)
     div.actor-info__black-container_wrapper
         div.slider-container
             div.slider-container__track
@@ -8,7 +8,10 @@ mixin slider(i)
                         a.slider-container__track_film_indent_link(href=`${input.href}`)
                             div.slider-container__track_film_wrapper
                                 img(src= input.filmAvatar)
-                            div.slider-container__track_film_name #{input.title}
+                            if (color==="white")
+                                div(class = "slider-container__track_film_name white_text")  #{input.title}
+                            else
+                                div.slider-container__track_film_name  #{input.title}
             div(class="slider-container_button  slider-container_button-left " )
                 include ../../static/pics/left_arrow.svg
             div(class="slider-container_button  slider-container_button-right ")

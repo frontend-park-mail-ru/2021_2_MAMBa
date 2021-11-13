@@ -29,6 +29,7 @@ export class FilmPageModel {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
+            console.log(convertArrayToFilmPage(response.body));
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
           // TODO: отрисовывать стр если фильма нет в бд
@@ -44,7 +45,7 @@ export class FilmPageModel {
     if (!authModule.user) {
       this.eventBus.emit(
           EVENTS.filmPage.render.warningSend,
-          'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь',
+          'Чтобы оставить отзыв, пожалуйста, <a href="/auth">зарегистрируйтесь</a>',
           'warning_no-auth');
       return;
     }
@@ -69,7 +70,7 @@ export class FilmPageModel {
     if (!authModule.user) {
       this.eventBus.emit(
           EVENTS.filmPage.render.warningRatingSend,
-          'Чтобы поставить рейтинг, пожалуйста, зарегистрируйтесь');
+          'Чтобы поставить оценку, пожалуйста, <a href="/auth" class = "white_text">зарегистрируйтесь</a>');
       return;
     }
     if (!filmId && !rating) {

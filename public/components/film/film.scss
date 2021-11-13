@@ -111,7 +111,7 @@
         margin: auto;
         background-color: $pink;
         border-radius: 10px;
-        cursor: pointer;
+        //cursor: pointer;
         font-family: "Montserrat-Bold", "Arial", sans-serif;
         font-style: normal;
         font-size: 20px;
@@ -122,10 +122,10 @@
         justify-content: center;
         align-items: center;
 
-        &:hover {
-          opacity: 1;
-          transform: scale(1.1);
-        }
+        //&:hover {
+        //  opacity: 1;
+        //  transform: scale(1.1);
+        //}
 
         &_img {
           display: inline-block;
@@ -227,6 +227,7 @@
     padding-left: 30px;
 
     &_review {
+      margin-bottom: 20px;
       margin-top: $block_indentation;
       font-family: "Montserrat-Bold", "Arial", sans-serif;
       font-size: 30px;
@@ -238,4 +239,12 @@
   margin-top: 20px;
   font-family: 'Montserrat-Regular', sans-serif;
   font-size: 16px;
+}
+
+.film-info__white-container_review_date{
+  text-align: right;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: $grey
 }

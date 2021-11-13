@@ -20,7 +20,7 @@ export const getMenuLinks = (id) => {
   const regExp = /^\/profile\/\d+/;
   for (const link of menuLinks.menuLinks) {
     if (link.href.match(regExp)) {
-      link.href.replace(regExp, `/profile/${id}`);
+      link.href = link.href.replace(regExp, `/profile/${id}`);
     } else {
       link.href = `/profile/${id}` + link.href;
     }

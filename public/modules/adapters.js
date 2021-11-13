@@ -212,7 +212,6 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     classType = 'positive-review';
     classButtonType = 'positive-button';
   }
-  console.log(reviewInfoJson.date)
   return {
     classType: classType,
     classButtonType: classButtonType,

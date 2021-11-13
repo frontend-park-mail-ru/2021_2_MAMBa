@@ -104,8 +104,10 @@ export class ProfileModel extends Model {
             this.eventBus.emit(EVENTS.App.ErrorPage);
             return;
           }
-          this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
-          this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
+          if (response.parsedJson.body.review_list.length) {
+            this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
+            this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
+          }
         }
         this.eventBus.emit(event, response.parsedJson);
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
@@ -158,8 +160,8 @@ export class ProfileModel extends Model {
   }
 
   makeFilmUrl = (stringArray, fieldName) => {
-    if (!stringArray || !stringArray[0][fieldName]) {
-      return;
+    if (!stringArray.length || !stringArray[0][fieldName]) {
+      return null;
     }
     for (const item of stringArray) {
       item.film_url = `/films/${item[fieldName]}`;

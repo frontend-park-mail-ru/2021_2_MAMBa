@@ -29,7 +29,6 @@ export class FilmPageModel {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            console.log(convertArrayToFilmPage(response.body));
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
           // TODO: отрисовывать стр если фильма нет в бд

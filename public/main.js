@@ -14,14 +14,14 @@ import {errorPage} from './modules/404.js';
 
 import './index.scss';
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js', {scope: '/'})
-//       .then((registration) => {
-//         console.log('sw registration on scope:', registration.scope);
-//       })
-//       .catch((err) => {
-//       });
-// }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js', {scope: '/'})
+      .then((registration) => {
+        console.log('sw registration on scope:', registration.scope);
+      })
+      .catch((err) => {
+      });
+}
 
 export const ROOT = document.getElementById('root');
 

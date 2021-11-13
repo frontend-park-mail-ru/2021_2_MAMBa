@@ -1,7 +1,7 @@
 each block in review_list
     .review-block
         img.review-block__film-img(src=block.film_picture_url)
-        span.review-block__stars-block #{block.stars} stars
+        span.review-block__stars-block #{block.stars} &#127775;
         a.review-block__film-name-ru(href=block.film_url) #{block.film_title_ru}
         span.review-block__film-name-en #{block.film_title_original}
         if (block.review_text)

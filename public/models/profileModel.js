@@ -100,8 +100,12 @@ export class ProfileModel extends Model {
       }
       if (response?.parsedJson?.status === statuses.OK) {
         if (event === EVENTS.ProfilePage.Render.ReviewsMarks) {
-          this.makeReviewUrl(response.parsedJson.review_list, 'id');
-          this.makeFilmUrl(response.parsedJson.review_list, 'film_id');
+          if (!response.parsedJson.body) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+            return;
+          }
+          this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
+          this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
         }
         this.eventBus.emit(event, response.parsedJson);
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {

@@ -7,6 +7,7 @@ class Authorization {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.user = null;
+    this.lastEvent = null;
     if (navigator.onLine) {
       this.getUserFromServer();
     }
@@ -22,6 +23,7 @@ class Authorization {
     this.user = parsedResponse?.body;
     if (this.user) {
       this.eventBus.emit(EVENTS.authorization.gotUser);
+      this.lastEvent = EVENTS.authorization.gotUser;
     }
   }
 
@@ -38,24 +40,28 @@ class Authorization {
   getUserFromServer = () => {
     checkAuth().then((response) => {
       if (!response) {
+        return null;
+      }
+      if (response?.parsedJson?.status === statuses.OK) {
+        return response.parsedJson?.body?.id;
+      } else {
+        this.eventBus.emit(EVENTS.authorization.notLoggedIn);
+        this.lastEvent = EVENTS.authorization.notLoggedIn;
+        return null;
+      }
+    }).then((userId) => {
+      if (userId) {
+        return getCurrentUser(userId);
+      }
+    }).then((response) => {
+      if (!response) {
         return;
       }
       if (response?.parsedJson?.status === statuses.OK) {
-        const id = response.parsedJson?.body?.id;
-        if (id) {
-          getCurrentUser(id).then((response) => {
-            if (!response) {
-              return;
-            }
-            if (response?.parsedJson?.status === statuses.OK) {
-              this.user = response.parsedJson?.body;
-              if (this.user) {
-                this.eventBus.emit(EVENTS.authorization.gotUser);
-              }
-            }
-          }).catch(() => {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          });
+        this.user = response.parsedJson?.body;
+        if (this.user) {
+          this.eventBus.emit(EVENTS.authorization.gotUser);
+          this.lastEvent = EVENTS.authorization.gotUser;
         }
       }
     }).catch(() => {
@@ -70,6 +76,7 @@ class Authorization {
       }
       if (response?.parsedJson?.status === statuses.OK) {
         this.user = null;
+        this.lastEvent = EVENTS.authorization.logOutUser;
       }
     }).catch(() => {
       this.eventBus.emit(EVENTS.App.ErrorPage);

@@ -6,6 +6,7 @@ import {getMenuLinks, menuObjects} from '../consts/profileMenu';
 import {URLS} from '../consts/urls';
 import {statuses} from '../consts/reqStatuses';
 import {ROUTES} from '../consts/routes';
+const maxWordsInURl = 4;
 
 export class ProfileModel extends Model {
   constructor(eventBus) {
@@ -30,7 +31,7 @@ export class ProfileModel extends Model {
   }
 
   getContent = (routeData) => {
-    if (!routeData || !routeData?.path?.path || routeData.path.path.split('/').length > 4) {
+    if (!routeData || !routeData?.path?.path || routeData.path.path.split('/').length > maxWordsInURl) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
@@ -52,7 +53,8 @@ export class ProfileModel extends Model {
           return null;
         }
         getMenuLinks(user.id);
-        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser(this.userId));
+        console.log('emitInProfile');
+        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser());
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
         return null;
@@ -68,10 +70,22 @@ export class ProfileModel extends Model {
   getCurrentPageBlocks = () => {
     switch (this.path) {
       case `${ROUTES.Profile}/${this.userId}`: {
+        this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.Profile}/${this.userId}/reviews_marks`});
         return;
       }
       case menuObjects.settings.href: {
-        this.eventBus.emit(EVENTS.ProfilePage.Render.Settings);
+        const authEvent = authModule.lastEvent;
+        if (authEvent === EVENTS.authorization.notLoggedIn || authEvent === EVENTS.authorization.notLoggedIn) {
+          this.eventBus.emit(EVENTS.App.noAccess);
+          return;
+        }
+        if (authEvent === EVENTS.authorization.gotUser) {
+          if (this.isThisUser()) {
+            this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+          } else {
+            this.eventBus.emit(EVENTS.App.noAccess);
+          }
+        }
         break;
       }
       case menuObjects.reviewsMarks.href: {
@@ -177,22 +191,19 @@ export class ProfileModel extends Model {
     }
   }
 
-  isThisUser = (userId = null) => {
-    if (!userId) {
-      const userIdFromUrl = this.getUserIdFromPath(window.location.pathname);
-      if (!userIdFromUrl || !authModule || !authModule.user || !authModule.user.id) {
-        return;
-      }
-      if (authModule.user.id.toString() === userIdFromUrl) {
-        this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
-      }
-    } else {
-      if (!authModule || !authModule.user || !authModule.user.id) {
-        return false;
-      }
-      if (authModule.user.id.toString() === userId) {
-        return true;
-      }
+  checkSettingsPage = () => {
+    if (!authModule || !authModule.user) {
+      this.eventBus.emit(EVENTS.App.noAccess);
     }
+    if (this.isThisUser()) {
+      this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+    }
+  }
+
+  isThisUser = () => {
+    if (!this.userId || !authModule || !authModule.user || !authModule.user.id) {
+      return false;
+    }
+    return authModule.user.id.toString() === this.userId;
   }
 }

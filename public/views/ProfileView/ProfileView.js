@@ -6,6 +6,7 @@ import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock
 import settingsPug from '../../components/profile/settings/settings.pug';
 import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLink.pug';
 import loader from '../../components/loader/loader.pug';
+import noAccessPug from '../../components/noAccess/noAccess.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
@@ -14,7 +15,6 @@ import baseViewPug from '../BaseView/BaseView.pug';
 import {headerLinks} from '../../consts/header';
 import {statuses} from '../../consts/reqStatuses.js';
 import {createElementFromHTML} from '../../utils/utils.js';
-import {ROUTES} from '../../consts/routes';
 
 
 export class ProfileView extends BaseView {
@@ -37,15 +37,16 @@ export class ProfileView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.eventBus.emit(EVENTS.ProfilePage.GetContent, this.routeData);
+    this.eventBus.emit(EVENTS.ProfilePage.getContent, this.routeData);
   }
 
-  renderContent = (user, isThisUser) => {
+  renderContent = (user, isThisUSer) => {
+    console.log('content', user);
     if (!user || !menuLinks) {
       return;
     }
     this.user = user;
-    this.user.isThisUser = isThisUser;
+    this.user.isThisUser = isThisUSer;
     const content = document.querySelector('.content');
     if (content) {
       const profileHeader = document.querySelector('.profile-header');
@@ -65,18 +66,29 @@ export class ProfileView extends BaseView {
     const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     if (settingsLink) {
+      if (settingsLink.classList.contains('profile-menu__link_active')) {
+        const profileContent = document.querySelector('.profile__profile-content');
+        if (!profileContent) {
+          this.eventBus.emit(EVENTS.App.ErrorPage);
+        }
+        profileContent.innerHTML = noAccessPug();
+      }
       settingsLink.remove();
     }
-    this.eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
   }
 
   addSettingsToMenu = () => {
+    const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
+        .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     const reviewsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.reviewsMarks.name));
-    if (reviewsLink) {
+    if (reviewsLink && !settingsLink) {
       reviewsLink.after(createElementFromHTML(settingsLinkPug({link: menuObjects.settings})));
     }
     this.changeActiveMenuButton(this.routeData.path.path);
+    if (window.location.pathname === menuObjects.settings.href) {
+      this.renderSettingsPage();
+    }
   }
 
   changeActiveMenuButton = (href) => {
@@ -155,6 +167,14 @@ export class ProfileView extends BaseView {
     header.outerHTML = profileHeader(changedUser);
   }
 
+  renderNoAccess = () => {
+    const profileContent = document.querySelector('.profile__profile-content');
+    if (!profileContent) {
+      return;
+    }
+    profileContent.innerHTML = noAccessPug();
+  }
+
   renderSettingsPage = () => {
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
@@ -162,9 +182,6 @@ export class ProfileView extends BaseView {
     }
     if (!this.user || !this.user.profile_pic) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
-    }
-    if (!this.user.isThisUser) {
-      this.eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage);
     }
     for (const input of SettingsInput) {
       input.value = this.user[input.name];

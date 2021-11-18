@@ -77,6 +77,7 @@ export class ProfileModel extends Model {
         if (authEvent === EVENTS.authorization.gotUser) {
           if (this.isThisUser()) {
             this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+            this.eventBus.emit(EVENTS.ProfilePage.Render.Settings);
           } else {
             this.eventBus.emit(EVENTS.App.noAccess);
           }
@@ -196,11 +197,12 @@ export class ProfileModel extends Model {
   }
 
   checkSettingsPage = () => {
-    if (!authModule || !authModule.user || !this.isThisUser()) {
-      this.eventBus.emit(EVENTS.App.noAccess);
-    }
-    if (this.isThisUser()) {
-      this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+    if (window.location.pathname === menuObjects.settings.href) {
+      this.getCurrentPageBlocks();
+    } else {
+      if (this.isThisUser()) {
+        this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+      }
     }
   }
 

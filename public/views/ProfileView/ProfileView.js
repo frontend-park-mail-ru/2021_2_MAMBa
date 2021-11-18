@@ -90,9 +90,6 @@ export class ProfileView extends BaseView {
       reviewsLink.after(createElementFromHTML(settingsLinkPug({link: menuObjects.settings})));
     }
     this.changeActiveMenuButton(this.routeData.path.path);
-    if (window.location.pathname === menuObjects.settings.href) {
-      this.renderSettingsPage();
-    }
   }
 
   changeActiveMenuButton = (href) => {

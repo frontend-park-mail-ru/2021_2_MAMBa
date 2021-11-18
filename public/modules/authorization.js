@@ -60,8 +60,8 @@ class Authorization {
       if (response?.parsedJson?.status === statuses.OK) {
         this.user = response.parsedJson?.body;
         if (this.user) {
-          this.eventBus.emit(EVENTS.authorization.gotUser);
           this.lastEvent = EVENTS.authorization.gotUser;
+          this.eventBus.emit(EVENTS.authorization.gotUser);
         }
       }
     }).catch(() => {

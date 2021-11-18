@@ -15,6 +15,7 @@ import baseViewPug from '../BaseView/BaseView.pug';
 import {headerLinks} from '../../consts/header';
 import {statuses} from '../../consts/reqStatuses.js';
 import {createElementFromHTML} from '../../utils/utils.js';
+import {ROUTES} from '../../consts/routes';
 
 
 export class ProfileView extends BaseView {
@@ -23,6 +24,10 @@ export class ProfileView extends BaseView {
   }
 
   render = (routeData) => {
+    if (window.location.pathname.match(`${ROUTES.Profile}/\\d+/\?$`)) {
+      this.eventBus.emit(EVENTS.ProfilePage.redirectToReviews);
+      return;
+    }
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
@@ -41,7 +46,6 @@ export class ProfileView extends BaseView {
   }
 
   renderContent = (user, isThisUSer) => {
-    console.log('content', user);
     if (!user || !menuLinks) {
       return;
     }
@@ -146,6 +150,14 @@ export class ProfileView extends BaseView {
       inputsData.profile_pic = this.user.profile_pic;
       this.eventBus.emit(EVENTS.ProfilePage.ChangeProfile, inputsData, formData);
     });
+  }
+
+  hideLoader = () => {
+    const moreButton = document.querySelector('.profile__more-btn');
+    if (!moreButton) {
+      return;
+    }
+    moreButton.style.visibility = 'hidden';
   }
 
   hideMoreButton = () => {

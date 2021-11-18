@@ -16,6 +16,7 @@ export class ProfileController extends BaseController {
         {event: EVENTS.Header.LogOut, handler: this.view.deleteSettingsFromMenu},
         {event: EVENTS.authorization.gotUser, handler: this.model.checkSettingsPage},
         {event: EVENTS.authorization.notLoggedIn, handler: this.model.checkSettingsPage},
+        {event: EVENTS.ProfilePage.redirectToReviews, handler: this.model.redirectToReviews},
         {event: EVENTS.App.noAccess, handler: this.view.renderNoAccess},
         {event: EVENTS.ProfilePage.addSettingsToMenu, handler: this.view.addSettingsToMenu},
         {event: EVENTS.ProfilePage.GetCurrentPageBlocks, handler: this.model.getCurrentPageBlocks},

@@ -53,7 +53,6 @@ export class ProfileModel extends Model {
           return null;
         }
         getMenuLinks(user.id);
-        console.log('emitInProfile');
         this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser());
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
@@ -69,10 +68,6 @@ export class ProfileModel extends Model {
 
   getCurrentPageBlocks = () => {
     switch (this.path) {
-      case `${ROUTES.Profile}/${this.userId}`: {
-        this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.Profile}/${this.userId}/reviews_marks`});
-        return;
-      }
       case menuObjects.settings.href: {
         const authEvent = authModule.lastEvent;
         if (authEvent === EVENTS.authorization.notLoggedIn || authEvent === EVENTS.authorization.notLoggedIn) {
@@ -113,11 +108,11 @@ export class ProfileModel extends Model {
         return;
       }
       if (response?.parsedJson?.status === statuses.OK) {
+        if (!response.parsedJson || !response.parsedJson.body) {
+          this.eventBus.emit(EVENTS.App.ErrorPage);
+          return;
+        }
         if (event === EVENTS.ProfilePage.Render.ReviewsMarks) {
-          if (!response.parsedJson.body) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-            return;
-          }
           if (response.parsedJson.body.review_list.length) {
             this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
             this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
@@ -191,8 +186,17 @@ export class ProfileModel extends Model {
     }
   }
 
+  redirectToReviews = () => {
+    const userId = this.getUserIdFromPath(window.location.pathname);
+    if (!userId) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
+    this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.Profile}/${userId}${ROUTES.reviewsMarks}`});
+  }
+
   checkSettingsPage = () => {
-    if (!authModule || !authModule.user) {
+    if (!authModule || !authModule.user || !this.isThisUser()) {
       this.eventBus.emit(EVENTS.App.noAccess);
     }
     if (this.isThisUser()) {

@@ -48,12 +48,12 @@ export class FilmView extends BaseView {
   }
 
   setReadMore = (data) => {
-    const heightText = document.querySelector('.film-info__container-trailer_summery').clientHeight;
-    if (heightText > 120) {
+    const summery = document.querySelector('.trailer__summery');
+    if (summery.clientHeight > 120) {
       const template = readMore(data);
-      const content = document.querySelector('.film-info__container-trailer_summery');
-      if (content) {
-        content.innerHTML = template;
+      const content = document.querySelector('.trailer__summery');
+      if (summery) {
+        summery.innerHTML = template;
       }
     }
   }
@@ -85,7 +85,7 @@ export class FilmView extends BaseView {
   }
 
   rating = (filmId) => {
-    const rating = document.querySelector('.rating_stars');
+    const rating = document.querySelector('.rating__stars');
     const ratingItem = document.querySelectorAll('.rating-item');
     rating.addEventListener('click', (e) => {
       e.preventDefault();
@@ -99,7 +99,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function (e) {
+    rating.onmouseover = function(e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -107,7 +107,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function () {
+    rating.onmouseout = function() {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
@@ -250,14 +250,13 @@ export class FilmView extends BaseView {
    * Render button to successful sending.
    */
   renderSuccessfulSend = () => {
-
     const template = successfulSendButton();
     const sendButton = this.getSendButtonFromDom();
     const clearButton = document.querySelector('.clear-button');
     if (clearButton) {
-      clearButton.classList.add("disabled-clear-button");
-      clearButton.classList.remove("clear-button");
-      clearButton.classList.remove("review_button");
+      clearButton.classList.add('disabled-clear-button');
+      clearButton.classList.remove('clear-button');
+      clearButton.classList.remove('review_button');
     }
 
     if (sendButton) {

@@ -7,7 +7,7 @@ export const deployUrl = 'https://film4u.club';
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;
 
-export const currentUrl = deployUrl;
+export const currentUrl = localUrl;
 
 export const URLS = {
   pages: {
@@ -35,5 +35,7 @@ export const URLS = {
     getBookmarks: `${currentUrl}/api/user/getBookmarks`,
     getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
+    genres: `${currentUrl}/api/genres/getGenres`,
+    genre: `${currentUrl}/api/genres/getGenre?id=`,
   },
 };

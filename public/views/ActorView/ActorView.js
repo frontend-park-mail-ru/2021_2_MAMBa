@@ -44,7 +44,7 @@ export class ActorView extends BaseView {
   }
 
   checkShowMoreButton = (available) => {
-    const buttonShowMore = document.querySelector('.show-more-films');
+    const buttonShowMore = document.querySelector('.button__show-more');
     if (!available) {
       buttonShowMore.classList.add('hidden');
     }
@@ -56,7 +56,7 @@ export class ActorView extends BaseView {
       skip: data.skip + data.limit,
       limit: data.limit,
     };
-    const buttonShowMore = document.querySelector('.show-more-films');
+    const buttonShowMore = document.querySelector('.button__show-more');
     buttonShowMore.addEventListener('click', (e) => {
       e.preventDefault();
       this.eventBus.emit(EVENTS.actorPage.getFilms, newData);
@@ -69,7 +69,7 @@ export class ActorView extends BaseView {
    */
   renderFilms = (data) => {
     const template = actorFilmsContent(data);
-    const showMoreContainer = document.querySelector('.actor-info__black-container_films-with-description_container');
+    const showMoreContainer = document.querySelector('.films-with-description__container');
     if (showMoreContainer) {
       showMoreContainer.innerHTML += template;
     }

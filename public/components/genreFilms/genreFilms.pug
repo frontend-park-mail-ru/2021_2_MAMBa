@@ -1,0 +1,10 @@
+include ../filmCard/filmCard
+div.collections
+    span.page-title
+        = `Жанр  «${genreName}»`
+    div(class ="black-container")
+            div.films-with-description__container
+                <div id="infinite-scroll">
+                each film, _ in filmsWithDescription
+                  +filmCard(film)
+

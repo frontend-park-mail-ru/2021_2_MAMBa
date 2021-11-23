@@ -1,18 +1,18 @@
 @import '../../css/consts';
 
 .button-more {
-  display: block;
-  margin: 30px auto 0 auto;
+  display: inline-flex;
+  //margin: 30px auto 0 auto;
   padding: 8px 100px;
   cursor: pointer;
   height: 46px;
+  align-items: center;
   background: linear-gradient(
                   104deg,
                   $grey-background 0%,
                   $light-grey 100%
   );
   border-radius: 10px;
-  max-width: 390px;
   box-shadow: 0 0 4px 0 $grey-shadow;
   color: $white;
   font-family: "Montserrat-Bold", "Arial", sans-serif;

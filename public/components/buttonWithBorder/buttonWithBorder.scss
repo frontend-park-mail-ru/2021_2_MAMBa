@@ -1,9 +1,8 @@
 @import '../../css/consts';
 
 .button-with-border {
+  display: inline-flex;
   background-color: $white;
-  grid-row-start: 5;
-  grid-row-end: 6;
   border-radius: 10px;
   border: 4px solid $purple-button;
   cursor: pointer;

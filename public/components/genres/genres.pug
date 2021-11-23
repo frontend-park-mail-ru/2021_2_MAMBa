@@ -1,0 +1,8 @@
+include ../genreCard/genreCard
+div.collections
+    div.page-title Жанры
+    div.collections__black-background
+        div(class = "collections__container collections__container_genres-column-number")
+          each input, _ in genres
+              +genreCard(input)
+

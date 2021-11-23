@@ -120,8 +120,8 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     film: convertArrayToFilmInfo(filmInfoJson.film),
     reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
     recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
-    myRating: filmInfoJson.my_review.stars|| 1,
-    myReview : convertReviewToReviewPage(filmInfoJson.my_review)
+    myRating: filmInfoJson.my_review?.stars || 1,
+    myReview: convertReviewToReviewPage(filmInfoJson.my_review),
   }
 );
 /**
@@ -148,7 +148,8 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
 export const convertArrayToFilmInfo = (arrayContent) => {
   const duration = (arrayContent.content_type === 'film') ?
       `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
-  const rating = (!(arrayContent.rating%1)||arrayContent.rating===10)?`${arrayContent.rating}.0`:arrayContent.rating;
+  const rating = (!(arrayContent.rating % 1) || arrayContent.rating === 10) ?
+      `${arrayContent.rating}.0` : arrayContent.rating;
   return {
     ...arrayContent,
     titleOriginal: arrayContent?.title_original,
@@ -202,13 +203,13 @@ export const convertArrayToGenresArray = (arrayContent) => {
 export const convertReviewToReviewPage = (reviewInfoJson) => {
   let classType = 0;
   let classButtonType;
-  if (reviewInfoJson.review_type === 1) {
+  if (reviewInfoJson?.review_type === 1) {
     classType = 'negative-review';
     classButtonType = 'negative-button';
-  } else if (reviewInfoJson.review_type === 2) {
+  } else if (reviewInfoJson?.review_type === 2) {
     classType = 'neutral-review';
     classButtonType = 'neutral-button';
-  } else if (reviewInfoJson.review_type === 3) {
+  } else if (reviewInfoJson?.review_type === 3) {
     classType = 'positive-review';
     classButtonType = 'positive-button';
   }
@@ -218,8 +219,8 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     authorAvatar: `https://film4u.club${reviewInfoJson?.author_picture_url}`,
     filmTitle: reviewInfoJson?.film_title_ru,
     authorName: reviewInfoJson?.author_name,
-    reviewText: reviewInfoJson.review_text || 0,
-    date: reviewInfoJson.date,
+    reviewText: reviewInfoJson?.review_text || 0,
+    date: reviewInfoJson?.date,
   };
 };
 
@@ -235,5 +236,48 @@ export const convertCollectionToCollectionPage = (collectionInfoJson) => (
     id: collectionInfoJson.collection.id,
     filmsWithDescription:
           convertArrayToFilmWithDescription(collectionInfoJson.films),
+  }
+);
+
+/**
+ * Union actors and their ids.
+ * @param {object} genres - Info about genres from json.
+ * @return {object} - Object for render genres information
+ */
+export const convertArrayToGenres = (genres) => {
+  return genres.map((jsonGender) => {
+    return {
+      title: jsonGender?.title,
+      genreAvatar: `${jsonGender?.picture_url}`,
+      href: `/genres/${jsonGender.id}`,
+    };
+  });
+};
+
+/**
+ * Union genres.
+ * @param {object} genresInfoJson - Info about genres from json.
+ * @return {object} - Object for render genres information
+ */
+export const convertArrayToGenresPage = (genresInfoJson) => (
+  {
+    genres: convertArrayToGenres(genresInfoJson.genres_list),
+  }
+);
+
+/**
+ * Union genre.
+ * @param {object} genreInfoJson - Info about genre from json.
+ * @return {object} - Object for render genre information
+ */
+export const convertArrayToGenrePage = (genreInfoJson) => (
+  {
+    id: genreInfoJson.id,
+    genreName: genreInfoJson.title,
+    moreAvailable: genreInfoJson?.more_available || false,
+    skip: genreInfoJson.current_skip,
+    limit: genreInfoJson.current_limit,
+    filmsWithDescription:
+          convertArrayToFilmWithDescription(genreInfoJson.film_list),
   }
 );

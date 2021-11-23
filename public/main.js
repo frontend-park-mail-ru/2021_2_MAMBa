@@ -7,6 +7,8 @@ import {AuthPageController} from './controllers/authController.js';
 import {ProfileController} from './controllers/profileController.js';
 import {ActorPageController} from './controllers/actorController.js';
 import {CollectionPageController} from './controllers/collectionController.js';
+import {GenresPageController} from './controllers/genresController';
+import {GenrePageController} from './controllers/genreController';
 
 import {Router} from './modules/router.js';
 import {ROUTES} from './consts/routes.js';
@@ -35,6 +37,8 @@ const profileController = new ProfileController();
 const filmPageController = new FilmPageController();
 const reviewPageController = new ReviewPageController();
 const collectionPageController = new CollectionPageController();
+const genresPageController = new GenresPageController();
+const genrePageController = new GenrePageController();
 
 const router = new Router(ROOT);
 
@@ -46,4 +50,6 @@ router.register(ROUTES.homePage, homePageController)
     .register(ROUTES.RegPage, authPageController)
     .register(ROUTES.Profile, profileController)
     .register(ROUTES.actorPage, actorPageController)
+    .register(ROUTES.genres, genresPageController)
+    .register(ROUTES.genrePage, genrePageController)
     .start();

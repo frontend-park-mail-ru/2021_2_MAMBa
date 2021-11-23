@@ -1,6 +1,8 @@
 export const ROUTES = {
   homePage: '/',
   collections: '/collections',
+  genres: '/genres',
+  genrePage: '/genres/\\d+',
   reviewPage: '/reviews/\\d+',
   AuthPage: '/auth',
   RegPage: '/reg',

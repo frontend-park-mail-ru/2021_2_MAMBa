@@ -13,7 +13,6 @@ export const EVENTS = {
   },
   homepage: {
     render: {
-      page: 'homepage:render',
       errorPage: 'homepage:renderErrorPage',
       header: 'homepage:renderHeader',
       content: 'homepage:renderContent',
@@ -22,6 +21,24 @@ export const EVENTS = {
       infoForHeader: 'homepage:InfoForHeader',
       mainPageContent: 'homepage:getCollections',
     },
+  },
+  genresPage: {
+    render: {
+      errorPage: 'genresPage:renderErrorPage',
+      header: 'genresPage:renderHeader',
+      content: 'genresPage:renderContent',
+    },
+    get: {
+      genresPageContent: 'genresPage:getGenres',
+    },
+  },
+  genrePage: {
+    render: {
+      content: 'genrePage:renderContent',
+      films: 'genrePage:renderFilms',
+    },
+    getPageContent: 'genrePage:getPageContent',
+    getFilms: 'genrePage:getFilms',
   },
   AuthPage: {
     Render: {

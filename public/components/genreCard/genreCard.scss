@@ -1,0 +1,40 @@
+@import '../../css/consts';
+
+.genre{
+  border-radius: 10px;
+  transition: all .2s ease-out;
+  text-decoration: none;
+  flex-direction: column;
+  background: linear-gradient(
+                  104deg,
+                  $grey-background 0%,
+                  $light-grey 100%
+  );
+
+  &__wrapper {
+    flex-direction: column;
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  &__name {
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    color: $white;
+  }
+
+  &:hover {
+    position: relative;
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

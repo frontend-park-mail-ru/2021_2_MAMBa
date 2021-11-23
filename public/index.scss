@@ -29,6 +29,7 @@
 @import 'components/profile/starsAndReviews/starsAndReviews.scss';
 @import 'components/profile/starsAndReviews/reviewBlock/reviewBlock.scss';
 @import 'components/404/404.scss';
+@import 'components/genreCard/genreCard.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';
@@ -59,11 +60,10 @@ html, body {
   width: 100vw;
   height: 100%;
   border: 0;
-  overflow-x: hidden;
 }
 
 body {
-  overflow-y: scroll;
+  //overflow-y: scroll;
 }
 
 .content {
@@ -82,6 +82,12 @@ body {
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 30px;
   margin-bottom: 20px;
+}
+
+.page-title {
+  display: flex;
+  font-family: "Montserrat-Bold", "Arial", sans-serif;;
+  font-size: 40px;
 }
 
 .hidden {
@@ -103,4 +109,12 @@ body {
 
 .color-text-pink {
   color: $pink;
+}
+
+.black-container {
+  margin-top: $block_indentation;
+  background-color: $grey-background;
+  border-radius: 20px;
+  color: $white;
+  padding: 30px;
 }

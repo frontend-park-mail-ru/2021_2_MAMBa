@@ -115,7 +115,7 @@ const getInfoAboutActor = async (actorId) => {
  */
 const getActorFilms = async (actorId, limit, skip) => {
   const params = {
-    url: `${URLS.api.actorFilms}${actorId}&skip=${limit}&limit=${skip}`,
+    url: `${URLS.api.actorFilms}${actorId}&skip=${skip}&limit=${limit}`,
     method: 'GET',
   };
 
@@ -343,6 +343,80 @@ const getNProfilePagesBlocks = async (url, id, limit, skip) => {
   }
 };
 
+/**
+ * Send async get request using async func.
+ * @return {array} - Array of objects for render genres page.
+ */
+const getGenres = async () => {
+  const params = {
+    url: URLS.api.genres,
+    method: 'GET',
+    credentials: 'include',
+  };
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {object} genreId - Contains id of genres to render.
+ * @return {array} - Array of objects for render genre page.
+ */
+
+
+const getInfoAboutGenre = async (genreId) => {
+  const limit = 6;
+  const skip = 0;
+  const params = {
+    url: `${URLS.api.genre}${genreId}&skip=${skip}&limit=${limit}`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {number} genreId - Contains id of genre to render.
+ * @param {number} skip - Contains count 0f rendered films.
+ * @param {number} limit - Contains count of films to render.
+ * @return {array} - Array of objects for render actor page.
+ */
+const getGenreFilms = async (genreId, skip, limit) => {
+  const params = {
+    url: `${URLS.api.genre}${genreId}&skip=${skip}&limit=${limit}`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 
 export {
   getCollectionFilms,
@@ -363,4 +437,7 @@ export {
   register,
   login,
   logout,
+  getGenres,
+  getInfoAboutGenre,
+  getGenreFilms,
 };

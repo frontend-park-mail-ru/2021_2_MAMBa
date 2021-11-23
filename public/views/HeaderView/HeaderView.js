@@ -67,7 +67,7 @@ export class HeaderView extends BaseView {
     }
     const userName = authModule.user.first_name;
     changeBlock.replaceWith(createElementFromHTML(userBlock({
-      userName: userName.length > symbolCount ? userName.substr(0, symbolCount) + '...' : userName,
+      userName: userName.length > 11 ? userName.substr(0, symbolCount) + '...' : userName,
       imgSrc: authModule.user.profile_pic,
       userId: authModule.user.id,
       profileHref: ROUTES.Profile,

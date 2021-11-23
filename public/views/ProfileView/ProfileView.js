@@ -45,17 +45,17 @@ export class ProfileView extends BaseView {
     this.eventBus.emit(EVENTS.ProfilePage.getContent, this.routeData);
   }
 
-  renderContent = (user, isThisUSer) => {
+  renderContent = (user, isThisUser) => {
     if (!user || !menuLinks) {
       return;
     }
     this.user = user;
-    this.user.isThisUser = isThisUSer;
+    this.user.isThisUser = isThisUser;
     const content = document.querySelector('.content');
     if (content) {
       const profileHeader = document.querySelector('.profile-header');
       const profileMenu = document.querySelector('.profile-menu');
-      if (!profileHeader || !profileMenu) {
+      if (!profileHeader || !profileMenu || profileHeader.dataset.user !== this.user.id) {
         content.innerHTML = profilePug(Object.assign(this.user, menuLinks));
       }
     } else {
@@ -242,7 +242,7 @@ export class ProfileView extends BaseView {
       }
       starsAndReviews.innerHTML += reviewsContent(reviewsMarks.body);
     }
-    if (!reviewsMarks.more_available) {
+    if (!reviewsMarks.body.more_available) {
       this.hideMoreButton();
     }
     this.submitMoreButton();

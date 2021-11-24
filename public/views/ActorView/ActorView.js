@@ -3,6 +3,8 @@ import actorPageContent from '../../components/actor/actor.pug';
 import actorFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
+import {showMore} from '../../utils/showMore.js'
+import {checkShowMoreButton} from '../../utils/showMore.js'
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {
@@ -36,31 +38,11 @@ export class ActorView extends BaseView {
       content.innerHTML = template;
       this.setAnchorActions();
       this.setSliderActions();
-      this.checkShowMoreButton(this.dataActor.moreAvailable);
-      this.showMore(this.dataActor);
+      checkShowMoreButton(this.dataActor.moreAvailable,".button__show-more" )
+      showMore(this.dataActor, ".button__show-more", EVENTS.actorPage.getFilms);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
-  }
-
-  checkShowMoreButton = (available) => {
-    const buttonShowMore = document.querySelector('.button__show-more');
-    if (!available) {
-      buttonShowMore.classList.add('hidden');
-    }
-  }
-
-  showMore = (data) => {
-    const newData = {
-      id: data.id,
-      skip: data.skip + data.limit,
-      limit: data.limit,
-    };
-    const buttonShowMore = document.querySelector('.button__show-more');
-    buttonShowMore.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.eventBus.emit(EVENTS.actorPage.getFilms, newData);
-    });
   }
 
   /**
@@ -76,7 +58,7 @@ export class ActorView extends BaseView {
     this.dataActor.moreAvailable=data.moreAvailable;
     this.dataActor.skip= data.skip;
     this.dataActor.limit=data.limit;
-    this.checkShowMoreButton(this.dataActor.moreAvailable);
+    checkShowMoreButton(this.dataActor.moreAvailable, ".button__show-more");
   }
 
   /**

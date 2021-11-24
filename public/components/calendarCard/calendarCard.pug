@@ -1,0 +1,13 @@
+mixin calendarCard (i)
+    div.premiere__item
+        a(class = "premiere__image _ibg" href=`${i.href}`)
+            img(src=i.filmAvatar alt ="")
+        div.premiere__body
+            a(class = "premiere__title" href=`${i.href}`) #{i.title}
+            div.premiere__subtitle #{i.titleOriginal}
+            div.premiere__info
+                //TODO: do when backend done
+            div(class = "premiere__text text") #{i.description}
+
+
+

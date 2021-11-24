@@ -35,19 +35,19 @@ export class GenreView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.showScrollMore(this.dataGenre);
+      this.showScrollMore();
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
-  showScrollMore = (data) => {
+  showScrollMore = () => {
     window.addEventListener('scroll', () => {
       const block = document.getElementById('infinite-scroll');
 
-      const contentHeight = block.offsetHeight; // 1) высота блока контента вместе с границами
-      const yOffset = window.pageYOffset; // 2) текущее положение скролбара
-      const window_height = window.innerHeight; // 3) высота внутренней области окна документа
+      const contentHeight = block.offsetHeight;
+      const yOffset = window.pageYOffset;
+      const window_height = window.innerHeight;
       const y = yOffset + window_height;
 
       if (y >= contentHeight && this.dataGenre.moreAvailable) {

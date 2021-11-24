@@ -71,9 +71,6 @@ div.film
                 div.rating__score
                     div(class = "rating-number rating__text-number") #{film.rating}
                         div.rating__text-underline
-                //div.rating_stars_number
-                //    div(class = "rating-number rating_stars_number_text") #{film.rating}
-                //        div.rating_stars_number_text_line
                 if (myReview.reviewText !== 0)
                     a(class="button__write-review scroll-to" href="#review") Посмотреть отзыв
                 else
@@ -103,21 +100,3 @@ div.film
             div(class=`review-info__review ${myReview.classType}`)
                 div.review-info__review_text #{myReview.reviewText}
                 div.film-review__date #{myReview.date}
-
-    //div.film-info__white-container
-    //    div.film-info__white-container_rec-films
-    //        div.block-subtitle С фильмом
-    //            span
-    //                = ' '
-    //            span.color-text-pink #{film.title}
-    //            span
-    //                = ' смотрят'
-    //        +slider(recommendations)
-    //    if (myReview.reviewText===0)
-    //        div.film-info__white-container_review#review Написать отзыв
-    //            +inputReview
-    //    else
-    //        div.film-info__white-container_review#review Мой отзыв
-    //        div(class=`review-info__review ${myReview.classType}`)
-    //            div.review-info__review_text #{myReview.reviewText}
-    //            div.film-info__white-container_review_date #{myReview.date}

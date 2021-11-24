@@ -3,6 +3,7 @@ export const ROUTES = {
   collections: '/collections',
   genres: '/genres',
   genrePage: '/genres/\\d+',
+  calendarPage: '/premieres',
   reviewPage: '/reviews/\\d+',
   AuthPage: '/auth',
   RegPage: '/reg',

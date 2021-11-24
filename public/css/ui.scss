@@ -1,0 +1,32 @@
+.title {
+	font-family: "Montserrat-Bold", "Arial", sans-serif;;
+	font-size: 40px;
+
+	@media (max-width: $md3+px) {
+		font-size: 30px;
+	}
+}
+.text {
+	font-size: 16px;
+	color: #21243d;
+}
+
+.title-posts {
+	font-size: 22px;
+	@media (max-width: $md3+px) {
+		text-align: center;
+		font-size: 18px;
+	}
+}
+
+._ibg {
+	position: relative;
+	img {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		object-fit: cover;
+	}
+}

@@ -281,3 +281,41 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
           convertArrayToFilmWithDescription(genreInfoJson.film_list),
   }
 );
+
+/**
+ * Union actor`s film.
+ * @param {object} arrayContent - Info about films with descriptions from json.
+ * @return {object} - Object for render films with descriptions.
+ */
+export const convertArrayToPremierFilms = (arrayContent) => {
+  return arrayContent.map((jsonFilm) => {
+    //todo:разделить месяц и год
+    return {
+      id: jsonFilm.id,
+      title: jsonFilm.title,
+      titleOriginal: arrayContent?.title_original || "",
+      rating: jsonFilm?.rating||"",
+      //todo:сделать когда бек будет присылать эту инфу
+      // genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
+      // director: arrayContent?.director.name_rus || '-',
+      // actors: convertArrayToActorArray(arrayContent?.cast) || '-',
+      description: jsonFilm?.description || '-',
+      year: jsonFilm?.release_year || '-',
+      // filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
+      filmAvatar: `${jsonFilm.poster_url}`,
+      href: `/films/${jsonFilm.id}`,
+    };
+  });
+};
+
+/**
+ * Union genre.
+ * @param {object} calendarInfoJson - Info about premieres from json.
+ * @return {object} - Object for premieres c information
+ */
+export const convertArrayToCalendarPage = (calendarInfoJson) => (
+    {
+      premieres:
+          convertArrayToPremierFilms(calendarInfoJson.films),
+    }
+);

@@ -37,5 +37,6 @@ export const URLS = {
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
     genres: `${currentUrl}/api/genres/getGenres`,
     genre: `${currentUrl}/api/genres/getGenre?id=`,
+    calendar: `${currentUrl}/api/films/premieres`,
   },
 };

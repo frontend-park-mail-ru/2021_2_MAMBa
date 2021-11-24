@@ -370,8 +370,6 @@ const getGenres = async () => {
  * @param {object} genreId - Contains id of genres to render.
  * @return {array} - Array of objects for render genre page.
  */
-
-
 const getInfoAboutGenre = async (genreId) => {
   const limit = 6;
   const skip = 0;
@@ -417,6 +415,29 @@ const getGenreFilms = async (genreId, skip, limit) => {
   }
 };
 
+/**
+ * Send async get request using async func.
+ * @param {number} year - Contains year 0f premiers.
+ * @param {number} month - Contains month of premiers to render.
+ * @return {array} - Array of objects for render calendar page.
+ */
+const getInfoAboutPremiers = async (year, month) => {
+  const params = {
+    url: `${URLS.api.calendar}?year=${year}&month=${month}`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 export {
   getCollectionFilms,
@@ -440,4 +461,6 @@ export {
   getGenres,
   getInfoAboutGenre,
   getGenreFilms,
+  getInfoAboutPremiers,
 };
+

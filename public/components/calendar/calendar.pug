@@ -1,0 +1,7 @@
+include ../calendarCard/calendarCard
+div.wrapper
+    main.page
+        div(class = "calendar page__container _container")
+            h1(class="works__main-title title") Календарь релизов
+            each premiere, _ in premieres
+                +calendarCard(premiere)

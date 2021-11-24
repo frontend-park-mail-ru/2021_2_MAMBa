@@ -40,6 +40,14 @@ export const EVENTS = {
     getPageContent: 'genrePage:getPageContent',
     getFilms: 'genrePage:getFilms',
   },
+  calendarPage: {
+    render: {
+      content: 'calendarPage:renderContent',
+      films: 'calendarPage:renderFilms',
+    },
+    getPageContent: 'calendarPage:getPageContent',
+    getFilms: 'calendarPage:getFilms',
+  },
   AuthPage: {
     Render: {
       Page: 'authPage:render',

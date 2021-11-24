@@ -9,6 +9,8 @@
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
 @import 'css/consts.scss';
+@import 'css/style.scss';
+@import 'css/ui.scss';
 @import 'components/actor/actor.scss';
 @import 'components/slider/slider.scss';
 @import 'components/filmCard/filmdCard.scss';
@@ -30,6 +32,7 @@
 @import 'components/profile/starsAndReviews/reviewBlock/reviewBlock.scss';
 @import 'components/404/404.scss';
 @import 'components/genreCard/genreCard.scss';
+@import 'components/calendarCard/calendarCard.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';

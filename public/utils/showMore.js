@@ -32,18 +32,25 @@ export const checkShowMoreButton = (available, buttonClass) => {
 /**
  * Render content favourites page from pug template to content div.
  * @param {object} newData - Contains info about actor films to show.
- * @param {object} dataOfRenderedFilms - Contains info about actor films before show more.
  */
-export const renderFilms = (newData, dataOfRenderedFilms) => {
+export const renderFilms = (newData) => {
   const template = actorFilmsContent(newData);
   const showMoreContainer = document.querySelector('.films-with-description__container');
   if (showMoreContainer) {
     showMoreContainer.innerHTML += template;
   }
+  checkShowMoreButton(newData.moreAvailable, '.button__show-more');
+};
+
+/**
+ * Update data of rendered films.
+ * @param {object} newData - Contains info about actor films to show.
+ * @param {object} dataOfRenderedFilms - Contains info about actor films before show more.
+ */
+export const updateRenderFilmsData = (newData, dataOfRenderedFilms) => {
   dataOfRenderedFilms.moreAvailable = newData.moreAvailable;
   dataOfRenderedFilms.skip = newData.skip;
   dataOfRenderedFilms.limit = newData.limit;
-  checkShowMoreButton(dataOfRenderedFilms.moreAvailable, '.button__show-more');
 };
 
 
@@ -63,7 +70,6 @@ export const showScrollMore = (data, event, condition) => {
       data.year = newData[0];
       data.month = newData[1];
       eventBus.emit(event, data.year, data.month);
-      // contentHeight = block.offsetHeight;
     }
   });
 

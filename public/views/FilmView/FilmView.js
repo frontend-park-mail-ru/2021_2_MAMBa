@@ -5,7 +5,7 @@ import readMore from '../../components/textReadMore/textReadMore.pug';
 import successfulSendButton from '../../components/successfulSendButton/successfulSendButton.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
-import {setAnchorActions} from '../../utils/anchorAction.js'
+import {setAnchorActions} from '../../utils/anchorAction.js';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {

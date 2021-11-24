@@ -1,11 +1,10 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
-import actorFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
-import {showMore} from '../../utils/showMore.js'
-import {checkShowMoreButton} from '../../utils/showMore.js'
-import {setAnchorActions} from '../../utils/anchorAction.js'
+import {showMore} from '../../utils/showMore.js';
+import {checkShowMoreButton} from '../../utils/showMore.js';
+import {setAnchorActions} from '../../utils/anchorAction.js';
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {
@@ -16,7 +15,6 @@ export class ActorView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataActor;
   }
 
   /**
@@ -33,14 +31,13 @@ export class ActorView extends BaseView {
    */
   renderContent = (data) => {
     const template = actorPageContent(data);
-    this.dataActor= data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
       setAnchorActions();
       this.setSliderActions();
-      checkShowMoreButton(this.dataActor.moreAvailable,".button__show-more" )
-      showMore(this.dataActor, ".button__show-more", EVENTS.actorPage.getFilms);
+      checkShowMoreButton(data.moreAvailable, '.button__show-more' );
+      showMore(data, '.button__show-more', EVENTS.actorPage.getFilms);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }

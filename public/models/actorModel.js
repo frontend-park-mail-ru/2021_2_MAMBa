@@ -45,7 +45,8 @@ export class ActorPageModel {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.actorPage.render.films, convertArrayToActorFilms(response.body), dataBeforeShowMore);
+            this.eventBus.emit(EVENTS.actorPage.render.films,
+                convertArrayToActorFilms(response.body), dataBeforeShowMore);
           }
         });
   }

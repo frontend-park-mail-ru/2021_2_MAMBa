@@ -1,30 +1,35 @@
 @import '../../css/consts';
 
-.premiere{
+.calendar {
+  &__date {
+    border-bottom: 2px solid $pink;
+  }
+}
+
+.premiere {
   &__items {
     padding: 0px 0px 60px 0px;
     @media (max-width: $md3+px) {
       padding: 0px 0px 30px 0px;
     }
   }
-  &__main-title {
-    margin: 0px 0px 45px 0px;
-    @media (max-width: $md3+px) {
-      margin: 0px 0px 20px 0px;
-    }
-  }
+
   &__item {
+    align-items: flex-start;
     padding: 0px 0px 30px 0px;
     margin: 0px 0px 30px 0px;
     border-bottom: 2px solid $grey-inputs;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     @media (min-width: $md3+px) {
       display: flex;
       align-items: flex-start;
     }
   }
+
   &__image {
     flex: 0 0 140px;
     display: block;
@@ -36,12 +41,14 @@
       padding: 150% 0px 0px 0px;
     }
   }
+
   &__body {
     flex: 1 1 auto;
     @media (min-width: $md3+px) {
-      padding: 0px 0px 0px 18px;
+      padding: 0px 30px 0 20px;
     }
   }
+
   &__title {
     color: inherit;
     display: inline-block;
@@ -49,9 +56,11 @@
     font-weight: 700;
     margin: 0px 0px 15px 0px;
     transition: color 0.3s ease 0s;
+
     &:hover {
       color: $pink;
     }
+
     @media (max-width: $md3+px) {
       font-size: 24px;
     }
@@ -61,38 +70,36 @@
       //}
     }
   }
-  &__info {
+
+  &__main-info {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__description {
+    text-align: justify;
+    display: flex;
     margin: 0px 0px 15px 0px;
   }
-  &__year {
-    background: #142850;
-    border-radius: 16px;
-    height: 25px;
-    padding: 0px 10px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: 900;
-    font-size: 18px;
-  }
-  &__category {
-    color: #8695a4;
-    font-size: 20px;
-    margin: 0px 0px 0px 25px;
-  }
-  &__text {
+
+  &__rating_number {
+    text-align: center;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    font-size: 30px;
+    color: $pink;
+    margin-bottom: 11px;
   }
 
+  &__day {
+    margin-bottom: 10px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 70px;
+    font-family: "Montserrat-Black", "Arial", sans-serif;
+  }
 
-
-  .title-posts {
-    font-size: 22px;
-    @media (max-width: $md3+px) {
-      text-align: center;
-      font-size: 18px;
-    }
+  &__month {
+    text-align: center;
   }
 }

@@ -5,6 +5,7 @@ import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 import {showMore} from '../../utils/showMore.js'
 import {checkShowMoreButton} from '../../utils/showMore.js'
+import {setAnchorActions} from '../../utils/anchorAction.js'
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {
@@ -36,7 +37,7 @@ export class ActorView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.setAnchorActions();
+      setAnchorActions();
       this.setSliderActions();
       checkShowMoreButton(this.dataActor.moreAvailable,".button__show-more" )
       showMore(this.dataActor, ".button__show-more", EVENTS.actorPage.getFilms);
@@ -120,24 +121,5 @@ export class ActorView extends BaseView {
       }
     };
     checkButtons();
-  }
-  /**
-   * Set anchor actions.
-   */
-  setAnchorActions = () => {
-    const anchors = document.querySelectorAll('.scroll-to');
-
-    for (const anchor of anchors) {
-      anchor.addEventListener('click', (e) =>{
-        e.preventDefault();
-
-        const blockID = anchor.getAttribute('href');
-
-        document.querySelector(blockID).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      });
-    }
   }
 }

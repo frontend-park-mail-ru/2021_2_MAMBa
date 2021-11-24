@@ -1,3 +1,6 @@
+@import 'css/consts.scss';
+@import 'css/style.scss';
+@import 'css/ui.scss';
 @import 'components/header/navbar.scss';
 @import 'components/header/searchBlock/search';
 @import 'components/header/userBlock/userBlock';
@@ -8,9 +11,6 @@
 @import 'components/textInputs/textInputs.scss';
 @import 'components/collections/collections.scss';
 @import 'components/loader/loader.scss';
-@import 'css/consts.scss';
-@import 'css/style.scss';
-@import 'css/ui.scss';
 @import 'components/actor/actor.scss';
 @import 'components/slider/slider.scss';
 @import 'components/filmCard/filmdCard.scss';

@@ -2,6 +2,7 @@ include ../calendarCard/calendarCard
 div.wrapper
     main.page
         div(class = "calendar page__container _container")
-            h1(class="works__main-title title") Календарь релизов
+            h1(class="premiere__main-title title") Календарь релизов
+            div.calendar__date #{dateCalendarl}
             each premiere, _ in premieres
                 +calendarCard(premiere)

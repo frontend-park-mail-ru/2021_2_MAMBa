@@ -23,30 +23,6 @@ export class CalendarView extends BaseView {
     let data = new Date();
     let year = data.getFullYear();
     let month = data.getMonth();
-    let monthName
-    // Преобразуем месяца
-    switch (month)
-    {
-      case 0: monthName="января"; break;
-      case 1: monthName="февраля"; break;
-      case 2: monthName="марта"; break;
-      case 3: monthName="апреля"; break;
-      case 4: monthName="мае"; break;
-      case 5: monthName="июня"; break;
-      case 6: monthName="июля"; break;
-      case 7: monthName="августа"; break;
-      case 8: monthName="сентября"; break;
-      case 9: monthName="октября"; break;
-      case 10: monthName="ноября"; break;
-      case 11: monthName="декабря"; break;
-    }
-    // const splittedDate = splitDate(date);
-    // const year = splittedDate[0];
-    // const month = splittedDate[1];
-    // const day = splittedDate[2];
-    // console.log(year);
-    // console.log(month);
-    // console.log(day);
     this.eventBus.emit(EVENTS.calendarPage.getPageContent,year, month+1);
   }
 

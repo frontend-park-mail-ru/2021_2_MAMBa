@@ -25,7 +25,7 @@ export class CalendarPageModel {
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.calendarPage.render.content, convertArrayToCalendarPage(response.body));
+            this.eventBus.emit(EVENTS.calendarPage.render.content, convertArrayToCalendarPage(response.body, year, month));
           }
           // TODO: отрисовывать стр если premieres нет в бд
           // if (response.parsedJson.status === 404) {}

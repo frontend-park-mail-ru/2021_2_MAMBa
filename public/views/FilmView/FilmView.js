@@ -5,6 +5,7 @@ import readMore from '../../components/textReadMore/textReadMore.pug';
 import successfulSendButton from '../../components/successfulSendButton/successfulSendButton.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
+import {setAnchorActions} from '../../utils/anchorAction.js'
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -41,7 +42,7 @@ export class FilmView extends BaseView {
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
       this.setReadMore(data);
-      this.setAnchorActions();
+      setAnchorActions();
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
@@ -387,24 +388,5 @@ export class FilmView extends BaseView {
       }
     };
     checkButtons();
-  }
-  /**
-   * Set anchor actions.
-   */
-  setAnchorActions = () => {
-    const anchors = document.querySelectorAll('a.scroll-to');
-
-    for (const anchor of anchors) {
-      anchor.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const blockID = anchor.getAttribute('href');
-
-        document.querySelector(blockID).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      });
-    }
   }
 }

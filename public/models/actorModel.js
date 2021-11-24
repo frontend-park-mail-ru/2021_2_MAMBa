@@ -35,17 +35,18 @@ export class ActorPageModel {
         });
   }
 
-  getActorFilmsContent = (actor) => {
-    if (!actor?.id && !actor?.limit && !actor?.limit) {
+  getActorFilmsContent = (actor, dataBeforeShowMore) => {
+    console.log(actor)
+    if (!actor?.id && !actor?.skip && !actor?.limit) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
-    getActorFilms(actor.id, actor.limit, actor.limit)
+    getActorFilms(actor.id, actor.skip, actor.limit)
         .then((response) => {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.actorPage.render.films, convertArrayToActorFilms(response.body));
+            this.eventBus.emit(EVENTS.actorPage.render.films, convertArrayToActorFilms(response.body), dataBeforeShowMore);
           }
         });
   }

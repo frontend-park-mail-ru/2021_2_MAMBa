@@ -70,7 +70,7 @@ export class ProfileModel extends Model {
     switch (this.path) {
       case menuObjects.settings.href: {
         const authEvent = authModule.lastEvent;
-        if (authEvent === EVENTS.authorization.notLoggedIn || authEvent === EVENTS.authorization.notLoggedIn) {
+        if (authEvent === EVENTS.authorization.notLoggedIn || authEvent === EVENTS.authorization.logOutUser) {
           this.eventBus.emit(EVENTS.App.noAccess);
           return;
         }
@@ -86,6 +86,10 @@ export class ProfileModel extends Model {
       }
       case menuObjects.reviewsMarks.href: {
         this.getNBlocks(URLS.api.getReviewsAndStars, EVENTS.ProfilePage.Render.ReviewsMarks);
+        break;
+      }
+      case menuObjects.bookmarks.href: {
+        this.getNBlocks(URLS.api.getBookmarks, EVENTS.ProfilePage.Render.Bookmarks);
         break;
       }
       default:
@@ -119,6 +123,13 @@ export class ProfileModel extends Model {
             this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
           }
         }
+        if (event === EVENTS.ProfilePage.Render.Bookmarks) {
+          if (response.parsedJson.body.films_list.length) {
+            this.makeFilmUrl(response.parsedJson.body.films_list, 'id');
+            this.makeActorsUrl(response.parsedJson.body.films_list, 'cast');
+            this.makeGenresUrl(response.parsedJson.body.films_list, 'genres');
+          }
+        }
         this.eventBus.emit(event, response.parsedJson);
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
@@ -126,6 +137,28 @@ export class ProfileModel extends Model {
         this.eventBus.emit(event, response.parsedJson);
       }
     });
+  }
+
+  makeGenresUrl = (stringArray, fieldName) => {
+    if (!stringArray || !fieldName) {
+      return;
+    }
+    for (const item of stringArray) {
+      for (const genre of item[fieldName]) {
+        genre.url = `/genres/${genre.id}`;
+      }
+    }
+  }
+
+  makeActorsUrl = (stringArray, fieldName) => {
+    if (!stringArray || !fieldName) {
+      return;
+    }
+    for (const item of stringArray) {
+      for (const actor of item[fieldName]) {
+        actor.url = `/actors/${actor.id}`;
+      }
+    }
   }
 
   changeProfile = async (inputsData, formData) => {

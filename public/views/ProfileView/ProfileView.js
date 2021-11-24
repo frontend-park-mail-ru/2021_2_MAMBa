@@ -2,6 +2,8 @@ import {BaseView} from '../BaseView/BaseView.js';
 import profilePug from '../../components/profile/profile.pug';
 import profileHeader from '../../components/profile/profileHeader/profileHeader.pug';
 import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
+import bookmarksPug from '../../components/profile/bookmarks/bookmarks.pug';
+import bookmarksContent from '../../components/profile/bookmarks/bookmarkBlock/bookmarkContent.pug';
 import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock/reviewsContent.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
 import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLink.pug';
@@ -149,14 +151,6 @@ export class ProfileView extends BaseView {
     });
   }
 
-  hideLoader = () => {
-    const moreButton = document.querySelector('.profile__more-btn');
-    if (!moreButton) {
-      return;
-    }
-    moreButton.style.visibility = 'hidden';
-  }
-
   hideMoreButton = () => {
     const moreButton = document.querySelector('.profile__more-btn');
     if (!moreButton) {
@@ -216,6 +210,30 @@ export class ProfileView extends BaseView {
   }
 
   renderBookmarksPage = (bookmarks) => {
+    if (!bookmarks || !bookmarks.body) {
+      return;
+    }
+    const profileContent = document.querySelector('.profile__profile-content');
+    if (!profileContent) {
+      return;
+    }
+    if (profileContent.querySelector('.loader')) {
+      if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.films_list.length === 0) {
+        profileContent.innerHTML = '<h1>Пуфто:(</h1>';
+      } else {
+        profileContent.innerHTML = bookmarksPug(bookmarks.body);
+      }
+    } else {
+      const bookmarksBlock = document.querySelector('.stars-reviews-block');
+      if (!bookmarksBlock) {
+        return;
+      }
+      bookmarksBlock.innerHTML += bookmarksContent(bookmarks.body);
+    }
+    if (!bookmarks.body.more_available) {
+      this.hideMoreButton();
+    }
+    this.submitMoreButton();
   }
 
   renderSubscriptionsPage = (subscriptions) => {

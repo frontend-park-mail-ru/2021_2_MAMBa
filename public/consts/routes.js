@@ -11,8 +11,8 @@ export const ROUTES = {
   actorPage: '/actors/\\d+',
   filmPage: '/films/\\d+',
   collectionPage: '/collections/\\d+',
-  Bookmarks: '\\/profile\\/\\d+/bookmarks',
-  Subscriptions: '\\/profile\\/\\d+/subscriptions',
-  ReviewsMarks: '\\/profile\\/\\d+/reviews_marks',
-  Settings: '\\/profile\\/\\d+/settings',
+  Bookmarks: '/bookmarks',
+  Subscriptions: '/subscriptions',
+  reviewsMarks: '/reviews_marks',
+  settings: '/settings',
 };

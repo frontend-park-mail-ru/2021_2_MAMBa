@@ -7,6 +7,7 @@ export const EVENTS = {
   App: {
     Start: 'app:start',
     ErrorPage: 'app:errorPage',
+    noAccess: 'app:noAccess',
   },
   Router: {
     Go: 'router:go',
@@ -107,6 +108,7 @@ export const EVENTS = {
   authorization: {
     gotUser: 'authorization:gotUser',
     changedUser: 'authorization:changedUser',
+    notLoggedIn: 'authorization:notLoggedIn',
     logOutUser: 'authorization:logOutUser',
   },
 
@@ -118,12 +120,13 @@ export const EVENTS = {
       Subscriptions: 'profilePage:renderSubscriptions',
       Settings: 'profilePage:renderSettings',
     },
+    redirectToReviews: 'profilePage:redirectToReviews',
     addSettingsToMenu: 'profilePage:addSettingsToMenu',
     MoreButton: 'profilePage:moreButton',
     ChangeActiveMenuButton: 'profilePage:changeActiveMenuButton',
     SubmitSettings: 'profilePage:submitSettings',
     GetCurrentPageBlocks: 'profilePage:getCurrentPageBlocks',
-    GetContent: 'profilePage:getContent',
+    getContent: 'profilePage:getContent',
     PrependMenuLinks: 'profilePage:prependMenuLinks',
     NoMoreAvailable: 'profilePage:noMoreAvailable',
     ChangeProfile: 'profilePage:changeProfile',

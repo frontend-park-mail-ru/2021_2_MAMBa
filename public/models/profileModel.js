@@ -6,6 +6,7 @@ import {getMenuLinks, menuObjects} from '../consts/profileMenu';
 import {URLS} from '../consts/urls';
 import {statuses} from '../consts/reqStatuses';
 import {ROUTES} from '../consts/routes';
+const maxWordsInURl = 4;
 
 export class ProfileModel extends Model {
   constructor(eventBus) {
@@ -30,7 +31,7 @@ export class ProfileModel extends Model {
   }
 
   getContent = (routeData) => {
-    if (!routeData || !routeData?.path?.path || routeData.path.path.split('/').length > 4) {
+    if (!routeData || !routeData?.path?.path || routeData.path.path.split('/').length > maxWordsInURl) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
@@ -52,7 +53,7 @@ export class ProfileModel extends Model {
           return null;
         }
         getMenuLinks(user.id);
-        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser(this.userId));
+        this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser());
       } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
         return null;
@@ -67,15 +68,28 @@ export class ProfileModel extends Model {
 
   getCurrentPageBlocks = () => {
     switch (this.path) {
-      case `${ROUTES.Profile}/${this.userId}`: {
-        return;
-      }
       case menuObjects.settings.href: {
-        this.eventBus.emit(EVENTS.ProfilePage.Render.Settings);
+        const authEvent = authModule.lastEvent;
+        if (authEvent === EVENTS.authorization.notLoggedIn || authEvent === EVENTS.authorization.logOutUser) {
+          this.eventBus.emit(EVENTS.App.noAccess);
+          return;
+        }
+        if (authEvent === EVENTS.authorization.gotUser) {
+          if (this.isThisUser()) {
+            this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
+            this.eventBus.emit(EVENTS.ProfilePage.Render.Settings);
+          } else {
+            this.eventBus.emit(EVENTS.App.noAccess);
+          }
+        }
         break;
       }
       case menuObjects.reviewsMarks.href: {
         this.getNBlocks(URLS.api.getReviewsAndStars, EVENTS.ProfilePage.Render.ReviewsMarks);
+        break;
+      }
+      case menuObjects.bookmarks.href: {
+        this.getNBlocks(URLS.api.getBookmarks, EVENTS.ProfilePage.Render.Bookmarks);
         break;
       }
       default:
@@ -99,14 +113,21 @@ export class ProfileModel extends Model {
         return;
       }
       if (response?.parsedJson?.status === statuses.OK) {
+        if (!response.parsedJson || !response.parsedJson.body) {
+          this.eventBus.emit(EVENTS.App.ErrorPage);
+          return;
+        }
         if (event === EVENTS.ProfilePage.Render.ReviewsMarks) {
-          if (!response.parsedJson.body) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-            return;
-          }
           if (response.parsedJson.body.review_list.length) {
             this.makeReviewUrl(response.parsedJson.body.review_list, 'id');
             this.makeFilmUrl(response.parsedJson.body.review_list, 'film_id');
+          }
+        }
+        if (event === EVENTS.ProfilePage.Render.Bookmarks) {
+          if (response.parsedJson.body.films_list.length) {
+            this.makeFilmUrl(response.parsedJson.body.films_list, 'id');
+            this.makeActorsUrl(response.parsedJson.body.films_list, 'cast');
+            this.makeGenresUrl(response.parsedJson.body.films_list, 'genres');
           }
         }
         this.eventBus.emit(event, response.parsedJson);
@@ -116,6 +137,28 @@ export class ProfileModel extends Model {
         this.eventBus.emit(event, response.parsedJson);
       }
     });
+  }
+
+  makeGenresUrl = (stringArray, fieldName) => {
+    if (!stringArray || !fieldName) {
+      return;
+    }
+    for (const item of stringArray) {
+      for (const genre of item[fieldName]) {
+        genre.url = `/genres/${genre.id}`;
+      }
+    }
+  }
+
+  makeActorsUrl = (stringArray, fieldName) => {
+    if (!stringArray || !fieldName) {
+      return;
+    }
+    for (const item of stringArray) {
+      for (const actor of item[fieldName]) {
+        actor.url = `/actors/${actor.id}`;
+      }
+    }
   }
 
   changeProfile = async (inputsData, formData) => {
@@ -177,22 +220,29 @@ export class ProfileModel extends Model {
     }
   }
 
-  isThisUser = (userId = null) => {
+  redirectToReviews = () => {
+    const userId = this.getUserIdFromPath(window.location.pathname);
     if (!userId) {
-      const userIdFromUrl = this.getUserIdFromPath(window.location.pathname);
-      if (!userIdFromUrl || !authModule || !authModule.user || !authModule.user.id) {
-        return;
-      }
-      if (authModule.user.id.toString() === userIdFromUrl) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
+    this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.Profile}/${userId}${ROUTES.reviewsMarks}`});
+  }
+
+  checkSettingsPage = () => {
+    if (window.location.pathname === menuObjects.settings.href) {
+      this.getCurrentPageBlocks();
+    } else {
+      if (this.isThisUser()) {
         this.eventBus.emit(EVENTS.ProfilePage.addSettingsToMenu);
       }
-    } else {
-      if (!authModule || !authModule.user || !authModule.user.id) {
-        return false;
-      }
-      if (authModule.user.id.toString() === userId) {
-        return true;
-      }
     }
+  }
+
+  isThisUser = () => {
+    if (!this.userId || !authModule || !authModule.user || !authModule.user.id) {
+      return false;
+    }
+    return authModule.user.id.toString() === this.userId;
   }
 }

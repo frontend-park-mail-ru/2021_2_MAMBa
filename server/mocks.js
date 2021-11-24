@@ -151,7 +151,7 @@ const initMocks = (app) => {
         "first_name": 'Vasya',
         "surname": 'Petrov',
         "email": 'v@v.v',
-        "profile_pic": "/user/images/avatar.jpg"
+        "profile_pic": "/static/pics/cube.svg"
       }
     });
   });
@@ -181,6 +181,102 @@ const initMocks = (app) => {
       }
     });
   });
+
+  app.get('/api/user/getBookmarks', (req, res) => {
+    res.json({
+      "status": 200,
+      'body': {
+        'films_list': [
+          {
+            id: 1,
+            title: 'Пика',
+            title_original: 'Pika',
+            poster_url: '/static/pics/cube.svg',
+            rating: 8.3,
+            release_year: 2014,
+            origin_countries: ['Америка'],
+            cast: [{
+              'id': 3,
+              'name_en': 'Daniel Radcliffe',
+              'name_rus': 'Дэниэл Рэдклифф',
+              'picture_url': '/static/media/img/persons/3.jpg',
+              'career': [
+                'Актер, Продюсер',
+              ],
+            }],
+            director: {
+              'id': 2,
+              'name_en': 'Chris Columbus',
+              'name_rus': 'Крис Коламбус',
+              'picture_url': '/static/media/img/persons/2.jpg',
+              'career': [
+                'Продюсер, Режиссер, Сценарист, Актер',
+              ],
+            },
+            genres: [
+              {
+                'id': 9,
+                'name': 'фэнтези',
+              },
+              {
+                'id': 10,
+                'name': 'приключения',
+              },
+              {
+                'id': 11,
+                'name': 'семейный',
+              }],
+          },
+          {
+            id: 2,
+            title: 'Пика2',
+            title_original: 'Pika2',
+            poster_url: '/static/pics/cube.svg',
+            rating: 8.3,
+            release_year: 2015,
+            origin_countries: ['Америка'],
+            cast: [{
+              'id': 3,
+              'name_en': 'Daniel Radcliffe',
+              'name_rus': 'Дэниэл Рэдклифф',
+              'picture_url': '/static/media/img/persons/3.jpg',
+              'career': [
+                'Актер, Продюсер',
+              ],
+            }],
+            director: {
+              'id': 2,
+              'name_en': 'Chris Columbus',
+              'name_rus': 'Крис Коламбус',
+              'picture_url': '/static/media/img/persons/2.jpg',
+              'career': [
+                'Продюсер, Режиссер, Сценарист, Актер',
+              ],
+            },
+            genres: [
+              {
+                'id': 9,
+                'name': 'фэнтези',
+              },
+              {
+                'id': 10,
+                'name': 'приключения',
+              },
+              {
+                'id': 11,
+                'name': 'семейный',
+              }],
+          },
+        ],
+        'more_available': false,
+        'review_total': 6,
+        'current_sort': '',
+        'current_limit': 6,
+        'current_skip': 0,
+      },
+    });
+  });
+
 
   app.get('/api/collections/getCollectionFilms', (req, res) => {
     res.json(COLLECTION);

@@ -2,10 +2,13 @@ import {BaseView} from '../BaseView/BaseView.js';
 import profilePug from '../../components/profile/profile.pug';
 import profileHeader from '../../components/profile/profileHeader/profileHeader.pug';
 import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
+import bookmarksPug from '../../components/profile/bookmarks/bookmarks.pug';
+import bookmarksContent from '../../components/profile/bookmarks/bookmarkBlock/bookmarkContent.pug';
 import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock/reviewsContent.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
 import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLink.pug';
 import loader from '../../components/loader/loader.pug';
+import noAccessPug from '../../components/noAccess/noAccess.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
@@ -23,6 +26,10 @@ export class ProfileView extends BaseView {
   }
 
   render = (routeData) => {
+    if (window.location.pathname.match(`${ROUTES.Profile}/\\d+/\?$`)) {
+      this.eventBus.emit(EVENTS.ProfilePage.redirectToReviews);
+      return;
+    }
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
@@ -37,7 +44,7 @@ export class ProfileView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.eventBus.emit(EVENTS.ProfilePage.GetContent, this.routeData);
+    this.eventBus.emit(EVENTS.ProfilePage.getContent, this.routeData);
   }
 
   renderContent = (user, isThisUser) => {
@@ -50,7 +57,7 @@ export class ProfileView extends BaseView {
     if (content) {
       const profileHeader = document.querySelector('.profile-header');
       const profileMenu = document.querySelector('.profile-menu');
-      if (!profileHeader || !profileMenu) {
+      if (!profileHeader || !profileMenu || profileHeader.dataset.user !== this.user.id) {
         content.innerHTML = profilePug(Object.assign(this.user, menuLinks));
       }
     } else {
@@ -65,15 +72,23 @@ export class ProfileView extends BaseView {
     const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     if (settingsLink) {
+      if (settingsLink.classList.contains('profile-menu__link_active')) {
+        const profileContent = document.querySelector('.profile__profile-content');
+        if (!profileContent) {
+          this.eventBus.emit(EVENTS.App.ErrorPage);
+        }
+        profileContent.innerHTML = noAccessPug();
+      }
       settingsLink.remove();
     }
-    this.eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
   }
 
   addSettingsToMenu = () => {
+    const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
+        .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     const reviewsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.reviewsMarks.name));
-    if (reviewsLink) {
+    if (reviewsLink && !settingsLink) {
       reviewsLink.after(createElementFromHTML(settingsLinkPug({link: menuObjects.settings})));
     }
     this.changeActiveMenuButton(this.routeData.path.path);
@@ -155,6 +170,14 @@ export class ProfileView extends BaseView {
     header.outerHTML = profileHeader(changedUser);
   }
 
+  renderNoAccess = () => {
+    const profileContent = document.querySelector('.profile__profile-content');
+    if (!profileContent) {
+      return;
+    }
+    profileContent.innerHTML = noAccessPug();
+  }
+
   renderSettingsPage = () => {
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
@@ -162,9 +185,6 @@ export class ProfileView extends BaseView {
     }
     if (!this.user || !this.user.profile_pic) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
-    }
-    if (!this.user.isThisUser) {
-      this.eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage);
     }
     for (const input of SettingsInput) {
       input.value = this.user[input.name];
@@ -190,6 +210,30 @@ export class ProfileView extends BaseView {
   }
 
   renderBookmarksPage = (bookmarks) => {
+    if (!bookmarks || !bookmarks.body) {
+      return;
+    }
+    const profileContent = document.querySelector('.profile__profile-content');
+    if (!profileContent) {
+      return;
+    }
+    if (profileContent.querySelector('.loader')) {
+      if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.films_list.length === 0) {
+        profileContent.innerHTML = '<h1>Пуфто:(</h1>';
+      } else {
+        profileContent.innerHTML = bookmarksPug(bookmarks.body);
+      }
+    } else {
+      const bookmarksBlock = document.querySelector('.stars-reviews-block');
+      if (!bookmarksBlock) {
+        return;
+      }
+      bookmarksBlock.innerHTML += bookmarksContent(bookmarks.body);
+    }
+    if (!bookmarks.body.more_available) {
+      this.hideMoreButton();
+    }
+    this.submitMoreButton();
   }
 
   renderSubscriptionsPage = (subscriptions) => {
@@ -216,7 +260,7 @@ export class ProfileView extends BaseView {
       }
       starsAndReviews.innerHTML += reviewsContent(reviewsMarks.body);
     }
-    if (!reviewsMarks.more_available) {
+    if (!reviewsMarks.body.more_available) {
       this.hideMoreButton();
     }
     this.submitMoreButton();

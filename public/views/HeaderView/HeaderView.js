@@ -6,6 +6,7 @@ import {headerLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML} from '../../utils/utils';
+import {ROUTES} from '../../consts/routes';
 const symbolCount = 11;
 
 export class HeaderView extends BaseView {
@@ -65,15 +66,12 @@ export class HeaderView extends BaseView {
       return;
     }
     const userName = authModule.user.first_name;
-    // TODO MAKE CONST INSTEAD OF 11
-    changeBlock.innerHTML = userBlock({
-      userName: userName.length > symbolCount ? userName.substr(0, symbolCount) + '...' : userName,
+    changeBlock.replaceWith(createElementFromHTML(userBlock({
+      userName: userName.length > 11 ? userName.substr(0, symbolCount) + '...' : userName,
       imgSrc: authModule.user.profile_pic,
       userId: authModule.user.id,
-    });
-    changeBlock.classList.remove('navbar__login-btn');
-    changeBlock.classList.add('user-block');
-    changeBlock.removeAttribute('href');
+      profileHref: ROUTES.Profile,
+    })));
     this.addEventListenerToLogoutButton();
   }
 

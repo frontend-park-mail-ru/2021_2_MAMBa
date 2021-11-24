@@ -1,0 +1,4 @@
+include ../calendarCard/calendarCard
+h3.calendar__date #{dateCalendar}
+each premiere, _ in premieres
+    +calendarCard(premiere)

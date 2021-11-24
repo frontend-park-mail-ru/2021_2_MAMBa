@@ -13,7 +13,7 @@ export class CalendarPageController extends BaseController {
     this.events.push(
         {event: EVENTS.calendarPage.render.content, handler: this.view.renderContent},
         {event: EVENTS.calendarPage.getPageContent, handler: this.model.getPageContent},
-        {event: EVENTS.calendarPage.getFilms, handler: this.model.getGenreFilmsContent},
+        {event: EVENTS.calendarPage.getFilms, handler: this.model.getCalendarFilmsContent},
         {event: EVENTS.calendarPage.render.films, handler: this.view.renderFilms},
     );
   }

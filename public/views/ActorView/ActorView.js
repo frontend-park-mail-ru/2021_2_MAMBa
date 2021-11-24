@@ -47,22 +47,6 @@ export class ActorView extends BaseView {
   }
 
   /**
-   * Render content favourites page from pug template to content div.
-   * @param {object} data - Contains info about actor films.
-   */
-  renderFilms = (data) => {
-    const template = actorFilmsContent(data);
-    const showMoreContainer = document.querySelector('.films-with-description__container');
-    if (showMoreContainer) {
-      showMoreContainer.innerHTML += template;
-    }
-    this.dataActor.moreAvailable=data.moreAvailable;
-    this.dataActor.skip= data.skip;
-    this.dataActor.limit=data.limit;
-    checkShowMoreButton(this.dataActor.moreAvailable, ".button__show-more");
-  }
-
-  /**
    * Set slider actions.
    */
   setSliderActions = () => {

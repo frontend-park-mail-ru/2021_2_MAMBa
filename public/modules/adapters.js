@@ -287,7 +287,6 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
  */
 const monthToText = (month) => {
   let monthName = ["-", "-"];
-  console.log(month);
   switch (month) {
     case "1":
       monthName = ["января","Январь"];
@@ -382,11 +381,11 @@ export const convertArrayToPremierFilms = (arrayContent) => {
  */
 export const convertArrayToCalendarPage = (calendarInfoJson, year, month) => {
   const monthText = monthToText(""+month);
-  console.log(monthText)
   const date = `${monthText[1]}, ${year}`;
-  console.log(date)
   return {
     dateCalendar:date,
+    year:year,
+    month:month,
     premieres: convertArrayToPremierFilms(calendarInfoJson.films),
   }
 };

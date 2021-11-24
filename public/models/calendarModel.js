@@ -32,18 +32,19 @@ export class CalendarPageModel {
         });
   }
 
-  // getGenreFilmsContent = (genre) => {
-  //   if (!genre?.id && !genre?.skip && !genre?.limit) {
-  //     this.eventBus.emit(EVENTS.App.ErrorPage);
-  //     return;
-  //   }
-  //   getGenreFilms(genre.id, genre.skip, genre.limit)
-  //       .then((response) => {
-  //         if (!response) {
-  //           this.eventBus.emit(EVENTS.App.ErrorPage);
-  //         } else if (response.status === 200 && response.body) {
-  //           this.eventBus.emit(EVENTS.genrePage.render.films, convertArrayToActorFilms(response.body));
-  //         }
-  //       });
-  // }
+  getCalendarFilmsContent = (year, month) => {
+    console.log("getCalendarFilmsContent")
+    if (!year && !month) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
+    getInfoAboutPremiers(year, month)
+        .then((response) => {
+          if (!response) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          } else if (response.status === 200 && response.body) {
+            this.eventBus.emit(EVENTS.calendarPage.render.films, convertArrayToCalendarPage(response.body, year, month));
+          }
+        });
+  }
 }

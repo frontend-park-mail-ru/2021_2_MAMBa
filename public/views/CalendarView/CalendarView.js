@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import calendarPageContent from '../../components/calendar/calendar.pug';
-// import genreFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
+import calendarFilmsContent from '../../components/calendarShowMore/calendarShowMore.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 
@@ -13,7 +13,6 @@ export class CalendarView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataCalendar;
   }
 
   /**
@@ -23,7 +22,7 @@ export class CalendarView extends BaseView {
     let data = new Date();
     let year = data.getFullYear();
     let month = data.getMonth();
-    this.eventBus.emit(EVENTS.calendarPage.getPageContent,year, month+1);
+    this.eventBus.emit(EVENTS.calendarPage.getPageContent, year, month + 1);
   }
 
   /**
@@ -36,30 +35,42 @@ export class CalendarView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.showScrollMore();
+      this.showScrollMore(data);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
-  showScrollMore = () => {
-    // window.addEventListener('scroll', () => {
-    //   const block = document.getElementById('infinite-scroll');
-    //
-    //   const contentHeight = block.offsetHeight;
-    //   const yOffset = window.pageYOffset;
-    //   const window_height = window.innerHeight;
-    //   const y = yOffset + window_height;
-    //
-    //   if (y >= contentHeight && this.dataGenre.moreAvailable) {
-    //     const newData = {
-    //       id: data.id,
-    //       skip: data.skip + data.limit,
-    //       limit: data.limit,
-    //     };
-    //     this.eventBus.emit(EVENTS.genrePage.getFilms, newData);
-    //   }
-    // });
+  nextMonth = (year, month) => {
+    if (month ==12){
+      month=1
+      year+=1
+    }
+    else {
+      month+=1
+    }
+    return [year, month]
+
+  }
+
+  showScrollMore = (data) => {
+    console.log("in show more");
+    window.addEventListener('scroll', () => {
+      const block = document.getElementById('infinite-scroll');
+      const contentHeight = block.offsetHeight;
+      const yOffset = window.pageYOffset;
+      const window_height = window.innerHeight;
+      const y = yOffset + window_height;
+
+      console.log(block);
+      console.log(y,contentHeight);
+      if (y >= contentHeight) {
+        const newData = this.nextMonth(data.year, data.month)
+        const newYear = newData[0]
+        const newMonth = newData[1]
+        this.eventBus.emit(EVENTS.calendarPage.getFilms, newYear, newMonth);
+      }
+    });
   }
 
   /**
@@ -67,13 +78,12 @@ export class CalendarView extends BaseView {
    * @param {object} data - Contains info about premieres.
    */
   renderFilms = (data) => {
-    // const template = genreFilmsContent(data);
-    // const showMoreContainer = document.querySelector('.films-with-description__container');
-    // if (showMoreContainer) {
-    //   showMoreContainer.innerHTML += template;
-    // }
-    // this.dataGenre.moreAvailable = data.moreAvailable;
-    // this.dataGenre.skip = data.skip;
-    // this.dataGenre.limit = data.limit;
+    console.log("render")
+    const template = calendarFilmsContent(data);
+    const showMoreContainer = document.querySelector('.calendar');
+    if (showMoreContainer) {
+      showMoreContainer.innerHTML += template;
+    }
+
   }
 }

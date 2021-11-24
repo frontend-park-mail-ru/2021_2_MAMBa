@@ -117,13 +117,17 @@ const initMocks = (app) => {
   };
 
 
-
   app.get('/api/person/getPerson', (req, res) => {
     res.json(ACTOR);
   });
 
   app.get('/api/person/getPersonFilms', (req, res) => {
-    res.json(PERSONFILMS);
+    if (req.query.skip === "3") {
+      res.json(PERSONFILMSTRUE);
+    }
+    if (req.query.skip === "6") {
+      res.json(PERSONFILMS);
+    }
   });
 
   app.get('/api/film/getFilm', (req, res) => {
@@ -151,7 +155,7 @@ const initMocks = (app) => {
         "first_name": 'Vasya',
         "surname": 'Petrov',
         "email": 'v@v.v',
-        "profile_pic": "/user/images/avatar.jpg"
+        "profile_pic": "/static/pics/cube.svg"
       }
     });
   });
@@ -181,6 +185,102 @@ const initMocks = (app) => {
       }
     });
   });
+
+  app.get('/api/user/getBookmarks', (req, res) => {
+    res.json({
+      "status": 200,
+      'body': {
+        'films_list': [
+          {
+            id: 1,
+            title: 'Пика',
+            title_original: 'Pika',
+            poster_url: '/static/pics/cube.svg',
+            rating: 8.3,
+            release_year: 2014,
+            origin_countries: ['Америка'],
+            cast: [{
+              'id': 3,
+              'name_en': 'Daniel Radcliffe',
+              'name_rus': 'Дэниэл Рэдклифф',
+              'picture_url': '/static/media/img/persons/3.jpg',
+              'career': [
+                'Актер, Продюсер',
+              ],
+            }],
+            director: {
+              'id': 2,
+              'name_en': 'Chris Columbus',
+              'name_rus': 'Крис Коламбус',
+              'picture_url': '/static/media/img/persons/2.jpg',
+              'career': [
+                'Продюсер, Режиссер, Сценарист, Актер',
+              ],
+            },
+            genres: [
+              {
+                'id': 9,
+                'name': 'фэнтези',
+              },
+              {
+                'id': 10,
+                'name': 'приключения',
+              },
+              {
+                'id': 11,
+                'name': 'семейный',
+              }],
+          },
+          {
+            id: 2,
+            title: 'Пика2',
+            title_original: 'Pika2',
+            poster_url: '/static/pics/cube.svg',
+            rating: 8.3,
+            release_year: 2015,
+            origin_countries: ['Америка'],
+            cast: [{
+              'id': 3,
+              'name_en': 'Daniel Radcliffe',
+              'name_rus': 'Дэниэл Рэдклифф',
+              'picture_url': '/static/media/img/persons/3.jpg',
+              'career': [
+                'Актер, Продюсер',
+              ],
+            }],
+            director: {
+              'id': 2,
+              'name_en': 'Chris Columbus',
+              'name_rus': 'Крис Коламбус',
+              'picture_url': '/static/media/img/persons/2.jpg',
+              'career': [
+                'Продюсер, Режиссер, Сценарист, Актер',
+              ],
+            },
+            genres: [
+              {
+                'id': 9,
+                'name': 'фэнтези',
+              },
+              {
+                'id': 10,
+                'name': 'приключения',
+              },
+              {
+                'id': 11,
+                'name': 'семейный',
+              }],
+          },
+        ],
+        'more_available': false,
+        'review_total': 6,
+        'current_sort': '',
+        'current_limit': 6,
+        'current_skip': 0,
+      },
+    });
+  });
+
 
   app.get('/api/collections/getCollectionFilms', (req, res) => {
     res.json(COLLECTION);
@@ -585,6 +685,37 @@ const PERSONFILMS = {
     current_skip: 3,
     current_limit: 3,
     more_available: false,
+    film_list: [
+      {
+        id: 18,
+        title: 'Главный герой',
+        release_year: 2012,
+        description: 'У сотрудника крупного банка всё идёт по накатанной, пока однажды он не выясняет, что окружающий его мир — это часть огромной видеоигры, а сам он в ней — всего лишь второстепенный персонаж. Хватит ли у него духу переписать свой код, обратить на себя внимание прекрасной девушки и, наконец, спасти мир? Одним словом, получится ли из него главный герой?',
+        poster_url: '/server/images/filmSlider7.webp',
+      },
+      {
+        id: 21,
+        title: 'Стажер',
+        release_year: '2019',
+        description: '70-летний вдовец Бен Уитакер обнаруживает, что выход на пенсию — еще не конец. Пользуясь случаем, он становится старшим стажером в интернет-магазине модной одежды под руководством Джулс Остин.',
+        poster_url: '/server/images/filmSlider10.webp',
+      },
+      {
+        id: 23,
+        title: 'После',
+        release_year: '2019',
+        description: 'Случайная встреча перевернула их привычный мир. Она – прилежная студентка и образцовая дочь, а он – притягательный бунтарь с непростым прошлым. Живя в параллельных вселенных, они бы вряд ли даже взглянули друг на друга. Однако этому знакомству суждено разделить жизнь влюбленных на до и после.',
+        poster_url: '/server/images/filmSlider12.webp',
+      },
+    ],
+  },
+};
+const PERSONFILMSTRUE = {
+  status: 200,
+  body: {
+    current_skip: 3,
+    current_limit: 3,
+    more_available: true,
     film_list: [
       {
         id: 18,

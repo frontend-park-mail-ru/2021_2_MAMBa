@@ -2,10 +2,12 @@
 
 .calendar {
   &__date {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
     border-bottom: 2px solid $pink;
   }
 }
-
 .premiere {
   &__items {
     padding: 0px 0px 60px 0px;

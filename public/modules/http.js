@@ -113,7 +113,7 @@ const getInfoAboutActor = async (actorId) => {
  * @param {number} skip - Contains count 0f rendered films.
  * @return {array} - Array of objects for render actor page.
  */
-const getActorFilms = async (actorId, limit, skip) => {
+const getActorFilms = async (actorId, skip, limit) => {
   const params = {
     url: `${URLS.api.actorFilms}${actorId}&skip=${skip}&limit=${limit}`,
     method: 'GET',

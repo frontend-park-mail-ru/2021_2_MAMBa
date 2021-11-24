@@ -45,7 +45,7 @@ export class GenrePageModel {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.genrePage.render.films, convertArrayToActorFilms(response.body));
+            this.eventBus.emit(EVENTS.genrePage.render.films, convertArrayToActorFilms(response.body), genre);
           }
         });
   }

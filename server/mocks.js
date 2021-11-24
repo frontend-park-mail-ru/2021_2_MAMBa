@@ -12,15 +12,25 @@ const initMocks = (app) => {
     }
     if (req.query.skip == 12) {
       res.json(GENRENOTAVAILABLE);
-    }
-    if (req.query.skip == 0) {
+    }else {
       res.json(GENRE);
     }
   });
 
   app.get('/api/films/premieres', (req, res) => {
-    res.json(CALENDAR);
+    if (req.query.year == 2022) {
+      res.json(NOPREMIERES);
+    }
+    else {
+      res.json(CALENDAR);
+    }
   });
+
+  const NOPREMIERES = {
+    status: 404,
+    body: {
+    }
+  };
 
   const CALENDAR = {
     status: 200,

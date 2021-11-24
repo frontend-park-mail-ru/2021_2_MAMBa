@@ -13,7 +13,6 @@ export class GenreView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataGenre;
   }
 
   /**
@@ -30,33 +29,26 @@ export class GenreView extends BaseView {
    */
   renderContent = (data) => {
     const template = genrePageContent(data);
-    this.dataGenre = data;
-    console.log(data);
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.showScrollMore();
+      this.showScrollMore(data);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
-  showScrollMore = () => {
+  showScrollMore = (data) => {
     window.addEventListener('scroll', () => {
       const block = document.getElementById('infinite-scroll');
-
-      const contentHeight = block.offsetHeight;
+      let contentHeight = block.offsetHeight;
       const yOffset = window.pageYOffset;
-      const window_height = window.innerHeight;
-      const y = yOffset + window_height;
-
-      if (y >= contentHeight && this.dataGenre.moreAvailable) {
-        const newData = {
-          id: data.id,
-          skip: data.skip + data.limit,
-          limit: data.limit,
-        };
-        this.eventBus.emit(EVENTS.genrePage.getFilms, newData);
+      const windowHeight = window.innerHeight;
+      const y = yOffset + windowHeight;
+      if (y >= contentHeight && data.moreAvailable) {
+        contentHeight = block.offsetHeight;
+        data.skip = data.skip + data.limit;
+        this.eventBus.emit(EVENTS.genrePage.getFilms, data);
       }
     });
   }
@@ -64,15 +56,14 @@ export class GenreView extends BaseView {
   /**
    * Render content favourites page from pug template to content div.
    * @param {object} data - Contains info about actor films.
+   * @param {object} dataOfRenderedFilms - Contains info about rendered films.
    */
-  renderFilms = (data) => {
+  renderFilms = (data, dataOfRenderedFilms) => {
     const template = genreFilmsContent(data);
-    const showMoreContainer = document.querySelector('.films-with-description__container');
+    const showMoreContainer = document.querySelector('.genre__container');
     if (showMoreContainer) {
       showMoreContainer.innerHTML += template;
     }
-    this.dataGenre.moreAvailable = data.moreAvailable;
-    this.dataGenre.skip = data.skip;
-    this.dataGenre.limit = data.limit;
+    dataOfRenderedFilms.moreAvailable = data.moreAvailable;
   }
 }

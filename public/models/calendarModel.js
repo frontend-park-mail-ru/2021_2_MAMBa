@@ -1,6 +1,6 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutPremiers} from '../modules/http';
-import {convertArrayToCalendarPage} from '../modules/adapters';
+import {convertArrayToCalendarPage, convertDateToCalendarPage} from '../modules/adapters';
 
 /** Class representing calendar page model.
  * @param {object} films - info about release films.
@@ -25,25 +25,30 @@ export class CalendarPageModel {
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response.status === 200 && response.body) {
-            this.eventBus.emit(EVENTS.calendarPage.render.content, convertArrayToCalendarPage(response.body, year, month));
+            this.eventBus.emit(EVENTS.calendarPage.render.content,
+                convertArrayToCalendarPage(response.body, year, month));
+          } else if (response.status === 404) {
+            this.eventBus.emit(EVENTS.calendarPage.render.notFoundPremiers, year, month);
           }
-          // TODO: отрисовывать стр если premieres нет в бд
-          // if (response.parsedJson.status === 404) {}
         });
   }
 
-  // getGenreFilmsContent = (genre) => {
-  //   if (!genre?.id && !genre?.skip && !genre?.limit) {
-  //     this.eventBus.emit(EVENTS.App.ErrorPage);
-  //     return;
-  //   }
-  //   getGenreFilms(genre.id, genre.skip, genre.limit)
-  //       .then((response) => {
-  //         if (!response) {
-  //           this.eventBus.emit(EVENTS.App.ErrorPage);
-  //         } else if (response.status === 200 && response.body) {
-  //           this.eventBus.emit(EVENTS.genrePage.render.films, convertArrayToActorFilms(response.body));
-  //         }
-  //       });
-  // }
+  getCalendarFilmsContent = (year, month) => {
+    if (!year && !month) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
+    getInfoAboutPremiers(year, month)
+        .then((response) => {
+          if (!response) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          } else if (response.status === 200 && response.body) {
+            this.eventBus.emit(EVENTS.calendarPage.render.films,
+                convertArrayToCalendarPage(response.body, year, month));
+          } else if (response.status === 404) {
+            this.eventBus.emit(EVENTS.calendarPage.render.notFoundPremiers,
+                convertDateToCalendarPage(month, year), year, month);
+          }
+        });
+  }
 }

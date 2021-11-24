@@ -4,7 +4,7 @@ div.collections
         = `Жанр  «${genreName}»`
     div(class ="black-container")
             div.films-with-description__container
-                #infinite-scroll
-                each film, _ in filmsWithDescription
-                  +filmCard(film)
+                div.genre__container#infinite-scroll
+                    each film, _ in filmsWithDescription
+                      +filmCard(film)
 

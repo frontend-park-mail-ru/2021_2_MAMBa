@@ -109,8 +109,8 @@ const getInfoAboutActor = async (actorId) => {
 /**
  * Send async get request using async func.
  * @param {number} actorId - Contains id of actor to render.
- * @param {number} limit - Contains count of films to render.
  * @param {number} skip - Contains count 0f rendered films.
+ * @param {number} limit - Contains count of films to render.
  * @return {array} - Array of objects for render actor page.
  */
 const getActorFilms = async (actorId, skip, limit) => {

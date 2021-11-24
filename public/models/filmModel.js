@@ -20,11 +20,6 @@ export class FilmPageModel {
    * @param {object} film - film to render.
    */
   getPageContent = (film) => {
-    const date = '2021-10-29';
-    function splitDate(date) {
-      const result = date.split('-');
-      return result;
-    }
     if (!film?.id) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;

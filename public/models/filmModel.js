@@ -5,6 +5,7 @@ import {authModule} from '../modules/authorization';
 import {eventBus} from '../modules/eventBus';
 import {ROUTES} from '../consts/routes';
 import {statuses} from '../consts/reqStatuses';
+import {renderWarning} from "../utils/utils";
 
 
 /** Class representing film page model.
@@ -45,9 +46,7 @@ export class FilmPageModel {
    */
   postReview = (inputsData = {}) => {
     if (!authModule.user) {
-      this.eventBus.emit(
-          EVENTS.filmPage.render.warningSend,
-          'Чтобы оставить отзыв, пожалуйста, <a href="/auth">зарегистрируйтесь</a>',
+      renderWarning('Чтобы оставить отзыв, пожалуйста, <a href="/auth">зарегистрируйтесь</a>',
           'warning_no-auth');
       return;
     }

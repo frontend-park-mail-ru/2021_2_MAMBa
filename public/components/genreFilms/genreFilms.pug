@@ -4,7 +4,10 @@ div.collections
         = `Жанр  «${genreName}»`
     div(class ="black-container")
             div.films-with-description__container
-                div.genre__container#infinite-scroll
-                    each film, _ in filmsWithDescription
-                      +filmCard(film)
+                if (filmsTotal>0)
+                    div.genre__container#infinite-scroll
+                        each film, _ in filmsWithDescription
+                          +filmCard(film)
+                else
+                    div.film-card_description_name К сожалению, на нашем сайне нет фильмов этого жанра
 

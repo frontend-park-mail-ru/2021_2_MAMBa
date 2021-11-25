@@ -21,3 +21,16 @@ export const checkAuth = (id) =>{
   }
   return true;
 };
+
+
+/**
+ * Render warning to auth.
+ * @param {string} text - Warning text to render.
+ * @param {string} className - Class of warning.
+ */
+export const renderWarning = (text, className) => {
+  const errorBlock = document.querySelector(`.${className}`);
+  if (errorBlock) {
+    errorBlock.innerHTML = text;
+  }
+}

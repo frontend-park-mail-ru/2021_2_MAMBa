@@ -7,7 +7,7 @@ import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
-import {ratingNumber} from "../../modules/adapters";
+import {ratingNumber} from '../../modules/adapters';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -54,12 +54,11 @@ export class FilmView extends BaseView {
     if (summery.clientHeight > 120) {
       const template = readMore(data);
       const content = document.querySelector('.trailer__summery');
-      if (summery) {
+      if (content) {
         summery.innerHTML = template;
       }
     }
   }
-
 
   renderWarningRatingSend = (text) => {
     const ratingArea = document.querySelector('.user_rating');
@@ -122,7 +121,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function (e) {
+    rating.onmouseover = function(e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -130,7 +129,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function () {
+    rating.onmouseout = function() {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
@@ -243,17 +242,6 @@ export class FilmView extends BaseView {
     return document.querySelector('.send-review');
   }
 
-  /**
-   * Render warning to auth.
-   * @param {string} text - Warning text to render.
-   * @param {string} className - Class of warning.
-   */
-  renderWarning = (text, className) => {
-    const errorBlock = document.querySelector(`.${className}`);
-    if (errorBlock) {
-      errorBlock.innerHTML = text;
-    }
-  }
 
   /**
    * Remove warning to auth.

@@ -1,6 +1,6 @@
 each block in person_list
     .persons-block__person
-        img.person-block__img(href=block.picture_url)
+        img.person-block__img(href=`https://film4u.club${block.picture_url}`)
         .person-description-block
             a.person-description-block__name-rus(href=block.person_url) #{block.name_rus}
             span.person-description-block__name-en #{block.name_en}

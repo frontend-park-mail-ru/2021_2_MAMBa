@@ -343,6 +343,20 @@ const getNProfilePagesBlocks = async (url, id, limit, skip) => {
   }
 };
 
+const getSearch = async (value, skipFilms, limitFilms, skipPersons, limitPersons) => {
+  const params = {
+    url: URLS.api.search + `?value=${value}&limit_films=${limitFilms}&skip_films=${skipFilms}` +
+        `&limit_persons=${limitPersons}&skip_persons=${skipPersons}`,
+    method: 'GET',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 /**
  * Send async get request using async func.
  * @return {array} - Array of objects for render genres page.
@@ -462,5 +476,6 @@ export {
   getInfoAboutGenre,
   getGenreFilms,
   getInfoAboutPremiers,
+  getSearch,
 };
 

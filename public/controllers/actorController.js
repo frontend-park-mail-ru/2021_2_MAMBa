@@ -1,7 +1,7 @@
 import {BaseController} from './baseController.js';
 import {ActorPageModel} from '../models/actorModel.js';
 import {ActorView} from '../views/ActorView/ActorView.js';
-import {renderFilms} from '../utils/showMore.js'
+import {renderFilms} from '../utils/showMore.js';
 import {EVENTS} from '../consts/EVENTS';
 
 /** Class representing actor page controller. */

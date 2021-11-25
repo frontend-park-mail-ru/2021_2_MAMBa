@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
+  max-width: 300px;
   justify-content: center;
 
   &__ru, &__en {
@@ -30,6 +31,7 @@
 .film-actors-block {
   display: flex;
   width: 100%;
+  max-width: 380px;
 
   & a:not(:first-child)  {
     margin: 0 5px;
@@ -38,6 +40,9 @@
   &__actor {
     text-decoration: none;
     color: $dark-blue-text;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     &:hover {
       color: $pink;
@@ -57,6 +62,10 @@
   &__genre {
     color: $dark-blue-text;
     font-family: "Montserrat-Semi-Bold", sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 365px;
 
     &:hover {
       color: $pink;
@@ -73,6 +82,10 @@
     width: 100%;
     font-family: "Montserrat-Semi-Bold", sans-serif;
     color: $dark-blue-text;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 365px;
   }
 }
 
@@ -93,7 +106,7 @@
     font-size: 16px;
     position: absolute;
     top: 28px;
-    right: 38px;
+    left: 15px;
   }
 }
 
@@ -107,13 +120,13 @@
   border-radius: 20px;
 
   &__film-img {
-    width: 177px;
+    width: 170px;
     height: 120px;
     object-fit: cover;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
-    margin-left: 10px;
+    margin: 0 10px;
   }
 
   &__film-content {

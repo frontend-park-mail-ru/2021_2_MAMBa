@@ -6,6 +6,7 @@ export const ROUTES = {
   calendarPage: '/premieres',
   reviewPage: '/reviews/\\d+',
   AuthPage: '/auth',
+  search: '/search',
   RegPage: '/reg',
   Profile: '/profile',
   actorPage: '/actors/\\d+',

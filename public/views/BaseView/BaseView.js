@@ -2,6 +2,7 @@ import {ROOT} from '../../main.js';
 import baseViewPug from './BaseView.pug';
 import {headerLinks} from '../../consts/header';
 import loader from '../../components/loader/loader.pug';
+import {EVENTS} from '../../consts/EVENTS';
 
 /** Abstract class representing base view. */
 export class BaseView {
@@ -21,6 +22,7 @@ export class BaseView {
     const content = document.querySelector('.content');
     if (!content) {
       ROOT.innerHTML = baseViewPug({headerLinks: headerLinks});
+      this.eventBus.emit(EVENTS.Header.Render.header);
     } else {
       content.innerHTML = loader();
     }

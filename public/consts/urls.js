@@ -12,6 +12,7 @@ export const currentUrl = localUrl;
 export const URLS = {
   pages: {
     main: '/',
+    persons: '/actors',
   },
   api: {
     login: `${currentUrl}/api/user/login`,
@@ -26,6 +27,7 @@ export const URLS = {
     sendRating: `${currentUrl}/api/film/postRating?id=`,
     film: `${currentUrl}/api/film/getFilm?id=`,
     me: `${currentUrl}/api/me`,
+    search: `${currentUrl}/api/getSearch`,
     collections: `${currentUrl}/api/collections/getCollections?skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
     actor: `${currentUrl}/api/person/getPerson?id=`,
     actorFilms: `${currentUrl}/api/person/getPersonFilms?id=`,

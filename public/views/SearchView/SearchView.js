@@ -37,10 +37,19 @@ export class SearchView extends BaseView {
     if (!filmContainer) {
       return;
     }
-    filmContainer.innerHTML = '';
-    renderFilms(convertArrayToActorFilms(response.films));
+    if (!response.films.film_list.length) {
+      filmContainer.innerHTML = '<h1>Пуфто:(</h1>';
+    } else {
+      filmContainer.innerHTML = '';
+      renderFilms(convertArrayToActorFilms(response.films));
+    }
+
     const personsContainer = document.querySelector('.persons-block');
     if (!personsContainer) {
+      return;
+    }
+    if (!response.persons.person_list.length) {
+      personsContainer.innerHTML = '<h1 style="color: #22223B;">Пуфто:(</h1>';
       return;
     }
     personsContainer.innerHTML = personsPug(response.persons);

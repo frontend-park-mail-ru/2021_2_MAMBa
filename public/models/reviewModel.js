@@ -1,6 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {convertReviewToReviewPage} from '../modules/adapters';
 import {getInfoAboutReview} from '../modules/http';
+import {statuses} from "../consts/reqStatuses";
 
 /** Class representing actor page model.
  * @param {object} review - info about review(id).
@@ -24,7 +25,7 @@ export class ReviewPageModel {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
-          if (response.status === 200 && response.body) {
+          if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.reviewPage.render.content, convertReviewToReviewPage(response.body));
           }
         });

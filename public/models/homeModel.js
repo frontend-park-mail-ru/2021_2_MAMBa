@@ -1,6 +1,7 @@
 import {getCollections} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {convertArrayToCollectionsPage} from '../modules/adapters';
+import {statuses} from "../consts/reqStatuses";
 
 /**
  * Class representing home page model.
@@ -20,7 +21,7 @@ export class HomePageModel {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
-          if (response.status === 200 && response.body) {
+          if (response.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.homepage.render.content, convertArrayToCollectionsPage(response.body));
           }
         });

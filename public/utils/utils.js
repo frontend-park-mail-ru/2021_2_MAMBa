@@ -13,6 +13,7 @@ export {createElementFromHTML};
 
 export const checkAuth = () =>{
   if (!authModule.user) {
+    console.log("go to auth");
     eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage);
     return;
   }

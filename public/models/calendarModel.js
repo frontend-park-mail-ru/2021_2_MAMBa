@@ -1,6 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutPremiers} from '../modules/http';
 import {convertArrayToCalendarPage, convertDateToCalendarPage} from '../modules/adapters';
+import {statuses} from "../consts/reqStatuses";
 
 /** Class representing calendar page model.
  * @param {object} films - info about release films.
@@ -24,10 +25,10 @@ export class CalendarPageModel {
         .then((response) => {
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response.status === 200 && response.body) {
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.calendarPage.render.content,
                 convertArrayToCalendarPage(response.body, year, month));
-          } else if (response.status === 404) {
+          } else if (response?.status === statuses.NOT_FOUND) {
             this.eventBus.emit(EVENTS.calendarPage.render.notFoundPremiers, year, month);
           }
         });
@@ -42,10 +43,10 @@ export class CalendarPageModel {
         .then((response) => {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response.status === 200 && response.body) {
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.calendarPage.render.films,
                 convertArrayToCalendarPage(response.body, year, month));
-          } else if (response.status === 404) {
+          } else if (response.status === statuses.NOT_FOUND) {
             this.eventBus.emit(EVENTS.calendarPage.render.notFoundPremiers,
                 convertDateToCalendarPage(month, year), year, month);
           }

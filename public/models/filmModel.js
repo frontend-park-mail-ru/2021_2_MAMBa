@@ -4,6 +4,7 @@ import {convertArrayToFilmPage} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
 import {eventBus} from "../modules/eventBus";
 import {ROUTES} from "../consts/routes";
+import {statuses} from "../consts/reqStatuses";
 
 
 /** Class representing film page model.
@@ -30,11 +31,11 @@ export class FilmPageModel {
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response.status === 200 && response.body) {
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
           // TODO: отрисовывать стр если фильма нет в бд
-          // if (response.parsedJson.status === 404) {}
+          // if (response.parsedJson.status === statuses.NOT_FOUND) {}
         });
   }
 
@@ -56,7 +57,7 @@ export class FilmPageModel {
           if (!response) {
             return;
           }
-          if (response.status === 200) {
+          if (response.status === statuses.OK) {
             this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
           }
         });
@@ -83,7 +84,7 @@ export class FilmPageModel {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
+      if (response.status === statuses.OK) {
         this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
       }
     });
@@ -103,7 +104,7 @@ export class FilmPageModel {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
+      if (response.status === statuses.OK) {
         //TODO:check what backend send
         // this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
       }

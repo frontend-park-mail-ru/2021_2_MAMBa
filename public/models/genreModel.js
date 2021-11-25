@@ -1,6 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutGenre, getGenreFilms} from '../modules/http';
 import {convertArrayToGenrePage, convertArrayToActorFilms} from '../modules/adapters';
+import {statuses} from "../consts/reqStatuses";
 
 /** Class representing genre page model.
  * @param {object} actor - info about genre(id).
@@ -27,11 +28,11 @@ export class GenrePageModel {
         .then((response) => {
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response.status === 200 && response.body) {
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.genrePage.render.content, convertArrayToGenrePage(response.body));
           }
           // TODO: отрисовывать стр если genre нет в бд
-          // if (response.parsedJson.status === 404) {}
+          // if (response.parsedJson.status === statuses.NOT_FOUND) {}
         });
   }
 
@@ -44,7 +45,7 @@ export class GenrePageModel {
         .then((response) => {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response.status === 200 && response.body) {
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.genrePage.render.films, convertArrayToActorFilms(response.body), genre);
           }
         });

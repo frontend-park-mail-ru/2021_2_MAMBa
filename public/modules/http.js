@@ -16,7 +16,7 @@ const sendRating = async (filmId, rating) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -51,7 +51,7 @@ const getInfoAboutFilm = async (filmId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -74,7 +74,7 @@ const getInfoAboutReview = async (reviewId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === response?.status === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -97,7 +97,7 @@ const getInfoAboutActor = async (actorId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -122,7 +122,7 @@ const getActorFilms = async (actorId, skip, limit) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -167,7 +167,7 @@ const getCollectionFilms = async (collectionId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return (responseBody);
     }
     return null;
@@ -395,7 +395,7 @@ const getInfoAboutGenre = async (genreId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -420,7 +420,7 @@ const getGenreFilms = async (genreId, skip, limit) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -444,7 +444,7 @@ const getInfoAboutPremiers = async (year, month) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -468,7 +468,7 @@ const sendBookmark = async (filmId, bookmarked) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;

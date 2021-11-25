@@ -193,15 +193,16 @@ export const convertArrayToActorArray = (arrayContent) => {
 };
 
 /**
- * Union actors and their ids.
+ * Union genres of the film.
  * @param {object} arrayContent - Info about films`s genres from json.
  * @return {object} - Object for render list of actors.
  */
 export const convertArrayToGenresArray = (arrayContent) => {
+  console.log(arrayContent);
   return arrayContent.map((jsonGenre) => {
     return {
       name: jsonGenre.name,
-      href: `/genres/${jsonGenre.genre_id}`,
+      href: `/genres/${jsonGenre.id}`,
     };
   });
 };

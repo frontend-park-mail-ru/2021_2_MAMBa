@@ -38,8 +38,8 @@ export const URLS = {
     getBookmarks: `${currentUrl}/api/user/getBookmarks`,
     getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
-    genres: `${currentUrl}/api/genres/getGenres`,
-    genre: `${currentUrl}/api/genres/getGenre?id=`,
+    genres: `${currentUrl}/api/film/getGenres`,
+    genre: `${currentUrl}/api/film/getGenre?id=`,
     calendar: `${currentUrl}/api/films/premieres`,
   },
 };

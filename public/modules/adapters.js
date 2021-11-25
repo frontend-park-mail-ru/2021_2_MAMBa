@@ -141,6 +141,16 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
     };
   });
 };
+
+/**
+ * Convert rating for stars.
+ * @param {number} rating - rating of film.
+ */
+export const ratingNumber = (rating)=>{
+  return (!(rating % 1) && rating !== 10) ?
+      `${rating}.0` : rating
+}
+
 /**
  * Union actors and their ids.
  * @param {object} arrayContent - Info about films with descriptions from json.
@@ -149,8 +159,7 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
 export const convertArrayToFilmInfo = (arrayContent) => {
   const duration = (arrayContent.content_type === 'film') ?
       `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
-  const rating = (!(arrayContent.rating % 1) || arrayContent.rating === 10) ?
-      `${arrayContent.rating}.0` : arrayContent.rating;
+  const rating = ratingNumber(arrayContent.rating);
   return {
     ...arrayContent,
     titleOriginal: arrayContent?.title_original,
@@ -250,7 +259,7 @@ export const convertArrayToGenres = (genres) => {
   return genres.map((jsonGender) => {
     return {
       title: jsonGender?.name,
-      genreAvatar: `${jsonGender?.picture_url}`,
+      genreAvatar: `https://film4u.club${jsonGender?.picture_url}`,
       href: `/genres/${jsonGender.id}`,
     };
   });
@@ -339,7 +348,7 @@ const monthToText = (month) => {
  */
 export const convertArrayToPremierFilms = (arrayContent) => {
   return arrayContent.map((jsonFilm) => {
-    const data = jsonFilm?.premiereRu || '';
+    const data = jsonFilm?.premiere_ru || '';
     let yearNumber;
     let monthText;
     let dayNumber;
@@ -388,7 +397,7 @@ export const convertArrayToCalendarPage = (calendarInfoJson, year, month) => {
     dateCalendar: convertDateToCalendarPage(month, year),
     year: year,
     month: month,
-    premieres: convertArrayToPremierFilms(calendarInfoJson.films),
+    premieres: convertArrayToPremierFilms(calendarInfoJson.film_list),
   };
 };
 

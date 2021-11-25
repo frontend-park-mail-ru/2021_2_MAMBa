@@ -7,6 +7,7 @@ import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
+import {ratingNumber} from "../../modules/adapters";
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -76,7 +77,7 @@ export class FilmView extends BaseView {
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
-    const ratingAdapter = (!(newFilmRating % 1) || newFilmRating === 10) ? `${newFilmRating}.0` : newFilmRating;
+    const ratingAdapter = ratingNumber(newFilmRating);
     const ratingItemStar = document.querySelector('.rating-number-stars');
     const ratingItem = document.querySelector('.rating-number');
     if (ratingItem && ratingItemStar) {
@@ -121,7 +122,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function(e) {
+    rating.onmouseover = function (e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -129,7 +130,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function() {
+    rating.onmouseout = function () {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
@@ -301,55 +302,59 @@ export class FilmView extends BaseView {
     const reviewCount = reviews.length;
     const btvPrev = document.querySelector('.review-slider-container_button-left');
     const btvNext = document.querySelector('.review-slider-container_button-right');
-    const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding *
-        2 * reviewSlidesToShow) / reviewSlidesToShow;
-    const itemWidthWithMargin = itemWidth + gap + padding * 2;
-    const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
+    if (container) {
+      const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding *
+          2 * reviewSlidesToShow) / reviewSlidesToShow;
+      const itemWidthWithMargin = itemWidth + gap + padding * 2;
+      const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
 
-    reviews.forEach((item) => {
-      item.style.minWidth = `${itemWidth}px`;
-      item.style.maxWidth = `${itemWidth}px`;
-    });
+      reviews.forEach((item) => {
+        item.style.minWidth = `${itemWidth}px`;
+        item.style.maxWidth = `${itemWidth}px`;
+      });
 
-    btvNext.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *
-          itemWidthWithMargin) / itemWidthWithMargin;
-      position -= itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
-      setPosition();
+      btvNext.addEventListener('click', (e) => {
+        e.preventDefault();
+        const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *
+            itemWidthWithMargin) / itemWidthWithMargin;
+        position -= itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
+        setPosition();
+        checkButtons();
+      });
+
+      btvPrev.addEventListener('click', (e) => {
+        e.preventDefault();
+        const itemLeft = Math.abs(position) / itemWidthWithMargin;
+        position += itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
+        setPosition();
+        checkButtons();
+      });
+
+
+      /**
+       * Set film to the right position.
+       */
+      const setPosition = () => {
+        track.style.transform = `translateX(${position}px`;
+      };
+      /**
+       * Check buttons.
+       */
+      const checkButtons = () => {
+        if (position === 0) {
+          btvPrev.classList.add('hidden');
+        } else {
+          btvPrev.classList.remove('hidden');
+        }
+
+        if (position <= -(reviewCount - reviewSlidesToShow) * itemWidthWithMargin) {
+          btvNext.classList.add('hidden');
+        } else {
+          btvNext.classList.remove('hidden');
+        }
+      };
       checkButtons();
-    });
-
-    btvPrev.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = Math.abs(position) / itemWidthWithMargin;
-      position += itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
-      setPosition();
-      checkButtons();
-    });
-    /**
-     * Set film to the right position.
-     */
-    const setPosition = () => {
-      track.style.transform = `translateX(${position}px`;
-    };
-    /**
-     * Check buttons.
-     */
-    const checkButtons = () => {
-      if (position === 0) {
-        btvPrev.classList.add('hidden');
-      } else {
-        btvPrev.classList.remove('hidden');
-      }
-
-      if (position <= -(reviewCount - reviewSlidesToShow) * itemWidthWithMargin) {
-        btvNext.classList.add('hidden');
-      } else {
-        btvNext.classList.remove('hidden');
-      }
-    };
-    checkButtons();
+    }
   }
   /**
    * Set slider actions.

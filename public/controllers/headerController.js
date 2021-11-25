@@ -12,6 +12,7 @@ export class HeaderController extends BaseController {
         {event: EVENTS.authorization.gotUser, handler: this.view.renderUserBlock},
         {event: EVENTS.authorization.changedUser, handler: this.view.renderUserBlock},
         {event: EVENTS.Router.Go, handler: this.model.compareLinksWithPath},
+        {event: EVENTS.Header.Render.header, handler: this.view.addEventListenerToSearch},
     );
     this.subscribe();
   }

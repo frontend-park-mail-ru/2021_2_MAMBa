@@ -102,9 +102,11 @@ export const EVENTS = {
   Header: {
     Render: {
       Content: 'header:renderContent',
+      header: 'header:renderHeader',
     },
     ChangeActiveButton: 'header:changeActiveButton',
     LogOut: 'header:logOut',
+    search: 'header:search',
   },
 
   authorization: {
@@ -133,5 +135,12 @@ export const EVENTS = {
     NoMoreAvailable: 'profilePage:noMoreAvailable',
     ChangeProfile: 'profilePage:changeProfile',
     ChangedProfile: 'profilePage:changedProfile',
+  },
+
+  searchPage: {
+    renderFilmsPersons: 'searchPage:renderFilmsPersons',
+    renderEmptyPage: 'searchPage:renderEmptyPage',
+    renderFilms: 'searchPage:renderFilms',
+    getContent: 'searchPage:getContent',
   },
 };

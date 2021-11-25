@@ -124,10 +124,10 @@ export class ProfileModel extends Model {
           }
         }
         if (event === EVENTS.ProfilePage.Render.Bookmarks) {
-          if (response.parsedJson.body.films_list.length) {
-            this.makeFilmUrl(response.parsedJson.body.films_list, 'id');
-            this.makeActorsUrl(response.parsedJson.body.films_list, 'cast');
-            this.makeGenresUrl(response.parsedJson.body.films_list, 'genres');
+          if (response.parsedJson.body.bookmarks_list.length) {
+            this.makeFilmUrl(response.parsedJson.body.bookmarks_list, 'id');
+            this.makeActorsUrl(response.parsedJson.body.bookmarks_list, 'cast');
+            this.makeGenresUrl(response.parsedJson.body.bookmarks_list, 'genres');
           }
         }
         this.eventBus.emit(event, response.parsedJson);

@@ -8,6 +8,7 @@ import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
 const symbolCount = 11;
+const enterCode = 13;
 
 export class HeaderView extends BaseView {
   constructor(eventBus) {
@@ -67,7 +68,7 @@ export class HeaderView extends BaseView {
     }
     const userName = authModule.user.first_name;
     changeBlock.replaceWith(createElementFromHTML(userBlock({
-      userName: userName.length > 11 ? userName.substr(0, symbolCount) + '...' : userName,
+      userName: userName.length > symbolCount ? userName.substr(0, symbolCount) + '...' : userName,
       imgSrc: authModule.user.profile_pic,
       userId: authModule.user.id,
       profileHref: ROUTES.Profile,
@@ -83,6 +84,25 @@ export class HeaderView extends BaseView {
     logoutButton.addEventListener('click', (e) => {
       this.renderEnterButton();
       this.eventBus.emit(EVENTS.Header.LogOut);
+    });
+  }
+
+  addEventListenerToSearch = () => {
+    const input = document.querySelector('.search__input');
+    if (!input) {
+      return;
+    }
+    input.addEventListener('keydown', (e) => {
+      if (e.keyCode === enterCode) {
+        this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
+      }
+    });
+    const button = document.querySelector('.search__btn');
+    if (!button) {
+      return;
+    }
+    button.addEventListener('click', (e) => {
+      this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
     });
   }
 

@@ -34,6 +34,7 @@ export class ProfileView extends BaseView {
     const content = document.querySelector('.content');
     if (!content) {
       ROOT.innerHTML = baseViewPug({headerLinks: headerLinks});
+      this.eventBus.emit(EVENTS.Header.Render.header);
     } else {
       const profileContent = document.querySelector('.profile__profile-content');
       if (profileContent) {
@@ -213,12 +214,15 @@ export class ProfileView extends BaseView {
     if (!bookmarks || !bookmarks.body) {
       return;
     }
+    for (const bookmark of bookmarks.body.bookmarks_list) {
+      bookmark.rating = (!(bookmark.rating % 1) || bookmark.rating === 10) ? `${bookmark.rating}.0` : bookmark.rating;
+    }
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;
     }
     if (profileContent.querySelector('.loader')) {
-      if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.films_list.length === 0) {
+      if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.bookmarks_list.length === 0) {
         profileContent.innerHTML = '<h1>Пуфто:(</h1>';
       } else {
         profileContent.innerHTML = bookmarksPug(bookmarks.body);

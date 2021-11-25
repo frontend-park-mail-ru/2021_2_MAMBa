@@ -1,0 +1,63 @@
+.persons-block {
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  & div:not(:first-child)  {
+    margin-left: 15px;
+  }
+
+  &__person {
+    display: flex;
+    overflow: hidden;
+    width: 570px;
+    height: 162px;
+    background-color: rgba(36, 11, 54, 0.1);
+    border-radius: 20px;
+    align-self: center;
+  }
+}
+
+.person-block {
+
+  &__img {
+    width: 150px;
+    height: 75%;
+    align-self: center;
+    margin: 0 10px;
+  }
+}
+
+.person-description-block {
+  display: flex;
+  color: $dark-blue-text;
+  flex-direction: column;
+  height: 75%;
+  align-self: center;
+
+  &__name-rus, &__name-en {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 330px;
+  }
+
+  &__name-rus {
+    text-decoration: none;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-size: 20px;
+    color: $dark-blue-text;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+
+  &__name-en {
+
+  }
+
+  &__career {
+    margin-top: 20px;
+  }
+}

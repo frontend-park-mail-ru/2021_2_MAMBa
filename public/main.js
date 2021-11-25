@@ -9,6 +9,7 @@ import {ActorPageController} from './controllers/actorController.js';
 import {CollectionPageController} from './controllers/collectionController.js';
 import {GenresPageController} from './controllers/genresController';
 import {GenrePageController} from './controllers/genreController';
+import {SearchController} from './controllers/searchController.js';
 import {CalendarPageController} from './controllers/calendarController';
 
 import {Router} from './modules/router.js';
@@ -41,6 +42,7 @@ const collectionPageController = new CollectionPageController();
 const genresPageController = new GenresPageController();
 const genrePageController = new GenrePageController();
 const calendarPageController = new CalendarPageController();
+const searchController = new SearchController();
 
 const router = new Router(ROOT);
 
@@ -55,4 +57,5 @@ router.register(ROUTES.homePage, homePageController)
     .register(ROUTES.genres, genresPageController)
     .register(ROUTES.genrePage, genrePageController)
     .register(ROUTES.calendarPage, calendarPageController)
+    .register(ROUTES.search, searchController)
     .start();

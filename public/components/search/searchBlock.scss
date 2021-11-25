@@ -1,0 +1,38 @@
+.search-block {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__query-title, &__films-title, &__persons-title {
+    color: $dark-blue-text;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__query-title {
+    margin-top: 25px;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-size: 28px;
+  }
+
+  &__films-title, &__persons-title {
+    font-size: 20px;
+    margin-top: 12px;
+  }
+}
+
+.empty-search-block {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    font-family: "Montserrat-Bold", sans-serif;
+    font-size: 30px;
+    color: $pink;
+  }
+}

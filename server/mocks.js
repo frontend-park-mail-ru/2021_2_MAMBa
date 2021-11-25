@@ -194,98 +194,565 @@ const initMocks = (app) => {
     });
   });
 
+  app.get('/api/getSearch', (req, res) => {
+    if (req.query.skip < req.query.limit) {
+      res.json({
+        "status": 200,
+        'body': {
+          'film_list': [
+            {
+              id: 1,
+              title: 'Пика',
+              title_original: 'Pika',
+              poster_url: '/static/pics/cube.svg',
+              rating: 8.3,
+              release_year: 2014,
+              description: 'Жизнь десятилетнего Гарри Поттера нельзя назвать сладкой: родители умерли, едва ему исполнился год, а от дяди и тёти, взявших сироту на воспитание, достаются лишь тычки да подзатыльники. Но в одиннадцатый день рождения Гарри всё меняется.'
+            },
+          ],
+          'more_available': false,
+          'review_total': 6,
+          'current_sort': '',
+          'current_limit': 6,
+          'current_skip': 0,
+        },
+      });
+    } else {
+      res.json({
+        "body":{
+          "films":{
+            "film_list":[
+              {
+                "id":1,
+                "title":"Гарри Поттер и философский камень",
+                "title_original":"Harry Potter and the Sorcerer's Stone",
+                "rating":6.8,
+                "description":"Жизнь десятилетнего Гарри Поттера нельзя назвать сладкой: родители умерли, едва ему исполнился год, а от дяди и тёти, взявших сироту на воспитание, достаются лишь тычки да подзатыльники. Но в одиннадцатый день рождения Гарри всё меняется. Странный гость, неожиданно появившийся на пороге, приносит письмо, из которого мальчик узнаёт, что на самом деле он - волшебник и зачислен в школу магии под названием Хогвартс. А уже через пару недель Гарри будет мчаться в поезде Хогвартс-экспресс навстречу новой жизни, где его ждут невероятные приключения, верные друзья и самое главное — ключ к разгадке тайны смерти его родителей.",
+                "total_revenue":"0,00 ?",
+                "poster_url":"/static/media/img/films/1.webp",
+                "trailer_url":"https://www.youtube.com/watch?v=ppnEwu-z9kU",
+                "content_type":"film",
+                "release_year":2001,
+                "duration":152,
+                "origin_countries":[
+                  "Великобритания",
+                  "США"
+                ],
+                "cast":[
+                  {
+                    "id":3,
+                    "name_en":"Daniel Radcliffe",
+                    "name_rus":"Дэниэл Рэдклифф",
+                    "picture_url":"/static/media/img/persons/3.jpg",
+                    "career":[
+                      "Актер, Продюсер"
+                    ]
+                  },
+                  {
+                    "id":4,
+                    "name_en":"Rupert Grint",
+                    "name_rus":"Руперт Гринт",
+                    "picture_url":"/static/media/img/persons/4.jpg",
+                    "career":[
+                      "Актер, Продюсер"
+                    ]
+                  },
+                  {
+                    "id":5,
+                    "name_en":"Emma Watson",
+                    "name_rus":"Эмма Уотсон",
+                    "picture_url":"/static/media/img/persons/5.jpg",
+                    "career":[
+                      "Актриса"
+                    ]
+                  }
+                ],
+                "director":{
+                  "id":2,
+                  "name_en":"Chris Columbus",
+                  "name_rus":"Крис Коламбус",
+                  "picture_url":"/static/media/img/persons/2.jpg",
+                  "career":[
+                    "Продюсер, Режиссер, Сценарист, Актер"
+                  ]
+                },
+                "screenwriter":{
+                  "id":1,
+                  "name_en":"Steven Kloves",
+                  "name_rus":"Стивен Кловз",
+                  "picture_url":"/static/media/img/persons/1.webp",
+                  "career":[
+                    "Сценарист, Продюсер, Режиссер"
+                  ]
+                },
+                "genres":[
+                  {
+                    "id":9,
+                    "name":"фэнтези"
+                  },
+                  {
+                    "id":10,
+                    "name":"приключения"
+                  },
+                  {
+                    "id":11,
+                    "name":"семейный"
+                  }
+                ]
+              },
+              {
+                "id":2,
+                "title":"Гарри Поттер и Тайная комната",
+                "title_original":"Harry Potter and the Chamber of Secrets",
+                "rating":3.5,
+                "description":"Гарри Поттер переходит на второй курс Школы чародейства и волшебства Хогвартс. Эльф Добби предупреждает Гарри об опасности, которая поджидает его там, и просит больше не возвращаться в школу. Юный волшебник не следует совету эльфа и становится свидетелем таинственных событий, разворачивающихся в Хогвартсе. Вскоре Гарри и его друзья узнают о существовании Тайной Комнаты и сталкиваются с новыми приключениями, пытаясь победить темные силы.",
+                "total_revenue":"0,00 ?",
+                "poster_url":"/static/media/img/films/2.webp",
+                "trailer_url":"https://www.youtube.com/watch?v=fvfHr2SB1mg",
+                "content_type":"film",
+                "release_year":2002,
+                "duration":161,
+                "origin_countries":[
+                  "Великобритания",
+                  "США",
+                  "Германия"
+                ],
+                "cast":[
+                  {
+                    "id":3,
+                    "name_en":"Daniel Radcliffe",
+                    "name_rus":"Дэниэл Рэдклифф",
+                    "picture_url":"/static/media/img/persons/3.jpg",
+                    "career":[
+                      "Актер, Продюсер"
+                    ]
+                  },
+                  {
+                    "id":4,
+                    "name_en":"Rupert Grint",
+                    "name_rus":"Руперт Гринт",
+                    "picture_url":"/static/media/img/persons/4.jpg",
+                    "career":[
+                      "Актер, Продюсер"
+                    ]
+                  },
+                  {
+                    "id":5,
+                    "name_en":"Emma Watson",
+                    "name_rus":"Эмма Уотсон",
+                    "picture_url":"/static/media/img/persons/5.jpg",
+                    "career":[
+                      "Актриса"
+                    ]
+                  }
+                ],
+                "director":{
+                  "id":2,
+                  "name_en":"Chris Columbus",
+                  "name_rus":"Крис Коламбус",
+                  "picture_url":"/static/media/img/persons/2.jpg",
+                  "career":[
+                    "Продюсер, Режиссер, Сценарист, Актер"
+                  ]
+                },
+                "screenwriter":{
+                  "id":1,
+                  "name_en":"Steven Kloves",
+                  "name_rus":"Стивен Кловз",
+                  "picture_url":"/static/media/img/persons/1.webp",
+                  "career":[
+                    "Сценарист, Продюсер, Режиссер"
+                  ]
+                },
+                "genres":[
+                  {
+                    "id":9,
+                    "name":"фэнтези"
+                  },
+                  {
+                    "id":10,
+                    "name":"приключения"
+                  },
+                  {
+                    "id":11,
+                    "name":"семейный"
+                  }
+                ]
+              },
+              {
+                "id":3,
+                "title":"Гарри Поттер и узник Азкабана",
+                "title_original":"Harry Potter and the Prisoner of Azkaban",
+                "rating":2.0,
+                "description":"В третьей части истории о юном волшебнике полюбившиеся всем герои — Гарри Поттер, Рон и Гермиона — возвращаются уже на третий курс школы чародейства и волшебства Хогвартс. На этот раз они должны раскрыть тайну узника, сбежавшего из зловещей тюрьмы Азкабан, чье пребывание на воле создает для Гарри смертельную опасность...",
+                "total_revenue":"0,00 ?",
+                "poster_url":"/static/media/img/films/3.webp",
+                "trailer_url":"https://www.youtube.com/watch?v=ofHrcJFd8hA",
+                "content_type":"film",
+                "release_year":2004,
+                "duration":142,
+                "origin_countries":[
+                  "Великобритания",
+                  "США"
+                ],
+                "cast":[
+                  {
+                    "id":3,
+                    "name_en":"Daniel Radcliffe",
+                    "name_rus":"Дэниэл Рэдклифф",
+                    "picture_url":"/static/media/img/persons/3.jpg",
+                    "career":[
+                      "Актер, Продюсер"
+                    ]
+                  },
+                  {
+                    "id":4,
+                    "name_en":"Rupert Grint",
+                    "name_rus":"Руперт Гринт",
+                    "picture_url":"/static/media/img/persons/4.jpg",
+                    "career":[
+                      "Актер, Продюсер"
+                    ]
+                  },
+                  {
+                    "id":5,
+                    "name_en":"Emma Watson",
+                    "name_rus":"Эмма Уотсон",
+                    "picture_url":"/static/media/img/persons/5.jpg",
+                    "career":[
+                      "Актриса"
+                    ]
+                  }
+                ],
+                "director":{
+                  "id":6,
+                  "name_en":"Alfonso Cuarón",
+                  "name_rus":"Альфонсо Куарон",
+                  "picture_url":"/static/media/img/persons/6.webp",
+                  "career":[
+                    "Продюсер, Режиссер, Сценарист, Оператор, Монтажер, Актер"
+                  ]
+                },
+                "screenwriter":{
+                  "id":1,
+                  "name_en":"Steven Kloves",
+                  "name_rus":"Стивен Кловз",
+                  "picture_url":"/static/media/img/persons/1.webp",
+                  "career":[
+                    "Сценарист, Продюсер, Режиссер"
+                  ]
+                },
+                "genres":[
+                  {
+                    "id":9,
+                    "name":"фэнтези"
+                  },
+                  {
+                    "id":10,
+                    "name":"приключения"
+                  },
+                  {
+                    "id":11,
+                    "name":"семейный"
+                  }
+                ]
+              }
+            ],
+            "more_available":true,
+            "film_total":4,
+            "current_sort":"",
+            "current_limit":3,
+            "current_skip":3
+          },
+          "persons":{
+            "person_list":[
+              {
+                "id":31,
+                "name_en":"Ben Affleck",
+                "name_rus":"Бен Аффлек",
+                "picture_url":"/static/media/img/persons/31.jpg",
+                "career":[
+                  "Актер, Продюсер, Режиссер, Сценарист"
+                ]
+              },
+              {
+                "id":32,
+                "name_en":"Josh Hartnett",
+                "name_rus":"Джош Хартнетт",
+                "picture_url":"/static/media/img/persons/32.jpg",
+                "career":[
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id":33,
+                "name_en":"Kate Beckinsale",
+                "name_rus":"Кейт Бекинсейл",
+                "picture_url":"/static/media/img/persons/33.jpg",
+                "career":[
+                  "Актриса, Продюсер"
+                ]
+              }
+            ],
+            "more_available":true,
+            "person_total":4,
+            "current_sort":"",
+            "current_limit":3,
+            "current_skip":3
+          }
+        },
+        "status":200
+      })
+    }
+  })
+
   app.get('/api/user/getBookmarks', (req, res) => {
     res.json({
-      "status": 200,
-      'body': {
-        'films_list': [
+      "body": {
+        "bookmarks_list": [
           {
-            id: 1,
-            title: 'Пика',
-            title_original: 'Pika',
-            poster_url: '/static/pics/cube.svg',
-            rating: 8.3,
-            release_year: 2014,
-            origin_countries: ['Америка'],
-            cast: [{
-              'id': 3,
-              'name_en': 'Daniel Radcliffe',
-              'name_rus': 'Дэниэл Рэдклифф',
-              'picture_url': '/static/media/img/persons/3.jpg',
-              'career': [
-                'Актер, Продюсер',
-              ],
-            }],
-            director: {
-              'id': 2,
-              'name_en': 'Chris Columbus',
-              'name_rus': 'Крис Коламбус',
-              'picture_url': '/static/media/img/persons/2.jpg',
-              'career': [
-                'Продюсер, Режиссер, Сценарист, Актер',
-              ],
+            "id": 1,
+            "title": "Гарри Поттер и философский камень",
+            "title_original": "Harry Potter and the Sorcerer's Stone",
+            "rating": 6.8,
+            "description": "Жизнь десятилетнего Гарри Поттера нельзя назвать сладкой: родители умерли, едва ему исполнился год, а от дяди и тёти, взявших сироту на воспитание, достаются лишь тычки да подзатыльники. Но в одиннадцатый день рождения Гарри всё меняется. Странный гость, неожиданно появившийся на пороге, приносит письмо, из которого мальчик узнаёт, что на самом деле он - волшебник и зачислен в школу магии под названием Хогвартс. А уже через пару недель Гарри будет мчаться в поезде Хогвартс-экспресс навстречу новой жизни, где его ждут невероятные приключения, верные друзья и самое главное — ключ к разгадке тайны смерти его родителей.",
+            "total_revenue": "0,00 ?",
+            "poster_url": "/static/media/img/films/1.webp",
+            "trailer_url": "https://www.youtube.com/watch?v=ppnEwu-z9kU",
+            "content_type": "film",
+            "release_year": 2001,
+            "duration": 152,
+            "origin_countries": [
+              "Великобритания",
+              "США"
+            ],
+            "cast": [
+              {
+                "id": 3,
+                "name_en": "Daniel Radcliffe",
+                "name_rus": "Дэниэл Рэдклифф",
+                "picture_url": "/static/media/img/persons/3.jpg",
+                "career": [
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id": 4,
+                "name_en": "Rupert Grint",
+                "name_rus": "Руперт Гринт",
+                "picture_url": "/static/media/img/persons/4.jpg",
+                "career": [
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id": 5,
+                "name_en": "Emma Watson",
+                "name_rus": "Эмма Уотсон",
+                "picture_url": "/static/media/img/persons/5.jpg",
+                "career": [
+                  "Актриса"
+                ]
+              }
+            ],
+            "director": {
+              "id": 2,
+              "name_en": "Chris Columbus",
+              "name_rus": "Крис Коламбус",
+              "picture_url": "/static/media/img/persons/2.jpg",
+              "career": [
+                "Продюсер, Режиссер, Сценарист, Актер"
+              ]
             },
-            genres: [
+            "screenwriter": {
+              "id": 1,
+              "name_en": "Steven Kloves",
+              "name_rus": "Стивен Кловз",
+              "picture_url": "/static/media/img/persons/1.webp",
+              "career": [
+                "Сценарист, Продюсер, Режиссер"
+              ]
+            },
+            "genres": [
               {
-                'id': 9,
-                'name': 'фэнтези',
+                "id": 9,
+                "name": "фэнтези"
               },
               {
-                'id': 10,
-                'name': 'приключения',
+                "id": 10,
+                "name": "приключения"
               },
               {
-                'id': 11,
-                'name': 'семейный',
-              }],
+                "id": 11,
+                "name": "семейный"
+              }
+            ]
           },
           {
-            id: 2,
-            title: 'Пика2',
-            title_original: 'Pika2',
-            poster_url: '/static/pics/cube.svg',
-            rating: 8.3,
-            release_year: 2015,
-            origin_countries: ['Америка'],
-            cast: [{
-              'id': 3,
-              'name_en': 'Daniel Radcliffe',
-              'name_rus': 'Дэниэл Рэдклифф',
-              'picture_url': '/static/media/img/persons/3.jpg',
-              'career': [
-                'Актер, Продюсер',
-              ],
-            }],
-            director: {
-              'id': 2,
-              'name_en': 'Chris Columbus',
-              'name_rus': 'Крис Коламбус',
-              'picture_url': '/static/media/img/persons/2.jpg',
-              'career': [
-                'Продюсер, Режиссер, Сценарист, Актер',
-              ],
+            "id": 2,
+            "title": "Гарри Поттер и Тайная комната",
+            "title_original": "Harry Potter and the Chamber of Secrets",
+            "rating": 3.5,
+            "description": "Гарри Поттер переходит на второй курс Школы чародейства и волшебства Хогвартс. Эльф Добби предупреждает Гарри об опасности, которая поджидает его там, и просит больше не возвращаться в школу. Юный волшебник не следует совету эльфа и становится свидетелем таинственных событий, разворачивающихся в Хогвартсе. Вскоре Гарри и его друзья узнают о существовании Тайной Комнаты и сталкиваются с новыми приключениями, пытаясь победить темные силы.",
+            "total_revenue": "0,00 ?",
+            "poster_url": "/static/media/img/films/2.webp",
+            "trailer_url": "https://www.youtube.com/watch?v=fvfHr2SB1mg",
+            "content_type": "film",
+            "release_year": 2002,
+            "duration": 161,
+            "origin_countries": [
+              "Великобритания",
+              "США",
+              "Германия"
+            ],
+            "cast": [
+              {
+                "id": 3,
+                "name_en": "Daniel Radcliffe",
+                "name_rus": "Дэниэл Рэдклифф",
+                "picture_url": "/static/media/img/persons/3.jpg",
+                "career": [
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id": 4,
+                "name_en": "Rupert Grint",
+                "name_rus": "Руперт Гринт",
+                "picture_url": "/static/media/img/persons/4.jpg",
+                "career": [
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id": 5,
+                "name_en": "Emma Watson",
+                "name_rus": "Эмма Уотсон",
+                "picture_url": "/static/media/img/persons/5.jpg",
+                "career": [
+                  "Актриса"
+                ]
+              }
+            ],
+            "director": {
+              "id": 2,
+              "name_en": "Chris Columbus",
+              "name_rus": "Крис Коламбус",
+              "picture_url": "/static/media/img/persons/2.jpg",
+              "career": [
+                "Продюсер, Режиссер, Сценарист, Актер"
+              ]
             },
-            genres: [
+            "screenwriter": {
+              "id": 1,
+              "name_en": "Steven Kloves",
+              "name_rus": "Стивен Кловз",
+              "picture_url": "/static/media/img/persons/1.webp",
+              "career": [
+                "Сценарист, Продюсер, Режиссер"
+              ]
+            },
+            "genres": [
               {
-                'id': 9,
-                'name': 'фэнтези',
+                "id": 9,
+                "name": "фэнтези"
               },
               {
-                'id': 10,
-                'name': 'приключения',
+                "id": 10,
+                "name": "приключения"
               },
               {
-                'id': 11,
-                'name': 'семейный',
-              }],
+                "id": 11,
+                "name": "семейный"
+              }
+            ]
           },
+          {
+            "id": 3,
+            "title": "Гарри Поттер и узник Азкабана",
+            "title_original": "Harry Potter and the Prisoner of Azkaban",
+            "rating": 2.0,
+            "description": "В третьей части истории о юном волшебнике полюбившиеся всем герои — Гарри Поттер, Рон и Гермиона — возвращаются уже на третий курс школы чародейства и волшебства Хогвартс. На этот раз они должны раскрыть тайну узника, сбежавшего из зловещей тюрьмы Азкабан, чье пребывание на воле создает для Гарри смертельную опасность...",
+            "total_revenue": "0,00 ?",
+            "poster_url": "/static/media/img/films/3.webp",
+            "trailer_url": "https://www.youtube.com/watch?v=ofHrcJFd8hA",
+            "content_type": "film",
+            "release_year": 2004,
+            "duration": 142,
+            "origin_countries": [
+              "Великобритания",
+              "США"
+            ],
+            "cast": [
+              {
+                "id": 3,
+                "name_en": "Daniel Radcliffe",
+                "name_rus": "Дэниэл Рэдклифф",
+                "picture_url": "/static/media/img/persons/3.jpg",
+                "career": [
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id": 4,
+                "name_en": "Rupert Grint",
+                "name_rus": "Руперт Гринт",
+                "picture_url": "/static/media/img/persons/4.jpg",
+                "career": [
+                  "Актер, Продюсер"
+                ]
+              },
+              {
+                "id": 5,
+                "name_en": "Emma Watson",
+                "name_rus": "Эмма Уотсон",
+                "picture_url": "/static/media/img/persons/5.jpg",
+                "career": [
+                  "Актриса"
+                ]
+              }
+            ],
+            "director": {
+              "id": 6,
+              "name_en": "Alfonso Cuarón",
+              "name_rus": "Альфонсо Куарон",
+              "picture_url": "/static/media/img/persons/6.webp",
+              "career": [
+                "Продюсер, Режиссер, Сценарист, Оператор, Монтажер, Актер"
+              ]
+            },
+            "screenwriter": {
+              "id": 1,
+              "name_en": "Steven Kloves",
+              "name_rus": "Стивен Кловз",
+              "picture_url": "/static/media/img/persons/1.webp",
+              "career": [
+                "Сценарист, Продюсер, Режиссер"
+              ]
+            },
+            "genres": [
+              {
+                "id": 9,
+                "name": "фэнтези"
+              },
+              {
+                "id": 10,
+                "name": "приключения"
+              },
+              {
+                "id": 11,
+                "name": "семейный"
+              }
+            ]
+          }
         ],
-        'more_available': false,
-        'review_total': 6,
-        'current_sort': '',
-        'current_limit': 6,
-        'current_skip': 0,
+        "more_available": true,
+        "films_total": 4,
+        "current_sort": "",
+        "current_limit": 3,
+        "current_skip": 3
       },
+      "status": 200
     });
   });
 

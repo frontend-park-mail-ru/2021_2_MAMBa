@@ -82,6 +82,7 @@ export const EVENTS = {
     },
     getPageContent: 'filmPage:getMainPageContent',
     postReview: 'filmPage:postReview',
+    postBookmark: 'filmPage:postBookmark',
     postRating: 'filmPage:postRating',
   },
   reviewPage: {

@@ -1034,6 +1034,7 @@ const ids = {};
 const FILM = {
   status: 200,
   body: {
+    "bookmarked": false,
     film: {
       "id": 1,
       "title": "Еще по одной",

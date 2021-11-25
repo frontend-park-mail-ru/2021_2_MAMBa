@@ -7,11 +7,52 @@
   margin-right: auto;
 }
 
+.rating-item {
+  width: 36px;
+  height: 33px;
+
+  cursor: pointer;
+}
+
+.bookmark{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.not_favourite{
+  width: 78px;
+  height: 78px;
+  cursor: pointer;
+  background-image: url(static/pics/закладка_серая.png);
+
+  &:hover {
+    transition: all .5s ease-out;
+    background-image: url(static/pics/pinkBookmark.png);
+  }
+}
+
+.favourite{
+  width: 78px;
+  height: 78px;
+  cursor: pointer;
+  background-image: url(static/pics/pinkBookmark.png);
+  &:hover {
+    transition: all .5s ease-out;
+    background-image: url(static/pics/закладка_серая.png);
+  }
+}
+
 .info {
   column-gap: 5%;
   display: flex;
 
+  &__pic-and-fav{
+
+  }
+
   &__pic {
+    position:relative;
     width: 300px;
     height: 100%;
     border-radius: 3px;
@@ -131,10 +172,7 @@
     }
   }
 
-  //&:hover {
-  //  opacity: 1;
-  //  transform: scale(1.1);
-  //}
+
 
   &__name {
     font-family: "Montserrat-Bold", "Arial", sans-serif;

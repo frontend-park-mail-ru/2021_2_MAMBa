@@ -24,6 +24,7 @@ export const URLS = {
     review: `${currentUrl}/api/film/getReview?id=`,
     sendReview: `${currentUrl}/api/film/postReview`,
     sendRating: `${currentUrl}/api/film/postRating?id=`,
+    sendBookmark: `${currentUrl}/api/film/postBookmark?id=`,
     film: `${currentUrl}/api/film/getFilm?id=`,
     me: `${currentUrl}/api/me`,
     collections: `${currentUrl}/api/collections/getCollections?skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,

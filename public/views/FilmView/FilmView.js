@@ -16,7 +16,6 @@ export class FilmView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataFilm;
   }
 
   /**
@@ -33,7 +32,6 @@ export class FilmView extends BaseView {
    */
   renderContent = (data) => {
     const template = filmPageContent(data);
-    this.dataFilm = data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
@@ -42,6 +40,7 @@ export class FilmView extends BaseView {
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
       this.setReadMore(data);
+      this.bookmarked(data.film.id)
       setAnchorActions();
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
@@ -83,6 +82,28 @@ export class FilmView extends BaseView {
       ratingItem.textContent = `${ratingAdapter}`;
       ratingItemStar.textContent = `${ratingAdapter}`;
     }
+  }
+
+  bookmarked = (filmId) => {
+    const bookmark = document.querySelector('.bookmark');
+    if (bookmark){
+      bookmark.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = e.target;
+        //TODO check auth
+        if (target.classList.contains('not_favourite')) {
+          bookmark.classList.remove('not_favourite');
+          target.classList.add('favourite');
+          this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, true);
+        }
+        else if (target.classList.contains('favourite')) {
+          bookmark.classList.remove('favourite');
+          target.classList.add('not_favourite');
+          this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
+        }
+      });
+    }
+
   }
 
   rating = (filmId) => {

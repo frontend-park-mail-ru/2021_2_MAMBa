@@ -18,6 +18,7 @@ export class FilmPageController extends BaseController {
         {event: EVENTS.filmPage.render.warningSend, handler: this.view.renderWarning},
         {event: EVENTS.filmPage.render.successfulSend, handler: this.view.renderSuccessfulSend},
         {event: EVENTS.filmPage.postRating, handler: this.model.postRating},
+        {event: EVENTS.filmPage.postBookmark, handler: this.model.postBookmark},
         {event: EVENTS.filmPage.render.warningRatingSend, handler: this.view.renderWarningRatingSend},
         {event: EVENTS.filmPage.render.successfulRatingSend, handler: this.view.renderSuccessfulRatingSend},
     );

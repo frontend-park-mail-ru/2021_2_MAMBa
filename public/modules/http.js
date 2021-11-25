@@ -439,6 +439,30 @@ const getInfoAboutPremiers = async (year, month) => {
   }
 };
 
+
+/**
+ * Send async post request using async func.
+ * @param {number} filmId - film`s id of rating.
+ * @param {boolean} bookmarked - status of future bookmark.
+ */
+const sendBookmark = async (filmId, bookmarked) => {
+  const params = {
+    url: `${URLS.api.sendBookmark}${filmId}&bookmarked=${bookmarked}`,
+    method: 'POST',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === 200) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 export {
   getCollectionFilms,
   sendReview,
@@ -462,5 +486,6 @@ export {
   getInfoAboutGenre,
   getGenreFilms,
   getInfoAboutPremiers,
+  sendBookmark,
 };
 

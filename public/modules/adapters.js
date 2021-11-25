@@ -122,6 +122,7 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
     myRating: filmInfoJson.my_review?.stars || 1,
     myReview: convertReviewToReviewPage(filmInfoJson.my_review),
+    bookmarked: filmInfoJson.bookmarked,
   }
 );
 /**
@@ -155,7 +156,8 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     titleOriginal: arrayContent?.title_original,
     countryOriginal: arrayContent?.origin_countries,
     year: arrayContent?.release_year || '-',
-    filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
+    // filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
+    filmAvatar: arrayContent.poster_url,
     duration: duration,
     rating: rating,
     trailerUrl: arrayContent.trailer_url,

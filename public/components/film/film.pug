@@ -6,6 +6,10 @@ div.film
     div.info
         div.info__pic
             img(src=film.filmAvatar)
+            if (!bookmarked)
+                div(class = "bookmark not_favourite")
+            else
+                div(class = "favourite bookmark")
         div.info__text
             div.info__main
                 div.info-name

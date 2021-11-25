@@ -7,7 +7,7 @@ import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
-import {ratingNumber} from "../../modules/adapters";
+import {ratingNumber} from '../../modules/adapters';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -122,7 +122,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function (e) {
+    rating.onmouseover = function(e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -130,7 +130,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function () {
+    rating.onmouseout = function() {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };

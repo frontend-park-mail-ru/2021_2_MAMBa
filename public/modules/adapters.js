@@ -148,8 +148,8 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
  */
 export const ratingNumber = (rating)=>{
   return (!(rating % 1) && rating !== 10) ?
-      `${rating}.0` : rating
-}
+      `${rating}.0` : rating;
+};
 
 /**
  * Union actors and their ids.
@@ -212,6 +212,7 @@ export const convertArrayToGenresArray = (arrayContent) => {
  * @return {object} - Object for render review information
  */
 export const convertReviewToReviewPage = (reviewInfoJson) => {
+  console.log('review');
   let classType = 0;
   let classButtonType;
   if (reviewInfoJson?.review_type === 1) {
@@ -360,9 +361,9 @@ export const convertArrayToPremierFilms = (arrayContent) => {
       const month = monthToText(monthNumber);
       monthText = month[0];
     } else {
-      const yearNumber = '-';
-      const monthText = '-';
-      const dayNumber = '-';
+      yearNumber = '-';
+      monthText = '-';
+      dayNumber = '-';
     }
     return {
       id: jsonFilm.id,

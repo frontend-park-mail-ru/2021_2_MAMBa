@@ -74,7 +74,7 @@ const getInfoAboutReview = async (reviewId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === response?.status === statuses.OK) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;

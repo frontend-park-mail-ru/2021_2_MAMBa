@@ -249,7 +249,7 @@ export const convertCollectionToCollectionPage = (collectionInfoJson) => (
 export const convertArrayToGenres = (genres) => {
   return genres.map((jsonGender) => {
     return {
-      title: jsonGender?.title,
+      title: jsonGender?.name,
       genreAvatar: `${jsonGender?.picture_url}`,
       href: `/genres/${jsonGender.id}`,
     };
@@ -275,12 +275,12 @@ export const convertArrayToGenresPage = (genresInfoJson) => (
 export const convertArrayToGenrePage = (genreInfoJson) => (
   {
     id: genreInfoJson.id,
-    genreName: genreInfoJson.title,
+    genreName: genreInfoJson.name,
     moreAvailable: genreInfoJson?.more_available || false,
     skip: genreInfoJson.current_skip,
     limit: genreInfoJson.current_limit,
     filmsWithDescription:
-          convertArrayToFilmWithDescription(genreInfoJson.film_list),
+          convertArrayToFilmWithDescription(genreInfoJson.films.film_list),
   }
 );
 

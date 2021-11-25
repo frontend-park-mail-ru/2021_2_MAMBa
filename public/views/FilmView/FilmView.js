@@ -5,7 +5,7 @@ import readMore from '../../components/textReadMore/textReadMore.pug';
 import successfulSendButton from '../../components/successfulSendButton/successfulSendButton.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
-import {setAnchorActions} from '../../utils/anchorAction.js';
+import {checkAuth} from '../../utils/utils.js';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -86,20 +86,20 @@ export class FilmView extends BaseView {
 
   bookmarked = (filmId) => {
     const bookmark = document.querySelector('.bookmark');
-    if (bookmark){
+    if (bookmark) {
       bookmark.addEventListener('click', (e) => {
         e.preventDefault();
         const target = e.target;
-        //TODO check auth
-        if (target.classList.contains('not_favourite')) {
-          bookmark.classList.remove('not_favourite');
-          target.classList.add('favourite');
-          this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, true);
-        }
-        else if (target.classList.contains('favourite')) {
-          bookmark.classList.remove('favourite');
-          target.classList.add('not_favourite');
-          this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
+        if (checkAuth()) {
+          if (target.classList.contains('not_favourite')) {
+            bookmark.classList.remove('not_favourite');
+            target.classList.add('favourite');
+            this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, true);
+          } else if (target.classList.contains('favourite')) {
+            bookmark.classList.remove('favourite');
+            target.classList.add('not_favourite');
+            this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
+          }
         }
       });
     }
@@ -121,7 +121,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function(e) {
+    rating.onmouseover = function (e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -129,7 +129,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function() {
+    rating.onmouseout = function () {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };

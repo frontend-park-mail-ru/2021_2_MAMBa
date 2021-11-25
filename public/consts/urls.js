@@ -7,7 +7,7 @@ export const deployUrl = 'https://film4u.club';
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;
 
-export const currentUrl = localUrl;
+export const currentUrl = deployUrl;
 
 export const URLS = {
   pages: {

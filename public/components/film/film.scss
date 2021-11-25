@@ -18,29 +18,23 @@
   position: absolute;
   top: 0;
   left: 0;
+  width: 78px;
+  height: 60px;
+  cursor: pointer;
 }
 
 .not_favourite{
-  width: 78px;
-  height: 78px;
-  cursor: pointer;
-  background-image: url(static/pics/закладка_серая.png);
+  background-image: url(static/pics/unbookmarked.png);
 
   &:hover {
     transition: all .5s ease-out;
-    background-image: url(static/pics/pinkBookmark.png);
+    background-image: url(static/pics/unbookmarked-hover.png);
   }
 }
 
 .favourite{
-  width: 78px;
-  height: 78px;
-  cursor: pointer;
-  background-image: url(static/pics/pinkBookmark.png);
-  &:hover {
-    transition: all .5s ease-out;
-    background-image: url(static/pics/закладка_серая.png);
-  }
+  transition: all .5s ease-out;
+  background-image: url(static/pics/bookmarked.png);
 }
 
 .info {

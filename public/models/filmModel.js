@@ -2,6 +2,8 @@ import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutFilm, sendReview, sendRating, sendBookmark} from '../modules/http';
 import {convertArrayToFilmPage} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
+import {eventBus} from "../modules/eventBus";
+import {ROUTES} from "../consts/routes";
 
 
 /** Class representing film page model.
@@ -93,22 +95,16 @@ export class FilmPageModel {
    * @param {boolean} bookmarked - status of future bookmark.
    */
   postBookmark = (filmId, bookmarked) => {
-    // if (!authModule.user) {
-    //   // this.eventBus.emit(
-    //   //     EVENTS.filmPage.render.warningRatingSend,
-    //   //     'Чтобы поставить оценку, пожалуйста, <a href="/auth" class = "white_text">зарегистрируйтесь</a>');
-    //   // return;
-    // }
     if (!filmId && !bookmarked) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
-
     sendBookmark(filmId, bookmarked).then((response) => {
       if (!response) {
         return;
       }
       if (response.status === 200) {
+        //TODO:check what backend send
         // this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
       }
     });

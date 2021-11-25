@@ -345,7 +345,7 @@ const getNProfilePagesBlocks = async (url, id, limit, skip) => {
 
 const getSearch = async (value, skipFilms, limitFilms, skipPersons, limitPersons) => {
   const params = {
-    url: URLS.api.search + `?value=${value}&limit_films=${limitFilms}&skip_films=${skipFilms}` +
+    url: URLS.api.search + `?query=${value}&limit_films=${limitFilms}&skip_films=${skipFilms}` +
         `&limit_persons=${limitPersons}&skip_persons=${skipPersons}`,
     method: 'GET',
   };

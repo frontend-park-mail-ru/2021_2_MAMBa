@@ -1,17 +1,15 @@
 .persons-block {
   display: flex;
+  flex-wrap:wrap;
   margin-top: 40px;
   margin-bottom: 40px;
-
-  & div:not(:first-child)  {
-    margin-left: 15px;
-  }
 
   &__person {
     display: flex;
     overflow: hidden;
     width: 570px;
     height: 162px;
+    margin: 7px;
     background-color: rgba(36, 11, 54, 0.1);
     border-radius: 20px;
     align-self: center;

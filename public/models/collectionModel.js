@@ -1,7 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getCollectionFilms} from '../modules/http';
 import {convertCollectionToCollectionPage} from '../modules/adapters';
-import {statuses} from "../consts/reqStatuses";
+import {statuses} from '../consts/reqStatuses';
 
 /** Class representing collection page model.
  * @param {object} collection - info about collection(id).

@@ -1,7 +1,7 @@
-import {authModule} from "../modules/authorization";
-import {eventBus} from "../modules/eventBus";
-import {EVENTS} from "../consts/EVENTS";
-import {ROUTES} from "../consts/routes";
+import {authModule} from '../modules/authorization';
+import {eventBus} from '../modules/eventBus';
+import {EVENTS} from '../consts/EVENTS';
+import {ROUTES} from '../consts/routes';
 
 const createElementFromHTML = (html) => {
   const temp = document.createElement('div');
@@ -10,12 +10,14 @@ const createElementFromHTML = (html) => {
 };
 export {createElementFromHTML};
 
-
-export const checkAuth = () =>{
+/**
+ * Check if the user is logged in
+ * @param {number} id - Contains month of premiers to render.
+ */
+export const checkAuth = (id) =>{
   if (!authModule.user) {
-    console.log("go to auth");
-    eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage);
+    eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage+`?redirect=films/${id}`);
     return;
   }
-  return true
-}
+  return true;
+};

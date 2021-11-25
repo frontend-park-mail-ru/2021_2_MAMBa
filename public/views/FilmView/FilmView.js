@@ -41,7 +41,7 @@ export class FilmView extends BaseView {
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
       this.setReadMore(data);
-      this.bookmarked(data.film.id)
+      this.bookmarked(data.film.id);
       setAnchorActions();
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
@@ -91,7 +91,7 @@ export class FilmView extends BaseView {
       bookmark.addEventListener('click', (e) => {
         e.preventDefault();
         const target = e.target;
-        if (checkAuth()) {
+        if (checkAuth(filmId)) {
           if (target.classList.contains('not_favourite')) {
             bookmark.classList.remove('not_favourite');
             target.classList.add('favourite');
@@ -104,7 +104,6 @@ export class FilmView extends BaseView {
         }
       });
     }
-
   }
 
   rating = (filmId) => {
@@ -122,7 +121,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function (e) {
+    rating.onmouseover = function(e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -130,7 +129,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function () {
+    rating.onmouseout = function() {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };

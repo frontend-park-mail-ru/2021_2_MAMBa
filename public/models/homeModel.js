@@ -1,7 +1,7 @@
 import {getCollections} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {convertArrayToCollectionsPage} from '../modules/adapters';
-import {statuses} from "../consts/reqStatuses";
+import {statuses} from '../consts/reqStatuses';
 
 /**
  * Class representing home page model.

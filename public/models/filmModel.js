@@ -2,9 +2,9 @@ import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutFilm, sendReview, sendRating, sendBookmark} from '../modules/http';
 import {convertArrayToFilmPage} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
-import {eventBus} from "../modules/eventBus";
-import {ROUTES} from "../consts/routes";
-import {statuses} from "../consts/reqStatuses";
+import {eventBus} from '../modules/eventBus';
+import {ROUTES} from '../consts/routes';
+import {statuses} from '../consts/reqStatuses';
 
 
 /** Class representing film page model.
@@ -105,7 +105,7 @@ export class FilmPageModel {
         return;
       }
       if (response.status === statuses.OK) {
-        //TODO:check what backend send
+        // TODO:check what backend send
         // this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
       }
     });

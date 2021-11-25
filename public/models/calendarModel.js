@@ -1,7 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutPremiers} from '../modules/http';
 import {convertArrayToCalendarPage, convertDateToCalendarPage} from '../modules/adapters';
-import {statuses} from "../consts/reqStatuses";
+import {statuses} from '../consts/reqStatuses';
 
 /** Class representing calendar page model.
  * @param {object} films - info about release films.

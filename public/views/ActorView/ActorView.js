@@ -2,9 +2,9 @@ import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
-import {showMore} from '../../utils/showMore.js'
-import {checkShowMoreButton} from '../../utils/showMore.js'
-import {setAnchorActions} from '../../utils/anchorAction.js'
+import {showMore} from '../../utils/showMore.js';
+import {checkShowMoreButton} from '../../utils/showMore.js';
+import {setAnchorActions} from '../../utils/anchorAction.js';
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {

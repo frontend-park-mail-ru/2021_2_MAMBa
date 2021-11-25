@@ -2,7 +2,7 @@ import {EVENTS} from '../consts/EVENTS.js';
 import {getActorFilms, getInfoAboutActor} from '../modules/http';
 import {convertArrayToActorFilms, convertArrayToActorPage} from '../modules/adapters';
 import {updateRenderFilmsData} from '../utils/showMore.js';
-import {statuses} from "../consts/reqStatuses";
+import {statuses} from '../consts/reqStatuses';
 
 /** Class representing actor page model.
  * @param {object} actor - info about actor(id).
@@ -47,8 +47,8 @@ export class ActorPageModel {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response?.status === statuses.OK && response.body) {
-            const data = convertArrayToActorFilms(response.body)
-            updateRenderFilmsData(data, dataBeforeShowMore)
+            const data = convertArrayToActorFilms(response.body);
+            updateRenderFilmsData(data, dataBeforeShowMore);
             this.eventBus.emit(EVENTS.actorPage.render.films, data);
           }
         });

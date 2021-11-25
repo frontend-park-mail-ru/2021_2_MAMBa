@@ -3,6 +3,7 @@ import genrePageContent from '../../components/genreFilms/genreFilms.pug';
 import genreFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
+import premieresNotFound from "../../components/premieresNotFound/premieresNotFound.pug";
 
 /** Class representing genre page view. */
 export class GenreView extends BaseView {

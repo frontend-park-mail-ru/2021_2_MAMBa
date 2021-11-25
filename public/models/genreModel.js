@@ -1,6 +1,6 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutGenre, getGenreFilms} from '../modules/http';
-import {convertArrayToGenrePage, convertArrayToActorFilms} from '../modules/adapters';
+import {convertArrayToGenrePage, convertArrayToActorFilms, convertDateToCalendarPage} from '../modules/adapters';
 import {statuses} from '../consts/reqStatuses';
 
 /** Class representing genre page model.
@@ -30,9 +30,9 @@ export class GenrePageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.genrePage.render.content, convertArrayToGenrePage(response.body));
+          } else if (response.status === statuses.NOT_FOUND) {
+            this.eventBus.emit(EVENTS.genrePage.render.notFoundFilms, ('К сожалению, на нашем сайте нет этого жанра', 'films-with-description__container'));
           }
-          // TODO: отрисовывать стр если genre нет в бд
-          // if (response.parsedJson.status === statuses.NOT_FOUND) {}
         });
   }
 

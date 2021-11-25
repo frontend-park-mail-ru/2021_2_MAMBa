@@ -54,12 +54,11 @@ export class FilmView extends BaseView {
     if (summery.clientHeight > 120) {
       const template = readMore(data);
       const content = document.querySelector('.trailer__summery');
-      if (summery) {
+      if (content) {
         summery.innerHTML = template;
       }
     }
   }
-
 
   renderWarningRatingSend = (text) => {
     const ratingArea = document.querySelector('.user_rating');
@@ -243,17 +242,6 @@ export class FilmView extends BaseView {
     return document.querySelector('.send-review');
   }
 
-  /**
-   * Render warning to auth.
-   * @param {string} text - Warning text to render.
-   * @param {string} className - Class of warning.
-   */
-  renderWarning = (text, className) => {
-    const errorBlock = document.querySelector(`.${className}`);
-    if (errorBlock) {
-      errorBlock.innerHTML = text;
-    }
-  }
 
   /**
    * Remove warning to auth.

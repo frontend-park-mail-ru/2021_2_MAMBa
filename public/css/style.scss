@@ -30,6 +30,16 @@ body {
 	}
 }
 
+
+.black-container {
+	width:100%;
+	margin-top: $block_indentation;
+	background-color: $grey-background;
+	border-radius: 20px;
+	color: $white;
+	padding: 30px;
+}
+
 .page {
 	margin: 20px 0px 50px 0px;
 	flex: 1 1 auto;

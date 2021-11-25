@@ -37,6 +37,7 @@ export const EVENTS = {
     render: {
       content: 'genrePage:renderContent',
       films: 'genrePage:renderFilms',
+      notFoundFilms: 'calendarPage:renderNotFound',
     },
     getPageContent: 'genrePage:getPageContent',
     getFilms: 'genrePage:getFilms',

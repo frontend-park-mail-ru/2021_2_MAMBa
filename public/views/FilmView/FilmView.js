@@ -6,6 +6,7 @@ import successfulSendButton from '../../components/successfulSendButton/successf
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth} from '../../utils/utils.js';
+import {setAnchorActions} from '../../utils/anchorAction.js';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {

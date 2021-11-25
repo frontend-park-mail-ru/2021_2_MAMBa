@@ -156,8 +156,8 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     titleOriginal: arrayContent?.title_original,
     countryOriginal: arrayContent?.origin_countries,
     year: arrayContent?.release_year || '-',
-    // filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
-    filmAvatar: arrayContent.poster_url,
+    filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
+    // filmAvatar: arrayContent.poster_url,
     duration: duration,
     rating: rating,
     trailerUrl: arrayContent.trailer_url,
@@ -369,8 +369,8 @@ export const convertArrayToPremierFilms = (arrayContent) => {
       month: monthText,
 
       day: dayNumber,
-      // filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
-      filmAvatar: `${jsonFilm.poster_url}`,
+      filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
+      // filmAvatar: `${jsonFilm.poster_url}`,
       href: `/films/${jsonFilm.id}`,
     };
   });

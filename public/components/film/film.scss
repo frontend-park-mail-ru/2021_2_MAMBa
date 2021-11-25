@@ -41,15 +41,16 @@
   column-gap: 5%;
   display: flex;
 
-  &__pic-and-fav{
-
-  }
-
   &__pic {
     position:relative;
-    width: 300px;
-    height: 100%;
+    //width: 300px;
+    //height: 100%;
     border-radius: 3px;
+    & img {
+      width: 300px;
+      height: 100%;
+      border-radius: 3px;
+    }
   }
 
   &__text {

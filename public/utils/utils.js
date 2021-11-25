@@ -8,9 +8,7 @@ const createElementFromHTML = (html) => {
   temp.innerHTML = html;
   return temp.firstChild;
 };
-
 export {createElementFromHTML};
-
 
 
 export const checkAuth = () =>{

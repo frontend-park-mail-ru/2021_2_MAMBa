@@ -35,8 +35,13 @@ export class AuthPageModel extends Model {
     });
   }
 
-  redirectToHomePage = () => {
-    eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
+  redirectToHomeOrLastPage = () => {
+    const redirect = new URL(location.href).searchParams.get('redirect');
+    if (!redirect) {
+      eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
+    } else {
+      eventBus.emit(EVENTS.PathChanged, redirect);
+    }
   }
 
   getRegContent = () => {
@@ -125,7 +130,7 @@ export class AuthPageModel extends Model {
         }
         if (response?.parsedJson?.status === statuses.OK) {
           this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
-          this.redirectToHomePage();
+          this.redirectToHomeOrLastPage();
         } else {
           this.eventBus.emit(EVENTS.AuthPage.RenderError, 'Неправильный логин или пароль!');
         }
@@ -139,7 +144,7 @@ export class AuthPageModel extends Model {
         }
         if (response?.parsedJson?.status === statuses.AUTHORIZED) {
           this.eventBus.emit(EVENTS.AuthPage.SuccessLogReg, response.parsedJson);
-          this.redirectToHomePage();
+          this.redirectToHomeOrLastPage();
         } else if (response?.parsedJson?.status === statuses.ALREADY_EXIST) {
           this.eventBus.emit(EVENTS.AuthPage.RenderError, 'Такой пользователь уже есть!');
         }

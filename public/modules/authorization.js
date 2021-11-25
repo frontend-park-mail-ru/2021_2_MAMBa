@@ -74,7 +74,7 @@ class Authorization {
       if (!response) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
       }
-      if (response?.parsedJson?.status === statuses.OK) {
+      if (response.status === statuses.OK) {
         this.user = null;
         this.lastEvent = EVENTS.authorization.logOutUser;
       }

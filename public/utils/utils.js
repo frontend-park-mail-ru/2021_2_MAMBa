@@ -16,7 +16,7 @@ export {createElementFromHTML};
  */
 export const checkAuth = (id) =>{
   if (!authModule.user) {
-    eventBus.emit(EVENTS.PathChanged, ROUTES.AuthPage+`?redirect=films/${id}`);
+    eventBus.emit(EVENTS.PathChanged, {path: ROUTES.AuthPage+`?redirect=films/${id}`});
     return;
   }
   return true;
@@ -33,4 +33,4 @@ export const renderWarning = (text, className) => {
   if (errorBlock) {
     errorBlock.innerHTML = text;
   }
-}
+};

@@ -369,16 +369,11 @@ export const convertArrayToPremierFilms = (arrayContent) => {
     return {
       id: jsonFilm.id,
       title: jsonFilm.title,
-      titleOriginal: arrayContent?.title_original || '',
-      rating: jsonFilm?.rating || '-',
-      // todo:сделать когда бек будет присылать эту инфу
-      // genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
-      // director: arrayContent?.director.name_rus || '-',
-      // actors: convertArrayToActorArray(arrayContent?.cast) || '-',
+      titleOriginal: jsonFilm?.title_original || '',
+      rating: ratingNumber(jsonFilm?.rating) || '-',
       description: jsonFilm?.description || '-',
       year: yearNumber,
       month: monthText,
-
       day: dayNumber,
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
       // filmAvatar: `${jsonFilm.poster_url}`,

@@ -3,14 +3,13 @@ mixin calendarCard (i)
         a(class = "premiere__image _ibg" href=`${i.href}`)
             img(src=i.filmAvatar alt ="")
         div.premiere__body
-            div.premiere__main-info
-                div.premiere__info
+            div.premiere__info
+                div.premiere__data
                     a(class = "premiere__title" href=`${i.href}`) #{i.title}
-                    //TODO: do when backend done
-                    //div.premiere__subtitle #{i.titleOriginal}
-                    //div.premiere__year #{i.year}
+                    div.premiere__add-info #{i.titleOriginal}
+                    div.premiere__add-info #{i.year}
                 div.premiere__rating
-                    div.premiere__subtitle Рейтинг фильма
+                    div.premiere__text Рейтинг фильма
                     div.rating__score
                         div(class = "premiere__rating_number") #{i.rating}
             div.premiere__description #{i.description}
@@ -18,7 +17,7 @@ mixin calendarCard (i)
             div(class = "premiere__text text")
         div.premiere__date
             div.premiere__day  #{i.day}
-            div.premiere__month #{i.month}
+            div.premiere__text #{i.month}
 
 
 

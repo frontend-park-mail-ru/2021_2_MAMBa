@@ -2,7 +2,6 @@ import {BaseController} from './baseController.js';
 import {FilmPageModel} from '../models/filmModel.js';
 import {FilmView} from '../views/FilmView/FilmView.js';
 import {EVENTS} from '../consts/EVENTS';
-import {renderWarning} from '../utils/utils.js';
 
 /** Class representing film page controller. */
 export class FilmPageController extends BaseController {

@@ -55,7 +55,7 @@ export const convertActorToActorPage = (actorInfoJson) => (
       nameEnglish: actorInfoJson.name_en,
       avatar: `https://film4u.club${actorInfoJson.picture_url}`,
       heightMetre: `${actorInfoJson.height} м`,
-      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
+      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
       filmTotal: actorInfoJson.film_number,
       ...actorInfoJson,
     }

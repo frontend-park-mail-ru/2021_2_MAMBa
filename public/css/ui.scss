@@ -1,3 +1,5 @@
+@import 'consts';
+
 .title {
 	font-family: "Montserrat-Bold", "Arial", sans-serif;;
 	font-size: 40px;
@@ -7,8 +9,18 @@
 		font-size: 30px;
 	}
 }
-.text {
 
+.block-subtitle {
+	font-family: "Montserrat-Bold", "Arial", sans-serif;
+	font-size: 30px;
+	margin-bottom: 20px;
+
+	@media (max-width: $md3+px) {
+		font-size: 20px;
+	}
+}
+
+.text {
 }
 
 .title-posts {
@@ -35,9 +47,133 @@
 	margin-bottom: 20px;
 }
 
-//&__items {
-//	padding-bottom: 60px;
-//	@media (max-width: $md3+px) {
-//		padding-bottom: 30px;
-//	}
-//}
+.info {
+	column-gap: 5%;
+	display: flex;
+
+	&__pic {
+		position:relative;
+		border-radius: 3px;
+
+		& img {
+			object-fit: cover;
+			width: 300px;
+			height: 100%;
+			border-radius: 6px;
+			@media (max-width: $md3+px) {
+				width: 120px;
+				height: initial;
+			}
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		@media (max-width: $md3+px) {
+			gap: 15px;
+			justify-content: normal;
+		}
+	}
+
+	&__main {
+		display: grid;
+		grid-template-columns: auto 94px;
+		gap: 20px;
+	}
+
+	&__rus-name {
+		font-family: "Montserrat-Black", "Arial", sans-serif;
+		font-size: 40px;
+		margin-bottom: 12px;
+		@media (max-width: $md3+px) {
+			font-size: 28px;
+			line-height: 30px;
+			margin-bottom: 3px;
+		}
+	}
+
+	&__en-name {
+		font-size: 16px;
+		@media (max-width: $md3+px) {
+			font-size: 13px;
+			line-height: 18px;
+		}
+	}
+
+	&__heading-facts {
+		font-weight: 700;
+		font-size: 26px;
+		margin-bottom: 15px;
+		@media (max-width: $md3+px) {
+			display:none;
+		}
+	}
+
+	&__facts-container {
+		row-gap: 5px;
+		display: flex;
+		flex-direction: column;
+		@media (max-width: $md3+px) {
+			display: block;
+		}
+	}
+
+	&__name {
+		grid-row-start: 1;
+		grid-row-end: 2;
+	}
+}
+
+.fact {
+	display: grid;
+	row-gap: 5px;
+	gap: 10px;
+	grid-template-columns: 2fr 5fr;
+	@media (max-width: $md3+px) {
+		gap: 3px;
+		display: block;
+	}
+
+	&__key {
+		@media (max-width: $md3+px) {
+			display:none;
+		}
+	}
+
+	&__value {
+		font-weight: 400;
+		font-style: normal;
+		@media (max-width: $md3+px) {
+			font-size: 13px;
+			line-height: 20px;
+			color: $gray-menu;
+		}
+		&_dop{
+			@media (max-width: $md3+px) {
+				display:none;
+			}
+		}
+	}
+}
+
+.poster{
+	flex: 0 0 140px;
+	display: block;
+	border-radius: 6px;
+	min-height: 210px;
+	overflow: hidden;
+	@media (max-width: $md3+px) {
+		min-height: 0;
+		margin-bottom: 17px;
+		padding: 150% 0 0 0;
+	}
+}
+
+.block{
+	margin-bottom: $block_indentation;
+	@media (max-width: $md3+px) {
+		margin-bottom: 16px;
+	}
+}

@@ -30,60 +30,6 @@
   background-image: url(static/pics/bookmarked.png);
 }
 
-.info {
-  column-gap: 5%;
-  display: flex;
-
-  &__pic {
-    position:relative;
-    border-radius: 3px;
-    & img {
-      width: 300px;
-      height: 100%;
-      border-radius: 3px;
-    }
-  }
-
-  &__text {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  &__main {
-    display: grid;
-    grid-template-columns: auto 94px;
-    gap: 20px;
-  }
-
-  &__rus-name {
-    font-family: "Montserrat-Black", "Arial", sans-serif;
-    font-size: 40px;
-    margin-bottom: 12px;
-  }
-
-  &__en-name {
-    font-size: 16px;
-  }
-
-  &__heading-facts {
-    font-weight: 700;
-    font-size: 26px;
-    margin-bottom: 15px;
-  }
-
-  &__facts-container {
-    row-gap: 5px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__name { //for actor page
-    grid-row-start: 1;
-    grid-row-end: 2;
-  }
-}
-
 .star-rating {
   position: relative;
   width: 94px;
@@ -95,24 +41,6 @@
     position: absolute;
     right: 26px;
     bottom: 25px;
-  }
-}
-
-.fact {
-  display: grid;
-  row-gap: 5px;
-  gap: 10px;
-  grid-template-columns: 2fr 5fr;
-
-  &__key {
-    grid-column-start: 1;
-    grid-column-end: 2;
-  }
-
-  &__value {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    font-weight: 600;
   }
 }
 

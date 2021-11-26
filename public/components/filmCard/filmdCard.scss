@@ -34,19 +34,6 @@
     }
   }
 
-  &__image {
-    flex: 0 0 140px;
-    display: block;
-    border-radius: 6px;
-    min-height: 210px;
-    overflow: hidden;
-    @media (max-width: $md3+px) {
-      min-height: 0;
-      margin-bottom: 17px;
-      padding: 150% 0 0 0;
-    }
-  }
-
   &__info {
     flex-direction: column;
     display: flex;

@@ -1,31 +1,21 @@
 @import '../../css/consts.scss';
 
 .actor {
-  margin-top: $header_indentation;
-  width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-.films-with-description {
-  margin-top: $block_indentation;
-
-  &__container {
-    position: relative;
-    display: grid;
-    row-gap: 30px;
+  &__biography {
+    margin-top: $block_indentation;
+    margin-bottom: 50px;
   }
-}
-
-.actor-biography {
-  margin-top: $block_indentation;
-  margin-bottom: 50px;
 
   &__text {
     color: $grey-background;
     display: flex;
     letter-spacing: 0.8px;
+  }
+
+  &__facts-button {
+    @media (max-width: $md3+px) {
+      display: none;
+    }
   }
 }
 

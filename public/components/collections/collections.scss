@@ -1,37 +1,21 @@
 @import '../../css/consts.scss';
 
 .collections {
-  margin: 30px auto 50px auto;
-  background-color: $white;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 1370px;
-
-  &__detailed {
-    margin-top: 10px;
-    font-size: 16px;
-    color: $grey-background;
-    display: flex;
-  }
-
-  &__black-background {
-    background-color: $grey-background;
-    border-radius: 20px;
-    color: $white;
-    padding: 30px;
-    margin-top: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
 
   &__container {
     display: grid;
     row-gap: 30px;
     column-gap: 20px;
+    @media (max-width: $md3+px) {
+      column-gap: 12px;
+      row-gap: 12px;
+    }
 
     &_column-number {
       grid-template-columns: repeat(4, 1fr);
+      @media (max-width: $md3+px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     &_genres-column-number {

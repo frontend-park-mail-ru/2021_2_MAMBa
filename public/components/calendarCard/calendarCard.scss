@@ -11,14 +11,8 @@
     height: 210px;
   }
 }
-.premiere {
-  &__items {
-    padding-bottom: 60px;
-    @media (max-width: $md3+px) {
-      padding-bottom: 30px;
-    }
-  }
 
+.premiere {
   &__item {
     align-items: flex-start;
     padding-bottom: 30px;

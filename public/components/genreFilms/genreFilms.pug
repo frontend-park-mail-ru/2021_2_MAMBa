@@ -3,7 +3,7 @@ div.collections
     span.page-title
         = `Жанр  «${genreName}»`
     div(class ="black-container")
-            div.films-with-description__container
+            div.film__items
                 if (filmsTotal>0)
                     div.genre__container#infinite-scroll
                         each film, _ in filmsWithDescription

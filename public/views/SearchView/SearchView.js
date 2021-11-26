@@ -33,7 +33,7 @@ export class SearchView extends BaseView {
     if (!response || !response.films || !response.persons) {
       return;
     }
-    const filmContainer = document.querySelector('.films-with-description__container');
+    const filmContainer = document.querySelector('.film__items');
     if (!filmContainer) {
       return;
     }

@@ -35,7 +35,7 @@ export const checkShowMoreButton = (available, buttonClass) => {
  */
 export const renderFilms = (newData) => {
   const template = actorFilmsContent(newData);
-  const showMoreContainer = document.querySelector('.films-with-description__container');
+  const showMoreContainer = document.querySelector('.film__items');
   if (showMoreContainer) {
     showMoreContainer.innerHTML += template;
   }

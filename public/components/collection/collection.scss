@@ -23,9 +23,12 @@
   &_name {
     margin-top: 10px;
     text-decoration: none;
-    font-weight: 600;
+    font-family: "Montserrat-Medium", sans-serif;
     font-size: 18px;
     color: $white;
+    @media (max-width: $md3+px) {
+      text-align: center;
+    }
   }
 
   &:hover {

@@ -1,8 +1,10 @@
 include ../collection/collection
-div.collections
-    div.page-title Подборки
-    div.collections__detailed Коллекции фильмов и сериалов нFа все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивально екино и многое другое
-    div.collections__black-background
-        div(class = "collections__container collections__container_column-number")
-          each input, _ in collections
-              +collection(input)
+div.wrapper
+    main.page
+        div(class = "collections page__container _container")
+            h1(class="collections__main-title title") Подборки
+            div.description Коллекции фильмов и сериалов на все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивально екино и многое другое
+            div(class = "black-container")
+                div(class = "collections__container collections__container_column-number")
+                  each input, _ in collections
+                      +collection(input)

@@ -34,7 +34,7 @@ div.actor
         +slider(filmsToSlide, "white")
         div.films-with-description
             div.block-subtitle Полная фильмография
-            div.films-with-description__container
+            div.film__items
               each film, _ in filmsWithDescription
                   +filmCard(film)
             //todo: расположить по центру

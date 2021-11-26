@@ -24,7 +24,6 @@
 @import 'components/writeReview/writeReview.scss';
 @import 'components/review/review.scss';
 @import 'components/userRating/userRating.scss';
-@import 'components/collectionFilms/collectionFlms.scss';
 @import 'components/textReadMore/textReadMore.scss';
 @import 'components/profile/profile.scss';
 @import 'components/profile/settings/settings.scss';
@@ -42,6 +41,11 @@
 @font-face {
   font-family: 'Montserrat-Regular';
   src: url('fonts/Montserrat-Regular.woff2') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src: url('fonts/Montserrat-Light.woff2') format('truetype');
 }
 
 @font-face {
@@ -68,10 +72,6 @@ html, body {
   width: 100vw;
   height: 100%;
   border: 0;
-}
-
-body {
-  //overflow-y: scroll;
 }
 
 .content {

@@ -25,7 +25,6 @@
     }
 
     @media (min-width: $md3+px) {
-      padding: 15px;
       display: flex;
       align-items: stretch;
     }
@@ -86,8 +85,8 @@
 }
 
 .pink-button {
-  align-self: flex-start;
   display: inline-flex;
+  align-self: flex-start;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;

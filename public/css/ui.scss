@@ -47,19 +47,24 @@
 	margin-bottom: 20px;
 }
 
+.actor__info{
+	display: flex;
+}
+
 .info {
 	column-gap: 5%;
-	display: flex;
+	@media (min-width: $md3+px) {
+		display: flex;
+	}
 
 	&__pic {
 		position:relative;
-		border-radius: 3px;
 
 		& img {
 			object-fit: cover;
 			width: 300px;
 			height: 100%;
-			border-radius: 6px;
+			border-radius: 8px;
 			@media (max-width: $md3+px) {
 				width: 120px;
 				height: initial;
@@ -78,15 +83,20 @@
 	}
 
 	&__main {
-		display: grid;
-		grid-template-columns: auto 94px;
+		display: flex;
 		gap: 20px;
+		@media (max-width: $md3+px) {
+			display: block;
+		}
 	}
 
 	&__rus-name {
 		font-family: "Montserrat-Black", "Arial", sans-serif;
 		font-size: 40px;
-		margin-bottom: 12px;
+		margin-bottom: 5px;
+		@media (max-width: $md2+px) {
+			font-size: 32px;
+		}
 		@media (max-width: $md3+px) {
 			font-size: 28px;
 			line-height: 30px;
@@ -105,7 +115,7 @@
 	&__heading-facts {
 		font-weight: 700;
 		font-size: 26px;
-		margin-bottom: 15px;
+		margin-bottom: 5px;
 		@media (max-width: $md3+px) {
 			display:none;
 		}

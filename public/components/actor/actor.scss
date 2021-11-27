@@ -1,9 +1,12 @@
 @import '../../css/consts.scss';
 
 .actor {
+  .films-with-description{
+    display: flex;
+    flex-direction: column;
+  }
   &__biography {
     margin-top: $block_indentation;
-    margin-bottom: 50px;
   }
 
   &__text {

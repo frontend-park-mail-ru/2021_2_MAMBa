@@ -3,8 +3,8 @@ include ../slider/slider
 div.wrapper
     main.page
         div(class = "actor page__container _container")
-            div(class ="info block")
-                div.info__pic
+            div(class ="actor__info info block")
+                div(class ="actor__pic info__pic")
                     img(src=actor.avatar)
                 div.info__text
                     div.info__name
@@ -31,15 +31,14 @@ div.wrapper
                             div.fact__key  Всего фильмов
                             div(class = "fact__value fact__value_dop") #{actor.filmTotal}
                     a(class="actor__facts-button button-with-border scroll-to  " href="#facts") Факты
-            div(class ="actor__info black-container block")
-                //div.block-subtitle Популярные фильмы с актером
+            div(class ="actor__info black-container")
+                //div(class= "block-subtitle block") Популярные фильмы с актером
                 //+slider(filmsToSlide, "white")
-                div(class = "films-with-description block")
+                div(class = "films-with-description")
                     div.block-subtitle Полная фильмография
                     div.film__items
                       each film, _ in filmsWithDescription
                           +filmCard(film)
-                    //todo: расположить по центру
                     button(type="button" class=" button__show-more button-more") Показать еще
             div.actor__biography
                 div.block-subtitle#facts Знаете ли вы, что…

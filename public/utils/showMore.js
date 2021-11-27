@@ -11,6 +11,7 @@ export const showMore = (data, buttonClass, event) => {
   const buttonShowMore = document.querySelector(`${buttonClass}`);
   if (buttonShowMore) {
     buttonShowMore.addEventListener('click', (e) => {
+      console.log("renderfiln");
       e.preventDefault();
       const newData = {
         id: data.actor.id,
@@ -25,6 +26,7 @@ export const showMore = (data, buttonClass, event) => {
 export const checkShowMoreButton = (available, buttonClass) => {
   const buttonShowMore = document.querySelector(`${buttonClass}`);
   if (!available && buttonShowMore) {
+    console.log(available)
     buttonShowMore.classList.add('hidden');
   }
 };

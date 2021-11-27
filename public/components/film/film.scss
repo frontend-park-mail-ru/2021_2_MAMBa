@@ -1,13 +1,53 @@
 @import '../../css/consts';
 
 .film {
-  margin-top: $header_indentation;
-  width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  &__container{
+    max-width: $maxWidth + px;
+    margin: 0 auto;
+    @media (max-width: $md1+px) {
+      max-width: 750px;
+    }
+    @media (max-width: $md2+px) {
+      max-width: none;
+      padding: 0 32px;
+    }
+    @media (max-width: $md3+px) {
+      padding: 0;
+    }
+  }
+
+  &__pic {
+    @media (max-width: $md3+px) {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      padding-top: 22px;
+      padding-bottom: 36px;
+      background-color: #5F5E5E;
+    }
+
+    & img {
+      @media (max-width: $md3+px) {
+        width: 256px;
+        height: 380px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  &__text{
+    @media (max-width: $md3+px) {
+      text-align: center;
+      position: relative;
+      margin-top: -14px;
+      padding: 24px 16px 32px;
+      border-radius: 15px 15px 0 0;
+      background: #fff;
+    }
+  }
 }
 
-.bookmark{
+.bookmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -16,7 +56,7 @@
   cursor: pointer;
 }
 
-.not_favourite{
+.not_favourite {
   background-image: url(static/pics/unbookmarked.png);
 
   &:hover {
@@ -25,7 +65,7 @@
   }
 }
 
-.favourite{
+.favourite {
   transition: all .5s ease-out;
   background-image: url(static/pics/bookmarked.png);
 }
@@ -68,7 +108,6 @@
     margin: auto;
     background-color: $pink;
     border-radius: 10px;
-    //cursor: pointer;
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-style: normal;
     font-size: 20px;
@@ -85,8 +124,6 @@
       margin-right: 0.5rem;
     }
   }
-
-
 
   &__name {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
@@ -166,9 +203,10 @@
 
 .button__show-more {
   margin-top: $block_indentation;
-  //padding-right: 30px;
-  //padding-left: 30px;
   margin-bottom: 20px;
+  @media (max-width: $md3+px) {
+    margin: 20px 0px 10px 0px;
+  }
 }
 
 .film-review {

@@ -4,17 +4,17 @@ include ../reviewSlider/reviewSlider
 include ../writeReview/writeReview
 div.wrapper
     main.page
-        div(class = "film page__container _container")
-            div.info
-                div.info__pic
+        div(class = "film page__container film__container")
+            div(class ="info block")
+                div(class = "film__pic info__pic")
                     img(src=film.filmAvatar)
-                    if (!bookmarked)
-                        div(class = "bookmark not_favourite")
-                    else
-                        div(class = "favourite bookmark")
-                div.info__text
+                    //if (!bookmarked)
+                    //    div(class = "bookmark not_favourite")
+                    //else
+                    //    div(class = "favourite bookmark")
+                div(class ="film__text info__text")
                     div.info__main
-                        div.info-name
+                        div.inf__name
                             div.info__rus-name #{film.title}
                             div.info__en-name #{film.titleOriginal}
                         div.star-rating
@@ -88,7 +88,6 @@ div.wrapper
                     if (reviews.length !== 0)
                         div.block-subtitle Отзывы
                         +reviewSlider(reviews)
-
             div.show-more-films
                 div.block-subtitle С фильмом
                     span

@@ -285,7 +285,7 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
     {
       filmsTotal: genreInfoJson.films.film_total,
       id: genreInfoJson.id,
-      genreName: genreInfoJson.name,
+      genreName: `Жанр ${genreInfoJson.name}`,
       moreAvailable: genreInfoJson?.more_available || false,
       skip: genreInfoJson.current_skip,
       limit: genreInfoJson.current_limit,

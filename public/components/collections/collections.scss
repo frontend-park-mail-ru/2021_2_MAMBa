@@ -19,7 +19,10 @@
     }
 
     &_genres-column-number {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat( auto-fit, minmax(160px, 1fr));
+    }
+    @media (max-width: $md3+px) {
+      grid-template-columns: repeat( auto-fit, minmax(100px, 1fr));
     }
   }
 }

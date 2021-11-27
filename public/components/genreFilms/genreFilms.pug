@@ -1,13 +1,14 @@
 include ../filmCard/filmCard
-div.collections
-    span.page-title
-        = `Жанр  «${genreName}»`
-    div(class ="black-container")
-            div.film__items
-                if (filmsTotal>0)
-                    div.genre__container#infinite-scroll
-                        each film, _ in filmsWithDescription
-                          +filmCard(film)
-                else
-                    div.film-card_description_name К сожалению, на нашем сайне нет фильмов этого жанра
+div.wrapper
+    main.page
+        div(class = "genreFilms page__container _container")
+            h1(class="genre__main-title title") #{genreName}
+            div(class ="black-container")
+                    //div.film__items
+                    if (filmsTotal>0)
+                        div.film__items#infinite-scroll
+                            each film, _ in filmsWithDescription
+                              +filmCard(film)
+                    else
+                        div.film-card_description_name К сожалению, на нашем сайне нет фильмов этого жанра
 

@@ -11,8 +11,8 @@ export const headerLinks = [
     href: '/premieres',
     title: 'Релизы',
   },
-  // {
-  //   href: '/random',
-  //   title: 'Рандомный фильм',
-  // },
+  {
+    href: '/random',
+    title: 'Рандомный фильм',
+  },
 ];

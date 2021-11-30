@@ -1,5 +1,6 @@
 .user-block
-    img.user-block__img(src=imgSrc)
+    a.user-block__profile-href(href=`${profileHref}/${userId}`)
+        img.user-block__img(src=imgSrc)
     .user-block__submenu
         span #{userName}
         a.user-block__profile(href=`${profileHref}/${userId}`) Профиль

@@ -8,10 +8,10 @@ div.wrapper
             div(class ="info block")
                 div(class = "film__pic info__pic")
                     img(src=film.filmAvatar)
-                    //if (!bookmarked)
-                    //    div(class = "bookmark not_favourite")
-                    //else
-                    //    div(class = "favourite bookmark")
+                    if (!bookmarked)
+                        div(class = "bookmark not_favourite")
+                    else
+                        div(class = "favourite bookmark")
                 div(class ="film__text info__text")
                     div.info__main
                         div.inf__name

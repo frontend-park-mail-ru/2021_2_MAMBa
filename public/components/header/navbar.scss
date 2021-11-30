@@ -3,7 +3,6 @@
 .navbar {
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   width: 100%;
-  min-width: 1000px;
   flex: 0 0 65px;
   z-index: 1;
   top: 0;
@@ -32,6 +31,10 @@
     margin-left: 3%;
     width: 573px;
     min-width: 360px;
+  }
+
+  &__vertical-menu {
+    display: none;
   }
 
   &__menu-btn {
@@ -81,6 +84,22 @@
     &:hover {
       cursor: pointer;
       transform: scale(1.1);
+    }
+  }
+}
+
+@media (max-width: 1016px) {
+  .navbar__wide-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar__logo {
+    margin: 0;
+
+    svg {
+      height: 40px;
     }
   }
 }

@@ -2,7 +2,7 @@ import headerPug from '../../components/header/navbar.pug';
 import enterButton from '../../components/header/enterButton.pug';
 import userBlock from '../../components/header/userBlock/userBlock.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {headerLinks} from '../../consts/header';
+import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML} from '../../utils/utils';
@@ -16,7 +16,7 @@ export class HeaderView extends BaseView {
   }
 
   render = () => {
-    const template = headerPug({headerLinks: headerLinks});
+    const template = headerPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
     const header = this.getHeaderFromDom();
     if (header) {
       header.innerHTML = template;

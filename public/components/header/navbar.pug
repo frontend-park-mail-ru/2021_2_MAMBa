@@ -1,4 +1,10 @@
 header.navbar
+    .navbar__vertical-menu
+      each btn in mobileHeaderLinks
+          if btn.href === '/logout'
+              a.a.navbar__menu-btn(class=btn.class)= btn.title
+          else
+              a.navbar__menu-btn(href = btn.href)= btn.title
     a.navbar__logo(href='/')
         include ../../static/pics/logo.svg
     .navbar__wide-menu

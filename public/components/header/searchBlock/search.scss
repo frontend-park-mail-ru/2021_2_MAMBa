@@ -1,6 +1,7 @@
 .search {
   font-family: "Montserrat-Regular", "Arial", sans-serif;
   display: flex;
+  justify-content: end;
   align-items: center;
   margin: auto;
   padding: 0 15px;
@@ -11,7 +12,6 @@
     font-family: "Montserrat-Regular", sans-serif;
     border-radius: 20px;
     width: 100%;
-    min-width: 124px;
     height: 20px;
     border: 0;
     padding: 5px 15px;
@@ -21,5 +21,17 @@
 
   &__btn {
     cursor: pointer;
+  }
+}
+
+@media (max-width: 1016px) {
+  .search {
+    width: 60%;
+  }
+}
+
+@media (max-width: 450px) {
+  .search__input {
+    display:none;
   }
 }

@@ -15,7 +15,7 @@ export class AuthPageController extends BaseController {
         {event: EVENTS.AuthPage.GetContent, handler: this.model.getContent},
         {event: EVENTS.AuthPage.Validate, handler: this.model.validateOneInput},
         {event: EVENTS.AuthPage.Submit, handler: this.model.submit},
-        {event: EVENTS.authorization.gotUser, handler: this.model.redirectToHomeOrLastPage},
+        {event: EVENTS.AuthPage.redirect, handler: this.model.redirectToHomeOrLastPage},
         {event: EVENTS.AuthPage.RenderError, handler: this.view.addNotAuthorizedMessage},
     );
   }

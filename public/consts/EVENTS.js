@@ -56,6 +56,7 @@ export const EVENTS = {
       Page: 'authPage:render',
       Content: 'authPage:renderContent',
     },
+    redirect: 'authPage:render',
     RenderError: 'authPage:renderError',
     Submit: 'authPage:submit',
     SuccessLogReg: 'authPage:successLogReg',

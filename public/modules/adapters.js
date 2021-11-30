@@ -55,7 +55,7 @@ export const convertActorToActorPage = (actorInfoJson) => (
       nameEnglish: actorInfoJson.name_en,
       avatar: `https://film4u.club${actorInfoJson.picture_url}`,
       heightMetre: `${actorInfoJson.height} м`,
-      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
+      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
       filmTotal: actorInfoJson.film_number,
       ...actorInfoJson,
     }
@@ -166,7 +166,6 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     countryOriginal: arrayContent?.origin_countries,
     year: arrayContent?.release_year || '-',
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
-    // filmAvatar: arrayContent.poster_url,
     duration: duration,
     rating: rating,
     trailerUrl: arrayContent.trailer_url,
@@ -242,7 +241,7 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
  */
 export const convertCollectionToCollectionPage = (collectionInfoJson) => (
     {
-      name: collectionInfoJson.collection.collection_name,
+      name: `Подборка  ${collectionInfoJson.collection.collection_name}`,
       description: collectionInfoJson.collection.description,
       id: collectionInfoJson.collection.id,
       filmsWithDescription:
@@ -285,7 +284,7 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
     {
       filmsTotal: genreInfoJson.films.film_total,
       id: genreInfoJson.id,
-      genreName: genreInfoJson.name,
+      genreName: `Жанр ${genreInfoJson.name}`,
       moreAvailable: genreInfoJson?.more_available || false,
       skip: genreInfoJson.current_skip,
       limit: genreInfoJson.current_limit,
@@ -368,19 +367,13 @@ export const convertArrayToPremierFilms = (arrayContent) => {
     return {
       id: jsonFilm.id,
       title: jsonFilm.title,
-      titleOriginal: arrayContent?.title_original || '',
-      rating: jsonFilm?.rating || '-',
-      // todo:сделать когда бек будет присылать эту инфу
-      // genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
-      // director: arrayContent?.director.name_rus || '-',
-      // actors: convertArrayToActorArray(arrayContent?.cast) || '-',
+      titleOriginal: jsonFilm?.title_original || '',
+      rating: ratingNumber(jsonFilm?.rating) || '-',
       description: jsonFilm?.description || '-',
       year: yearNumber,
       month: monthText,
-
       day: dayNumber,
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
-      // filmAvatar: `${jsonFilm.poster_url}`,
       href: `/films/${jsonFilm.id}`,
     };
   });

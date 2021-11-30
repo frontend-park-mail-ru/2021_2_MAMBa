@@ -1,44 +1,45 @@
 include ../filmCard/filmCard
 include ../slider/slider
-div.actor
-    div.info
-        div.info__pic
-            img(src=actor.avatar)
-        div.info__text
-            div.info__name
-                div.info__rus-name #{actor.name}
-                div.info__en-name #{actor.nameEnglish}
-            div.info__facts-container
-                div.info__heading-facts О персоне
-                div.fact
-                    div.fact__key Карьера
-                    div.fact__value #{actor.career}
-                div.fact
-                    div.fact__key  Рост
-                    div.fact__value #{actor.heightMetre}
-                div.fact
-                    div.fact__key Дата рождения
-                    div.fact__value #{actor.date}
-                div.fact
-                    div.fact__key Место рождения
-                    div.fact__value #{actor.birth_place}
-                div.fact
-                    div.fact__key Семейное положение
-                    div.fact__value #{actor.family_status}
-                div.fact
-                    div.fact__key  Всего фильмов
-                    div.fact__value #{actor.filmTotal}
-            a(class="button-with-border scroll-to" href="#facts") Факты
-    div(class ="actor-info black-container")
-        div.block-subtitle Популярные фильмы с актером
-        +slider(filmsToSlide, "white")
-        div.films-with-description
-            div.block-subtitle Полная фильмография
-            div.films-with-description__container
-              each film, _ in filmsWithDescription
-                  +filmCard(film)
-            //todo: расположить по центру
-            button(type="button" class=" button__show-more button-more") Показать еще
-    div.actor-biography
-        div.block-subtitle#facts Знаете ли вы, что…
-        div.actor-biography__text Этот раздел в разработке, приносим извинения за доставленные неудобства
+div.wrapper
+    main.page
+        div(class = "actor page__container _container")
+            div(class ="actor__info info block")
+                div(class ="actor__pic info__pic")
+                    img(src=actor.avatar)
+                div.info__text
+                    div.info__name
+                        div.info__rus-name #{actor.name}
+                        div.info__en-name #{actor.nameEnglish}
+                    div.info__facts-container
+                        div.info__heading-facts О персоне
+                        div.fact
+                            div.fact__key Карьера
+                            div.fact__value #{actor.career}
+                        div.fact
+                            div.fact__key  Рост
+                            div.fact__value #{actor.heightMetre}
+                        div.fact
+                            div.fact__key Дата рождения
+                            div.fact__value #{actor.date}
+                        div.fact
+                            div.fact__key Место рождения
+                            div(class = "fact__value fact__value_dop") #{actor.birth_place}
+                        div.fact
+                            div.fact__key Семейное положение
+                            div.fact__value #{actor.family_status}
+                        div.fact
+                            div.fact__key  Всего фильмов
+                            div(class = "fact__value fact__value_dop") #{actor.filmTotal}
+                    a(class="actor__facts-button button-with-border scroll-to  " href="#facts") Факты
+            div(class ="actor__info black-container")
+                //div(class= "block-subtitle block") Популярные фильмы с актером
+                //+slider(filmsToSlide, "white")
+                div(class = "films-with-description")
+                    div.block-subtitle Полная фильмография
+                    div.film__items
+                      each film, _ in filmsWithDescription
+                          +filmCard(film)
+                    button(type="button" class=" button__show-more button-more") Показать еще
+            div.actor__biography
+                div.block-subtitle#facts Знаете ли вы, что…
+                div.actor__text Этот раздел в разработке, приносим извинения за доставленные неудобства

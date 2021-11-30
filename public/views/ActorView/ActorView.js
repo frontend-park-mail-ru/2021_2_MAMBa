@@ -32,10 +32,11 @@ export class ActorView extends BaseView {
   renderContent = (data) => {
     const template = actorPageContent(data);
     const content = document.querySelector('.content');
+    console.log(data.moreAvailable)
     if (content) {
       content.innerHTML = template;
       setAnchorActions();
-      this.setSliderActions();
+      // this.setSliderActions();
       checkShowMoreButton(data.moreAvailable, '.button__show-more' );
       showMore(data, '.button__show-more', EVENTS.actorPage.getFilms);
     } else {

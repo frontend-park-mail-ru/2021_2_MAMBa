@@ -50,6 +50,10 @@
   cursor: pointer;
   transition: 0.24s ease-in-out;
 
+  @media (max-width: $md2+px) {
+    display: none;
+  }
+
   &-right {
     right: 0;
   }

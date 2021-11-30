@@ -1,11 +1,6 @@
 @import './consts';
 
 body {
-	//color: #21243d;
-	//font-size: 14px;
-	//&._lock {
-	//	overflow: hidden;
-	//}
 }
 
 .wrapper {
@@ -26,24 +21,27 @@ body {
 	}
 	@media (max-width: $md2+px) {
 		max-width: none;
-		padding: 0 10px;
+		padding: 0 32px;
+	}
+	@media (max-width: $md3+px) {
+		padding: 0 16px;
 	}
 }
 
-
 .black-container {
-	width:100%;
-	margin-top: $block_indentation;
 	background-color: $grey-background;
 	border-radius: 20px;
 	color: $white;
 	padding: 30px;
+	@media (max-width: $md3+px) {
+		padding: 16px;
+	}
 }
 
 .page {
-	margin: 20px 0px 50px 0px;
+	margin: 20px 0 50px 0;
 	flex: 1 1 auto;
 	@media (max-width: $md3+px) {
-		padding: 10px 0px 20px 0px;
+		padding: 10px 0 20px 0;
 	}
 }

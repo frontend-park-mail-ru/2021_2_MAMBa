@@ -62,6 +62,7 @@ class Authorization {
         if (this.user) {
           this.lastEvent = EVENTS.authorization.gotUser;
           this.eventBus.emit(EVENTS.authorization.gotUser);
+          this.eventBus.emit(EVENTS.AuthPage.redirect);
         }
       }
     }).catch(() => {

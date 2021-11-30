@@ -72,17 +72,29 @@
 }
 
 .star-rating {
-  position: relative;
-  width: 94px;
-  height: 94px;
+  //position: relative;
+  //width: 94px;
+  //height: 94px;
+  //@media (max-width: $md3+px) {
+  //  position: relative;
+  //  width: 30px;
+  //  height: 30px;
+  //}
 
   &__scors {
-    font-size: 30px;
-    color: $white;
-    position: absolute;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;;
+    font-size: 40px;
+    color: $pink;
+    //position: absolute;
+    border-bottom: 4px solid $pink;
     right: 26px;
     bottom: 25px;
   }
+}
+.pic{
+
+    //background-image: url(picture.svg);
+
 }
 
 .trailer {

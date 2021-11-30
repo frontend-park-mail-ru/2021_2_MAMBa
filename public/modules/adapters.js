@@ -212,7 +212,6 @@ export const convertArrayToGenresArray = (arrayContent) => {
  * @return {object} - Object for render review information
  */
 export const convertReviewToReviewPage = (reviewInfoJson) => {
-  console.log('review');
   let classType = 0;
   let classButtonType;
   if (reviewInfoJson?.review_type === 1) {

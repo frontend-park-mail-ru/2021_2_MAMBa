@@ -38,9 +38,9 @@ export class AuthPageModel extends Model {
   redirectToHomeOrLastPage = () => {
     const redirect = new URL(location.href).searchParams.get('redirect');
     if (!redirect) {
-      eventBus.emit(EVENTS.PathChanged, ROUTES.homePage);
+      eventBus.emit(EVENTS.PathChanged, {path: ROUTES.homePage});
     } else {
-      eventBus.emit(EVENTS.PathChanged, redirect);
+      eventBus.emit(EVENTS.PathChanged, {path: `/${redirect}`});
     }
   }
 

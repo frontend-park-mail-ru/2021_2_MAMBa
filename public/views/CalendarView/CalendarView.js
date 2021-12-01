@@ -3,7 +3,7 @@ import calendarPageContent from '../../components/calendar/calendar.pug';
 import calendarFilmsContent from '../../components/calendarShowMore/calendarShowMore.pug';
 import premieresNotFound from '../../components/premieresNotFound/premieresNotFound.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {showScrollMore} from '../../utils/showMore.js';
+import {eventBus} from '../../modules/eventBus';
 
 /** Class representing genre page view. */
 export class CalendarView extends BaseView {
@@ -14,6 +14,7 @@ export class CalendarView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
+    this.isLoading = false;
   }
 
   /**
@@ -35,11 +36,45 @@ export class CalendarView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      showScrollMore(data, EVENTS.calendarPage.getFilms);
+      this.showScrollMore(data);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
+
+  showScrollMore = (data, condition) => {
+    if (!condition) {
+      condition = true;
+    }
+    const block = document.getElementById('infinite-scroll');
+    window.addEventListener('scroll', () => {
+      if (this.isLoading === true) {
+        return;
+      }
+      const contentHeight = block.offsetHeight;
+      const yOffset = window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      const y = yOffset + windowHeight;
+      if (y >= contentHeight + 300 && condition) {
+        const newData = nextMonth(data.year, data.month);
+        data.year = newData[0];
+        data.month = newData[1];
+        this.isLoading = true;
+        eventBus.emit( EVENTS.calendarPage.getFilms, data.year, data.month);
+      }
+    });
+
+    const nextMonth = (year, month) => {
+      if (month === 12) {
+        month = 1;
+        year += 1;
+      } else {
+        month += 1;
+      }
+      return [year, month];
+    };
+  };
+
 
   /**
    * Render content calendar page from pug template to content div.
@@ -50,6 +85,7 @@ export class CalendarView extends BaseView {
     const showMoreContainer = document.getElementById('infinite-scroll');
     if (showMoreContainer) {
       showMoreContainer.innerHTML += template;
+      this.isLoading = false;
     }
   }
 
@@ -65,6 +101,7 @@ export class CalendarView extends BaseView {
     const showMoreContainer = document.querySelector('.premiere__container');
     if (showMoreContainer) {
       showMoreContainer.innerHTML += template;
+      this.isLoading = false;
     }
   }
 }

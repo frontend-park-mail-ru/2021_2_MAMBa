@@ -7,3 +7,5 @@ div.wrapper
             div.premiere__container#infinite-scroll
                 each premiere, _ in premieres
                     +calendarCard(premiere)
+            div.load-infinit
+                include ../loader/loader.pug

@@ -4,7 +4,8 @@ import {convertArrayToCalendarPage, convertDateToCalendarPage} from '../modules/
 import {statuses} from '../consts/reqStatuses';
 
 /** Class representing calendar page model.
- * @param {object} films - info about release films.
+ * @param {object} year - info about film`s year.
+ * @param {object} month - info about film`s month.
  */
 export class CalendarPageModel {
   /**

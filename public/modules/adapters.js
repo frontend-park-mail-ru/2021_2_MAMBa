@@ -103,6 +103,7 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
     return {
       id: jsonFilm.id,
       title: jsonFilm.title,
+      originalTitle: jsonFilm?.title_original || '',
       description: jsonFilm?.description || '-',
       year: jsonFilm?.release_year || '-',
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,

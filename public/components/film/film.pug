@@ -52,6 +52,8 @@ div.wrapper
                     div.fact
                         div.fact__key Сценарист
                         div.fact__value #{film.screenwriter}
+                div.bookmark__mobile
+                div.rate__modile
         div(class = "trailer block")
             div(class = "trailer__video")
                 div.trailer__button
@@ -64,7 +66,7 @@ div.wrapper
         div(class = "film-info black-container block")
             div(class ="film-info__rating ")
                 div(class = "block-subtitle rating-subtitle") Рейтинг фильма
-                div(class ="rating")
+                div(class ="rating")#review
                     div.rating__stars
                       - for (let i = 1; i <= 10; i++)
                         div.rating__item

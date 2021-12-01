@@ -32,7 +32,6 @@ export class ActorView extends BaseView {
   renderContent = (data) => {
     const template = actorPageContent(data);
     const content = document.querySelector('.content');
-    console.log(data.moreAvailable)
     if (content) {
       content.innerHTML = template;
       setAnchorActions();

@@ -4,6 +4,8 @@ mixin filmCard (i)
             img(src=i.filmAvatar alt ="")
         div.film__info
             a(class = "film__name" href=`${i.href}`) #{i.title}
+            if (i.originalTitle)
+                div.film__year #{i.originalTitle}
             div.film__year #{i.year}
             div.film__description #{i.description}
             a(class="pink-button" href=`${i.href}`) Подробнее

@@ -1,7 +1,6 @@
 @import '../../css/consts.scss';
 
 .collections {
-
   &__container {
     display: grid;
     row-gap: 30px;
@@ -13,16 +12,16 @@
 
     &_column-number {
       grid-template-columns: repeat(4, 1fr);
-      @media (max-width: $md4+px) {
+      @media (max-width: $md2+px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: $md3+px) {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
     &_genres-column-number {
       grid-template-columns: repeat( auto-fit, minmax(160px, 1fr));
-    }
-    @media (max-width: $md4+px) {
-      grid-template-columns: repeat( auto-fit, minmax(140px, 1fr));
     }
   }
 }

@@ -319,7 +319,6 @@ export class FilmView extends BaseView {
         checkButtons();
       });
 
-
       /**
        * Set film to the right position.
        */

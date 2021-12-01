@@ -3,7 +3,7 @@ import calendarPageContent from '../../components/calendar/calendar.pug';
 import calendarFilmsContent from '../../components/calendarShowMore/calendarShowMore.pug';
 import premieresNotFound from '../../components/premieresNotFound/premieresNotFound.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {eventBus} from "../../modules/eventBus";
+import {eventBus} from '../../modules/eventBus';
 
 /** Class representing genre page view. */
 export class CalendarView extends BaseView {
@@ -48,7 +48,7 @@ export class CalendarView extends BaseView {
     }
     const block = document.getElementById('infinite-scroll');
     window.addEventListener('scroll', () => {
-      if (this.isLoading === true){
+      if (this.isLoading === true) {
         return;
       }
       const contentHeight = block.offsetHeight;
@@ -61,7 +61,6 @@ export class CalendarView extends BaseView {
         data.month = newData[1];
         this.isLoading = true;
         eventBus.emit( EVENTS.calendarPage.getFilms, data.year, data.month);
-
       }
     });
 

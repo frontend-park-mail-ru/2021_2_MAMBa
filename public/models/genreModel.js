@@ -31,7 +31,8 @@ export class GenrePageModel {
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.genrePage.render.content, convertArrayToGenrePage(response.body));
           } else if (response.status === statuses.NOT_FOUND) {
-            this.eventBus.emit(EVENTS.genrePage.render.notFoundFilms, ('К сожалению, на нашем сайте нет этого жанра', 'film__items'));
+            this.eventBus.emit(EVENTS.genrePage.render.notFoundFilms, ('К сожалению, на нашем сайте нет этого жанра',
+                'film__items'));
           }
         });
   }

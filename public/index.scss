@@ -75,6 +75,10 @@ html, body {
   border: 0;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .content {
   display: flex;
   flex: 1 0 auto;

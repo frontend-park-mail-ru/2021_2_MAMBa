@@ -30,11 +30,11 @@
     &__form {
         margin-top: 15px;
         flex: 1 0 auto;
-        padding: 0 50px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
+        flex-direction: column;
     }
 
     &__btn {
@@ -60,16 +60,25 @@
         text-decoration: underline;
         color: currentcolor;
         cursor: pointer;
-        margin: 0 auto 25px auto;
+        margin: 10px auto 25px auto;
     }
 }
 
 .reg {
     min-height: 450px;
-    width: 412px;
+    min-width: 360px;
 }
 
 .auth {
     min-height: 280px;
-    width: 412px;
+    min-width: 360px;
+}
+
+@media (max-width: 450px) {
+    .reg {
+        min-width: 300px;
+    }
+    .auth {
+        min-width: 300px;
+    }
 }

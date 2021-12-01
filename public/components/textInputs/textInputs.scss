@@ -3,8 +3,9 @@
   padding-left: 15px;
   flex: 1 0 auto;
   border-radius: 10px;
-  width:290px;
-  height: 36px;
+  max-height: 36px;
+  min-height: 35px;
   outline:none;
   border:0;
+  width: 80%;
 }

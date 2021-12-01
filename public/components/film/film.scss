@@ -1,110 +1,66 @@
 @import '../../css/consts';
 
 .film {
-  &__container{
+  &__container {
     max-width: $maxWidth + px;
-    margin: 0 auto;
-    @media (max-width: $md1+px) {
-      max-width: 750px;
-    }
-    @media (max-width: $md2+px) {
-      max-width: none;
-      padding: 0 32px;
-    }
-    @media (max-width: $md3+px) {
-      padding: 0;
-    }
-  }
-
-  &__pic {
-    @media (max-width: $md3+px) {
-      position: relative;
-      overflow: hidden;
-      height: 220px;
-      padding-top: 22px;
-      padding-bottom: 36px;
-      background-color: #5F5E5E;
-    }
-
-    & img {
-      @media (max-width: $md3+px) {
-        width: 256px;
-        height: 380px;
-        display: block;
-        margin: 0 auto;
-      }
-    }
-  }
-  &__text{
-    @media (max-width: $md3+px) {
-      text-align: center;
-      position: relative;
-      margin-top: -14px;
-      padding: 24px 16px 32px;
-      border-radius: 15px 15px 0 0;
-      background: #fff;
-    }
+    margin: 20px auto 40px auto;
   }
 }
 
 .bookmark {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 78px;
-  height: 60px;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 44px;
   cursor: pointer;
-
+  background-size: cover;
+  border-radius: 3px;
+  background-image: url(static/pics/bookmark.png);
 }
 
 .not_favourite {
-  background-image: url(static/pics/unbookmarked.png);
+  background-color: rgba(85, 85, 85, .6);
 
   &:hover {
     transition: all .5s ease-out;
-    background-image: url(static/pics/unbookmarked-hover.png);
+    background-color: $grey;
   }
 }
 
 .favourite {
   transition: all .5s ease-out;
-  background-image: url(static/pics/bookmarked.png);
+  background-color: $pink;
 }
 
 .star-rating {
-  //position: relative;
-  //width: 94px;
-  //height: 94px;
-  //@media (max-width: $md3+px) {
-  //  position: relative;
-  //  width: 30px;
-  //  height: 30px;
-  //}
+  display: flex;
+  border-bottom: 4px solid $pink;
+  gap: 3px;
 
   &__scors {
     font-family: "Montserrat-Bold", "Arial", sans-serif;;
     font-size: 40px;
     color: $pink;
-    //position: absolute;
-    border-bottom: 4px solid $pink;
-    right: 26px;
-    bottom: 25px;
   }
-}
-.pic{
 
-    //background-image: url(picture.svg);
-
+  &__pic {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    align-self: center;
+    background-image: url(static/pics/pink_star.png);
+  }
 }
 
 .trailer {
-  display: flex;
   column-gap: 5%;
-  margin-top: $block_indentation;
+  display: flex;
 
   &__video {
-    min-width: 300px;
-    float: left;
+    flex: 1 0 auto;
+    display: block;
+    width: 300px;
     position: relative;
     height: 167px;
     background-color: $light-grey;
@@ -140,14 +96,22 @@
 
   &__name {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
-    font-size: 30px;
+
     margin-bottom: 10px;
+  }
+
+  &__descriprion {
+    display: block;
   }
 
   &_summery {
     letter-spacing: 0.8px;
     font-size: 16px;
   }
+}
+
+.rating-subtitle {
+  margin-bottom: 0px;
 }
 
 .film-info {
@@ -163,7 +127,7 @@
 
   &__stars {
     display: flex;
-    gap: 10px;
+    gap: 5px;
   }
 
   .rating-item {
@@ -217,13 +181,9 @@
 .button__show-more {
   margin-top: $block_indentation;
   margin-bottom: 20px;
-  @media (max-width: $md3+px) {
-    margin: 20px 0px 10px 0px;
-  }
 }
 
 .film-review {
-  margin-top: $block_indentation;
   margin-bottom: 50px;
 
   &__date {
@@ -233,16 +193,132 @@
     font-weight: 500;
     color: $grey
   }
-
-  &__subtitle {
-    font-family: "Montserrat-Bold", "Arial", sans-serif;
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
 }
 
 .film-info__white-container_review_warning {
-  margin-top: 20px;
   font-family: 'Montserrat-Regular', sans-serif;
   font-size: 16px;
 }
+
+@media (max-width: $md1+px) {
+  .film {
+    &__container {
+      max-width: none;
+      padding: 0 32px;
+    }
+
+  }
+}
+
+@media (max-width: $md2+px) {
+  .film {
+    &__container {
+      max-width: 750px;
+    }
+  }
+  .rating {
+    gap: 30px;
+
+  }
+  .rating-item {
+    width: 28px;
+    height: 28px;
+    background-size: cover;
+  }
+
+}
+
+@media (max-width: $md4+px) {
+  .film {
+    &__container {
+      padding: 0;
+      margin: 0;
+    }
+
+    &__show-more {
+      padding: 0 16px;
+    }
+
+    &__pic {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      padding-top: 36px;
+      padding-bottom: 36px;
+      background-color: #5F5E5E;
+    }
+
+    & img {
+      width: 256px;
+      height: 380px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    &__text {
+      text-align: center;
+      position: relative;
+      margin-top: -14px;
+      padding: 24px 16px 0px;
+      border-radius: 15px 15px 0 0;
+      background: $white;
+
+    }
+  }
+  .star-rating {
+    justify-content: center;
+
+    &__scors {
+      text-align: center
+    }
+  }
+  .trailer {
+    flex-direction: column;
+    padding: 0 16px;
+
+    &__video {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    &__name {
+      font-size: 20px;
+    }
+
+    &__summery {
+      margin-bottom: 16px;
+    }
+  }
+  .rating {
+    gap: 0;
+    flex-direction: column;
+
+    &__stars {
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .rating-item {
+      width: 22px;
+      height: 22px;
+      background-size: cover;
+    }
+  }
+  .button__write-review {
+    display: none;
+  }
+
+  .button__show-more {
+    margin: 20px 0 10px 0;
+  }
+  .film-review__subtitle {
+    margin: 0 16px 10px 16px;
+  }
+
+  .user-rating {
+    justify-content: center;
+  }
+}
+
+
+

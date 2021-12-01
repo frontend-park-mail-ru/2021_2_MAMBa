@@ -37,8 +37,8 @@ export class FilmView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.setSliderReviewActions();
-      this.setSliderActions();
+      // this.setSliderReviewActions();
+      // this.setSliderActions();
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
       this.setReadMore(data);
@@ -61,7 +61,7 @@ export class FilmView extends BaseView {
   }
 
   renderWarningRatingSend = (text) => {
-    const ratingArea = document.querySelector('.user_rating');
+    const ratingArea = document.querySelector('.user-rating');
     if (ratingArea) {
       ratingArea.innerHTML = text;
     }
@@ -71,7 +71,7 @@ export class FilmView extends BaseView {
     const Rating = {
       myRating: rating,
     };
-    const ratingArea = document.querySelector('.user_rating');
+    const ratingArea = document.querySelector('.user-rating');
     const template = userRating(Rating);
     if (ratingArea) {
       ratingArea.innerHTML = template;
@@ -109,6 +109,7 @@ export class FilmView extends BaseView {
   rating = (filmId) => {
     const rating = document.querySelector('.rating__stars');
     const ratingItem = document.querySelectorAll('.rating-item');
+    console.log(ratingItem);
     rating.addEventListener('click', (e) => {
       e.preventDefault();
       const target = e.target;

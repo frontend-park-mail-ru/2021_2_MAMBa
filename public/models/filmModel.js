@@ -2,10 +2,8 @@ import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutFilm, sendReview, sendRating, sendBookmark} from '../modules/http';
 import {convertArrayToFilmPage} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
-import {eventBus} from '../modules/eventBus';
-import {ROUTES} from '../consts/routes';
 import {statuses} from '../consts/reqStatuses';
-import {renderWarning} from "../utils/utils";
+import {renderWarning} from '../utils/utils';
 
 
 /** Class representing film page model.

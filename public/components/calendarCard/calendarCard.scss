@@ -22,7 +22,7 @@
       margin-bottom: 0;
     }
 
-    @media (min-width: $md3+px) {
+    @media (min-width: $md4+px) {
       display: flex;
       align-items: flex-start;
     }
@@ -34,7 +34,7 @@
     border-radius: 6px;
     min-height: 210px;
     overflow: hidden;
-    @media (max-width: $md3+px) {
+    @media (max-width: $md4+px) {
       min-height: 0;
       margin-bottom: 17px;
       padding: 150% 0 0 0;
@@ -43,7 +43,7 @@
 
   &__body {
     flex: 1 1 auto;
-    @media (min-width: $md3+px) {
+    @media (min-width: $md4+px) {
       padding: 0 30px 0 20px;
     }
   }
@@ -59,14 +59,14 @@
     &:hover {
       color: $pink;
     }
-    @media (max-width: $md3+px) {
+    @media (max-width: $md4+px) {
       font-size: 24px;
     }
   }
 
   &__data{
     margin-bottom: 10px;
-    @media (max-width: $md3+px) {
+    @media (max-width: $md4+px) {
       margin-bottom: 0;
     }
   }
@@ -103,7 +103,7 @@
     text-align: center;
     font-size: 70px;
     font-family: "Montserrat-Black", "Arial", sans-serif;
-    @media (max-width: $md3+px) {
+    @media (max-width: $md4+px) {
       width: auto;
     }
   }

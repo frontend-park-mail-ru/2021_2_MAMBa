@@ -33,4 +33,4 @@ export const renderWarning = (text, className) => {
   if (errorBlock) {
     errorBlock.innerHTML = text;
   }
-}
+};

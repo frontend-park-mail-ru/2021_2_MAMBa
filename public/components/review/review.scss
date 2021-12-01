@@ -1,11 +1,6 @@
 @import '../../css/consts';
 
 .review-info {
-  margin-top: $header_indentation;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50px;
 
   &__review {
     border: 1px solid $dark-blue;
@@ -100,11 +95,15 @@
   background-color: #E57EA3;
   border: 0;
   border-radius: 10px;
+  cursor: pointer;
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 16px;
   color: $white;
-  width: 480px;
-  height: 40px;
+  padding: 8px 120px;
   justify-content: center;
   align-items: center;
+  @media (max-width: $md4+px) {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
 }

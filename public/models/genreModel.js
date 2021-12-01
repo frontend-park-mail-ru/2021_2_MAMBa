@@ -1,6 +1,6 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getInfoAboutGenre, getGenreFilms} from '../modules/http';
-import {convertArrayToGenrePage, convertArrayToActorFilms, convertDateToCalendarPage} from '../modules/adapters';
+import {convertArrayToGenrePage, convertArrayToActorFilms} from '../modules/adapters';
 import {statuses} from '../consts/reqStatuses';
 
 /** Class representing genre page model.

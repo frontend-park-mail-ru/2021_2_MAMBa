@@ -5,17 +5,25 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   border: 1px solid $dark-blue;
+  @media (max-width: $md4+px) {
+    padding: 16px;
+  }
 
   &__button-type {
+    margin-bottom: 20px;
+    @media (max-width: $md4+px) {
+      flex-direction: column;
+      gap: 8px
+    }
     display: flex;
     justify-content: space-between;
   }
 
   &__text {
+    margin-bottom: 20px;
     border: 0;
-    background-color:$grey-inputs;
+    background-color: $grey-inputs;
     border-radius: 10px;
     padding: 20px;
     min-height: 100px;
@@ -28,22 +36,25 @@
 .type-positive {
   border: 2px solid $green-border;
 }
+
 .positive-chosen {
-  background-color:$light-green;
+  background-color: $light-green;
 }
 
 .type-neutral {
   border: 2px solid $grey-base;
 }
+
 .neutral-chosen {
-  background-color:#BBBDC1;
+  background-color: #BBBDC1;
 }
 
 .type-negative {
   border: 2px solid $red-border;
 }
+
 .negative-chosen {
-  background-color:$vinous;
+  background-color: $vinous;
 }
 
 .button-type {
@@ -52,13 +63,18 @@
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 16px;
   padding: 8px 20px;
-  height: 40px;
   justify-content: center;
   align-items: center;
+  @media (max-width: $md4+px) {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
 
   &:hover {
-    opacity: 1;
-    transform: scale(1.1);
+    @media (min-width: $md2+px) {
+      opacity: 1;
+      transform: scale(1.1);
+    }
   }
 }
 
@@ -70,30 +86,42 @@
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 16px;
   color: $white;
-  width: 480px;
-  height: 40px;
+  padding: 8px 120px;
   justify-content: center;
   align-items: center;
+  @media (max-width: $md4+px) {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
 }
 
 .review_button:hover {
-  opacity: 1;
-  transform: scale(1.1);
+  &:hover {
+    @media (min-width: $md2+px) {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
 }
 
-.send-review_color{
+.send-review_color {
   background-color: #E57EA3;
 }
-.disabled-clear-button{
+
+.disabled-clear-button {
   border: 0;
   background-color: $pink;
   border-radius: 10px;
+  cursor: pointer;
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 16px;
   color: $white;
-  width: 480px;
-  height: 40px;
+  padding: 8px 120px;
   justify-content: center;
   align-items: center;
+  @media (max-width: $md4+px) {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
 }
 

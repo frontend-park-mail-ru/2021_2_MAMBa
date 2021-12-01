@@ -4,7 +4,7 @@
   transition: all .2s ease-out;
   text-decoration: none;
   flex-direction: column;
-  @media (min-width: $md3+px) {
+  @media (min-width: $md4+px) {
     min-width:180px;
   }
 
@@ -29,7 +29,7 @@
     font-family: "Montserrat-Medium", sans-serif;
     font-size: 18px;
     color: $white;
-    @media (max-width: $md3+px) {
+    @media (max-width: $md4+px) {
       text-align: center;
     }
   }

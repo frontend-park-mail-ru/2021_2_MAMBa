@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
-  max-width: 300px;
+  max-width: 70%;
   justify-content: center;
 
   &__ru, &__en {
@@ -65,7 +65,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 365px;
 
     &:hover {
       color: $pink;
@@ -105,7 +104,6 @@
     font-family: "Montserrat-Bold", sans-serif;
     font-size: 16px;
     position: absolute;
-    top: 28px;
     left: 15px;
   }
 }
@@ -113,7 +111,6 @@
 .bookmark-block {
   display: flex;
   overflow: hidden;
-  width: 570px;
   height: 162px;
   margin: 7px;
   background-color: rgba(36, 11, 54, 0.1);
@@ -130,8 +127,44 @@
   }
 
   &__film-content {
-    max-width: 390px;
     display:flex;
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 575px) {
+  .bookmark-block {
+    flex-direction: column;
+    justify-content: center;
+    height: 250px;
+    max-width: 400px;
+  }
+
+  .film-name-block {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .film-description-block__description, .film-actors-block, .film-genres-block {
+    max-width: 300px;
+  }
+  .bookmark-block {
+    max-width: 310px;
+  }
+}
+
+@media (min-width: 575px) {
+  .bookmark-block {
+    width: 550px;
+
+    &__film-content {
+
+    }
+  }
+
+  .film-description-block {
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 }

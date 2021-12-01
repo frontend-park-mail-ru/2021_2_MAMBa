@@ -40,7 +40,6 @@ export class HeaderView extends BaseView {
     for (const button of buttons) {
       if (button.getAttribute('href') === buttonHref) {
         button.classList.add('navbar__menu-btn_active');
-        return;
       }
     }
   }

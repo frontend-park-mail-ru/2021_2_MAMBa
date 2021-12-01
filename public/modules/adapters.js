@@ -224,12 +224,14 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     classType = 'positive-review';
     classButtonType = 'positive-button';
   }
+
   return {
+    href: `/profile/${reviewInfoJson?.author_id}`,
     classType: classType,
     classButtonType: classButtonType,
     authorAvatar: `https://film4u.club${reviewInfoJson?.author_picture_url}`,
     filmTitle: reviewInfoJson?.film_title_ru,
-    authorName: reviewInfoJson?.author_name,
+    authorName: `Автор ${reviewInfoJson?.author_name}`,
     reviewText: reviewInfoJson?.review_text || 0,
     date: reviewInfoJson?.date,
   };

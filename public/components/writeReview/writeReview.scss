@@ -65,6 +65,8 @@
   padding: 8px 20px;
   justify-content: center;
   align-items: center;
+  text-decoration:none;
+  background-color: $white;
   @media (max-width: $md4+px) {
     font-size: 12px;
     padding: 4px 10px;

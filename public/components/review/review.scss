@@ -2,6 +2,20 @@
 
 .review-info {
 
+  &__name-and-buttons{
+    display:flex;
+    flex-direction: column;
+  }
+
+  &__author-name {
+    font-weight: 700;
+    color:$black;
+    text-decoration:none;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
   &__review {
     border: 1px solid $dark-blue;
     display: flex;
@@ -10,6 +24,7 @@
     color: $dark-blue;
     padding: 35px;
     gap: 20px;
+
 
     &_user-info {
       display: flex;
@@ -30,33 +45,30 @@
         &_review {
           font-size: 30px;
 
-          &_name {
-            font-weight: 700;
-            font-family: "Montserrat-Bold", "Arial", sans-serif;
-          }
-
-          &_buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 35px;
-          }
         }
 
-        &_date {
-          margin-bottom: 5px;
-          font-size: 16px;
-          font-weight: 500;
-          color: $grey;
+        &_buttons {
+          margin-top: 20px;
+          display: flex;
+          gap: 35px;
         }
       }
-    }
 
-    &_text {
-      font-weight: 500;
-      line-height: 1.5;
+      &_date {
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $grey;
+      }
     }
   }
+
+  &_text {
+    font-weight: 500;
+    line-height: 1.5;
+  }
 }
+
 
 .positive-review {
   background-color: $light-green;
@@ -91,7 +103,8 @@
   color: #777;
   text-decoration: underline;
 }
-.send-review-success{
+
+.send-review-success {
   background-color: #E57EA3;
   border: 0;
   border-radius: 10px;

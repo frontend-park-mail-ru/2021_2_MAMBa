@@ -16,16 +16,29 @@
     margin-bottom: 20px;
   }
 
-  &__review {
+  &__container{
+    border-radius: 20px;
     border: 1px solid $dark-blue;
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
-    color: $dark-blue;
     padding: 35px;
     gap: 20px;
+    @media (max-width: $md3+px) {
+      padding: 16px;
+    }
+  }
 
+  &__user-info{
+    display: flex;
+    gap: 35px;
+    @media (max-width: $md3+px) {
+      gap: 16px;
+    }
+  }
 
+  &__review {
+    display: flex;
+    gap: 35px;
     &_user-info {
       display: flex;
       gap: 35px;

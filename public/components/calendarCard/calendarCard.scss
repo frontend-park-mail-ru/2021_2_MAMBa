@@ -1,0 +1,114 @@
+@import '../../css/consts';
+
+.calendar {
+  &__date {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid $pink;
+  }
+  &__not-found{
+    height: 210px;
+  }
+}
+
+.premiere {
+  &__item {
+    align-items: flex-start;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid $grey-inputs;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $md4+px) {
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+
+  &__image {
+    flex: 0 0 140px;
+    display: block;
+    border-radius: 6px;
+    min-height: 210px;
+    overflow: hidden;
+    @media (max-width: $md4+px) {
+      min-height: 0;
+      margin-bottom: 17px;
+      padding: 150% 0 0 0;
+    }
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    @media (min-width: $md4+px) {
+      padding: 0 30px 0 20px;
+    }
+  }
+
+  &__title {
+    color: inherit;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    transition: color 0.3s ease 0s;
+
+    &:hover {
+      color: $pink;
+    }
+    @media (max-width: $md4+px) {
+      font-size: 24px;
+    }
+  }
+
+  &__data{
+    margin-bottom: 10px;
+    @media (max-width: $md4+px) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__add-info{
+    margin-bottom: 5px;
+    color: $grey;
+  }
+
+  &__description {
+    text-align: justify;
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  &__rating_number {
+    text-align: center;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    font-size: 30px;
+    color: $pink;
+    margin-bottom: 11px;
+  }
+
+  &__day {
+    width:90px;
+    margin-bottom: 10px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 70px;
+    font-family: "Montserrat-Black", "Arial", sans-serif;
+    @media (max-width: $md4+px) {
+      width: auto;
+    }
+  }
+
+  &__text {
+    text-align: center;
+  }
+}

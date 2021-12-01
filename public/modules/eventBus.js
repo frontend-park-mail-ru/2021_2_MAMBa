@@ -31,7 +31,11 @@ class EventBus {
    * @param {any} data - Data for callback function.
    */
   emit(event, ...data) {
-    this._listeners[event]?.forEach((listener) => listener(...data));
+    if (!this._listeners[event]) {
+      return;
+    }
+    const clonedSet = new Set(this._listeners[event]);
+    clonedSet?.forEach((listener) => listener(...data));
   }
 }
 

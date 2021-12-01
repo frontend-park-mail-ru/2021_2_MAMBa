@@ -1,9 +1,13 @@
 .profile-settings
     form.settings-form(name='settingsForm')
       each input in inputs
+          label.settings-form__labels(for=input.name) #{input.placeholder}
+            if input.name === 'avatar'
+                .settings-form__avatar(style=`background-image: url(${profile_pic});`)
           input(
               type=input.type
               name=input.name
+              id=input.name
               value=input.value
               accept = input.type === 'file' ? input.accept:''
               class='settings-form__inputs'

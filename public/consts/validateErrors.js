@@ -14,7 +14,7 @@ export const ErrorMessages = {
     regexp: /(?=.*[A-z])/,
   }, {
     text: 'Пароль должен содержать хотя бы 8 символов!',
-    regexp: /[a-zA-Z0-9]{8,}/,
+    regexp: /[а-яА-Яa-zA-Z0-9]{8,}/,
   }],
   [authConfig.repPasswordInput.name]: [{
     text: 'Пароли не совпадают!',

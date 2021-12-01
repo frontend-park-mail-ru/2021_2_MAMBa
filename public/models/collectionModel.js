@@ -1,6 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {getCollectionFilms} from '../modules/http';
 import {convertCollectionToCollectionPage} from '../modules/adapters';
+import {statuses} from '../consts/reqStatuses';
 
 /** Class representing collection page model.
  * @param {object} collection - info about collection(id).
@@ -20,14 +21,14 @@ export class CollectionPageModel {
    */
   getPageContent = (collection) => {
     if (!collection?.id) {
-      this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getCollectionFilms(collection.id)
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.homepage.render.ErrorPage);
-          } else if (response.status === 200 && response.body) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.collectionPage.render.content, convertCollectionToCollectionPage(response.body));
           }
         });

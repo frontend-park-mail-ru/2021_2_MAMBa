@@ -7,6 +7,7 @@ class Authorization {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.user = null;
+    this.lastEvent = null;
     if (navigator.onLine) {
       this.getUserFromServer();
     }
@@ -21,41 +22,47 @@ class Authorization {
     }
     this.user = parsedResponse?.body;
     if (this.user) {
-      this.eventBus.emit(EVENTS.Authorization.GotUser);
+      this.eventBus.emit(EVENTS.authorization.gotUser);
+      this.lastEvent = EVENTS.authorization.gotUser;
     }
   }
 
-  changeUser = (parsedResponse) => {
-    if (!parsedResponse) {
+  changeUser = (user) => {
+    if (!user) {
       return;
     }
-    this.user = parsedResponse?.body;
+    this.user = user;
     if (this.user) {
-      this.eventBus.emit(EVENTS.Authorization.GotUser);
+      this.eventBus.emit(EVENTS.authorization.changedUser);
     }
   }
 
   getUserFromServer = () => {
     checkAuth().then((response) => {
       if (!response) {
+        return null;
+      }
+      if (response?.parsedJson?.status === statuses.OK) {
+        return response.parsedJson?.body?.id;
+      } else {
+        this.eventBus.emit(EVENTS.authorization.notLoggedIn);
+        this.lastEvent = EVENTS.authorization.notLoggedIn;
+        return null;
+      }
+    }).then((userId) => {
+      if (userId) {
+        return getCurrentUser(userId);
+      }
+    }).then((response) => {
+      if (!response) {
         return;
       }
       if (response?.parsedJson?.status === statuses.OK) {
-        const id = response.parsedJson?.body?.id;
-        if (id) {
-          getCurrentUser(id).then((response) => {
-            if (!response) {
-              return;
-            }
-            if (response?.parsedJson?.status === statuses.OK) {
-              this.user = response.parsedJson?.body;
-              if (this.user) {
-                this.eventBus.emit(EVENTS.Authorization.GotUser);
-              }
-            }
-          }).catch(() => {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          });
+        this.user = response.parsedJson?.body;
+        if (this.user) {
+          this.lastEvent = EVENTS.authorization.gotUser;
+          this.eventBus.emit(EVENTS.authorization.gotUser);
+          this.eventBus.emit(EVENTS.AuthPage.redirect);
         }
       }
     }).catch(() => {
@@ -68,8 +75,9 @@ class Authorization {
       if (!response) {
         this.eventBus.emit(EVENTS.App.ErrorPage);
       }
-      if (response?.parsedJson?.status === statuses.OK) {
+      if (response.status === statuses.OK) {
         this.user = null;
+        this.lastEvent = EVENTS.authorization.logOutUser;
       }
     }).catch(() => {
       this.eventBus.emit(EVENTS.App.ErrorPage);

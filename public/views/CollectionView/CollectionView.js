@@ -33,7 +33,7 @@ export class CollectionView extends BaseView {
     if (content) {
       content.innerHTML = template;
     } else {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 }

@@ -1,7 +1,9 @@
 import {EVENTS} from '../consts/EVENTS.js';
-import {getInfoAboutFilm, sendReview, sendRating} from '../modules/http';
+import {getInfoAboutFilm, sendReview, sendRating, sendBookmark} from '../modules/http';
 import {convertArrayToFilmPage} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
+import {statuses} from '../consts/reqStatuses';
+import {renderWarning} from '../utils/utils';
 
 
 /** Class representing film page model.
@@ -21,18 +23,18 @@ export class FilmPageModel {
    */
   getPageContent = (film) => {
     if (!film?.id) {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
     getInfoAboutFilm(film.id)
         .then((response) => {
           if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.homepage.render.errorPage);
-          } else if (response.status === 200 && response.body) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
           // TODO: отрисовывать стр если фильма нет в бд
-          // if (response.parsedJson.status === 404) {}
+          // if (response.parsedJson.status === statuses.NOT_FOUND) {}
         });
   }
 
@@ -42,9 +44,7 @@ export class FilmPageModel {
    */
   postReview = (inputsData = {}) => {
     if (!authModule.user) {
-      this.eventBus.emit(
-          EVENTS.filmPage.render.warningSend,
-          'Чтобы отправить отзыв, пожалуйста, зарегистрируйтесь',
+      renderWarning('Чтобы оставить отзыв, пожалуйста, <a href="/auth">зарегистрируйтесь</a>',
           'warning_no-auth');
       return;
     }
@@ -54,7 +54,7 @@ export class FilmPageModel {
           if (!response) {
             return;
           }
-          if (response.status === 200) {
+          if (response.status === statuses.OK) {
             this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
           }
         });
@@ -69,11 +69,11 @@ export class FilmPageModel {
     if (!authModule.user) {
       this.eventBus.emit(
           EVENTS.filmPage.render.warningRatingSend,
-          'Чтобы поставить рейтинг, пожалуйста, зарегистрируйтесь');
+          'Чтобы поставить оценку, пожалуйста, <a href="/auth" class = "white_text">зарегистрируйтесь</a>');
       return;
     }
     if (!filmId && !rating) {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
 
@@ -81,8 +81,29 @@ export class FilmPageModel {
       if (!response) {
         return;
       }
-      if (response.status === 200) {
+      if (response.status === statuses.OK) {
         this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
+      }
+    });
+  }
+
+  /**
+   * Post bookmark
+   * @param {number} filmId - film`s id of bookmark.
+   * @param {boolean} bookmarked - status of future bookmark.
+   */
+  postBookmark = (filmId, bookmarked) => {
+    if (!filmId && !bookmarked) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
+    sendBookmark(filmId, bookmarked).then((response) => {
+      if (!response) {
+        return;
+      }
+      if (response.status === statuses.OK) {
+        // TODO:check what backend send
+        // this.eventBus.emit(EVENTS.filmPage.render.successfulRatingSend, rating, response.body.rating);
       }
     });
   }

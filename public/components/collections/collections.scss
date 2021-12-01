@@ -1,39 +1,27 @@
 @import '../../css/consts.scss';
 
-.collections-main {
-  margin-top: 30px;
-  background-color: $white;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 12%;
-  margin-left: 12%;
+.collections {
+  &__container {
+    display: grid;
+    row-gap: 30px;
+    column-gap: 20px;
+    @media (max-width: $md4+px) {
+      column-gap: 12px;
+      row-gap: 12px;
+    }
 
-  &_heading {
-    display: flex;
-    font-family: "Montserrat-Bold", "Arial", sans-serif;;
-    font-size: 40px;
-  }
-
-  &_detailed {
-    margin-top: 10px;
-    margin-bottom: 25px;
-    font-size: 16px;
-    color: $grey-background;
-    display: flex;
-  }
-
-  &_black-background {
-    margin-bottom: 50px;
-    background-color: $grey-background;
-    border-radius: 20px;
-    padding: 3% 3% 3% 3%;
-    width: 94%;
-
-    &_container {
-      display: grid;
+    &_column-number {
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      @media (max-width: $md2+px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: $md3+px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &_genres-column-number {
+      grid-template-columns: repeat( auto-fit, minmax(160px, 1fr));
     }
   }
 }

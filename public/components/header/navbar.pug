@@ -1,5 +1,13 @@
 header.navbar
-    a.navbar__logo
+    .navbar__vertical-menu
+      input(type='checkbox')
+      span
+      span
+      span
+      .vertical-menu__btn-container
+        each btn in mobileHeaderLinks
+            a.navbar__menu-btn(href = btn.href)= btn.title
+    a.navbar__logo(href='/')
         include ../../static/pics/logo.svg
     .navbar__wide-menu
       each btn in headerLinks
@@ -9,5 +17,8 @@ header.navbar
             else
                 a.navbar__menu-btn(href = btn.href)= btn.title
     .search
+        input.search__checkbox(type='checkbox')
         input.search__input(placeholder = 'Фильмы, сериалы, актёры')
+        .search__btn
+            include ../../static/pics/search.svg
     include enterButton.pug

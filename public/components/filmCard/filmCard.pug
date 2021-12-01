@@ -1,9 +1,11 @@
 mixin filmCard (i)
-    div.film-card
-        div.film-card_pic
-            img(src=i.filmAvatar)
-        div.film-card_description
-            div.film-card_description_name #{i.title}
-                div.film-card_description_name_year #{i.year}
-            div.film-card_description_text #{i.description}
+    div.film__item
+        a(class = "poster _ibg" href=`${i.href}`)
+            img(src=i.filmAvatar alt ="")
+        div.film__info
+            a(class = "film__name" href=`${i.href}`) #{i.title}
+            if (i.originalTitle)
+                div.film__year #{i.originalTitle}
+            div.film__year #{i.year}
+            div.film__description #{i.description}
             a(class="pink-button" href=`${i.href}`) Подробнее

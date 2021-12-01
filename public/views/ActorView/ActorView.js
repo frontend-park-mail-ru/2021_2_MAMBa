@@ -1,8 +1,10 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import actorPageContent from '../../components/actor/actor.pug';
-import actorFilmsContent from '../../components/filmsWithDescription/filmCardsWithDescription.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
+import {showMore} from '../../utils/showMore.js';
+import {checkShowMoreButton} from '../../utils/showMore.js';
+import {setAnchorActions} from '../../utils/anchorAction.js';
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {
@@ -13,7 +15,6 @@ export class ActorView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataActor;
   }
 
   /**
@@ -30,53 +31,16 @@ export class ActorView extends BaseView {
    */
   renderContent = (data) => {
     const template = actorPageContent(data);
-    this.dataActor= data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.setAnchorActions();
-      this.setSliderActions();
-      this.checkShowMoreButton(this.dataActor.moreAvailable);
-      this.showMore(this.dataActor);
+      setAnchorActions();
+      // this.setSliderActions();
+      checkShowMoreButton(data.moreAvailable, '.button__show-more' );
+      showMore(data, '.button__show-more', EVENTS.actorPage.getFilms);
     } else {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
-  }
-
-  checkShowMoreButton = (available) => {
-    const buttonShowMore = document.querySelector('.show-more-films');
-    if (!available) {
-      buttonShowMore.classList.add('hidden');
-    }
-  }
-
-  showMore = (data) => {
-    const newData = {
-      id: data.id,
-      skip: data.skip + data.limit,
-      limit: data.limit,
-    };
-    const buttonShowMore = document.querySelector('.show-more-films');
-    buttonShowMore.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.eventBus.emit(EVENTS.actorPage.getFilms, newData);
-    });
-  }
-
-  /**
-   * Render content favourites page from pug template to content div.
-   * @param {object} data - Contains info about actor films.
-   */
-  renderFilms = (data) => {
-    const template = actorFilmsContent(data);
-    const showMoreContainer = document.querySelector('.actor-info__black-container_films-with-description_container');
-    if (showMoreContainer) {
-      showMoreContainer.innerHTML += template;
-    }
-    this.dataActor.moreAvailable=data.moreAvailable;
-    this.dataActor.skip= data.skip;
-    this.dataActor.limit=data.limit;
-    this.checkShowMoreButton(this.dataActor.moreAvailable);
   }
 
   /**
@@ -138,24 +102,5 @@ export class ActorView extends BaseView {
       }
     };
     checkButtons();
-  }
-  /**
-   * Set anchor actions.
-   */
-  setAnchorActions = () => {
-    const anchors = document.querySelectorAll('.scroll-to');
-
-    for (const anchor of anchors) {
-      anchor.addEventListener('click', (e) =>{
-        e.preventDefault();
-
-        const blockID = anchor.getAttribute('href');
-
-        document.querySelector(blockID).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      });
-    }
   }
 }

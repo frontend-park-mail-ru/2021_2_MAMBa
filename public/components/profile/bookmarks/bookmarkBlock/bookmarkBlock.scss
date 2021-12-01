@@ -1,0 +1,171 @@
+.film-name-block {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  max-width: 70%;
+  justify-content: center;
+
+  &__ru, &__en {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 330px;
+    color: $dark-blue-text;
+  }
+
+  &__ru {
+    text-decoration: none;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-size: 18px;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+
+  &__en {
+    font-size: 14px;
+  }
+}
+
+.film-actors-block {
+  display: flex;
+  width: 100%;
+  max-width: 380px;
+
+  & a:not(:first-child)  {
+    margin: 0 5px;
+  }
+
+  &__actor {
+    text-decoration: none;
+    color: $dark-blue-text;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+}
+
+.film-genres-block {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+
+  & a:not(:first-child)  {
+    margin-left: 10px;
+  }
+
+  &__genre {
+    color: $dark-blue-text;
+    font-family: "Montserrat-Semi-Bold", sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+}
+
+.film-description-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &__description {
+    width: 100%;
+    font-family: "Montserrat-Semi-Bold", sans-serif;
+    color: $dark-blue-text;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 365px;
+  }
+}
+
+.rating-block {
+  position: relative;
+  align-items: center;
+  display: flex;
+
+  & svg {
+    width: 55px;
+    height: 50px;
+    margin-right: 23px;
+  }
+
+  &__rating {
+    color: $white;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-size: 16px;
+    position: absolute;
+    left: 15px;
+  }
+}
+
+.bookmark-block {
+  display: flex;
+  overflow: hidden;
+  height: 162px;
+  padding: 8px;
+  margin: 7px;
+  background-color: rgba(36, 11, 54, 0.1);
+  border-radius: 20px;
+
+  &__film-img {
+    width: 170px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    margin: 0 10px;
+  }
+
+  &__film-content {
+    display:flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 575px) {
+  .bookmark-block {
+    flex-direction: column;
+    justify-content: center;
+    height: 250px;
+    max-width: 400px;
+  }
+
+  .film-name-block {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .film-description-block__description, .film-actors-block, .film-genres-block {
+    max-width: 300px;
+  }
+  .bookmark-block {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 575px) {
+  .bookmark-block {
+    width: 550px;
+
+    &__film-content {
+
+    }
+  }
+
+  .film-description-block {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}

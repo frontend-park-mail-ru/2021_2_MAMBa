@@ -16,7 +16,7 @@ const sendRating = async (filmId, rating) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -51,7 +51,7 @@ const getInfoAboutFilm = async (filmId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -74,7 +74,7 @@ const getInfoAboutReview = async (reviewId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -97,7 +97,7 @@ const getInfoAboutActor = async (actorId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -109,20 +109,20 @@ const getInfoAboutActor = async (actorId) => {
 /**
  * Send async get request using async func.
  * @param {number} actorId - Contains id of actor to render.
- * @param {number} limit - Contains count of films to render.
  * @param {number} skip - Contains count 0f rendered films.
+ * @param {number} limit - Contains count of films to render.
  * @return {array} - Array of objects for render actor page.
  */
-const getActorFilms = async (actorId, limit, skip) => {
+const getActorFilms = async (actorId, skip, limit) => {
   const params = {
-    url: `${URLS.api.actorFilms}${actorId}&skip=${limit}&limit=${skip}`,
+    url: `${URLS.api.actorFilms}${actorId}&skip=${skip}&limit=${limit}`,
     method: 'GET',
   };
 
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return responseBody;
     }
     return null;
@@ -167,7 +167,7 @@ const getCollectionFilms = async (collectionId) => {
   try {
     const {status: responseStatus, parsedJson: responseBody} =
         await sendRequest(params);
-    if (responseStatus === 200) {
+    if (responseStatus === statuses.OK) {
       return (responseBody);
     }
     return null;
@@ -343,6 +343,139 @@ const getNProfilePagesBlocks = async (url, id, limit, skip) => {
   }
 };
 
+const getSearch = async (value, skipFilms, limitFilms, skipPersons, limitPersons) => {
+  const params = {
+    url: URLS.api.search + `?query=${value}&limit_films=${limitFilms}&skip_films=${skipFilms}` +
+        `&limit_persons=${limitPersons}&skip_persons=${skipPersons}`,
+    method: 'GET',
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @return {array} - Array of objects for render genres page.
+ */
+const getGenres = async () => {
+  const params = {
+    url: URLS.api.genres,
+    method: 'GET',
+    credentials: 'include',
+  };
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {object} genreId - Contains id of genres to render.
+ * @return {array} - Array of objects for render genre page.
+ */
+const getInfoAboutGenre = async (genreId) => {
+  const limit = 6;
+  const skip = 0;
+  const params = {
+    url: `${URLS.api.genre}${genreId}&skip=${skip}&limit=${limit}`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {number} genreId - Contains id of genre to render.
+ * @param {number} skip - Contains count 0f rendered films.
+ * @param {number} limit - Contains count of films to render.
+ * @return {array} - Array of objects for render actor page.
+ */
+const getGenreFilms = async (genreId, skip, limit) => {
+  const params = {
+    url: `${URLS.api.genre}${genreId}&skip=${skip}&limit=${limit}`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @param {number} year - Contains year 0f premiers.
+ * @param {number} month - Contains month of premiers to render.
+ * @return {array} - Array of objects for render calendar page.
+ */
+const getInfoAboutPremiers = async (year, month) => {
+  const params = {
+    url: `${URLS.api.calendar}?month=${month}&year=${year}&skip=0&limit=5`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+
+/**
+ * Send async post request using async func.
+ * @param {number} filmId - film`s id of rating.
+ * @param {boolean} bookmarked - status of future bookmark.
+ */
+const sendBookmark = async (filmId, bookmarked) => {
+  const params = {
+    url: `${URLS.api.sendBookmark}${filmId}&bookmarked=${bookmarked}`,
+    method: 'POST',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 export {
   getCollectionFilms,
@@ -363,4 +496,11 @@ export {
   register,
   login,
   logout,
+  getGenres,
+  getInfoAboutGenre,
+  getGenreFilms,
+  getInfoAboutPremiers,
+  sendBookmark,
+  getSearch,
 };
+

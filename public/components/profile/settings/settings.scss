@@ -1,9 +1,17 @@
 .settings-form {
   display: flex;
-  height: 300px;
+  min-height: 380px;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
+
+  & input[type=file] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -10;
+  }
 
   &__inputs {
     font-family: "Montserrat-Regular", "Arial", sans-serif;
@@ -15,7 +23,27 @@
     font-size: 18px;
     outline: none;
     border: 0;
-    background-color: lightgray;
+    background-color: $grey-inputs;
+  }
+
+  &__labels {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  &__avatar {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(196, 196, 196, 0.3);
+    border-radius: 100px;
+    margin-top: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__btn {
@@ -24,7 +52,7 @@
     border-radius: 15px;
     background-color: $pink;
     color: white;
-    margin: 10px auto;
+    margin: 10px auto 25px;
     height: 40px;
     outline:none;
     border: 0;

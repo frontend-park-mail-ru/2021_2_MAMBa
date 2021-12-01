@@ -1,0 +1,10 @@
+include ../genreCard/genreCard
+div.wrapper
+    main.page
+        div(class = "genres page__container _container")
+            h1(class="genres__main-title title") Жанры
+            div(class = "black-container")
+                div(class = "collections__container collections__container_genres-column-number")
+                  each input, _ in genres
+                      +genreCard(input)
+

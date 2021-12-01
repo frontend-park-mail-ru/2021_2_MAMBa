@@ -55,7 +55,7 @@ export const convertActorToActorPage = (actorInfoJson) => (
     nameEnglish: actorInfoJson.name_en,
     avatar: `https://film4u.club${actorInfoJson.picture_url}`,
     heightMetre: `${actorInfoJson.height} м`,
-    date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age}`,
+    date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
     filmTotal: actorInfoJson.film_number,
     ...actorInfoJson,
   }
@@ -103,6 +103,7 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
     return {
       id: jsonFilm.id,
       title: jsonFilm.title,
+      originalTitle: jsonFilm?.title_original || '',
       description: jsonFilm?.description || '-',
       year: jsonFilm?.release_year || '-',
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
@@ -120,7 +121,9 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     film: convertArrayToFilmInfo(filmInfoJson.film),
     reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
     recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
-    myRating: filmInfoJson?.my_rating || 1,
+    myRating: filmInfoJson.my_review?.stars || 1,
+    myReview: convertReviewToReviewPage(filmInfoJson.my_review),
+    bookmarked: filmInfoJson.bookmarked,
   }
 );
 /**
@@ -139,6 +142,16 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
     };
   });
 };
+
+/**
+ * Convert rating for stars.
+ * @param {number} rating - rating of film.
+ */
+export const ratingNumber = (rating) => {
+  return (!(rating % 1) && rating !== 10) ?
+      `${rating}.0` : rating;
+};
+
 /**
  * Union actors and their ids.
  * @param {object} arrayContent - Info about films with descriptions from json.
@@ -147,7 +160,7 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
 export const convertArrayToFilmInfo = (arrayContent) => {
   const duration = (arrayContent.content_type === 'film') ?
       `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
-  const rating = !(arrayContent.rating%1)?`${arrayContent.rating}.0`:arrayContent.rating;
+  const rating = ratingNumber(arrayContent.rating);
   return {
     ...arrayContent,
     titleOriginal: arrayContent?.title_original,
@@ -180,7 +193,7 @@ export const convertArrayToActorArray = (arrayContent) => {
 };
 
 /**
- * Union actors and their ids.
+ * Union genres of the film.
  * @param {object} arrayContent - Info about films`s genres from json.
  * @return {object} - Object for render list of actors.
  */
@@ -188,7 +201,7 @@ export const convertArrayToGenresArray = (arrayContent) => {
   return arrayContent.map((jsonGenre) => {
     return {
       name: jsonGenre.name,
-      href: `/genres/${jsonGenre.genre_id}`,
+      href: `/genres/${jsonGenre.id}`,
     };
   });
 };
@@ -199,26 +212,26 @@ export const convertArrayToGenresArray = (arrayContent) => {
  * @return {object} - Object for render review information
  */
 export const convertReviewToReviewPage = (reviewInfoJson) => {
-  let classType;
+  let classType = 0;
   let classButtonType;
-  if (reviewInfoJson.review_type === 1) {
+  if (reviewInfoJson?.review_type === 1) {
     classType = 'negative-review';
     classButtonType = 'negative-button';
-  } else if (reviewInfoJson.review_type === 2) {
+  } else if (reviewInfoJson?.review_type === 2) {
     classType = 'neutral-review';
     classButtonType = 'neutral-button';
-  } else if (reviewInfoJson.review_type === 3) {
+  } else if (reviewInfoJson?.review_type === 3) {
     classType = 'positive-review';
     classButtonType = 'positive-button';
   }
   return {
     classType: classType,
     classButtonType: classButtonType,
-    authorAvatar: `https://film4u.club${reviewInfoJson.author_picture_url}`,
-    filmTitle: reviewInfoJson.film_title_ru,
-    authorName: reviewInfoJson.author_name,
-    reviewText: reviewInfoJson.review_text,
-    date: reviewInfoJson.date,
+    authorAvatar: `https://film4u.club${reviewInfoJson?.author_picture_url}`,
+    filmTitle: reviewInfoJson?.film_title_ru,
+    authorName: reviewInfoJson?.author_name,
+    reviewText: reviewInfoJson?.review_text || 0,
+    date: reviewInfoJson?.date,
   };
 };
 
@@ -229,10 +242,168 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
  */
 export const convertCollectionToCollectionPage = (collectionInfoJson) => (
   {
-    name: collectionInfoJson.collection.collection_name,
+    name: `Подборка  ${collectionInfoJson.collection.collection_name}`,
     description: collectionInfoJson.collection.description,
     id: collectionInfoJson.collection.id,
     filmsWithDescription:
           convertArrayToFilmWithDescription(collectionInfoJson.films),
   }
 );
+
+/**
+ * Union actors and their ids.
+ * @param {object} genres - Info about genres from json.
+ * @return {object} - Object for render genres information
+ */
+export const convertArrayToGenres = (genres) => {
+  return genres.map((jsonGender) => {
+    return {
+      title: jsonGender?.name,
+      genreAvatar: `https://film4u.club${jsonGender?.picture_url}`,
+      href: `/genres/${jsonGender.id}`,
+    };
+  });
+};
+
+/**
+ * Union genres.
+ * @param {object} genresInfoJson - Info about genres from json.
+ * @return {object} - Object for render genres information
+ */
+export const convertArrayToGenresPage = (genresInfoJson) => (
+  {
+    genres: convertArrayToGenres(genresInfoJson.genres_list),
+  }
+);
+
+/**
+ * Union genre.
+ * @param {object} genreInfoJson - Info about genre from json.
+ * @return {object} - Object for render genre information
+ */
+export const convertArrayToGenrePage = (genreInfoJson) => (
+  {
+    filmsTotal: genreInfoJson.films.film_total,
+    id: genreInfoJson.id,
+    genreName: `Жанр ${genreInfoJson.name}`,
+    moreAvailable: genreInfoJson?.more_available || false,
+    skip: genreInfoJson.current_skip,
+    limit: genreInfoJson.current_limit,
+    filmsWithDescription:
+          convertArrayToFilmWithDescription(genreInfoJson.films.film_list),
+  }
+);
+
+/**
+ * Make name of month from text.
+ * @param {string} month - Number of the month.
+ * @return {array} - Array of month`s name
+ */
+const monthToText = (month) => {
+  let monthName = ['-', '-'];
+  switch (month) {
+    case '1':
+      monthName = ['января', 'Январь'];
+      break;
+    case '2':
+      monthName = ['февраля', 'Февраль'];
+      break;
+    case '3':
+      monthName = ['марта', 'Март'];
+      break;
+    case '4':
+      monthName = ['апреля', 'Апрель'];
+      break;
+    case '5':
+      monthName = ['мае', 'Май'];
+      break;
+    case '6':
+      monthName = ['июня', 'Июнь'];
+      break;
+    case '7':
+      monthName = ['июля', 'Июль'];
+      break;
+    case '8':
+      monthName = ['августа', 'Август'];
+      break;
+    case '9':
+      monthName = ['сентября', 'Сентябрь'];
+      break;
+    case '10':
+      monthName = ['октября', 'Октябрь'];
+      break;
+    case '11':
+      monthName = ['ноября', 'Ноябрь'];
+      break;
+    case '12':
+      monthName = ['декабря', 'Декабрь'];
+      break;
+  }
+  return (monthName);
+};
+
+/**
+ * Union actor`s film.
+ * @param {object} arrayContent - Info about films with descriptions from json.
+ * @return {object} - Object for render films with descriptions.
+ */
+export const convertArrayToPremierFilms = (arrayContent) => {
+  return arrayContent.map((jsonFilm) => {
+    const data = jsonFilm?.premiere_ru || '';
+    let yearNumber;
+    let monthText;
+    let dayNumber;
+    if (data) {
+      const splitDate = data.split(/[ \-]/);
+      yearNumber = splitDate[0];
+      const monthNumber = splitDate[1];
+      dayNumber = splitDate[2];
+      const month = monthToText(monthNumber);
+      monthText = month[0];
+    } else {
+      yearNumber = '-';
+      monthText = '-';
+      dayNumber = '-';
+    }
+    return {
+      id: jsonFilm.id,
+      title: jsonFilm.title,
+      titleOriginal: jsonFilm?.title_original || '',
+      rating: ratingNumber(jsonFilm?.rating) || '-',
+      description: jsonFilm?.description || '-',
+      year: yearNumber,
+      month: monthText,
+      day: dayNumber,
+      filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
+      href: `/films/${jsonFilm.id}`,
+    };
+  });
+};
+
+/**
+ * Convert premieres.
+ * @param {object} calendarInfoJson - Info about premieres from json.
+ * @param {number} year - Year of premieres from json.
+ * @param {number} month - Month of premieres from json.
+ * @return {object} - Object for premieres c information
+ */
+export const convertArrayToCalendarPage = (calendarInfoJson, year, month) => {
+  return {
+    dateCalendar: convertDateToCalendarPage(month, year),
+    year: year,
+    month: month,
+    premieres: convertArrayToPremierFilms(calendarInfoJson.film_list),
+  };
+};
+
+/**
+ * Convert date.
+ * @param {number} month - Month of premieres from json.
+ * @param {number} year - Year of premieres from json.
+ * @return {object} - Object for render date
+ */
+export const convertDateToCalendarPage = (month, year) => {
+  const monthText = monthToText('' + month);
+  return `${monthText[1]}, ${year}`;
+};
+

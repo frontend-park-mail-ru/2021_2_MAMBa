@@ -1,10 +1,9 @@
 @import '../../css/consts';
 
-.user_rating {
+.user-rating {
   display: flex;
   gap: 10px;
-
-  &_number {
+  &__number {
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -16,8 +15,9 @@
     align-items: center;
   }
 
-  &_rating_text {
+  &__text {
     margin-top: 2px;
     font-size: 16px;
   }
 }
+

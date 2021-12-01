@@ -1,0 +1,73 @@
+.persons-block {
+  display: flex;
+  flex-wrap:wrap;
+  margin-bottom: 40px;
+  justify-content: center;
+
+  &__person {
+    display: flex;
+    overflow: hidden;
+    width: 570px;
+    height: 162px;
+    margin: 7px;
+    background-color: rgba(36, 11, 54, 0.1);
+    border-radius: 20px;
+    align-self: center;
+  }
+}
+
+.person-block {
+  &__img {
+    height: 75%;
+    align-self: center;
+    border-radius: 20px;
+    margin: 0 10px;
+    object-fit: cover;
+  }
+}
+
+.person-description-block {
+  display: flex;
+  color: $dark-blue-text;
+  flex-direction: column;
+  height: 75%;
+  align-self: center;
+
+  &__name-rus, &__name-en {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 330px;
+  }
+
+  &__name-rus {
+    text-decoration: none;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-size: 20px;
+    color: $dark-blue-text;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+
+  &__name-en {
+
+  }
+
+  &__career {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .persons-block__person {
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .persons-block__person {
+    width: 305px;
+  }
+}

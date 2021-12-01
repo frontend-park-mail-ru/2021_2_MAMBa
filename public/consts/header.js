@@ -8,7 +8,26 @@ export const headerLinks = [
     title: 'Жанры',
   },
   {
-    href: '/releases',
+    href: '/premieres',
+    title: 'Релизы',
+  },
+  {
+    href: '/random',
+    title: 'Рандомный фильм',
+  },
+];
+
+export const mobileHeaderLinks = [
+  {
+    href: '/',
+    title: 'Подборки',
+  },
+  {
+    href: '/genres',
+    title: 'Жанры',
+  },
+  {
+    href: '/premieres',
     title: 'Релизы',
   },
   {

@@ -1,0 +1,50 @@
+@import '../../css/consts';
+
+.genre{
+  border-radius: 10px;
+  transition: all .2s ease-out;
+  text-decoration: none;
+  flex-direction: column;
+  background: linear-gradient(
+                  104deg,
+                  $grey-background 0%,
+                  $light-grey 100%
+  );
+
+  &__wrapper {
+    flex-direction: column;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: $md3+px) {
+      height: 100px;
+    }
+
+    & img {
+      width: 60px;
+      height: 60px;
+      @media (max-width: $md3+px) {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  &__name {
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    color: $white;
+    @media (max-width: $md3+px) {
+      font-size: 14px;
+    }
+  }
+
+  &:hover {
+    position: relative;
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

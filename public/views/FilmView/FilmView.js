@@ -5,6 +5,9 @@ import readMore from '../../components/textReadMore/textReadMore.pug';
 import successfulSendButton from '../../components/successfulSendButton/successfulSendButton.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
+import {checkAuth} from '../../utils/utils.js';
+import {setAnchorActions} from '../../utils/anchorAction.js';
+import {ratingNumber} from '../../modules/adapters';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -15,7 +18,6 @@ export class FilmView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataFilm;
   }
 
   /**
@@ -32,35 +34,34 @@ export class FilmView extends BaseView {
    */
   renderContent = (data) => {
     const template = filmPageContent(data);
-    this.dataFilm = data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      this.setSliderReviewActions();
-      this.setSliderActions();
+      // this.setSliderReviewActions();
+      // this.setSliderActions();
       this.addSubmitSendReviewListener(data.film.id);
       this.rating(data.film.id);
       this.setReadMore(data);
-      this.setAnchorActions();
+      this.bookmarked(data.film.id);
+      setAnchorActions();
     } else {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
   setReadMore = (data) => {
-    const heightText = document.querySelector('.film-info__container-trailer_summery').clientHeight;
-    if (heightText > 115) {
+    const summery = document.querySelector('.trailer__summery');
+    if (summery.clientHeight > 120) {
       const template = readMore(data);
-      const content = document.querySelector('.film-info__container-trailer_summery');
+      const content = document.querySelector('.trailer__summery');
       if (content) {
-        content.innerHTML = template;
+        summery.innerHTML = template;
       }
     }
   }
 
-
   renderWarningRatingSend = (text) => {
-    const ratingArea = document.querySelector('.user_rating');
+    const ratingArea = document.querySelector('.user-rating');
     if (ratingArea) {
       ratingArea.innerHTML = text;
     }
@@ -70,12 +71,12 @@ export class FilmView extends BaseView {
     const Rating = {
       myRating: rating,
     };
-    const ratingArea = document.querySelector('.user_rating');
+    const ratingArea = document.querySelector('.user-rating');
     const template = userRating(Rating);
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
-    const ratingAdapter = !(newFilmRating%1)?`${newFilmRating}.0`:newFilmRating;
+    const ratingAdapter = ratingNumber(newFilmRating);
     const ratingItemStar = document.querySelector('.rating-number-stars');
     const ratingItem = document.querySelector('.rating-number');
     if (ratingItem && ratingItemStar) {
@@ -84,8 +85,29 @@ export class FilmView extends BaseView {
     }
   }
 
+  bookmarked = (filmId) => {
+    const bookmark = document.querySelector('.bookmark');
+    if (bookmark) {
+      bookmark.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = e.target;
+        if (checkAuth(filmId)) {
+          if (target.classList.contains('not_favourite')) {
+            bookmark.classList.remove('not_favourite');
+            target.classList.add('favourite');
+            this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, true);
+          } else if (target.classList.contains('favourite')) {
+            bookmark.classList.remove('favourite');
+            target.classList.add('not_favourite');
+            this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
+          }
+        }
+      });
+    }
+  }
+
   rating = (filmId) => {
-    const rating = document.querySelector('.rating_stars');
+    const rating = document.querySelector('.rating__stars');
     const ratingItem = document.querySelectorAll('.rating-item');
     rating.addEventListener('click', (e) => {
       e.preventDefault();
@@ -159,72 +181,67 @@ export class FilmView extends BaseView {
     const positiveButton = document.querySelector('.type-positive');
     const neutralButton = document.querySelector('.type-neutral');
     const negativeButton = document.querySelector('.type-negative');
-    positiveButton.addEventListener('click', () => {
-      review.review_type = 3;
-      positiveButton.classList.add('positive-chosen');
-      negativeButton.classList.remove('negative-chosen');
-      neutralButton.classList.remove('neutral-chosen');
-      this.removeWarning('warning_type');
-    });
-    neutralButton.addEventListener('click', () => {
-      review.review_type = 2;
-      positiveButton.classList.remove('positive-chosen');
-      negativeButton.classList.remove('negative-chosen');
-      neutralButton.classList.add('neutral-chosen');
-      this.removeWarning('warning_type');
-    });
-    negativeButton.addEventListener('click', () => {
-      review.review_type = 1;
-      positiveButton.classList.remove('positive-chosen');
-      negativeButton.classList.add('negative-chosen');
-      neutralButton.classList.remove('neutral-chosen');
-      this.removeWarning('warning_type');
-    });
+    if (positiveButton && neutralButton && negativeButton) {
+      positiveButton.addEventListener('click', () => {
+        review.review_type = 3;
+        positiveButton.classList.add('positive-chosen');
+        negativeButton.classList.remove('negative-chosen');
+        neutralButton.classList.remove('neutral-chosen');
+        this.removeWarning('warning_type');
+      });
+      neutralButton.addEventListener('click', () => {
+        review.review_type = 2;
+        positiveButton.classList.remove('positive-chosen');
+        negativeButton.classList.remove('negative-chosen');
+        neutralButton.classList.add('neutral-chosen');
+        this.removeWarning('warning_type');
+      });
+      negativeButton.addEventListener('click', () => {
+        review.review_type = 1;
+        positiveButton.classList.remove('positive-chosen');
+        negativeButton.classList.add('negative-chosen');
+        neutralButton.classList.remove('neutral-chosen');
+        this.removeWarning('warning_type');
+      });
+    }
 
     const clearButton = document.querySelector('.clear-button');
-    clearButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      const content = document.getElementById('input');
-      if (content) {
-        content.value = ' ';
-      }
-    });
+    if (clearButton) {
+      clearButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const content = document.getElementById('input');
+        if (content) {
+          content.value = ' ';
+        }
+      });
+    }
 
     const sendButton = this.getSendButtonFromDom();
-    sendButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (review.review_type === 0) {
-        this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
-        return;
-      }
-      const textInput = document.querySelector('.write_review__text').value;
-      if (textInput) {
-        if (textInput === '') {
-          this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+    if (sendButton) {
+      sendButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (review.review_type === 0) {
+          this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
           return;
         }
-        review.review_text = textInput;
-      }
-      this.eventBus.emit(EVENTS.filmPage.postReview, review);
-      this.removeWarning('warning_empty-text');
-    });
+        const textInput = document.querySelector('.write_review__text').value;
+        if (textInput) {
+          if (textInput === '') {
+            this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+            return;
+          }
+          review.review_text = textInput;
+        }
+        this.eventBus.emit(EVENTS.filmPage.postReview, review);
+        this.removeWarning('warning_empty-text');
+      });
+    }
   }
 
   getSendButtonFromDom = () => {
     return document.querySelector('.send-review');
   }
 
-  /**
-   * Render warning to auth.
-   * @param {string} text - Warning text to render.
-   * @param {string} className - Class of warning.
-   */
-  renderWarning = (text, className) => {
-    const errorBlock = document.querySelector(`.${className}`);
-    if (errorBlock) {
-      errorBlock.innerHTML = text;
-    }
-  }
 
   /**
    * Remove warning to auth.
@@ -246,8 +263,15 @@ export class FilmView extends BaseView {
   renderSuccessfulSend = () => {
     const template = successfulSendButton();
     const sendButton = this.getSendButtonFromDom();
+    const clearButton = document.querySelector('.clear-button');
+    if (clearButton) {
+      clearButton.classList.add('disabled-clear-button');
+      clearButton.classList.remove('clear-button');
+      clearButton.classList.remove('review_button');
+    }
+
     if (sendButton) {
-      sendButton.innerHTML = template;
+      sendButton.outerHTML = template;
     }
   }
 
@@ -266,55 +290,58 @@ export class FilmView extends BaseView {
     const reviewCount = reviews.length;
     const btvPrev = document.querySelector('.review-slider-container_button-left');
     const btvNext = document.querySelector('.review-slider-container_button-right');
-    const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding *
-        2 * reviewSlidesToShow) / reviewSlidesToShow;
-    const itemWidthWithMargin = itemWidth + gap + padding * 2;
-    const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
+    if (container) {
+      const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding *
+          2 * reviewSlidesToShow) / reviewSlidesToShow;
+      const itemWidthWithMargin = itemWidth + gap + padding * 2;
+      const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
 
-    reviews.forEach((item) => {
-      item.style.minWidth = `${itemWidth}px`;
-      item.style.maxWidth = `${itemWidth}px`;
-    });
+      reviews.forEach((item) => {
+        item.style.minWidth = `${itemWidth}px`;
+        item.style.maxWidth = `${itemWidth}px`;
+      });
 
-    btvNext.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *
-          itemWidthWithMargin) / itemWidthWithMargin;
-      position -= itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
-      setPosition();
+      btvNext.addEventListener('click', (e) => {
+        e.preventDefault();
+        const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *
+            itemWidthWithMargin) / itemWidthWithMargin;
+        position -= itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
+        setPosition();
+        checkButtons();
+      });
+
+      btvPrev.addEventListener('click', (e) => {
+        e.preventDefault();
+        const itemLeft = Math.abs(position) / itemWidthWithMargin;
+        position += itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
+        setPosition();
+        checkButtons();
+      });
+
+      /**
+       * Set film to the right position.
+       */
+      const setPosition = () => {
+        track.style.transform = `translateX(${position}px`;
+      };
+      /**
+       * Check buttons.
+       */
+      const checkButtons = () => {
+        if (position === 0) {
+          btvPrev.classList.add('hidden');
+        } else {
+          btvPrev.classList.remove('hidden');
+        }
+
+        if (position <= -(reviewCount - reviewSlidesToShow) * itemWidthWithMargin) {
+          btvNext.classList.add('hidden');
+        } else {
+          btvNext.classList.remove('hidden');
+        }
+      };
       checkButtons();
-    });
-
-    btvPrev.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = Math.abs(position) / itemWidthWithMargin;
-      position += itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
-      setPosition();
-      checkButtons();
-    });
-    /**
-     * Set film to the right position.
-     */
-    const setPosition = () => {
-      track.style.transform = `translateX(${position}px`;
-    };
-    /**
-     * Check buttons.
-     */
-    const checkButtons = () => {
-      if (position === 0) {
-        btvPrev.classList.add('hidden');
-      } else {
-        btvPrev.classList.remove('hidden');
-      }
-
-      if (position <= -(reviewCount - reviewSlidesToShow) * itemWidthWithMargin) {
-        btvNext.classList.add('hidden');
-      } else {
-        btvNext.classList.remove('hidden');
-      }
-    };
-    checkButtons();
+    }
   }
   /**
    * Set slider actions.
@@ -374,24 +401,5 @@ export class FilmView extends BaseView {
       }
     };
     checkButtons();
-  }
-  /**
-   * Set anchor actions.
-   */
-  setAnchorActions = () => {
-    const anchors = document.querySelectorAll('a.scroll-to');
-
-    for (const anchor of anchors) {
-      anchor.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const blockID = anchor.getAttribute('href');
-
-        document.querySelector(blockID).scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      });
-    }
   }
 }

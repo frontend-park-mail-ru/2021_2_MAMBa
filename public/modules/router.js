@@ -41,7 +41,7 @@ export class Router {
       this.application.addEventListener('click', (e) => {
         const target = e.target;
         const closestLink = target.closest('a');
-        if (e.target.matches('.scroll-to')) {
+        if (e.target.matches('.scroll-to') || e.target.matches('.not-route')) {
           return;
         }
         if (closestLink instanceof HTMLAnchorElement) {

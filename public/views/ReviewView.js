@@ -12,7 +12,6 @@ export class ReviewView extends BaseView {
    */
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
-    this.dataReview;
   }
 
   /**
@@ -29,12 +28,11 @@ export class ReviewView extends BaseView {
    */
   renderContent = (data) => {
     const template = reviewPageContent(data);
-    this.dataReview = data;
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
     } else {
-      this.eventBus.emit(EVENTS.homepage.render.errorPage);
+      this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 }

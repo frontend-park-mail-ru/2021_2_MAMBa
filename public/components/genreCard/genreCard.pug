@@ -1,0 +1,5 @@
+mixin genreCard(i)
+    a(class = "genre" href=`${i.href}`)
+        div.genre__wrapper
+            img(src=i.genreAvatar)
+            div.genre__name #{i.title}

@@ -1,9 +1,9 @@
 include ../filmCard/filmCard
-div.collection-info
-    span.block-subtitle
-        = `Подборка  «${name}»`
-    div.collection-info__desctiption #{description}
-    div.collection-info__black-container
-        div.actor-info__black-container_films-with-description_container
-          each film, _ in filmsWithDescription
-            +filmCard(film)
+div.wrapper
+    main.page
+        div(class = "collectionFilms page__container _container")
+            h1(class="collectionFilms__main-title title") #{name}
+            div(class ="collectionFilms__description description") #{description}
+            div(class = "black-container film__items")
+              each film, _ in filmsWithDescription
+                +filmCard(film)

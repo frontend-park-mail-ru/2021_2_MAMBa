@@ -1,26 +1,63 @@
 .search {
   font-family: "Montserrat-Regular", "Arial", sans-serif;
   display: flex;
-  visibility: hidden;
+  justify-content: end;
   align-items: center;
   margin: auto;
+  position: relative;
   padding: 0 15px;
   width: 30%;
 
   &__input {
+    color: $dark-blue-text;
+    font-family: "Montserrat-Regular", sans-serif;
     border-radius: 20px;
     width: 100%;
-    visibility: hidden;
-    min-width: 124px;
     height: 20px;
     border: 0;
     padding: 5px 15px;
     outline: none;
-    text-align: center;
+  }
+
+  &__checkbox {
+    position: absolute;
+    height: 40px;
+    width: 100%;
+    display: none;
+    opacity: 0;
+    z-index: 2;
+    margin: 0;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+
+    &:checked {
+      width: 100vw;
+      height: 100vh;
+    }
   }
 
   &__btn {
     cursor: pointer;
-    visibility: hidden;
+  }
+}
+
+@media (max-width: 1016px) {
+  .search {
+    width: 60%;
+  }
+}
+
+@media (max-width: 450px) {
+  .search__input {
+    display:none;
+  }
+
+  .search__checkbox {
+    display:flex;
+  }
+
+  .search {
+    padding: 0 8px;
   }
 }

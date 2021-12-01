@@ -7,13 +7,13 @@ export const EVENTS = {
   App: {
     Start: 'app:start',
     ErrorPage: 'app:errorPage',
+    noAccess: 'app:noAccess',
   },
   Router: {
     Go: 'router:go',
   },
   homepage: {
     render: {
-      page: 'homepage:render',
       errorPage: 'homepage:renderErrorPage',
       header: 'homepage:renderHeader',
       content: 'homepage:renderContent',
@@ -23,11 +23,40 @@ export const EVENTS = {
       mainPageContent: 'homepage:getCollections',
     },
   },
+  genresPage: {
+    render: {
+      errorPage: 'genresPage:renderErrorPage',
+      header: 'genresPage:renderHeader',
+      content: 'genresPage:renderContent',
+    },
+    get: {
+      genresPageContent: 'genresPage:getGenres',
+    },
+  },
+  genrePage: {
+    render: {
+      content: 'genrePage:renderContent',
+      films: 'genrePage:renderFilms',
+      notFoundFilms: 'calendarPage:renderNotFound',
+    },
+    getPageContent: 'genrePage:getPageContent',
+    getFilms: 'genrePage:getFilms',
+  },
+  calendarPage: {
+    render: {
+      content: 'calendarPage:renderContent',
+      films: 'calendarPage:renderFilms',
+      notFoundPremiers: 'calendarPage:renderNotFound',
+    },
+    getPageContent: 'calendarPage:getPageContent',
+    getFilms: 'calendarPage:getFilms',
+  },
   AuthPage: {
     Render: {
       Page: 'authPage:render',
       Content: 'authPage:renderContent',
     },
+    redirect: 'authPage:render',
     RenderError: 'authPage:renderError',
     Submit: 'authPage:submit',
     SuccessLogReg: 'authPage:successLogReg',
@@ -55,6 +84,7 @@ export const EVENTS = {
     },
     getPageContent: 'filmPage:getMainPageContent',
     postReview: 'filmPage:postReview',
+    postBookmark: 'filmPage:postBookmark',
     postRating: 'filmPage:postRating',
   },
   reviewPage: {
@@ -74,13 +104,18 @@ export const EVENTS = {
   Header: {
     Render: {
       Content: 'header:renderContent',
+      header: 'header:renderHeader',
     },
     ChangeActiveButton: 'header:changeActiveButton',
     LogOut: 'header:logOut',
+    search: 'header:search',
   },
 
-  Authorization: {
-    GotUser: 'authorization:gotUser',
+  authorization: {
+    gotUser: 'authorization:gotUser',
+    changedUser: 'authorization:changedUser',
+    notLoggedIn: 'authorization:notLoggedIn',
+    logOutUser: 'authorization:logOutUser',
   },
 
   ProfilePage: {
@@ -91,16 +126,23 @@ export const EVENTS = {
       Subscriptions: 'profilePage:renderSubscriptions',
       Settings: 'profilePage:renderSettings',
     },
+    redirectToReviews: 'profilePage:redirectToReviews',
+    addSettingsToMenu: 'profilePage:addSettingsToMenu',
     MoreButton: 'profilePage:moreButton',
     ChangeActiveMenuButton: 'profilePage:changeActiveMenuButton',
     SubmitSettings: 'profilePage:submitSettings',
     GetCurrentPageBlocks: 'profilePage:getCurrentPageBlocks',
-    GetContent: 'profilePage:getContent',
+    getContent: 'profilePage:getContent',
     PrependMenuLinks: 'profilePage:prependMenuLinks',
     NoMoreAvailable: 'profilePage:noMoreAvailable',
     ChangeProfile: 'profilePage:changeProfile',
     ChangedProfile: 'profilePage:changedProfile',
-    ChangeAvatar: 'profilePage:changeAvatar',
-    ReRenderHeader: 'profilePage:reRenderHeader',
+  },
+
+  searchPage: {
+    renderFilmsPersons: 'searchPage:renderFilmsPersons',
+    renderEmptyPage: 'searchPage:renderEmptyPage',
+    renderFilms: 'searchPage:renderFilms',
+    getContent: 'searchPage:getContent',
   },
 };

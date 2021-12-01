@@ -1,79 +1,158 @@
 .profile-header {
   background: no-repeat center/cover url(./static/pics/Header.png);
-  width: 1370px;
+  width: 80%;
   height: 270px;
-  margin: 20px 7% 0;
-  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  margin: 20px 0 10px 0;
 
   &__img {
     box-shadow: 0 0 20px 1px rgb(255 255 255 / 30%);
     border-radius: 100px;
     height: 170px;
     width: 170px;
-    position: absolute;
-    top: 50px;
-    left: 60px;
     object-fit: cover;
+    margin-left: 80px;
+    margin-right: 20px;
+  }
+
+  &__subscribers-img {
+    background: no-repeat center/cover url(./static/pics/sub.png);
+    margin-right: 8px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    width: 40px;
+    height: 42px;
+  }
+
+  &__bookmarks-img {
+    margin-right: 5px;
+    background: no-repeat center/cover url(./static/pics/book.png);
+    width: 40px;
+    height: 44px;
   }
 
   &__name-surname {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
-    position: absolute;
-    top: 80px;
-    left: 260px;
     font-size: 26px;
     color: $white;
   }
 
   &__label-subscribers-count {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
-    position: absolute;
-    top: 140px;
-    right: 340px;
     font-size: 14px;
     color: $white;
   }
 
   &__label-bookmark-count {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
-    position: absolute;
-    top: 140px;
-    right: 140px;
     font-size: 14px;
     color: $white;
   }
 
   &__bookmark-count {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
-    position: absolute;
-    top: 95px;
-    left: 1190px;
     font-size: 30px;
     color: $white;
   }
 
   &__subscribers-count {
     font-family: "Montserrat-Bold", "Arial", sans-serif;
-    position: absolute;
-    top: 95px;
-    left: 1005px;
     font-size: 30px;
+    margin-top: 3px;
     color: $white;
   }
 
   &__label-reg-data {
-    position: absolute;
-    top: 120px;
-    left: 260px;
     font-size: 16px;
     color: $gray-menu;
   }
 
   &__reg-data {
-    position: absolute;
-    top: 140px;
-    left: 260px;
     font-size: 16px;
     color: $gray-menu;
+  }
+
+  &__data-block {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+
+  &__subscribers-block, &__bookmark-block  {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+    white-space: nowrap;
+  }
+
+  &__subscribers-block,  {
+    margin-right: 70px;
+  }
+
+  &__bookmark-block {
+    margin-right: 100px;
+  }
+}
+
+@media (max-width: 1030px) {
+  .profile-header__subscribers-block {
+    margin-right: 10px;
+  }
+  .profile-header__bookmark-block {
+    margin-right: 20px;
+  }
+  .profile-header__img {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 770px) {
+  .profile-header {
+    &__img {
+      width: 100px;
+      height: 100px;
+    }
+    &__name-surname {
+      font-size: 20px;
+    }
+    &__label-reg-data {
+      font-size: 12px;
+    }
+    &__reg-data {
+      font-size: 12px;
+    }
+    &__subscribers-count {
+      font-size: 28px;
+    }
+    &__bookmark-count {
+      font-size: 28px;
+    }
+    &__label-bookmark-count {
+      font-size: 12px;
+    }
+    &__label-subscribers-count {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 635px) {
+  .profile-header {
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+    padding: 12px 0;
+    align-items: center;
+
+    &__data-block {
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    &__bookmark-block, &__subscribers-block {
+      margin: 0 auto;
+    }
   }
 }

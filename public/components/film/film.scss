@@ -1,241 +1,324 @@
 @import '../../css/consts';
 
-.film-info {
-  margin-top: $header_indentation;
-  width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-
+.film {
   &__container {
-    column-gap: 5%;
-    display: flex;
+    max-width: $maxWidth + px;
+    margin: 20px auto 40px auto;
+  }
+}
 
-    &_pic-film img {
-      width: 300px;
-      height: 100%;
-      border-radius: 3px;
-    }
+.bookmark {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 44px;
+  cursor: pointer;
+  background-size: cover;
+  border-radius: 3px;
+  background-image: url(static/pics/bookmark.png);
+}
 
-    &_text {
-      color: $black;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
+.not_favourite {
+  background-color: rgba(85, 85, 85, .6);
 
-      &_main {
-        display:grid;
-        grid-template-columns: auto 94px;
-        gap:20px;
+  &:hover {
+    transition: all .5s ease-out;
+    background-color: $grey;
+  }
+}
 
-        &_rus {
-          font-family: "Montserrat-Black", "Arial", sans-serif;
-          font-size: 40px;
-          margin-bottom: 12px;
-        }
+.favourite {
+  transition: all .5s ease-out;
+  background-color: $pink;
+}
 
-        &_en {
-          font-size: 16px;
-        }
+.star-rating {
+  display: flex;
+  border-bottom: 4px solid $pink;
+  gap: 3px;
 
-        &_rating {
-          position: relative;
-          width:94px;
-          height: 94px;
-
-          &_scors {
-            font-size: 30px;
-            color: $white;
-            position: absolute;
-            right: 26px;
-            bottom: 25px;
-          }
-        }
-      }
-
-      &_facts {
-        font-size: 20px;
-
-        &_title {
-          font-weight: 700;
-          font-size: 26px;
-          margin-bottom: 20px;
-        }
-
-        &_container {
-          display: grid;
-          margin-bottom: 5px;
-          gap:10px;
-          grid-template-columns: 2fr 5fr;
-
-          &_key {
-            grid-column-start: 1;
-            grid-column-end: 2;
-          }
-
-          &_value {
-            grid-column-start: 2;
-            grid-column-end: 3;
-            font-weight: 600;
-          }
-        }
-
-        &_container-last {
-          gap:10px;
-          display: grid;
-          grid-template-columns: 2fr 5fr;
-        }
-      }
-    }
+  &__scors {
+    font-family: "Montserrat-Bold", "Arial", sans-serif;;
+    font-size: 40px;
+    color: $pink;
   }
 
-  &__container-trailer {
-    display:flex;
-    column-gap: 5%;
-    margin-top: $block_indentation;
+  &__pic {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    align-self: center;
+    background-image: url(static/pics/pink_star.png);
+  }
+}
 
-    &_video {
-      min-width: 300px;
-      float: left;
-      position: relative;
-      height: 167px;
-      background-color: $light-grey;
-      border-radius: 3px;
+.trailer {
+  column-gap: 5%;
+  display: flex;
 
-      &_button {
-        text-decoration: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        background-color: $pink;
-        border-radius: 10px;
-        cursor: pointer;
-        font-family: "Montserrat-Bold", "Arial", sans-serif;
-        font-style: normal;
-        font-size: 20px;
-        color: $white;
-        padding: 8px 20px;
-        width: 130px;
-        height: 24px;
-        justify-content: center;
-        align-items: center;
-
-        &:hover {
-          opacity: 1;
-          transform: scale(1.1);
-        }
-
-        &_img {
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 0.5rem;
-        }
-      }
-    }
-
-    &_name {
-      font-family: "Montserrat-Bold", "Arial", sans-serif;
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    &_summery {
-      letter-spacing: 0.8px;
-      font-size: 16px;
-    }
+  &__video {
+    flex: 1 0 auto;
+    display: block;
+    width: 300px;
+    position: relative;
+    height: 167px;
+    background-color: $light-grey;
+    border-radius: 3px;
   }
 
-  &__black-container {
-    margin-top: $block_indentation;
-    background-color: $grey-background;
-    border-radius: 20px;
+  &__button {
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: $pink;
+    border-radius: 10px;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    font-style: normal;
+    font-size: 20px;
     color: $white;
-    padding: 30px;
+    padding: 8px 20px;
+    width: 130px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
 
-    &_rating {
-      .rating_stars {
-        display: flex;
-        gap: 10px;
-
-        &_item_number {
-          color: $grey-shadow;
-          text-align: center
-        }
-
-        .rating-item {
-          width: 36px;
-          height: 33px;
-          background-image: url(static/pics/rating_star.png);
-          cursor: pointer;
-        }
-
-        .rating-item.active {
-          background-image: url(static/pics/pink_rating_star.png);
-        }
-      }
+    &_img {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.5rem;
     }
-
-    .rating {
-      align-items: center;
-      display:flex;
-      gap:70px;
-    }
-
-    .rating_stars_number {
-      &_text {
-        font-family: "Montserrat-Bold", "Arial", sans-serif;
-        font-size: 46px;
-        color: $pink;
-        margin-bottom: 11px;
-
-
-        &_line {
-          height: 5px;
-          background-color: $pink;
-          align-self: stretch;
-        }
-      }
-    }
-
-    &_reviews {
-      margin-top: $block_indentation;
-    }
-    .button-write-review {
-      background-color: $white;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: "Montserrat-Bold", "Arial", sans-serif;
-      font-size: 20px;
-      padding: 8px 20px;
-      color: $purple-button;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        color: $pink;
-      }
-    }
-
   }
 
-  &__white-container {
-    margin-bottom: 50px;
-    margin-top: $block_indentation;
-    padding-right: 30px;
-    padding-left: 30px;
+  &__name {
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
 
-    &_review {
-      margin-top: $block_indentation;
-      font-family: "Montserrat-Bold", "Arial", sans-serif;
-      font-size: 30px;
-    }
+    margin-bottom: 10px;
+  }
+
+  &__descriprion {
+    display: block;
+  }
+
+  &_summery {
+    letter-spacing: 0.8px;
+    font-size: 16px;
+  }
+}
+
+.rating-subtitle {
+  margin-bottom: 0px;
+}
+
+.film-info {
+  &__reviews {
+    margin-top: $block_indentation;
+  }
+}
+
+.rating {
+  align-items: center;
+  display: flex;
+  gap: 70px;
+
+  &__stars {
+    display: flex;
+    gap: 5px;
+  }
+
+  .rating-item {
+    width: 36px;
+    height: 33px;
+    background-image: url(static/pics/rating_star.png);
+    cursor: pointer;
+  }
+
+  .rating-item.active {
+    background-image: url(static/pics/pink_rating_star.png);
+  }
+
+  &__number {
+    color: $grey-shadow;
+    text-align: center
+  }
+
+  &__text-number {
+    text-align: center;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    font-size: 46px;
+    color: $pink;
+    margin-bottom: 11px;
+  }
+
+  &__text-underline {
+    height: 5px;
+    background-color: $pink;
+    align-self: stretch;
+  }
+}
+
+
+.button__write-review {
+  background-color: $white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Montserrat-Bold", "Arial", sans-serif;
+  font-size: 20px;
+  padding: 8px 20px;
+  color: $purple-button;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    color: $pink;
+  }
+}
+
+.button__show-more {
+  margin-top: $block_indentation;
+  margin-bottom: 20px;
+}
+
+.film-review {
+  margin-bottom: 50px;
+
+  &__date {
+    text-align: right;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $grey
   }
 }
 
 .film-info__white-container_review_warning {
-  margin-top: 20px;
   font-family: 'Montserrat-Regular', sans-serif;
   font-size: 16px;
 }
+
+@media (max-width: $md1+px) {
+  .film {
+    &__container {
+      max-width: none;
+      padding: 0 32px;
+    }
+
+  }
+}
+
+@media (max-width: $md2+px) {
+  .film {
+    &__container {
+      max-width: 750px;
+    }
+  }
+  .rating {
+    gap: 30px;
+
+  }
+  .rating-item {
+    width: 28px;
+    height: 28px;
+    background-size: cover;
+  }
+
+}
+
+@media (max-width: $md4+px) {
+  .film {
+    &__container {
+      padding: 0;
+      margin: 0;
+    }
+
+    &__show-more {
+      padding: 0 16px;
+    }
+
+    &__pic {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      padding-top: 36px;
+      padding-bottom: 36px;
+      background-color: #5F5E5E;
+    }
+
+    & img {
+      width: 256px;
+      height: 380px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    &__text {
+      text-align: center;
+      position: relative;
+      margin-top: -14px;
+      padding: 24px 16px 0px;
+      border-radius: 15px 15px 0 0;
+      background: $white;
+
+    }
+  }
+  .star-rating {
+    justify-content: center;
+
+    &__scors {
+      text-align: center
+    }
+  }
+  .trailer {
+    flex-direction: column;
+    padding: 0 16px;
+
+    &__video {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    &__name {
+      font-size: 20px;
+    }
+
+    &__summery {
+      margin-bottom: 16px;
+    }
+  }
+  .rating {
+    gap: 0;
+    flex-direction: column;
+
+    &__stars {
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .rating-item {
+      width: 22px;
+      height: 22px;
+      background-size: cover;
+    }
+  }
+  .button__write-review {
+    display: none;
+  }
+
+  .button__show-more {
+    margin: 20px 0 10px 0;
+  }
+  .film-review__subtitle {
+    margin: 0 16px 10px 16px;
+  }
+
+  .user-rating {
+    justify-content: center;
+  }
+}
+
+
+

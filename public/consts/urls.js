@@ -12,6 +12,7 @@ export const currentUrl = deployUrl;
 export const URLS = {
   pages: {
     main: '/',
+    persons: '/actors',
   },
   api: {
     login: `${currentUrl}/api/user/login`,
@@ -24,8 +25,10 @@ export const URLS = {
     review: `${currentUrl}/api/film/getReview?id=`,
     sendReview: `${currentUrl}/api/film/postReview`,
     sendRating: `${currentUrl}/api/film/postRating?id=`,
+    sendBookmark: `${currentUrl}/api/film/postBookmark?id=`,
     film: `${currentUrl}/api/film/getFilm?id=`,
     me: `${currentUrl}/api/me`,
+    search: `${currentUrl}/api/search`,
     collections: `${currentUrl}/api/collections/getCollections?skip=${COLLECTIONS_LIMIT}&limit=${COLLECTIONS_COUNT}`,
     actor: `${currentUrl}/api/person/getPerson?id=`,
     actorFilms: `${currentUrl}/api/person/getPersonFilms?id=`,
@@ -35,5 +38,8 @@ export const URLS = {
     getBookmarks: `${currentUrl}/api/user/getBookmarks`,
     getReviewsAndStars: `${currentUrl}/api/user/getReviewsAndStars`,
     getSubscriptions: `${currentUrl}/api/user/getSubscriptions`,
+    genres: `${currentUrl}/api/film/genres`,
+    genre: `${currentUrl}/api/film/genreFilms?id=`,
+    calendar: `${currentUrl}/api/film/calendar`,
   },
 };

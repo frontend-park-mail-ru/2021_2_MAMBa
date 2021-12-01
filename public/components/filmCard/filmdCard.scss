@@ -1,86 +1,109 @@
 @import '../../css/consts';
 
-.film-card {
-  background: linear-gradient(
-                  104deg,
-                  $grey-background 0%,
-                  $light-grey 100%
-  );
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 0 4px 0 $grey-shadow;
-  color: $white;
-  display: grid;
-  grid-template-columns:  160px 1fr;
-  column-gap: 2.5%;
-
-  &_pic {
-    position: relative;
-    padding-top: 144%;
-    grid-column-start: 1;
-    grid-column-end: 2;
-
-    & img {
-      text-align: center;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 20px;
-    }
-  }
-
-  &_description {
-    grid-column-start: 2;
-    grid-column-end: 3;
+.film {
+  &__items {
     display: grid;
-    grid-template-rows:  2fr auto 35px;
-
-    &_name {
-      color: $white;
-      font-weight: 600;
-      font-size: 26px;
-
-      &_year {
-        color: $white;
-        font-size: 14px;
-        font-weight: 300;
-        margin-top: 4px;
-      }
-    }
-
-    &_text {
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      color: $white;
-      font-size: 18px;
-      margin-bottom: 25px;
+    row-gap: 30px;
+    @media (max-width: $md3+px) {
+      row-gap: 15px;
     }
   }
-  .pink-button {
-    text-decoration: none;
-    grid-row-start: 3;
-    grid-row-end: 4;
-    background-color: $pink;
+
+  &__item {
+    background: linear-gradient(
+                    104deg,
+                    $grey-background 0%,
+                    $light-grey 100%
+    );
     border-radius: 10px;
-    cursor: pointer;
-    font-family: "Montserrat-Bold", "Arial", sans-serif;
-    font-style: normal;
-    font-size: 16px;
+    padding: 30px;
+    box-shadow: 0 0 4px 0 $grey-shadow;
     color: $white;
-    padding: 6px 20px;
-    width: 100px;
-    height: 20px;
-    justify-content: center;
-    align-items: center;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $md3+px) {
+      display: flex;
+      align-items: stretch;
+    }
+    @media (max-width: $md3+px) {
+      padding: 16px;
+    }
   }
 
-  .pink-button:hover {
-    opacity: 1;
-    transform: scale(1.1);
+  &__info {
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 0;
+    @media (min-width: $md3+px) {
+      padding: 0 30px 0 20px;
+    }
+  }
+
+  &__name {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    transition: color 0.3s ease 0s;
+
+    &:hover {
+      color: $pink;
+    }
+
+    @media (max-width: $md3+px) {
+      font-size: 24px;
+    }
+  }
+
+  &__year {
+    font-size: 13px;
+    font-family: 'Montserrat-Light', "Arial", sans-serif;;
+    margin-bottom: 15px;
+    @media (max-width: $md3+px) {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__description {
+    font-family: 'Montserrat-Light', "Arial", sans-serif;;
+    font-weight: 300;
+    text-align: justify;
+    display: flex;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 16px;
+    margin-bottom: 20px;
   }
 }
+
+.pink-button {
+  display: inline-flex;
+  align-self: flex-start;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 6px 20px;
+  justify-content: center;
+  transition: all .2s ease-out;
+  text-decoration: none;
+  background-color: $pink;
+  color: $white;
+  @media (max-width: $md3+px) {
+    align-self: normal;
+  }
+}
+
+.pink-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+

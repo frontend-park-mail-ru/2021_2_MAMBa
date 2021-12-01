@@ -2,90 +2,107 @@ include ../filmCard/filmCard
 include ../slider/slider
 include ../reviewSlider/reviewSlider
 include ../writeReview/writeReview
-div.film-info
-    div.film-info__container
-        div.film-info__container_pic-film
-            img(src=film.filmAvatar)
-        div.film-info__container_text
-            div.film-info__container_text_main
-                div.film-info__container_text_main_name
-                    div.film-info__container_text_main_rus #{film.title}
-                    div.film-info__container_text_main_en #{film.titleOriginal}
-                div.film-info__container_text_main_rating
-                    include ../../static/pics/pink_star.svg
-                    div(class ="rating-number-stars film-info__container_text_main_rating_scors")  #{film.rating}
-            div.film-info__container_text_facts
-                div.film-info__container_text_facts_title О фильме
-                div.film-info__container_text_facts_container
-                    div.film-info__container_text_facts_container_key Год производсва
-                    div.film-info__container_text_facts_container_value #{film.year}
-                div.film-info__container_text_facts_container
-                    div.film-info__container_text_facts_container_key  Страна
-                    div.film-info__container_text_facts_container_value #{film.countryOriginal}
-                div.film-info__container_text_facts_container
-                    div.film-info__container_text_facts_container_key  Жанр
-                    div.film-info__container_text_facts_container_value
-                      each genre, index in film.genres
-                          if index !== 0
-                              span
-                                  = ',    '
-                          a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
-                div.film-info__container_text_facts_container
-                    div.actor-info__container_text_facts_container_key  Продолжительность
-                    div.actor-info__container_text_facts_container_value #{film.duration}
-                div.film-info__container_text_facts_container
-                    div.film-info__container_text_facts_container_key  В главных ролях
-                    div.film-info__container_text_facts_container_value
-                      each actor, index in film.actors
-                          if index !== 0
-                              span
-                                  = ',    '
-                          a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
-                div.film-info__container_text_facts_container
-                    div.actor-info__container_text_facts_container_key  Режиссёр
-                    div.actor-info__container_text_facts_container_value #{film.director}
-                div.film-info__container_text_facts_container-last
-                    div.film-info__container_text_facts_container_key  Сценарист
-                    div.film-info__container_text_facts_container_value #{film.screenwriter}
-    div.film-info__container-trailer
-        div.film-info__container-trailer_video
-            a(class="film-info__container-trailer_video_button" href="#")
-                div(class="film-info__container-trailer_video_button_img")
-                    include ../../static/pics/play.svg
-                | Трейлер
-        div.film-description
-            div.film-info__container-trailer_name Обзор
-            div.film-info__container-trailer_summery #{film.description}
-    div.film-info__black-container
-        div.film-info__black-container_rating
-            div.block-subtitle Рейтинг фильма
-            div.rating
-                div.rating_stars
-                  - for (let i = 1; i <= 10; i++)
-                    div.rating_stars_item
-                        if (i===1)
-                          div(class="rating-item active" data-rate=`${i}`)
-                        else
-                            div(class="rating-item" data-rate=`${i}`)
-                        div.rating_stars_item_number #{i}
-                div.rating_stars_number
-                    div(class = "rating-number rating_stars_number_text") #{film.rating}
-                        div.rating_stars_number_text_line
-                a(class="button-write-review scroll-to" href="#review") Написать отзыв
-            div.user_rating
-                if myRating > 1
-                    include ../userRating/userRating.pug
-        div.film-info__black-container_reviews
-            div.block-subtitle Отзывы
-            +reviewSlider(reviews)
-    div.film-info__white-container
-        div.film-info__white-container_rec-films
-            div.block-subtitle С фильмом
-                span
-                    = ' '
-                span.color-text-pink #{film.title}
-                span
-                    = ' смотрят'
-            +slider(recommendations)
-        div.film-info__white-container_review#review Написать отзыв
-            +inputReview
+div.wrapper
+    div(class = "film page__container film__container")
+        div(class ="info block ")
+            div(class = "film__pic info__pic")
+                img(src=film.filmAvatar)
+                if (!bookmarked)
+                    div(class = "bookmark not_favourite")
+                else
+                    div(class = "favourite bookmark")
+            div(class ="film__text info__text")
+                div.info__main
+                    div.info__name
+                        div.info__rus-name #{film.title}
+                        div.info__en-name #{film.titleOriginal}
+                    div.star-rating
+                        div(class ="rating-number-stars star-rating__scors")  #{film.rating}
+                        div(class = "star-rating__pic")
+                div.info__facts-container
+                    div.info__heading-facts О фильме
+                    div.fact
+                        div.fact__key Год производсва
+                        div.fact__value #{film.year}
+                    div.fact
+                        div.fact__key  Страна
+                        div.fact__value #{film.countryOriginal}
+                    div.fact
+                        div.fact__key  Жанр
+                        div.fact__value
+                          each genre, index in film.genres
+                              if index !== 0
+                                  span
+                                      = ',    '
+                              a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
+                    div.fact
+                        div.fact__key Продолжительность
+                        div.fact__value #{film.duration}
+                    div.fact
+                        div.fact__key В главных ролях
+                        div.fact__value
+                          each actor, index in film.actors
+                              if index !== 0
+                                  span
+                                      = ',    '
+                              a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
+                    div.fact
+                        div.fact__key  Режиссёр
+                        div.fact__value #{film.director}
+                    div.fact
+                        div.fact__key Сценарист
+                        div.fact__value #{film.screenwriter}
+                div.bookmark__mobile
+                div.rate__modile
+        div(class = "trailer block")
+            div(class = "trailer__video")
+                div.trailer__button
+                    div.trailer__button_img
+                        include ../../static/pics/play.svg
+                    | Трейлер
+            div.trailer__description
+                div(class = "trailer__name block-subtitle") Обзор
+                div.trailer__summery #{film.description}
+        div(class = "film-info black-container block")
+            div(class ="film-info__rating ")
+                div(class = "block-subtitle rating-subtitle") Рейтинг фильма
+                div(class ="rating")#review
+                    div.rating__stars
+                      - for (let i = 1; i <= 10; i++)
+                        div.rating__item
+                            if (i===1 || myRating>=i)
+                              div(class="rating-item active" data-rate=`${i}`)
+                            else
+                                div(class="rating-item" data-rate=`${i}`)
+                            div.rating__number #{i}
+                    div.rating__score
+                        div(class = "rating-number rating__text-number") #{film.rating}
+                            div.rating__text-underline
+                    //if (myReview.reviewText !== 0)
+                    //    a(class="button__write-review scroll-to" href="#review") Посмотреть отзыв
+                    //else
+                    //    a(class="button__write-review scroll-to" href="#review") Написать отзыв
+                div.user-rating
+                    if myRating > 1
+                        include ../userRating/userRating.pug
+            //div.film-info__reviews
+            //    if (reviews.length !== 0)
+            //        div.block-subtitle Отзывы
+            //        +reviewSlider(reviews)
+        //div(class ="films__show-more  block")
+        //    div.block-subtitle С фильмом
+        //        span
+        //            = ' '
+        //        span.color-text-pink #{film.title}
+        //        span
+        //            = ' смотрят'
+        //    +slider(recommendations)
+        div(class ="film-review")
+            if (myReview.reviewText === 0)
+                div(class = "block-subtitle film-review__subtitle")#review Написать отзыв
+                +inputReview
+            else
+                div.block-subtitle#review Мой отзыв
+                div(class=`review-info__review ${myReview.classType}`)
+                    div.review-info__review_text #{myReview.reviewText}
+                    div.film-review__date #{myReview.date}

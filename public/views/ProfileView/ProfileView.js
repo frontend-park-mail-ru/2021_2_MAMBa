@@ -2,16 +2,22 @@ import {BaseView} from '../BaseView/BaseView.js';
 import profilePug from '../../components/profile/profile.pug';
 import profileHeader from '../../components/profile/profileHeader/profileHeader.pug';
 import starsAndReviews from '../../components/profile/starsAndReviews/starsAndReviews.pug';
+import bookmarksPug from '../../components/profile/bookmarks/bookmarks.pug';
+import bookmarksContent from '../../components/profile/bookmarks/bookmarkBlock/bookmarkContent.pug';
 import reviewsContent from '../../components/profile/starsAndReviews/reviewBlock/reviewsContent.pug';
 import settingsPug from '../../components/profile/settings/settings.pug';
+import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLink.pug';
 import loader from '../../components/loader/loader.pug';
+import noAccessPug from '../../components/noAccess/noAccess.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
 import baseViewPug from '../BaseView/BaseView.pug';
-import {headerLinks} from '../../consts/header';
+import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import {statuses} from '../../consts/reqStatuses.js';
+import {createElementFromHTML} from '../../utils/utils.js';
+import {ROUTES} from '../../consts/routes';
 
 
 export class ProfileView extends BaseView {
@@ -20,10 +26,15 @@ export class ProfileView extends BaseView {
   }
 
   render = (routeData) => {
+    if (window.location.pathname.match(`${ROUTES.Profile}/\\d+/\?$`)) {
+      this.eventBus.emit(EVENTS.ProfilePage.redirectToReviews);
+      return;
+    }
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks});
+      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
+      this.eventBus.emit(EVENTS.Header.Render.header);
     } else {
       const profileContent = document.querySelector('.profile__profile-content');
       if (profileContent) {
@@ -34,7 +45,7 @@ export class ProfileView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.eventBus.emit(EVENTS.ProfilePage.GetContent, this.routeData);
+    this.eventBus.emit(EVENTS.ProfilePage.getContent, this.routeData);
   }
 
   renderContent = (user, isThisUser) => {
@@ -42,12 +53,12 @@ export class ProfileView extends BaseView {
       return;
     }
     this.user = user;
-    this.user.thisUser = true;
+    this.user.isThisUser = isThisUser;
     const content = document.querySelector('.content');
     if (content) {
       const profileHeader = document.querySelector('.profile-header');
       const profileMenu = document.querySelector('.profile-menu');
-      if (!profileHeader || !profileMenu) {
+      if (!profileHeader || !profileMenu || profileHeader.dataset.user !== this.user.id) {
         content.innerHTML = profilePug(Object.assign(this.user, menuLinks));
       }
     } else {
@@ -62,9 +73,26 @@ export class ProfileView extends BaseView {
     const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
         .find((elem) => elem.textContent.includes(menuObjects.settings.name));
     if (settingsLink) {
+      if (settingsLink.classList.contains('profile-menu__link_active')) {
+        const profileContent = document.querySelector('.profile__profile-content');
+        if (!profileContent) {
+          this.eventBus.emit(EVENTS.App.ErrorPage);
+        }
+        profileContent.innerHTML = noAccessPug();
+      }
       settingsLink.remove();
     }
-    menuLinks.thisUser = false;
+  }
+
+  addSettingsToMenu = () => {
+    const settingsLink = [...document.querySelectorAll('.profile-menu__link')]
+        .find((elem) => elem.textContent.includes(menuObjects.settings.name));
+    const reviewsLink = [...document.querySelectorAll('.profile-menu__link')]
+        .find((elem) => elem.textContent.includes(menuObjects.reviewsMarks.name));
+    if (reviewsLink && !settingsLink) {
+      reviewsLink.after(createElementFromHTML(settingsLinkPug({link: menuObjects.settings})));
+    }
+    this.changeActiveMenuButton(this.routeData.path.path);
   }
 
   changeActiveMenuButton = (href) => {
@@ -108,7 +136,6 @@ export class ProfileView extends BaseView {
       const formData = new FormData();
       if (settingsForm.avatar.files[0]) {
         formData.append('avatar', settingsForm.avatar.files[0]);
-        this.eventBus.emit(EVENTS.ProfilePage.ChangeAvatar, formData);
       }
       const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');
       if (!formTextInputs.length) {
@@ -120,8 +147,8 @@ export class ProfileView extends BaseView {
       }
       inputsData.gender = this.user.gender;
       inputsData.email = this.user.email;
-      inputsData.picture_url = this.user.picture_url;
-      this.eventBus.emit(EVENTS.ProfilePage.ChangeProfile, inputsData);
+      inputsData.profile_pic = this.user.profile_pic;
+      this.eventBus.emit(EVENTS.ProfilePage.ChangeProfile, inputsData, formData);
     });
   }
 
@@ -144,19 +171,73 @@ export class ProfileView extends BaseView {
     header.outerHTML = profileHeader(changedUser);
   }
 
+  renderNoAccess = () => {
+    const profileContent = document.querySelector('.profile__profile-content');
+    if (!profileContent) {
+      return;
+    }
+    profileContent.innerHTML = noAccessPug();
+  }
+
   renderSettingsPage = () => {
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;
     }
+    if (!this.user || !this.user.profile_pic) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+    }
     for (const input of SettingsInput) {
       input.value = this.user[input.name];
     }
-    profileContent.innerHTML = settingsPug({inputs: SettingsInput});
+    profileContent.innerHTML = settingsPug({inputs: SettingsInput, profile_pic: this.user.profile_pic});
+    this.listenAvatarChanged();
     this.submitSettingsButton();
   }
 
+  listenAvatarChanged = () => {
+    const avatarInput = document.querySelector('#avatar');
+    const avatarDiv = document.querySelector('.settings-form__avatar');
+    if (!avatarInput || !avatarDiv) {
+      return;
+    }
+    avatarInput.addEventListener('change', (event) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', (event) => {
+        avatarDiv.style.backgroundImage = `url(${event.target.result})`;
+      });
+      reader.readAsDataURL(event.target.files[0]);
+    });
+  }
+
   renderBookmarksPage = (bookmarks) => {
+    if (!bookmarks || !bookmarks.body) {
+      return;
+    }
+    for (const bookmark of bookmarks.body.bookmarks_list) {
+      bookmark.rating = (!(bookmark.rating % 1) || bookmark.rating === 10) ? `${bookmark.rating}.0` : bookmark.rating;
+    }
+    const profileContent = document.querySelector('.profile__profile-content');
+    if (!profileContent) {
+      return;
+    }
+    if (profileContent.querySelector('.loader')) {
+      if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.bookmarks_list.length === 0) {
+        profileContent.innerHTML = '<h1>Пуфто:(</h1>';
+      } else {
+        profileContent.innerHTML = bookmarksPug(bookmarks.body);
+      }
+    } else {
+      const bookmarksBlock = document.querySelector('.stars-reviews-block');
+      if (!bookmarksBlock) {
+        return;
+      }
+      bookmarksBlock.innerHTML += bookmarksContent(bookmarks.body);
+    }
+    if (!bookmarks.body.more_available) {
+      this.hideMoreButton();
+    }
+    this.submitMoreButton();
   }
 
   renderSubscriptionsPage = (subscriptions) => {
@@ -183,7 +264,7 @@ export class ProfileView extends BaseView {
       }
       starsAndReviews.innerHTML += reviewsContent(reviewsMarks.body);
     }
-    if (!reviewsMarks.more_available) {
+    if (!reviewsMarks.body.more_available) {
       this.hideMoreButton();
     }
     this.submitMoreButton();

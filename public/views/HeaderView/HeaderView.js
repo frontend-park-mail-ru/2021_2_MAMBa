@@ -40,7 +40,6 @@ export class HeaderView extends BaseView {
     for (const button of buttons) {
       if (button.getAttribute('href') === buttonHref) {
         button.classList.add('navbar__menu-btn_active');
-        return;
       }
     }
   }
@@ -100,14 +99,16 @@ export class HeaderView extends BaseView {
   }
 
   addEventListenerToLogoutButton = () => {
-    const logoutButton = document.querySelector('.user-block__logout-btn');
-    if (!logoutButton) {
+    const logoutButton = document.querySelectorAll('.user-block__logout-btn');
+    if (!logoutButton.length) {
       return;
     }
-    logoutButton.addEventListener('click', (e) => {
-      this.renderEnterButton();
-      this.removeLogoutButton();
-      this.eventBus.emit(EVENTS.Header.LogOut);
+    logoutButton.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        this.renderEnterButton();
+        this.removeLogoutButton();
+        this.eventBus.emit(EVENTS.Header.LogOut);
+      });
     });
   }
 

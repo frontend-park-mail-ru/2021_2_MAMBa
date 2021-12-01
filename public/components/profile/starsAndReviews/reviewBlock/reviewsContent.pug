@@ -1,15 +1,17 @@
 each block in review_list
     .review-block
-        img.review-block__film-img(src=block.film_picture_url)
-        span.review-block__stars-block #{block.stars} &#127775;
-        a.review-block__film-name-ru(href=block.film_url) #{block.film_title_ru}
-        span.review-block__film-name-en #{block.film_title_original}
-        if (block.review_text)
-            q.review-block__review-text #{block.review_text}
-            a.review-block__to-review(href=block.review_url)
-                .review-block__to-review-btn
-                    span К отзыву
-        else
-            a.review-block__write-review(href=block.film_url)
-                .review-block__write-review-btn
-                    span Написать отзыв
+        .review-block__image-block
+            img.review-image-block__film-img(src=block.film_picture_url)
+            span.review-image-block__stars-block #{block.stars} &#127775;
+        .review-block__data-block
+            a.review-data-block__film-name-ru(href=block.film_url) #{block.film_title_ru}
+            span.review-data-block__film-name-en #{block.film_title_original}
+            if (block.review_text)
+                q.review-data-block__review-text #{block.review_text}
+                a.review-data-block__to-review(href=block.review_url)
+                    .review-data-block__to-review-btn
+                        span К отзыву
+            else
+                a.review-data-block__write-review(href=block.film_url)
+                    .review-data-block__write-review-btn
+                        span Написать отзыв

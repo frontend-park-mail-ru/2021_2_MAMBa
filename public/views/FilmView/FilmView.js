@@ -109,7 +109,6 @@ export class FilmView extends BaseView {
   rating = (filmId) => {
     const rating = document.querySelector('.rating__stars');
     const ratingItem = document.querySelectorAll('.rating-item');
-    console.log(ratingItem);
     rating.addEventListener('click', (e) => {
       e.preventDefault();
       const target = e.target;

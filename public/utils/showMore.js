@@ -25,7 +25,6 @@ export const showMore = (data, buttonClass, event) => {
 export const checkShowMoreButton = (available, buttonClass) => {
   const buttonShowMore = document.querySelector(`${buttonClass}`);
   if (!available && buttonShowMore) {
-    console.log(available);
     buttonShowMore.classList.add('hidden');
   }
 };

@@ -38,7 +38,7 @@ export class SearchView extends BaseView {
       return;
     }
     if (!response.films.film_list.length) {
-      filmContainer.innerHTML = '<h1>Пуфто:(</h1>';
+      filmContainer.innerHTML = '<h1 style="text-align: center;">Пуфто:(</h1>';
     } else {
       filmContainer.innerHTML = '';
       renderFilms(convertArrayToActorFilms(response.films));
@@ -49,7 +49,7 @@ export class SearchView extends BaseView {
       return;
     }
     if (!response.persons.person_list.length) {
-      personsContainer.innerHTML = '<h1 style="color: #22223B;">Пуфто:(</h1>';
+      personsContainer.innerHTML = '<h1 style="color: #22223B; text-align: center;">Пуфто:(</h1>';
       return;
     }
     personsContainer.innerHTML = personsPug(response.persons);

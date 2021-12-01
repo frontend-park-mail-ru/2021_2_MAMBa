@@ -134,6 +134,9 @@ export class HeaderView extends BaseView {
       return;
     }
     checkbox.addEventListener('change', (e) => {
+      console.log('xde');
+      console.log(e.target.checked);
+
       const logo = document.querySelector('.navbar__logo');
       const verticalMenu = document.querySelector('.navbar__vertical-menu');
       const searchInput = document.querySelector('.search__input');

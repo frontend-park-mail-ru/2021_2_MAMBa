@@ -34,9 +34,4 @@ export const mobileHeaderLinks = [
     href: '/random',
     title: 'Рандомный фильм',
   },
-  {
-    href: '/logout',
-    class: 'user-block__logout-btn',
-    title: 'Выйти',
-  },
 ];

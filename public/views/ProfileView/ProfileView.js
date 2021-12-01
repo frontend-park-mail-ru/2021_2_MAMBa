@@ -14,7 +14,7 @@ import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
 import baseViewPug from '../BaseView/BaseView.pug';
-import {headerLinks} from '../../consts/header';
+import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import {statuses} from '../../consts/reqStatuses.js';
 import {createElementFromHTML} from '../../utils/utils.js';
 import {ROUTES} from '../../consts/routes';
@@ -33,7 +33,7 @@ export class ProfileView extends BaseView {
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks});
+      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
       this.eventBus.emit(EVENTS.Header.Render.header);
     } else {
       const profileContent = document.querySelector('.profile__profile-content');

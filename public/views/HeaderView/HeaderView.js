@@ -1,5 +1,6 @@
 import headerPug from '../../components/header/navbar.pug';
 import enterButton from '../../components/header/enterButton.pug';
+import logoutButton from '../../components/header/logoutButton.pug';
 import userBlock from '../../components/header/userBlock/userBlock.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {headerLinks, mobileHeaderLinks} from '../../consts/header';
@@ -7,6 +8,7 @@ import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
+import {menuObjects} from '../../consts/profileMenu';
 const symbolCount = 11;
 const enterCode = 13;
 
@@ -43,6 +45,14 @@ export class HeaderView extends BaseView {
     }
   }
 
+  hideVerticalMenu = () => {
+    const checkBox = document.querySelector('.navbar__vertical-menu input');
+    if (!checkBox) {
+      return;
+    }
+    checkBox.checked = false;
+  }
+
   getHeaderFromDom = () => {
     return document.querySelector('.navbar');
   }
@@ -56,6 +66,15 @@ export class HeaderView extends BaseView {
       button.classList.remove('navbar__menu-btn_active');
     }
   }
+
+  removeLogoutButton = () => {
+    const logoutBtn = [...document.querySelectorAll('.vertical-menu__btn-container a')]
+        .find((elem) => elem.textContent.includes('Выйти'));
+    if (logoutBtn) {
+      logoutBtn.remove();
+    }
+  }
+
 
   renderUserBlock = () => {
     if (!authModule.user) {
@@ -73,6 +92,10 @@ export class HeaderView extends BaseView {
       userId: authModule.user.id,
       profileHref: ROUTES.Profile,
     })));
+    const verticalMenu = document.querySelector('.vertical-menu__btn-container');
+    if (verticalMenu) {
+      verticalMenu.appendChild(createElementFromHTML(logoutButton()));
+    }
     this.addEventListenerToLogoutButton();
   }
 
@@ -83,6 +106,7 @@ export class HeaderView extends BaseView {
     }
     logoutButton.addEventListener('click', (e) => {
       this.renderEnterButton();
+      this.removeLogoutButton();
       this.eventBus.emit(EVENTS.Header.LogOut);
     });
   }
@@ -103,6 +127,45 @@ export class HeaderView extends BaseView {
     }
     button.addEventListener('click', (e) => {
       this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
+    });
+    const checkbox = document.querySelector('.search__checkbox');
+    if (!checkbox) {
+      return;
+    }
+    checkbox.addEventListener('change', (e) => {
+      const logo = document.querySelector('.navbar__logo');
+      const verticalMenu = document.querySelector('.navbar__vertical-menu');
+      const searchInput = document.querySelector('.search__input');
+      const searchBtn = document.querySelector('.search__btn');
+      if (e.target.checked) {
+        if (logo) {
+          logo.style.display = 'none';
+        }
+        if (verticalMenu) {
+          verticalMenu.style.display = 'none';
+        }
+        if (searchInput) {
+          searchInput.style.display = 'flex';
+          searchInput.style.zIndex = '4';
+        }
+        if (searchBtn) {
+          searchBtn.style.zIndex = '4';
+        }
+      } else {
+        if (logo) {
+          logo.style.removeProperty('display');
+        }
+        if (verticalMenu) {
+          verticalMenu.style.removeProperty('display');
+        }
+        if (searchInput) {
+          searchInput.style.removeProperty('display');
+          searchInput.style.removeProperty('z-index');
+        }
+        if (searchBtn) {
+          searchBtn.style.removeProperty('z-index');
+        }
+      }
     });
   }
 

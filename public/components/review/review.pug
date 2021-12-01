@@ -1,20 +1,21 @@
 div.wrapper
     main.page
-        div(class=`review-info__review ${classType}`)
-            div.review-info__review_user-info
-                div.review-info__review_user-info_avatar
-                    img(src=authorAvatar)
-                div.review-info__review_user-info_right
-                    div.review-info__review_user-info_right_review Автор
-                        span
-                            = ' '
-                        span.review-info__review_user-info_right_review_name #{authorName}
-                        div.review-info__review_user-info_right_review_buttons
-                            //TODO: сделать реализацию этих кнопок
-                            //button(type="button" class=`button-type disabled  ${classButtonType}`) Подписаться
-                            //button(type="button" class=`button-type disabled ${classButtonType}`) Посмотреть другие отзывы этого автора
-                    div.review-info__review_user-info_right_date #{date}
-            div.review-info__review_text #{reviewText}
+        div(class = "review page__container _container")
+            div(class=`review-info__review ${classType}`)
+                div.review-info__review_user-info
+                    div.review-info__review_user-info_avatar
+                        img(src=authorAvatar)
+                    div.review-info__review_user-info_right
+                        div.review-info__review_user-info_right_review Автор
+                            span
+                                = ' '
+                            span.review-info__review_user-info_right_review_name #{authorName}
+                            div.review-info__review_user-info_right_review_buttons
+                                //TODO: сделать реализацию этих кнопок
+                                //button(type="button" class=`button-type disabled  ${classButtonType}`) Подписаться
+                                //button(type="button" class=`button-type disabled ${classButtonType}`) Посмотреть другие отзывы этого автора
+                        div.review-info__review_user-info_right_date #{date}
+                div.review-info__review_text #{reviewText}
 
 
 

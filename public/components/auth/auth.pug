@@ -11,9 +11,11 @@
                 input(
                     type=input.type
                     name=input.name
+                    id=input.name
                     placeholder=input.placeholder
                     class='text-inputs'
                 )
+                //label(for=input.name class='.text-field__label') #{input.placeholder}
             input(class=`${currClass}__btn` type='button' name=submitButtonName value=auth ? 'Войти' : 'Создать аккаунт')
         if auth
             a(href='/reg') Еще нет аккаунта?

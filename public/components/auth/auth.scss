@@ -12,9 +12,10 @@
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.6);
     color: $purple-text;
+    max-width: 360px;
+    min-width: 360px;
     display: flex;
     flex-direction: column;
-    max-width: 90vw;
 
     &__head {
         font-family: "Montserrat-Bold", "Arial", sans-serif;
@@ -29,7 +30,6 @@
     }
 
     &__form {
-        margin-top: 10px;
         flex: 1 0 auto;
         display: flex;
         flex-wrap: wrap;
@@ -66,20 +66,16 @@
 
 .reg {
     min-height: 450px;
-    min-width: 360px;
     margin: 1em 0;
 }
 
 .auth {
     min-height: 280px;
-    min-width: 360px;
 }
 
 @media (max-width: 450px) {
-    .reg {
-        min-width: 300px;
-    }
-    .auth {
-        min-width: 300px;
+    .reg, .auth {
+        max-width: 90vw;
+        min-width: 90vw;
     }
 }

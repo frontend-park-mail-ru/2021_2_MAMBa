@@ -22,6 +22,7 @@ class Authorization {
     }
     this.user = parsedResponse?.body;
     if (this.user) {
+      window.localStorage.setItem('user', JSON.stringify(this.user));
       this.eventBus.emit(EVENTS.authorization.gotUser);
       this.lastEvent = EVENTS.authorization.gotUser;
     }
@@ -33,6 +34,7 @@ class Authorization {
     }
     this.user = user;
     if (this.user) {
+      window.localStorage.setItem('user', JSON.stringify(this.user));
       this.eventBus.emit(EVENTS.authorization.changedUser);
     }
   }
@@ -76,6 +78,7 @@ class Authorization {
         this.eventBus.emit(EVENTS.App.ErrorPage);
       }
       if (response.status === statuses.OK) {
+        window.localStorage.removeItem('user');
         this.user = null;
         this.lastEvent = EVENTS.authorization.logOutUser;
       }

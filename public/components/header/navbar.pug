@@ -21,4 +21,7 @@ header.navbar
         input.search__input(placeholder = 'Фильмы, сериалы, актёры')
         .search__btn
             include ../../static/pics/search.svg
-    include enterButton.pug
+    if userFromStorage
+        include userBlock/userBlock.pug
+    else
+        include enterButton.pug

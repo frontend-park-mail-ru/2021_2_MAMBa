@@ -8,7 +8,7 @@
             div(class=`${currClass}__head`) Регистрация
         form(class=`${currClass}__form` name=authFormName)
             each input in inputs
-                label(for=input.name class='text-inputs__label') #{input.placeholder}
+                label(for=input.name class='text-inputs__label') #{input.title}
                 input(
                     type=input.type
                     name=input.name

@@ -2,6 +2,7 @@ import {BaseView} from '../BaseView/BaseView.js';
 import searchPug from '../../components/search/search.pug';
 import personsPug from '../../components/search/personsBlock/personsContent.pug';
 import emptyPagePug from '../../components/search/emptyPage.pug';
+import emptySignPug from '../../components/emptySign/emptySign.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {convertArrayToActorFilms} from '../../modules/adapters';
 import {renderFilms} from '../../utils/showMore.js';
@@ -38,7 +39,10 @@ export class SearchView extends BaseView {
       return;
     }
     if (!response.films.film_list.length) {
-      filmContainer.innerHTML = '<h1 style="text-align: center;">Пуфто:(</h1>';
+      filmContainer.innerHTML = emptySignPug({
+        text: 'К сожалению, по вашему запросу фильмов не найдено',
+        blockClass: 'empty-sign-block_white',
+      });
     } else {
       filmContainer.innerHTML = '';
       renderFilms(convertArrayToActorFilms(response.films));
@@ -49,7 +53,10 @@ export class SearchView extends BaseView {
       return;
     }
     if (!response.persons.person_list.length) {
-      personsContainer.innerHTML = '<h1 style="color: #22223B; text-align: center;">Пуфто:(</h1>';
+      personsContainer.innerHTML = emptySignPug({
+        text: 'К сожалению, по вашему запросу актёров не найдено',
+        blockClass: 'empty-sign-block',
+      });
       return;
     }
     personsContainer.innerHTML = personsPug(response.persons);

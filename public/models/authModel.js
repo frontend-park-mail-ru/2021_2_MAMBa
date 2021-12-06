@@ -83,6 +83,16 @@ export class AuthPageModel extends Model {
     }
   }
 
+  deleteAllErrorsFromInput = (inputName) => {
+    if (!inputName) {
+      return;
+    }
+
+    for (const error of this.errorMessages.get(inputName)) {
+      this.deleteAndEmitError(inputName, error);
+    }
+  }
+
   validateOneInput = (inputName, inputValue, passwordValue) => {
     if (!inputName) {
       return;
@@ -90,12 +100,13 @@ export class AuthPageModel extends Model {
 
     if (!inputValue) {
       this.addAndEmitError(inputName, ErrorMessages.EmptyField.text);
+      return;
     } else {
       this.deleteAndEmitError(inputName, ErrorMessages.EmptyField.text);
     }
 
     for (const error of ErrorMessages[inputName]) {
-      if (!error.regex && inputName === authConfig.repPasswordInput.name) {
+      if (!error.regexp && inputName === authConfig.repPasswordInput.name) {
         if (inputValue !== passwordValue) {
           this.addAndEmitError(inputName, error.text);
         } else {

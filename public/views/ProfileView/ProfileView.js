@@ -9,14 +9,13 @@ import settingsPug from '../../components/profile/settings/settings.pug';
 import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLink.pug';
 import loader from '../../components/loader/loader.pug';
 import noAccessPug from '../../components/noAccess/noAccess.pug';
+import emptySignPug from '../../components/emptySign/emptySign.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
 import {ROOT} from '../../main';
-import baseViewPug from '../BaseView/BaseView.pug';
-import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import {statuses} from '../../consts/reqStatuses.js';
-import {createElementFromHTML} from '../../utils/utils.js';
+import {createElementFromHTML, renderBaseView} from '../../utils/utils.js';
 import {ROUTES} from '../../consts/routes';
 
 
@@ -33,7 +32,7 @@ export class ProfileView extends BaseView {
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
+      ROOT.innerHTML = renderBaseView();
       this.eventBus.emit(EVENTS.Header.Render.header);
     } else {
       const profileContent = document.querySelector('.profile__profile-content');
@@ -223,7 +222,10 @@ export class ProfileView extends BaseView {
     }
     if (profileContent.querySelector('.loader')) {
       if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.bookmarks_list.length === 0) {
-        profileContent.innerHTML = '<h1>Пуфто:(</h1>';
+        profileContent.innerHTML = emptySignPug({
+          text: 'Вы еще не добавили ни 1 фильма в закладки',
+          blockClass: 'empty-sign-block_big',
+        });
       } else {
         profileContent.innerHTML = bookmarksPug(bookmarks.body);
       }
@@ -253,7 +255,10 @@ export class ProfileView extends BaseView {
     }
     if (profileContent.querySelector('.loader')) {
       if (reviewsMarks.status === statuses.NO_BLOCKS || reviewsMarks.body.review_list.length === 0) {
-        profileContent.innerHTML = '<h1>Пуфто:(</h1>';
+        profileContent.innerHTML = emptySignPug({
+          text: 'Вы еще не оставили отзыв (оценку) ни на 1 фильме',
+          blockClass: 'empty-sign-block_big',
+        });
       } else {
         profileContent.innerHTML = starsAndReviews(reviewsMarks.body);
       }

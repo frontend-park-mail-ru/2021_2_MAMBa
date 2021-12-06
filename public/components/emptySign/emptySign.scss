@@ -1,0 +1,17 @@
+.empty-sign-block {
+  color: #22223B;
+  font-size: 1em;
+  text-align: center;
+
+  &_white {
+    color: $white;
+    font-size: 1em;
+    text-align: center;
+  }
+
+  &_big {
+    color: #22223B;
+    font-size: 1.5em;
+    text-align: center;
+  }
+}

@@ -65,6 +65,7 @@ export const EVENTS = {
     Validate: 'authPage:validate',
     HavingWrongInput: 'authPage:havingWrongInputs',
     GetContent: 'authPage:getContent',
+    deleteAllErrors: 'authPage:deleteAllErrors',
   },
   actorPage: {
     render: {

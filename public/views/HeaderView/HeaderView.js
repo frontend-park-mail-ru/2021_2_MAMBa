@@ -1,14 +1,11 @@
-import headerPug from '../../components/header/navbar.pug';
 import enterButton from '../../components/header/enterButton.pug';
 import logoutButton from '../../components/header/logoutButton.pug';
 import userBlock from '../../components/header/userBlock/userBlock.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
-import {createElementFromHTML} from '../../utils/utils';
+import {createElementFromHTML, renderBaseView} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
-import {menuObjects} from '../../consts/profileMenu';
 const symbolCount = 11;
 const enterCode = 13;
 
@@ -18,7 +15,7 @@ export class HeaderView extends BaseView {
   }
 
   render = () => {
-    const template = headerPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
+    const template = renderBaseView();
     const header = this.getHeaderFromDom();
     if (header) {
       header.innerHTML = template;

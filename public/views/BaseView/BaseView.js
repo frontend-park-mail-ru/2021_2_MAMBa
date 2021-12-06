@@ -1,8 +1,7 @@
 import {ROOT} from '../../main.js';
-import baseViewPug from './BaseView.pug';
-import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import loader from '../../components/loader/loader.pug';
 import {EVENTS} from '../../consts/EVENTS';
+import {renderBaseView} from '../../utils/utils';
 
 /** Abstract class representing base view. */
 export class BaseView {
@@ -21,7 +20,7 @@ export class BaseView {
     this.routeData = routeData;
     const content = document.querySelector('.content');
     if (!content) {
-      ROOT.innerHTML = baseViewPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
+      ROOT.innerHTML = renderBaseView();
       this.eventBus.emit(EVENTS.Header.Render.header);
     } else {
       content.innerHTML = loader();

@@ -1,22 +1,21 @@
 @import '../../css/consts';
 
 .review-info {
-
-  &__name-and-buttons{
-    display:flex;
+  &__name-and-buttons {
+    display: flex;
     flex-direction: column;
   }
 
   &__author-name {
     font-weight: 700;
-    color:$black;
-    text-decoration:none;
+    color: $black;
+    text-decoration: none;
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 22px;
     margin-bottom: 20px;
   }
 
-  &__container{
+  &__container {
     border-radius: 20px;
     border: 1px solid $dark-blue;
     display: flex;
@@ -28,7 +27,14 @@
     }
   }
 
-  &__user-info{
+  &__avatar img {
+    width: 130px;
+    height: 170px;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+
+  &__user-info {
     display: flex;
     gap: 35px;
     @media (max-width: $md3+px) {
@@ -36,47 +42,26 @@
     }
   }
 
-  &__review {
+  &__right {
     display: flex;
-    gap: 35px;
-    &_user-info {
+    flex-direction: column;
+    justify-content: space-between;
+
+    &_buttons {
+      margin-top: 20px;
       display: flex;
       gap: 35px;
-
-      &_avatar img {
-        width: 130px;
-        height: 170px;
-        border-radius: 3px;
-        object-fit: cover;
-      }
-
-      &_right {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        &_review {
-          font-size: 30px;
-
-        }
-
-        &_buttons {
-          margin-top: 20px;
-          display: flex;
-          gap: 35px;
-        }
-      }
-
-      &_date {
-        margin-bottom: 5px;
-        font-size: 16px;
-        font-weight: 500;
-        color: $grey;
-      }
     }
   }
 
-  &_text {
+  &__date {
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: $grey;
+  }
+
+  &__text {
     font-weight: 500;
     line-height: 1.5;
   }

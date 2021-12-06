@@ -3,19 +3,18 @@ div.wrapper
         div(class = "review page__container _container")
             div(class=`review-info__container ${classType}`)
                 div.review-info__user-info
-                    div.review-info__review_user-info_avatar
+                    div.review-info__avatar
                         img(src=authorAvatar)
-                    div.review-info__review_user-info_right
+                    div.review-info__right
                         div.review-info__name-and-buttons
                             a(class = "review-info__author-name" href=`${href}`) #{authorName}
-                            div.review-info__review_user-info_right_review_buttons
-                                if (href)
-                                    a( href=`${href}`)
-                                        button(type="button" class=`button-type ${classButtonType}`) Посмотреть другие отзывы этого пользователя
+                            div.review-info__review_buttons
+                                a( href=`${href}`)
+                                    button(type="button" class=`button-type ${classButtonType}`) Посмотреть другие отзывы этого пользователя
                             //TODO: сделать реализацию этих кнопок
                             //button(type="button" class=`button-type disabled  ${classButtonType}`) Подписаться
-                        div.review-info__review_user-info_right_date #{date}
-                div.review-info__review_text #{reviewText}
+                        div.review-info__date #{date}
+                div.review-info__text #{reviewText}
 
 
 

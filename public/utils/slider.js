@@ -29,10 +29,15 @@ export const slider = (selector) => {
 
   const slide = () => {
     sliderTrack.style.transition = 'transform .5s';
-    sliderTrack.style.transform = `translate3d(-${slideIndex * itemWidth}px, 0px, 0px)`;
+    console.log("32")
+    console.log(slideIndex)
+    if (slideIndex<0 )
+        slideIndex = 0
+
+    if (slideIndex <= countItems-slidesToShow)
+      sliderTrack.style.transform = `translate3d(-${slideIndex * itemWidth}px, 0px, 0px)`;
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems-slidesToShow);
-    console.log(countItems, slidesToShow)
   };
 
   const getEvent = () => {
@@ -45,7 +50,7 @@ export const slider = (selector) => {
       posX2 = 0,
       posY1 = 0,
       posY2 = 0,
-     posFinal = 0,
+      posFinal = 0,
       isSwipe = false,
       isScroll = false,
       allowSwipe = true,
@@ -68,20 +73,19 @@ export const slider = (selector) => {
       posInit = posX1 = evt.clientX;
       posY1 = evt.clientY;
       sliderTrack.style.transition = '';
-      slider.addEventListener('touchmove', swipeAction);
+      slider.addEventListener('touchmove',swipeAction);
       slider.addEventListener('touchend', swipeEnd);
       sliderList.classList.remove('grab');
       sliderList.classList.add('grabbing');
     }
   };
 
-  const lastTrf = countItems * itemWidth;
+  const lastTrf = -(countItems * itemWidth);
 
   const swipeAction = () => {
     let evt = getEvent(),
         style = sliderTrack.style.transform,
         transform = +style.match(trfRegExp)[0];
-
     posX2 = posX1 - evt.clientX;
     posX1 = evt.clientX;
 
@@ -110,20 +114,23 @@ export const slider = (selector) => {
 
       // запрет ухода вправо на последнем слайде
       if (slideIndex >= countItems-slidesToShow) {
+        console.log( transform, lastTrf)
         if (posInit > posX1) {
+          console.log("last item")
           setTransform(transform, lastTrf);
           return;
         } else {
           allowSwipe = true;
         }
       }
+
       if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
         reachEdge();
         return;
       }
+      console.log("124")
       sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
     }
-
   };
   const swipeEnd = () => {
     posFinal = posInit - posX1;
@@ -145,26 +152,27 @@ export const slider = (selector) => {
         }
       }
       if (posInit !== posX1) {
-        allowSwipe = false;
+        // allowSwipe = false;
         slide();
       } else {
         allowSwipe = true;
       }
 
     }
+    // allowSwipe = true;
   };
   const setTransform = (transform, compareTransform) => {
-    if (transform >= compareTransform) {
-      if (transform > compareTransform) {
+    console.log("aa");
+    if (transform <= compareTransform) {
+      console.log("true");
         sliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`;
-      }
     }
-    allowSwipe = false;
+    // allowSwipe = false;
   }
   const reachEdge = () => {
     transition = false;
     swipeEnd();
-    allowSwipe = true;
+    // allowSwipe = true;
   };
 
   sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';

@@ -29,7 +29,7 @@ export const slider = (selector) => {
 
   const slide = () => {
     sliderTrack.style.transition = 'transform .5s';
-    sliderTrack.style.transform = `translateX(-${slideIndex * itemWidth}px)`;
+    sliderTrack.style.transform = `translate3d(-${slideIndex * itemWidth}px, 0px, 0px)`;
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems-slidesToShow);
     console.log(countItems, slidesToShow)
@@ -68,10 +68,8 @@ export const slider = (selector) => {
       posInit = posX1 = evt.clientX;
       posY1 = evt.clientY;
       sliderTrack.style.transition = '';
-      slider.addEventListener('touchmove', {handleEvent: swipeAction});
-      // document.addEventListener('mousemove', {handleEvent: swipeAction});
-      slider.addEventListener('touchend', {handleEvent: swipeEnd});
-      // document.addEventListener('mouseup', {handleEvent: swipeEnd});
+      slider.addEventListener('touchmove', swipeAction);
+      slider.addEventListener('touchend', swipeEnd);
       sliderList.classList.remove('grab');
       sliderList.classList.add('grabbing');
     }
@@ -123,7 +121,7 @@ export const slider = (selector) => {
         reachEdge();
         return;
       }
-      sliderTrack.style.transform = `translateX(${transform - posX2}px)`;
+      sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
     }
 
   };
@@ -158,7 +156,7 @@ export const slider = (selector) => {
   const setTransform = (transform, compareTransform) => {
     if (transform >= compareTransform) {
       if (transform > compareTransform) {
-        sliderTrack.style.transform = `translateX(${compareTransform}px)`;
+        sliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`;
       }
     }
     allowSwipe = false;
@@ -169,7 +167,7 @@ export const slider = (selector) => {
     allowSwipe = true;
   };
 
-  sliderTrack.style.transform = 'translateX(0px)';
+  sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
   sliderList.classList.add('grab');
   sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
   slider.addEventListener('touchstart', swipeStart);

@@ -3,7 +3,7 @@ import filmPageContent from '../../components/film/film.pug';
 import userRating from '../../components/userRating/userRating.pug';
 import readMore from '../../components/textReadMore/textReadMore.pug';
 import {getPathArgs} from '../../modules/router.js';
-import {checkAuth} from '../../utils/utils.js';
+import {checkAuth, renderWarning} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
 import {ratingNumber} from '../../modules/adapters';
 import {EVENTS} from '../../consts/EVENTS.js';
@@ -222,13 +222,13 @@ export class FilmView extends BaseView {
       sendButton.addEventListener('click', (e) => {
         e.preventDefault();
         if (review.review_type === 0) {
-          this.renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
+          renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
           return;
         }
         const textInput = document.querySelector('.write_review__text').value;
         if (textInput) {
           if (textInput === '') {
-            this.renderWarning('Введите текст отзыва', 'warning_empty-text');
+            renderWarning('Введите текст отзыва', 'warning_empty-text');
             return;
           }
           review.review_text = textInput;

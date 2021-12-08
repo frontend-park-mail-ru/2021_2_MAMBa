@@ -11,8 +11,9 @@ export const slider = (selector) => {
   let movePosition = sliderList.offsetWidth;
   let slidesToShow  = Math.floor(movePosition/itemWidth)
 
-  prev.classList.toggle('disabled', slideIndex === 0);
   const countItems = slides.length;
+  prev.classList.toggle('disabled', slideIndex === 0);
+  next.classList.toggle('disabled', slideIndex >= countItems-slidesToShow);
 
   arrows.addEventListener('click', (e) => {
     let target = e.target;
@@ -31,6 +32,7 @@ export const slider = (selector) => {
     sliderTrack.style.transform = `translateX(-${slideIndex * itemWidth}px)`;
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems-slidesToShow);
+    console.log(countItems, slidesToShow)
   };
 
   const getEvent = () => {
@@ -38,15 +40,12 @@ export const slider = (selector) => {
   };
 
   let transition = true;
-  // координаты, полученные при первом касании (текущие координаты курсора event.clientX)
   let posInit = 0,
       posX1 = 0,
-      //разность posX1 и event.clientX
       posX2 = 0,
       posY1 = 0,
       posY2 = 0,
-      //ак мы получим количество пикселей, на которое провели пальцем в swipeAction, например, если ширина слайдера 200px, то если мы проведем пальцем от середины слайдера до его края и отпустим, posFinal будет равен 100
-      posFinal = 0,
+     posFinal = 0,
       isSwipe = false,
       isScroll = false,
       allowSwipe = true,
@@ -69,11 +68,10 @@ export const slider = (selector) => {
       posInit = posX1 = evt.clientX;
       posY1 = evt.clientY;
       sliderTrack.style.transition = '';
-      document.addEventListener('touchmove', {handleEvent: swipeAction});
-      document.addEventListener('mousemove', {handleEvent: swipeAction});
-      document.addEventListener('touchend', {handleEvent: swipeEnd});
-      document.addEventListener('mouseup', {handleEvent: swipeEnd});
-
+      slider.addEventListener('touchmove', {handleEvent: swipeAction});
+      // document.addEventListener('mousemove', {handleEvent: swipeAction});
+      slider.addEventListener('touchend', {handleEvent: swipeEnd});
+      // document.addEventListener('mouseup', {handleEvent: swipeEnd});
       sliderList.classList.remove('grab');
       sliderList.classList.add('grabbing');
     }
@@ -121,25 +119,20 @@ export const slider = (selector) => {
           allowSwipe = true;
         }
       }
-
       if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
         reachEdge();
         return;
       }
-
       sliderTrack.style.transform = `translateX(${transform - posX2}px)`;
     }
 
   };
   const swipeEnd = () => {
     posFinal = posInit - posX1;
-
     isScroll = false;
     isSwipe = false;
-    document.removeEventListener('touchmove', swipeAction);
-    document.removeEventListener('mousemove', {handleEvent: swipeAction});
-    document.removeEventListener('touchend', swipeEnd);
-    document.removeEventListener('mouseup', swipeEnd);
+    slider.removeEventListener('touchmove', swipeAction);
+    slider.removeEventListener('touchend', swipeEnd);
 
     sliderList.classList.add('grab');
     sliderList.classList.remove('grabbing');
@@ -153,7 +146,6 @@ export const slider = (selector) => {
           slideIndex++;
         }
       }
-
       if (posInit !== posX1) {
         allowSwipe = false;
         slide();
@@ -161,16 +153,12 @@ export const slider = (selector) => {
         allowSwipe = true;
       }
 
-    } else {
-      // allowSwipe = true;
     }
-    console.log(allowSwipe)
-
   };
-  const setTransform = (transform, comapreTransform) => {
-    if (transform >= comapreTransform) {
-      if (transform > comapreTransform) {
-        sliderTrack.style.transform = `translateX(${comapreTransform}px)`;
+  const setTransform = (transform, compareTransform) => {
+    if (transform >= compareTransform) {
+      if (transform > compareTransform) {
+        sliderTrack.style.transform = `translateX(${compareTransform}px)`;
       }
     }
     allowSwipe = false;
@@ -183,9 +171,6 @@ export const slider = (selector) => {
 
   sliderTrack.style.transform = 'translateX(0px)';
   sliderList.classList.add('grab');
-
   sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
   slider.addEventListener('touchstart', swipeStart);
-  slider.addEventListener('mousedown', swipeStart);
-
 }

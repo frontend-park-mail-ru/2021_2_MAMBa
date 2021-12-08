@@ -2,12 +2,12 @@ import {BaseView} from '../BaseView/BaseView.js';
 import filmPageContent from '../../components/film/film.pug';
 import userRating from '../../components/userRating/userRating.pug';
 import readMore from '../../components/textReadMore/textReadMore.pug';
-import successfulSendButton from '../../components/successfulSendButton/successfulSendButton.pug';
-import {EVENTS} from '../../consts/EVENTS.js';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
 import {ratingNumber} from '../../modules/adapters';
+import {EVENTS} from '../../consts/EVENTS.js';
+import {slider} from "../../utils/slider";
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -37,13 +37,15 @@ export class FilmView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      // this.setSliderReviewActions();
-      // this.setSliderActions();
-      this.addSubmitSendReviewListener(data.film.id);
+      if (data.myReview.reviewText === 0){
+        this.addSubmitSendReviewListener(data.film.id);
+      }
       this.rating(data.film.id);
       this.setReadMore(data);
       this.bookmarked(data.film.id);
       setAnchorActions();
+      slider('#film-slider');
+      slider('#review-slider');
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
@@ -177,7 +179,6 @@ export class FilmView extends BaseView {
       review_text: '',
       review_type: 0,
     };
-
     const positiveButton = document.querySelector('.type-positive');
     const neutralButton = document.querySelector('.type-neutral');
     const negativeButton = document.querySelector('.type-negative');
@@ -242,7 +243,6 @@ export class FilmView extends BaseView {
     return document.querySelector('.send-review');
   }
 
-
   /**
    * Remove warning to auth.
    * @param {string} className - Class of warning.
@@ -261,145 +261,28 @@ export class FilmView extends BaseView {
    * Render button to successful sending.
    */
   renderSuccessfulSend = () => {
-    const template = successfulSendButton();
     const sendButton = this.getSendButtonFromDom();
+    if (sendButton) {
+      sendButton.outerHTML = "<button class = 'send-review-success' > Ваш отзыв опубликован</button>";
+    }
     const clearButton = document.querySelector('.clear-button');
     if (clearButton) {
-      clearButton.classList.add('disabled-clear-button');
-      clearButton.classList.remove('clear-button');
-      clearButton.classList.remove('review_button');
-    }
-
-    if (sendButton) {
-      sendButton.outerHTML = template;
-    }
-  }
-
-  /**
-   * Set slider actions.
-   */
-  setSliderReviewActions = () => {
-    const gap = 20;
-    const padding = 20;
-    let position = 0;
-    const reviewSlidesToShow = 3;
-    const reviewSlidesToScroll = 1;
-    const container = document.querySelector('.review-slider-container');
-    const track = document.querySelector('.review-slider-container__track');
-    const reviews = document.querySelectorAll('.review-slider-container__track_review');
-    const reviewCount = reviews.length;
-    const btvPrev = document.querySelector('.review-slider-container_button-left');
-    const btvNext = document.querySelector('.review-slider-container_button-right');
-    if (container) {
-      const itemWidth = (container.clientWidth - gap * (reviewSlidesToShow) - padding *
-          2 * reviewSlidesToShow) / reviewSlidesToShow;
-      const itemWidthWithMargin = itemWidth + gap + padding * 2;
-      const movePosition = reviewSlidesToScroll * itemWidthWithMargin;
-
-      reviews.forEach((item) => {
-        item.style.minWidth = `${itemWidth}px`;
-        item.style.maxWidth = `${itemWidth}px`;
-      });
-
-      btvNext.addEventListener('click', (e) => {
-        e.preventDefault();
-        const itemLeft = reviewCount - (Math.abs(position) + reviewSlidesToShow *
-            itemWidthWithMargin) / itemWidthWithMargin;
-        position -= itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
-        setPosition();
-        checkButtons();
-      });
-
-      btvPrev.addEventListener('click', (e) => {
-        e.preventDefault();
-        const itemLeft = Math.abs(position) / itemWidthWithMargin;
-        position += itemLeft >= reviewSlidesToScroll ? movePosition : itemLeft * itemWidthWithMargin;
-        setPosition();
-        checkButtons();
-      });
-
-      /**
-       * Set film to the right position.
-       */
-      const setPosition = () => {
-        track.style.transform = `translateX(${position}px`;
-      };
-      /**
-       * Check buttons.
-       */
-      const checkButtons = () => {
-        if (position === 0) {
-          btvPrev.classList.add('hidden');
-        } else {
-          btvPrev.classList.remove('hidden');
-        }
-
-        if (position <= -(reviewCount - reviewSlidesToShow) * itemWidthWithMargin) {
-          btvNext.classList.add('hidden');
-        } else {
-          btvNext.classList.remove('hidden');
-        }
-      };
-      checkButtons();
-    }
-  }
-  /**
-   * Set slider actions.
-   */
-  setSliderActions = () => {
-    let position = 0;
-    const slidesToShow = 6;
-    const slidesToScroll = 1;
-    const container = document.querySelector('.slider-container');
-    const track = document.querySelector('.slider-container__track');
-    const items = document.querySelectorAll('.slider-container__track_film');
-    const itemCount = items.length;
-    const btvPrev = document.querySelector('.slider-container_button-left');
-    const btvNext = document.querySelector('.slider-container_button-right');
-    const itemWidth = container.clientWidth / slidesToShow;
-    const movePosition = slidesToScroll * itemWidth;
-
-    items.forEach((item) => {
-      item.style.maxWidth = `${itemWidth}px`;
-      item.style.minWidth = `${itemWidth}px`;
-    });
-
-    btvNext.addEventListener('click', () => {
-      const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
-      position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
-      setPosition();
-      checkButtons();
-    });
-
-    btvPrev.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = Math.abs(position) / itemWidth;
-      position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
-      setPosition();
-      checkButtons();
-    });
-    /**
-     * Set film to the right position.
-     */
-    const setPosition = () => {
-      track.style.transform = `translateX(${position}px`;
-    };
-    /**
-     * Check buttons.
-     */
-    const checkButtons = () => {
-      if (position === 0) {
-        btvPrev.classList.add('hidden');
-      } else {
-        btvPrev.classList.remove('hidden');
+      if (clearButton) {
+        clearButton.classList.add('disabled-clear-button');
+        clearButton.classList.remove('clear-button');
+        clearButton.setAttribute('disabled', "disabled");
       }
+    }
 
-      if (position <= -(itemCount - slidesToShow) * itemWidth) {
-        btvNext.classList.add('hidden');
-      } else {
-        btvNext.classList.remove('hidden');
-      }
-    };
-    checkButtons();
+    const reviewInput = document.querySelector('.write_review__text');
+    const positiveButton = document.querySelector('.type-positive');
+    const neutralButton = document.querySelector('.type-neutral');
+    const negativeButton = document.querySelector('.type-negative');
+    if (positiveButton && neutralButton && negativeButton && reviewInput) {
+      reviewInput.setAttribute('disabled', "disabled");
+      positiveButton.setAttribute('disabled', "disabled");
+      neutralButton.setAttribute('disabled', "disabled");
+      negativeButton.setAttribute('disabled', "disabled");
+    }
   }
 }

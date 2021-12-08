@@ -2,7 +2,10 @@ include ../filmCard/filmCard
 div.wrapper
     main.page
         div(class = "collectionFilms page__container _container")
-            h1(class="collectionFilms__main-title title") #{name}
+            h1(class="collectionFilms__main-title title") Подборка
+                span
+                    = ' '
+                span.color-text-pink #{name}
             div(class ="collectionFilms__description description") #{description}
             div(class = "black-container film__items")
               each film, _ in filmsWithDescription

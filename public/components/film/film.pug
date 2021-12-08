@@ -34,7 +34,7 @@ div.wrapper
                               if index !== 0
                                   span
                                       = ',    '
-                              a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
+                              a(class='change-color-text-href' href=`${genre.trailerUrl}`) #{genre.name}
                     div.fact
                         div.fact__key Продолжительность
                         div.fact__value #{film.duration}
@@ -56,10 +56,7 @@ div.wrapper
                 div.rate__modile
         div(class = "trailer block")
             div(class = "trailer__video")
-                div.trailer__button
-                    div.trailer__button_img
-                        include ../../static/pics/play.svg
-                    | Трейлер
+                a(class ="trailer__button button" ref=`${film.trailerUrl}`) Трейлер
             div.trailer__description
                 div(class = "trailer__name block-subtitle") Обзор
                 div.trailer__summery #{film.description}
@@ -85,24 +82,25 @@ div.wrapper
                 div.user-rating
                     if myRating > 1
                         include ../userRating/userRating.pug
-            //div.film-info__reviews
-            //    if (reviews.length !== 0)
-            //        div.block-subtitle Отзывы
-            //        +reviewSlider(reviews)
-        //div(class ="films__show-more  block")
-        //    div.block-subtitle С фильмом
-        //        span
-        //            = ' '
-        //        span.color-text-pink #{film.title}
-        //        span
-        //            = ' смотрят'
-        //    +slider(recommendations)
+            div.film-info__reviews
+            if (reviews.length !== 0)
+                div.block-subtitle Отзывы
+                +reviewSlider(reviews)
+
+        div(class ="films__show-more  block")
+            div.block-subtitle С фильмом
+                span
+                    = ' '
+                span.color-text-pink #{film.title}
+                span
+                    = ' смотрят'
+            +slider(recommendations)
         div(class ="film-review")
             if (myReview.reviewText === 0)
                 div(class = "block-subtitle film-review__subtitle")#review Написать отзыв
                 +inputReview
             else
                 div.block-subtitle#review Мой отзыв
-                div(class=`review-info__review ${myReview.classType}`)
+                div(class=`review-info__container ${myReview.classType}`)
                     div.review-info__review_text #{myReview.reviewText}
                     div.film-review__date #{myReview.date}

@@ -9,21 +9,8 @@ div.wrapper
                         div.review-info__name-and-buttons
                             a(class = "review-info__author-name" href=`${href}`) #{authorName}
                             div.review-info__review_buttons
-                                a( href=`${href}`)
-                                    button(type="button" class=`button-type ${classButtonType}`) Посмотреть другие отзывы этого пользователя
+                                a( class=`type-button button ${classButtonType}` href=`${href}`) Посмотреть другие отзывы этого пользователя
                             //TODO: сделать реализацию этих кнопок
                             //button(type="button" class=`button-type disabled  ${classButtonType}`) Подписаться
                         div.review-info__date #{date}
                 div.review-info__text #{reviewText}
-
-
-
-
-
-
-
-
-
-
-
-

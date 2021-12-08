@@ -5,6 +5,7 @@ import {getPathArgs} from '../../modules/router.js';
 import {showMore} from '../../utils/showMore.js';
 import {checkShowMoreButton} from '../../utils/showMore.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
+import {slider} from "../../utils/slider";
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {
@@ -35,7 +36,7 @@ export class ActorView extends BaseView {
     if (content) {
       content.innerHTML = template;
       setAnchorActions();
-      // this.setSliderActions();
+      slider('#film-slider');
       checkShowMoreButton(data.moreAvailable, '.button__show-more' );
       showMore(data, '.button__show-more', EVENTS.actorPage.getFilms);
     } else {

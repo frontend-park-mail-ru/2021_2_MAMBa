@@ -54,7 +54,7 @@
 }
 
 .trailer {
-  column-gap: 5%;
+  column-gap: 32px;;
   display: flex;
 
   &__video {
@@ -83,7 +83,7 @@
     color: $white;
     padding: 8px 20px;
     width: 130px;
-    height: 24px;
+    height: 30px;
     justify-content: center;
     align-items: center;
 
@@ -111,12 +111,12 @@
 }
 
 .rating-subtitle {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .film-info {
   &__reviews {
-    margin-top: $block_indentation;
+    margin-top: 20px;
   }
 }
 
@@ -200,7 +200,7 @@
   font-size: 16px;
 }
 
-@media (max-width: $md1+px) {
+@media (max-width: $notebookSize) {
   .film {
     &__container {
       max-width: none;
@@ -210,7 +210,7 @@
   }
 }
 
-@media (max-width: $md2+px) {
+@media (max-width: $horizontalPadSize) {
   .film {
     &__container {
       max-width: 750px;
@@ -228,7 +228,7 @@
 
 }
 
-@media (max-width: $md4+px) {
+@media (max-width: $phoneSize) {
   .film {
     &__container {
       padding: 0;
@@ -246,13 +246,12 @@
       padding-top: 36px;
       padding-bottom: 36px;
       background-color: #5F5E5E;
-    }
-
-    & img {
-      width: 256px;
-      height: 380px;
-      display: block;
-      margin: 0 auto;
+      & img {
+        width: 256px;
+        height: 380px;
+        display: block;
+        margin: 0 auto;
+      }
     }
 
     &__text {
@@ -306,6 +305,9 @@
   }
   .button__write-review {
     display: none;
+  }
+  .rating-subtitle {
+    margin-bottom: 10px;
   }
 
   .button__show-more {

@@ -169,7 +169,7 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
     rating: rating,
-    trailerUrl: arrayContent.trailer_url,
+    trailerUrl: arrayContent?.trailer_url || "-",
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
     director: arrayContent?.director.name_rus || '-',
@@ -244,7 +244,7 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
  */
 export const convertCollectionToCollectionPage = (collectionInfoJson) => (
   {
-    name: `Подборка  ${collectionInfoJson.collection.collection_name}`,
+    name: `${collectionInfoJson.collection.collection_name}`,
     description: collectionInfoJson.collection.description,
     id: collectionInfoJson.collection.id,
     filmsWithDescription:
@@ -287,7 +287,7 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
   {
     filmsTotal: genreInfoJson.films.film_total,
     id: genreInfoJson.id,
-    genreName: `Жанр ${genreInfoJson.name}`,
+    genreName: `${genreInfoJson.name}`,
     moreAvailable: genreInfoJson?.more_available || false,
     skip: genreInfoJson.current_skip,
     limit: genreInfoJson.current_limit,

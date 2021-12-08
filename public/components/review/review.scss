@@ -22,7 +22,7 @@
     flex-direction: column;
     padding: 35px;
     gap: 20px;
-    @media (max-width: $md3+px) {
+    @media (max-width: $padSize) {
       padding: 16px;
     }
   }
@@ -37,7 +37,7 @@
   &__user-info {
     display: flex;
     gap: 35px;
-    @media (max-width: $md3+px) {
+    @media (max-width: $padSize) {
       gap: 16px;
     }
   }
@@ -113,7 +113,7 @@
   padding: 8px 120px;
   justify-content: center;
   align-items: center;
-  @media (max-width: $md4+px) {
+  @media (max-width: $phoneSize) {
     font-size: 12px;
     padding: 8px 10px;
   }

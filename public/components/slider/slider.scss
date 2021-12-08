@@ -6,8 +6,8 @@
 
 .slider {
   position: relative;
-  //user-select: none;
-  //touch-action: pan-y;
+  user-select: none;
+  touch-action: pan-y;
 }
 
 .slider img {
@@ -42,16 +42,6 @@
   text-align: center;
 }
 
-//.next,
-//.prev {
-//
-//}
-//
-//.next.disabled,
-//.prev.disabled {
-//  display: none;
-//  pointer-events: none;
-//}
 
 .slider__button {
   position: absolute;
@@ -63,7 +53,7 @@
   transition: 0.24s ease-in-out;
   background-size: cover;
 
-  @media (max-width: $horizontalPadSize) {
+  @media (max-width: $padSize) {
     display: none;
   }
 

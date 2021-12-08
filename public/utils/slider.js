@@ -9,11 +9,12 @@ export const slider = (selector) => {
   let itemWidth = slides[0].offsetWidth;
   let slideIndex = 0;
   let movePosition = sliderList.offsetWidth;
-  let slidesToShow  = Math.floor(movePosition/itemWidth)
+  let sliderHeight = sliderList.offsetHeight;
+  let slidesToShow = Math.floor(movePosition / itemWidth)
 
   const countItems = slides.length;
   prev.classList.toggle('disabled', slideIndex === 0);
-  next.classList.toggle('disabled', slideIndex >= countItems-slidesToShow);
+  next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
 
   arrows.addEventListener('click', (e) => {
     let target = e.target;
@@ -31,13 +32,13 @@ export const slider = (selector) => {
     sliderTrack.style.transition = 'transform .5s';
     console.log("32")
     console.log(slideIndex)
-    if (slideIndex<0 )
-        slideIndex = 0
+    if (slideIndex < 0)
+      slideIndex = 0
 
-    if (slideIndex <= countItems-slidesToShow)
+    if (slideIndex <= countItems - slidesToShow)
       sliderTrack.style.transform = `translate3d(-${slideIndex * itemWidth}px, 0px, 0px)`;
     prev.classList.toggle('disabled', slideIndex === 0);
-    next.classList.toggle('disabled', slideIndex >= countItems-slidesToShow);
+    next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
   };
 
   const getEvent = () => {
@@ -73,7 +74,7 @@ export const slider = (selector) => {
       posInit = posX1 = evt.clientX;
       posY1 = evt.clientY;
       sliderTrack.style.transition = '';
-      slider.addEventListener('touchmove',swipeAction);
+      slider.addEventListener('touchmove', swipeAction);
       slider.addEventListener('touchend', swipeEnd);
       sliderList.classList.remove('grab');
       sliderList.classList.add('grabbing');
@@ -92,15 +93,15 @@ export const slider = (selector) => {
     posY2 = posY1 - evt.clientY;
     posY1 = evt.clientY;
 
-    if (!isSwipe && !isScroll) {
-      let posY = Math.abs(posY2);
-      if (posY > 7 || posX2 === 0) {
-        isScroll = true;
-        allowSwipe = false;
-      } else if (posY < 7) {
-        isSwipe = true;
-      }
-    }
+    // if (!isSwipe && !isScroll) {
+    //   let posY = Math.abs(posY2);
+    //   if (posY > sliderHeight || posX2 === 0) {
+    //     isScroll = true;
+    //     allowSwipe = false;
+    //   } else if (posY < 7) {
+    //     isSwipe = true;
+    //   }
+    // }
 
     if (isSwipe) {
       if (slideIndex === 0) {
@@ -113,10 +114,9 @@ export const slider = (selector) => {
       }
 
       // запрет ухода вправо на последнем слайде
-      if (slideIndex >= countItems-slidesToShow) {
-        console.log( transform, lastTrf)
+      if (slideIndex >= countItems - slidesToShow) {
+        console.log(transform, lastTrf)
         if (posInit > posX1) {
-          console.log("last item")
           setTransform(transform, lastTrf);
           return;
         } else {
@@ -145,9 +145,9 @@ export const slider = (selector) => {
     if (allowSwipe) {
       swipeEndTime = Date.now();
       if (Math.abs(posFinal) > posThreshold || swipeEndTime - swipeStartTime < 300) {
-        if (posInit < posX1) {
+        if (posInit < posX1 && slideIndex > 0) {
           slideIndex--;
-        } else if (posInit > posX1) {
+        } else if (posInit > posX1 && slideIndex < countItems - slidesToShow) {
           slideIndex++;
         }
       }
@@ -162,10 +162,8 @@ export const slider = (selector) => {
     // allowSwipe = true;
   };
   const setTransform = (transform, compareTransform) => {
-    console.log("aa");
     if (transform <= compareTransform) {
-      console.log("true");
-        sliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`;
+      sliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`;
     }
     // allowSwipe = false;
   }

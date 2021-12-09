@@ -6,11 +6,8 @@ export const slider = (selector) => {
   let arrows = slider.querySelector('.slider-arrows');
   let prev = arrows.children[0];
   let next = arrows.children[1];
-  let itemToSlide = 0
+  let widthSlide = 0
   let itemWidth = slides[0].offsetWidth;
-  // if (itemWidth < 200) {
-  //   let itemToSlide = 3
-  // }
 
   let slideIndex = 0;
   let movePosition = sliderList.offsetWidth;
@@ -65,10 +62,8 @@ export const slider = (selector) => {
       isSwipe = false,
       isScroll = false,
       allowSwipe = true,
-
       nextTrf = 0,
       prevTrf = 0,
-
       posThreshold = slides[0].offsetWidth * 0.35,
       trfRegExp = /([-0-9.]+(?=px))/,
       swipeStartTime,
@@ -107,10 +102,14 @@ export const slider = (selector) => {
     if (!isSwipe && !isScroll) {
       console.log("tut kto-to est]&(")
       let posY = Math.abs(posY2);
-      if (posY > sliderHeight || posX2 === 0) {
+      console.log("Yp,", posY, posX2)
+      console.log("scroll,", isScroll)
+      // if (posY > 7 || posX2 === 0) {
+      if (posY > 7) {
         isScroll = true;
+        console.log("after,", isScroll)
         allowSwipe = false;
-      } else if (posY < sliderHeight) {
+      } else if (posY < 7) {
         isSwipe = true;
       }
     }
@@ -127,7 +126,6 @@ export const slider = (selector) => {
 
       // запрет ухода вправо на последнем слайде
       if (slideIndex >= countItems - slidesToShow) {
-        // console.log(transform, lastTrf)
         if (posInit > posX1) {
           setTransform(transform, lastTrf);
           return;
@@ -140,16 +138,13 @@ export const slider = (selector) => {
       //   reachEdge();
       //   return;
       // }
-      console.log("124")
-      console.log(posInit, posX1)
-      let itemToSlide = (posInit - posX1)
-      console.log(itemToSlide)
       sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
     }
+
   };
   const swipeEnd = () => {
     posFinal = posInit - posX1;
-    isScroll = false;
+
     isSwipe = false;
     slider.removeEventListener('touchmove', swipeAction);
     slider.removeEventListener('touchend', swipeEnd);
@@ -166,21 +161,19 @@ export const slider = (selector) => {
           slideIndex++;
         }
       }
-      if (posInit !== posX1) {
-        // allowSwipe = false;
-        // console.log(posInit, posX1)
-         itemToSlide += (posInit - posX1) * 5
-        if (itemToSlide> borderToSlide)
-          itemToSlide = borderToSlide
-        if (itemToSlide<=0)
-            itemToSlide = 0
-        console.log(itemToSlide)
-        slide(itemToSlide);
+      if (posInit !== posX1 && !isScroll) {
+         widthSlide += (posInit - posX1) * 5
+        if (widthSlide> borderToSlide)
+          widthSlide = borderToSlide
+        if (widthSlide<=0)
+            widthSlide = 0
+        slide(widthSlide);
       } else {
         allowSwipe = true;
       }
 
     }
+    isScroll = false;
     // allowSwipe = true;
   };
   const setTransform = (transform, compareTransform) => {

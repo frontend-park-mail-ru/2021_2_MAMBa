@@ -22,9 +22,7 @@
     flex-direction: column;
     padding: 35px;
     gap: 20px;
-    @media (max-width: $padSize) {
-      padding: 16px;
-    }
+    word-break:break-word;
   }
 
   &__avatar img {
@@ -113,7 +111,28 @@
   padding: 8px 120px;
   justify-content: center;
   align-items: center;
-  @media (max-width: $phoneSize) {
+}
+
+@media (max-width: $padSize) {
+  .review-info {
+    &__container {
+      padding: 16px;
+    }
+  }
+  .send-review-success {
+    font-size: 12px;
+    padding: 8px 20px;
+  }
+}
+@media (max-width: $phoneSize) {
+  .review-info {
+    &__author-name {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+  }
+  .send-review-success {
     font-size: 12px;
     padding: 8px 10px;
   }

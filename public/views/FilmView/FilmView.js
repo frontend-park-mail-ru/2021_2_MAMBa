@@ -53,7 +53,7 @@ export class FilmView extends BaseView {
 
   setReadMore = (data) => {
     const summery = document.querySelector('.trailer__summery');
-    if (summery.clientHeight > 120) {
+    if (summery.clientHeight > 150) {
       const template = readMore(data);
       const content = document.querySelector('.trailer__summery');
       if (content) {
@@ -104,6 +104,25 @@ export class FilmView extends BaseView {
             this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
           }
         }
+      });
+    }
+
+    const bookmarkPhone = document.querySelector('.bookmark-phone');
+    const bookmarkColorPhone = document.querySelector('.bookmark_mobile');
+    const bookmarkTextPhone = document.querySelector('.bookmark-text ');
+    if (bookmarkPhone && bookmarkColorPhone && bookmarkTextPhone) {
+      bookmarkPhone.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (checkAuth(filmId)) {
+          if (!bookmarkColorPhone.classList.contains('in-favourite')) {
+            this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, true);
+            bookmarkTextPhone.textContent = "В избранном";
+          } else if (bookmarkColorPhone.classList.contains('in-favourite')) {
+            bookmarkTextPhone.textContent = "В избранное";
+            this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
+          }
+        }
+        bookmarkColorPhone.classList.toggle('in-favourite');
       });
     }
   }

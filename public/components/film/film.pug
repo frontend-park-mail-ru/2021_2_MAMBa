@@ -10,7 +10,10 @@ div.wrapper
                 if (!bookmarked)
                     div(class = "bookmark not_favourite")
                 else
-                    div(class = "favourite bookmark")
+                    div(class = "bookmark favourite")
+            div.background
+                div.padding
+                div.film__pic_mobile(style=`background-image: url(${film.filmAvatar})`)
             div(class ="film__text info__text")
                 div.info__main
                     div.info__name
@@ -18,7 +21,14 @@ div.wrapper
                         div.info__en-name #{film.titleOriginal}
                     div.star-rating
                         div(class ="rating-number-stars star-rating__scors")  #{film.rating}
-                        div(class = "star-rating__pic")
+                            div(class = "star-rating__pic")
+                        div.bookmark-phone
+                            if (!bookmarked)
+                                div(class = "bookmark_mobile")
+                                div.bookmark-text В избранное
+                            else
+                                div(class = "bookmark_mobile in-favourite")
+                                div.bookmark-text В избранном
                 div.info__facts-container
                     div.info__heading-facts О фильме
                     div.fact
@@ -34,7 +44,7 @@ div.wrapper
                               if index !== 0
                                   span
                                       = ',    '
-                              a(class='change-color-text-href' href=`${genre.trailerUrl}`) #{genre.name}
+                              a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
                     div.fact
                         div.fact__key Продолжительность
                         div.fact__value #{film.duration}

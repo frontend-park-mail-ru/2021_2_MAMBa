@@ -6,6 +6,10 @@
     margin: 20px auto 40px auto;
   }
 }
+.user-rating {
+  display: flex;
+  //justify-content: center;
+}
 
 .bookmark {
   position: absolute;
@@ -17,6 +21,10 @@
   background-size: cover;
   border-radius: 3px;
   background-image: url(static/pics/bookmark.png);
+}
+
+.bookmark-phone {
+  display:none;
 }
 
 .not_favourite {
@@ -42,6 +50,7 @@
     font-family: "Montserrat-Bold", "Arial", sans-serif;;
     font-size: 40px;
     color: $pink;
+    display: flex;
   }
 
   &__pic {
@@ -221,7 +230,7 @@
 
   }
   .rating-item {
-    width: 28px;
+    width: 30px;
     height: 28px;
     background-size: cover;
   }
@@ -229,6 +238,48 @@
 }
 
 @media (max-width: $phoneSize) {
+  .padding{
+    height:36px;
+    width: 100%;
+  }
+  .bookmark_mobile {
+    margin-bottom: 2px;
+    width: 14px;
+    height: 20px;
+    cursor: pointer;
+    align-self: center;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 3px;
+    background-image: url(static/pics/grey-bookmark.png);
+  }
+  .in-favourite{
+    background-image: url(static/pics/pink-bookmark.png);
+  }
+  .bookmark-phone {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .info__pic{
+    display: none;
+  }
+
+  .bookmark-text{
+    text-align: center;
+    font-size: 13px;
+    color: $gray-menu;
+  }
+  .background{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    background-color: #5F5E5E;
+    //width: 256px;
+    height: 380px;
+  }
+
   .film {
     &__container {
       padding: 0;
@@ -242,19 +293,34 @@
       padding: 0 0 0 16px ;
     }
 
-    &__pic {
+    &__pic_mobile {
+      /* Create the parallax scrolling effect */
+      background-size: contain;
+      background-attachment: fixed;
+      //background-position: center;
+      background-repeat: no-repeat;
+      //background-size: cover;
+      /* The image used */
+      //background-image: url('./static/pics/bg_auth.jpg');
+
+      /* Set a specific height */
+      height: 380px;
+      width: 256px;
+      border-radius:10px;
+      //height: 380px;
+
       position: relative;
-      overflow: hidden;
-      height: 220px;
-      padding-top: 36px;
-      padding-bottom: 36px;
-      background-color: #5F5E5E;
-      & img {
-        width: 256px;
-        height: 380px;
-        display: block;
-        margin: 0 auto;
-      }
+      //overflow: hidden;
+      //height: 220px;
+      //padding-top: 36px;
+      //padding-bottom: 36px;
+
+      //& img {
+      //  width: 256px;
+      //  height: 380px;
+      //  display: block;
+      //  margin: 0 auto;
+      //}
     }
 
     &__text {
@@ -268,7 +334,9 @@
     }
   }
   .star-rating {
+    margin-top: 10px;
     justify-content: center;
+    gap: 16px;
 
     &__scors {
       text-align: center
@@ -301,7 +369,7 @@
     }
 
     .rating-item {
-      width: 22px;
+      width: 24px;
       height: 22px;
       background-size: cover;
     }

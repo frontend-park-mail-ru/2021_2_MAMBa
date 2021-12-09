@@ -11,7 +11,6 @@ export const slider = (selector) => {
 
   let slideIndex = 0;
   let movePosition = sliderList.offsetWidth;
-  let sliderHeight = sliderList.offsetHeight;
   let slidesToShow = Math.floor(movePosition / itemWidth)
 
 
@@ -19,7 +18,7 @@ export const slider = (selector) => {
   prev.classList.toggle('disabled', slideIndex === 0);
   next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
 
-  let borderToSlide = (countItems-(slidesToShow+1))*itemWidth + itemWidth - (movePosition-itemWidth*slidesToShow);
+  let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
   console.log(borderToSlide)
 
   arrows.addEventListener('click', (e) => {
@@ -34,16 +33,22 @@ export const slider = (selector) => {
     slide();
   });
 
+  function stop(e) {
+    console.log("in stop")
+    e = e || event;
+    e.preventDefault;
+  }
+
   const slide = (toSlide) => {
     sliderTrack.style.transition = 'transform .5s';
-    console.log("32")
-    // console.log(slideIndex)
     if (slideIndex < 0)
       slideIndex = 0
     if (toSlide)
       sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
-    else if (slideIndex <= countItems - slidesToShow)
-      sliderTrack.style.transform = `translate3d(-${slideIndex * itemWidth}px, 0px, 0px)`;
+    else {
+      let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth
+      sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
+    }
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
   };
@@ -104,42 +109,36 @@ export const slider = (selector) => {
       let posY = Math.abs(posY2);
       console.log("Yp,", posY, posX2)
       console.log("scroll,", isScroll)
-      // if (posY > 7 || posX2 === 0) {
       if (posY >= 7) {
         isScroll = true;
         console.log("after,", isScroll)
-        document.body.style.overflow = ""
         allowSwipe = false;
       } else if (posY < 7) {
         isSwipe = true;
-        document.body.style.overflow = "hidden"
+        stop();
       }
     }
 
     if (isSwipe) {
-      if (slideIndex === 0) {
-        if (posInit < posX1) {
-          setTransform(transform, 0);
-          return;
-        } else {
-          allowSwipe = true;
-        }
-      }
-
-      // запрет ухода вправо на последнем слайде
-      if (slideIndex >= countItems - slidesToShow) {
-        if (posInit > posX1) {
-          setTransform(transform, lastTrf);
-          return;
-        } else {
-          allowSwipe = true;
-        }
-      }
-
-      // if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
-      //   reachEdge();
-      //   return;
+      // if (slideIndex === 0) {
+      //   if (posInit < posX1) {
+      //     setTransform(transform, 0);
+      //     return;
+      //   } else {
+      //     allowSwipe = true;
+      //   }
       // }
+      //
+      // // запрет ухода вправо на последнем слайде
+      // if (slideIndex >= countItems - slidesToShow) {
+      //   if (posInit > posX1) {
+      //     setTransform(transform, lastTrf);
+      //     return;
+      //   } else {
+      //     allowSwipe = true;
+      //   }
+      // }
+
       sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
     }
 
@@ -164,33 +163,28 @@ export const slider = (selector) => {
         }
       }
       if (posInit !== posX1 && !isScroll) {
-
-
-         widthSlide += (posInit - posX1) * 5
-        if (widthSlide> borderToSlide)
+        widthSlide += (posInit - posX1) * 5
+        if (widthSlide > borderToSlide)
           widthSlide = borderToSlide
-        if (widthSlide<=0)
-            widthSlide = 0
+        if (widthSlide <= 0)
+          widthSlide = 0
         slide(widthSlide);
-
       } else {
         allowSwipe = true;
       }
     }
     isScroll = false;
-    // allowSwipe = true;
   };
   const setTransform = (transform, compareTransform) => {
     if (transform <= compareTransform) {
       sliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`;
     }
-    // allowSwipe = false;
   }
-  const reachEdge = () => {
-    transition = false;
-    swipeEnd();
-    // allowSwipe = true;
-  };
+  // const reachEdge = () => {
+  //   transition = false;
+  //   swipeEnd();
+  //   // allowSwipe = true;
+  // };
 
   sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
   sliderList.classList.add('grab');

@@ -6,15 +6,24 @@ export const slider = (selector) => {
   let arrows = slider.querySelector('.slider-arrows');
   let prev = arrows.children[0];
   let next = arrows.children[1];
+  let itemToSlide = 0
   let itemWidth = slides[0].offsetWidth;
+  // if (itemWidth < 200) {
+  //   let itemToSlide = 3
+  // }
+
   let slideIndex = 0;
   let movePosition = sliderList.offsetWidth;
   let sliderHeight = sliderList.offsetHeight;
   let slidesToShow = Math.floor(movePosition / itemWidth)
 
+
   const countItems = slides.length;
   prev.classList.toggle('disabled', slideIndex === 0);
   next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+
+  let borderToSlide = (countItems-(slidesToShow+1))*itemWidth + itemWidth - (movePosition-itemWidth*slidesToShow);
+  console.log(borderToSlide)
 
   arrows.addEventListener('click', (e) => {
     let target = e.target;
@@ -28,14 +37,15 @@ export const slider = (selector) => {
     slide();
   });
 
-  const slide = () => {
+  const slide = (toSlide) => {
     sliderTrack.style.transition = 'transform .5s';
     console.log("32")
-    console.log(slideIndex)
+    // console.log(slideIndex)
     if (slideIndex < 0)
       slideIndex = 0
-
-    if (slideIndex <= countItems - slidesToShow)
+    if (toSlide)
+      sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
+    else if (slideIndex <= countItems - slidesToShow)
       sliderTrack.style.transform = `translate3d(-${slideIndex * itemWidth}px, 0px, 0px)`;
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
@@ -84,6 +94,7 @@ export const slider = (selector) => {
   const lastTrf = -(countItems * itemWidth);
 
   const swipeAction = () => {
+    allowSwipe = true;
     let evt = getEvent(),
         style = sliderTrack.style.transform,
         transform = +style.match(trfRegExp)[0];
@@ -93,15 +104,16 @@ export const slider = (selector) => {
     posY2 = posY1 - evt.clientY;
     posY1 = evt.clientY;
 
-    // if (!isSwipe && !isScroll) {
-    //   let posY = Math.abs(posY2);
-    //   if (posY > sliderHeight || posX2 === 0) {
-    //     isScroll = true;
-    //     allowSwipe = false;
-    //   } else if (posY < 7) {
-    //     isSwipe = true;
-    //   }
-    // }
+    if (!isSwipe && !isScroll) {
+      console.log("tut kto-to est]&(")
+      let posY = Math.abs(posY2);
+      if (posY > sliderHeight || posX2 === 0) {
+        isScroll = true;
+        allowSwipe = false;
+      } else if (posY < sliderHeight) {
+        isSwipe = true;
+      }
+    }
 
     if (isSwipe) {
       if (slideIndex === 0) {
@@ -115,7 +127,7 @@ export const slider = (selector) => {
 
       // запрет ухода вправо на последнем слайде
       if (slideIndex >= countItems - slidesToShow) {
-        console.log(transform, lastTrf)
+        // console.log(transform, lastTrf)
         if (posInit > posX1) {
           setTransform(transform, lastTrf);
           return;
@@ -124,11 +136,14 @@ export const slider = (selector) => {
         }
       }
 
-      if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
-        reachEdge();
-        return;
-      }
+      // if (posInit > posX1 && transform < nextTrf || posInit < posX1 && transform > prevTrf) {
+      //   reachEdge();
+      //   return;
+      // }
       console.log("124")
+      console.log(posInit, posX1)
+      let itemToSlide = (posInit - posX1)
+      console.log(itemToSlide)
       sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
     }
   };
@@ -153,7 +168,14 @@ export const slider = (selector) => {
       }
       if (posInit !== posX1) {
         // allowSwipe = false;
-        slide();
+        // console.log(posInit, posX1)
+         itemToSlide += (posInit - posX1) * 5
+        if (itemToSlide> borderToSlide)
+          itemToSlide = borderToSlide
+        if (itemToSlide<=0)
+            itemToSlide = 0
+        console.log(itemToSlide)
+        slide(itemToSlide);
       } else {
         allowSwipe = true;
       }

@@ -4,7 +4,7 @@ include ../reviewSlider/reviewSlider
 include ../writeReview/writeReview
 div.wrapper
     div(class = "film page__container film__container")
-        div(class ="info block ")
+        div(class ="info block")
             div(class = "film__pic info__pic")
                 img(src=film.filmAvatar)
                 if (!bookmarked)
@@ -87,7 +87,7 @@ div.wrapper
                 div.block-subtitle Отзывы
                 +reviewSlider(reviews)
 
-        div(class ="films__show-more  block")
+        div(class ="film__show-more  block ")
             div.block-subtitle С фильмом
                 span
                     = ' '
@@ -95,7 +95,7 @@ div.wrapper
                 span
                     = ' смотрят'
             +slider(recommendations)
-        div(class ="film-review")
+        div(class ="film-review film__block")
             if (myReview.reviewText === 0)
                 div(class = "block-subtitle film-review__subtitle")#review Написать отзыв
                 +inputReview

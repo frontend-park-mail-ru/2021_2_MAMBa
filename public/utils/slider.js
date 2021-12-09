@@ -108,6 +108,7 @@ export const slider = (selector) => {
       if (posY >= 7) {
         isScroll = true;
         console.log("after,", isScroll)
+        document.body.style.overflow = ""
         allowSwipe = false;
       } else if (posY < 7) {
         isSwipe = true;
@@ -171,7 +172,7 @@ export const slider = (selector) => {
         if (widthSlide<=0)
             widthSlide = 0
         slide(widthSlide);
-        document.body.style.overflow = ""
+
       } else {
         allowSwipe = true;
       }

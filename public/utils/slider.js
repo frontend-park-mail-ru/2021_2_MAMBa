@@ -105,12 +105,13 @@ export const slider = (selector) => {
       console.log("Yp,", posY, posX2)
       console.log("scroll,", isScroll)
       // if (posY > 7 || posX2 === 0) {
-      if (posY > 7) {
+      if (posY >= 7) {
         isScroll = true;
         console.log("after,", isScroll)
         allowSwipe = false;
       } else if (posY < 7) {
         isSwipe = true;
+        document.body.style.overflow = "hidden"
       }
     }
 
@@ -162,16 +163,18 @@ export const slider = (selector) => {
         }
       }
       if (posInit !== posX1 && !isScroll) {
+
+
          widthSlide += (posInit - posX1) * 5
         if (widthSlide> borderToSlide)
           widthSlide = borderToSlide
         if (widthSlide<=0)
             widthSlide = 0
         slide(widthSlide);
+        document.body.style.overflow = ""
       } else {
         allowSwipe = true;
       }
-
     }
     isScroll = false;
     // allowSwipe = true;

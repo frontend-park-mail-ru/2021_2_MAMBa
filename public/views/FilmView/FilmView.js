@@ -53,7 +53,7 @@ export class FilmView extends BaseView {
 
   setReadMore = (data) => {
     const summery = document.querySelector('.trailer__summery');
-    if (summery.clientHeight > 150) {
+    if (summery.clientHeight > 135) {
       const template = readMore(data);
       const content = document.querySelector('.trailer__summery');
       if (content) {

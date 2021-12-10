@@ -5,15 +5,16 @@ include ../writeReview/writeReview
 div.wrapper
     div(class = "film page__container film__container")
         div(class ="info block")
-            div(class = "film__pic info__pic")
-                img(src=film.filmAvatar)
+            div(class = " info__pic")
+                img(class = "film__pic" src=film.filmAvatar)
+                div.film__background
+                    img(src=film.filmAvatar)
+                    div.film__poster
+                        img(src=film.filmAvatar)
                 if (!bookmarked)
                     div(class = "bookmark not_favourite")
                 else
                     div(class = "bookmark favourite")
-            div.background
-                div.padding
-                div.film__pic_mobile(style=`background-image: url(${film.filmAvatar})`)
             div(class ="film__text info__text")
                 div.info__main
                     div.info__name
@@ -31,39 +32,40 @@ div.wrapper
                                 div.bookmark-text В избранном
                 div.info__facts-container
                     div.info__heading-facts О фильме
-                    div.fact
-                        div.fact__key Год производсва
+                    div(class = "fact film__fact")
+                        div(class = "fact__key fact__key_invisible") Год производсва
                         div.fact__value #{film.year}
-                    div.fact
-                        div.fact__key  Страна
+                    div(class = "fact film__fact")
+                        div(class = "fact__key fact__key_invisible") Страна
                         div.fact__value #{film.countryOriginal}
-                    div.fact
-                        div.fact__key  Жанр
+
+                    div(class = "fact film__fact")
+                        div(class = "fact__key fact__key_invisible") Продолжительность
+                        div.fact__value #{film.duration}
+                    div(class = "fact film__fact")
+                        div(class = "fact__key fact__key_invisible")  Жанр
                         div.fact__value
                           each genre, index in film.genres
                               if index !== 0
                                   span
                                       = ',    '
                               a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
-                    div.fact
-                        div.fact__key Продолжительность
-                        div.fact__value #{film.duration}
-                    div.fact
-                        div.fact__key В главных ролях
+                    div(class = "fact film__fact")
+
+                    div(class = "fact film__fact")
+                        div.fact__key  Режиссёр
+                        div.fact__value #{film.director}
+                    div(class = "fact film__fact")
+                        div.fact__key Сценарист
+                        div.fact__value #{film.screenwriter}
+                    div(class = "fact film__fact")
+                        div.fact__key В ролях
                         div.fact__value
                           each actor, index in film.actors
-                              if index !== 0
+                              if index != 0
                                   span
                                       = ',    '
                               a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
-                    div.fact
-                        div.fact__key  Режиссёр
-                        div.fact__value #{film.director}
-                    div.fact
-                        div.fact__key Сценарист
-                        div.fact__value #{film.screenwriter}
-                div.bookmark__mobile
-                div.rate__modile
         div(class = "trailer block")
             div(class = "trailer__video")
                 a(class ="trailer__button button" ref=`${film.trailerUrl}`) Трейлер

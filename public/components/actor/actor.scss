@@ -6,6 +6,10 @@
     flex-direction: column;
   }
 
+  &__info{
+    display:flex;
+  }
+
   &__biography {
     margin-top: $block_indentation;
   }
@@ -47,7 +51,7 @@
   border: 4px solid $purple-button;
   font-family: "Montserrat-Bold", "Arial", sans-serif;
   font-size: 20px;
-  padding: 8px 40px;
+  padding: 8px 60px;
   color: $purple-button;
   max-width: 70px;
 

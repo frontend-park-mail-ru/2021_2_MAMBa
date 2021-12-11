@@ -1,171 +1,172 @@
 export const slider = (selector) => {
-  let slider = document.querySelector(selector);
-  let sliderList = slider.querySelector('.slider-list');
-  let sliderTrack = slider.querySelector('.slider-track');
-  let slides = slider.querySelectorAll('.slide');
-  let arrows = slider.querySelector('.slider-arrows');
-  let prev = arrows.children[0];
-  let next = arrows.children[1];
-  let widthSlide = 0
-  let itemWidth = slides[0].offsetWidth;
+  const slider = document.querySelector(selector);
+  if (slider) {
+    const sliderList = slider.querySelector('.slider-list');
+    const sliderTrack = slider.querySelector('.slider-track');
+    const slides = slider.querySelectorAll('.slide');
+    const arrows = slider.querySelector('.slider-arrows');
+    const prev = arrows.children[0];
+    const next = arrows.children[1];
+    let widthSlide = 0;
+    const itemWidth = slides[0].offsetWidth;
 
-  let slideIndex = 0;
-  let movePosition = sliderList.offsetWidth;
-  let slidesToShow = Math.floor(movePosition / itemWidth)
+    let slideIndex = 0;
+    const movePosition = sliderList.offsetWidth;
+    const slidesToShow = Math.floor(movePosition / itemWidth);
 
-  const countItems = slides.length;
-  prev.classList.toggle('disabled', slideIndex === 0);
-  next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
-
-  let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
-  if (countItems<=slidesToShow)
-    borderToSlide =0
-  console.log(countItems,slidesToShow, borderToSlide)
-
-  arrows.addEventListener('click', (e) => {
-    let target = e.target;
-    if (target.classList.contains('slider__button_right')) {
-      slideIndex++;
-    } else if (target.classList.contains('slider__button_left')) {
-      slideIndex--;
-    } else {
-      return;
-    }
-    slide();
-  });
-
-  const slide = (toSlide) => {
-    sliderTrack.style.transition = 'transform .5s';
-    if (slideIndex < 0)
-      slideIndex = 0
-    if (toSlide)
-      sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
-    else {
-      let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth
-      sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
-    }
+    const countItems = slides.length;
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
-  };
 
-  function stop(e) {
-    console.log("in stop")
-    e = e || event;
-    e.preventDefault;
-  }
+    let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
+    if (countItems <= slidesToShow) {
+      borderToSlide = 0;
+    }
 
+    if (arrows && prev && next) {
+      arrows.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.classList.contains('slider__button_right')) {
+          slideIndex++;
+        } else if (target.classList.contains('slider__button_left')) {
+          slideIndex--;
+        } else {
+          return;
+        }
+        slide();
+      });
+    }
 
-  const getEvent = () => {
-    return (event.type.search('touch') !== -1) ? event.touches[0] : event;
-  };
+    const slide = (toSlide) => {
+      if (sliderTrack) {
+        sliderTrack.style.transition = 'transform .5s';
+        if (toSlide) {
+          sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
+        } else {
+          if (slideIndex < 0) {
+            slideIndex = 0;
+          }
+          const slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
+          sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
 
-  let transition = true;
-  let posInit = 0,
-      posX1 = 0,
-      posX2 = 0,
-      posY1 = 0,
-      posY2 = 0,
-      posFinal = 0,
-      isSwipe = false,
-      isScroll = false,
-      allowSwipe = true,
-      nextTrf = 0,
-      prevTrf = 0,
-      posThreshold = slides[0].offsetWidth * 0.35,
-      trfRegExp = /([-0-9.]+(?=px))/,
-      swipeStartTime,
-      swipeEndTime;
-  const swipeStart = () => {
-    let evt = getEvent();
+          prev.classList.toggle('disabled', slideIndex === 0);
+          next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+        }
+      }
+    };
 
-    if (allowSwipe) {
-      swipeStartTime = Date.now();
-      transition = true;
-      // nextTrf = (slideIndex + 1) * -itemWidth;
-      // prevTrf = (slideIndex - 1) * -itemWidth;
-      posInit = posX1 = evt.clientX;
+    const getEvent = () => {
+      return (event.type.search('touch') !== -1) ? event.touches[0] : event;
+    };
+
+    let transition = true;
+    let posInit = 0;
+    let posX1 = 0;
+    let posX2 = 0;
+    let posY1 = 0;
+    let posY2 = 0;
+    let posFinal = 0;
+    let isSwipe = false;
+    let isScroll = false;
+    let allowSwipe = true;
+    // const nextTrf = 0;
+    // const prevTrf = 0;
+    // const posThreshold = slides[0].offsetWidth * 0.35;
+    const trfRegExp = /([-0-9.]+(?=px))/;
+    let swipeStartTime;
+    let swipeEndTime;
+    const swipeStart = () => {
+      const evt = getEvent();
+      if (allowSwipe) {
+        swipeStartTime = Date.now();
+        transition = true;
+        // nextTrf = (slideIndex + 1) * -itemWidth;
+        // prevTrf = (slideIndex - 1) * -itemWidth;
+        posInit = posX1 = evt.clientX;
+        posY1 = evt.clientY;
+        sliderTrack.style.transition = '';
+        slider.addEventListener('touchmove', {handleEvent: swipeAction});
+        slider.addEventListener('touchend', swipeEnd);
+        sliderList.classList.remove('grab');
+        sliderList.classList.add('grabbing');
+      }
+    };
+
+    // const lastTrf = -(countItems * itemWidth);
+
+    const swipeAction = () => {
+      allowSwipe = true;
+      const evt = getEvent();
+      const style = sliderTrack.style.transform;
+      const transform = +style.match(trfRegExp)[0];
+      posX2 = posX1 - evt.clientX;
+      posX1 = evt.clientX;
+
+      posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
-      sliderTrack.style.transition = '';
-      slider.addEventListener('touchmove',{handleEvent: swipeAction});
-      slider.addEventListener('touchend', swipeEnd);
-      sliderList.classList.remove('grab');
-      sliderList.classList.add('grabbing');
-    }
-  };
 
-  // const lastTrf = -(countItems * itemWidth);
-
-  const swipeAction = () => {
-    allowSwipe = true;
-    let evt = getEvent(),
-        style = sliderTrack.style.transform,
-        transform = +style.match(trfRegExp)[0];
-    posX2 = posX1 - evt.clientX;
-    posX1 = evt.clientX;
-
-    posY2 = posY1 - evt.clientY;
-    posY1 = evt.clientY;
-
-    if (!isSwipe && !isScroll) {
-      let posY = Math.abs(posY2);
-      if (posY >= 7) {
-        isScroll = true;
-        allowSwipe = false;
-      } else if (posY < 7) {
-        isSwipe = true;
-        event.preventDefault();
+      if (!isSwipe && !isScroll) {
+        const posY = Math.abs(posY2);
+        if (posY >= 7) {
+          isScroll = true;
+          allowSwipe = false;
+        } else if (posY < 7) {
+          isSwipe = true;
+          event.preventDefault();
+        }
       }
-    }
 
-    if (isSwipe) {
-      sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
-    }
+      if (isSwipe) {
+        sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
+      }
+    };
+    const swipeEnd = () => {
+      posFinal = posInit - posX1;
+      isSwipe = false;
+      slider.removeEventListener('touchmove', swipeAction);
+      slider.removeEventListener('touchend', swipeEnd);
 
-  };
-  const swipeEnd = () => {
-    posFinal = posInit - posX1;
-    isSwipe = false;
-    slider.removeEventListener('touchmove', swipeAction);
-    slider.removeEventListener('touchend', swipeEnd);
+      sliderList.classList.add('grab');
+      sliderList.classList.remove('grabbing');
 
+      if (allowSwipe) {
+        swipeEndTime = Date.now();
+        // if (Math.abs(posFinal) > posThreshold || swipeEndTime - swipeStartTime < 300) {
+        //   if (posInit < posX1 && slideIndex > 0) {
+        //     slideIndex--;
+        //   } else if (posInit > posX1 && slideIndex < countItems - slidesToShow) {
+        //     slideIndex++;
+        //   }
+        // }
+        console.log(swipeEndTime - swipeStartTime, widthSlide, widthSlide + (posInit - posX1), borderToSlide)
+        if (posInit !== posX1 && !isScroll && swipeEndTime - swipeStartTime < 800) {
+          widthSlide += (posInit - posX1) * 3;
+          if (widthSlide > borderToSlide) {
+            widthSlide = borderToSlide;
+          }
+          if (widthSlide <= 0) {
+            widthSlide = 0;
+          }
+          slide(widthSlide);
+          // } else {
+          //   allowSwipe = true;
+        } else if (widthSlide + (posInit - posX1) > borderToSlide) {
+          slide(borderToSlide);
+          console.log("on border")
+          sliderTrack.style.transform = `translate3d(-${borderToSlide}px, 0px, 0px)`;
+
+        } else if (widthSlide + (posInit - posX1) <= 0) {
+          slide(0);
+          sliderTrack.style.transform = `translate3d(0px, 0px, 0px)`;
+        }
+
+      }
+      isScroll = false;
+    };
+
+    sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
     sliderList.classList.add('grab');
-    sliderList.classList.remove('grabbing');
-
-    if (allowSwipe) {
-      swipeEndTime = Date.now();
-      // if (Math.abs(posFinal) > posThreshold || swipeEndTime - swipeStartTime < 300) {
-      //   if (posInit < posX1 && slideIndex > 0) {
-      //     slideIndex--;
-      //   } else if (posInit > posX1 && slideIndex < countItems - slidesToShow) {
-      //     slideIndex++;
-      //   }
-      // }
-      if (posInit !== posX1 && !isScroll) {
-        widthSlide += (posInit - posX1) * 3
-        if (widthSlide > borderToSlide)
-          widthSlide = borderToSlide
-        if (widthSlide <= 0)
-          widthSlide = 0
-        slide(widthSlide);
-      } else {
-        allowSwipe = true;
-      }
-    }
-    isScroll = false;
-  };
-  // const setTransform = (transform, compareTransform) => {
-  //   if (transform <= compareTransform) {
-  //     sliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`;
-  //   }
-  // }
-  // const reachEdge = () => {
-  //   transition = false;
-  //   swipeEnd();
-  //   // allowSwipe = true;
-  // };
-
-  sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
-  sliderList.classList.add('grab');
-  sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
-  slider.addEventListener('touchstart', swipeStart);
-}
+    sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
+    slider.addEventListener('touchstart', swipeStart);
+  }
+};

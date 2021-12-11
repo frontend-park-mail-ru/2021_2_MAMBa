@@ -40,17 +40,19 @@ export class CalendarPageModel {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
-    getInfoAboutPremiers(year, month)
-        .then((response) => {
-          if (!response) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response?.status === statuses.OK && response.body) {
-            this.eventBus.emit(EVENTS.calendarPage.render.films,
-                convertArrayToCalendarPage(response.body, year, month));
-          } else if (response.status === statuses.NOT_FOUND) {
-            this.eventBus.emit(EVENTS.calendarPage.render.notFoundPremiers,
-                convertDateToCalendarPage(month, year), year, month);
-          }
-        });
+    setTimeout(async () => {
+      getInfoAboutPremiers(year, month)
+          .then((response) => {
+            if (!response) {
+              this.eventBus.emit(EVENTS.App.ErrorPage);
+            } else if (response?.status === statuses.OK && response.body) {
+              this.eventBus.emit(EVENTS.calendarPage.render.films,
+                  convertArrayToCalendarPage(response.body, year, month));
+            } else if (response.status === statuses.NOT_FOUND) {
+              this.eventBus.emit(EVENTS.calendarPage.render.notFoundPremiers,
+                  convertDateToCalendarPage(month, year), year, month);
+            }
+          });
+    }, 300);
   }
 }

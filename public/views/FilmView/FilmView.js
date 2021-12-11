@@ -7,7 +7,7 @@ import {checkAuth, renderWarning} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
 import {ratingNumber} from '../../modules/adapters';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {slider} from "../../utils/slider";
+import {slider} from '../../utils/slider';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -37,7 +37,7 @@ export class FilmView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      if (data.myReview.reviewText === 0){
+      if (data.myReview.reviewText === 0) {
         this.addSubmitSendReviewListener(data.film.id);
       }
       this.rating(data.film.id);
@@ -116,9 +116,9 @@ export class FilmView extends BaseView {
         if (checkAuth(filmId)) {
           if (!bookmarkColorPhone.classList.contains('in-favourite')) {
             this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, true);
-            bookmarkTextPhone.textContent = "В избранном";
+            bookmarkTextPhone.textContent = 'В избранном';
           } else if (bookmarkColorPhone.classList.contains('in-favourite')) {
-            bookmarkTextPhone.textContent = "В избранное";
+            bookmarkTextPhone.textContent = 'В избранное';
             this.eventBus.emit(EVENTS.filmPage.postBookmark, filmId, false);
           }
         }
@@ -282,14 +282,14 @@ export class FilmView extends BaseView {
   renderSuccessfulSend = () => {
     const sendButton = this.getSendButtonFromDom();
     if (sendButton) {
-      sendButton.outerHTML = "<button class = 'send-review-success' > Ваш отзыв опубликован</button>";
+      sendButton.outerHTML = '<button class = \'send-review-success\' > Ваш отзыв опубликован</button>';
     }
     const clearButton = document.querySelector('.clear-button');
     if (clearButton) {
       if (clearButton) {
         clearButton.classList.add('disabled-clear-button');
         clearButton.classList.remove('clear-button');
-        clearButton.setAttribute('disabled', "disabled");
+        clearButton.setAttribute('disabled', 'disabled');
       }
     }
 
@@ -298,10 +298,10 @@ export class FilmView extends BaseView {
     const neutralButton = document.querySelector('.type-neutral');
     const negativeButton = document.querySelector('.type-negative');
     if (positiveButton && neutralButton && negativeButton && reviewInput) {
-      reviewInput.setAttribute('disabled', "disabled");
-      positiveButton.setAttribute('disabled', "disabled");
-      neutralButton.setAttribute('disabled', "disabled");
-      negativeButton.setAttribute('disabled', "disabled");
+      reviewInput.setAttribute('disabled', 'disabled');
+      positiveButton.setAttribute('disabled', 'disabled');
+      neutralButton.setAttribute('disabled', 'disabled');
+      negativeButton.setAttribute('disabled', 'disabled');
     }
   }
 }

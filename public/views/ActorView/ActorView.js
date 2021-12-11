@@ -5,7 +5,7 @@ import {getPathArgs} from '../../modules/router.js';
 import {showMore} from '../../utils/showMore.js';
 import {checkShowMoreButton} from '../../utils/showMore.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
-import {slider} from "../../utils/slider";
+import {slider} from '../../utils/slider';
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {

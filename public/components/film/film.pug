@@ -51,13 +51,13 @@ div.wrapper
                                       = ',    '
                               a(class='change-color-text-href' href=`${genre.href}`) #{genre.name}
                     div(class = "fact film__fact")
-
-                    div(class = "fact film__fact")
                         div.fact__key  Режиссёр
-                        div.fact__value #{film.director}
+                        div.fact__value
+                            a(class='change-color-text-href' href=`${film.directorHref}`) #{film.director}
                     div(class = "fact film__fact")
                         div.fact__key Сценарист
-                        div.fact__value #{film.screenwriter}
+                        div.fact__value
+                            a(class='change-color-text-href' href=`${film.screenwriterHref}`) #{film.screenwriter}
                     div(class = "fact film__fact")
                         div.fact__key В ролях
                         div.fact__value
@@ -98,7 +98,6 @@ div.wrapper
             if (reviews.length !== 0)
                 div.block-subtitle Отзывы
                 +reviewSlider(reviews)
-
         div(class ="film__show-more  block ")
             div.block-subtitle С фильмом
                 span

@@ -60,6 +60,7 @@ export class CalendarView extends BaseView {
         data.year = newData[0];
         data.month = newData[1];
         this.isLoading = true;
+
         eventBus.emit( EVENTS.calendarPage.getFilms, data.year, data.month);
       }
     });

@@ -169,11 +169,13 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
     rating: rating,
-    trailerUrl: arrayContent?.trailer_url || "-",
+    trailerUrl: arrayContent?.trailer_url || '-',
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
     director: arrayContent?.director.name_rus || '-',
+    directorHref: `/actors/${arrayContent.director.id}`,
     screenwriter: arrayContent?.screenwriter.name_rus || '-',
+    screenwriterHref: `/actors/${arrayContent.screenwriter.id}`,
     actors: convertArrayToActorArray(arrayContent?.cast) || '-',
   };
 };

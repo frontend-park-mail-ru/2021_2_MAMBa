@@ -437,7 +437,7 @@ const getGenreFilms = async (genreId, skip, limit) => {
  */
 const getInfoAboutPremiers = async (year, month) => {
   const params = {
-    url: `${URLS.api.calendar}?month=${month}&year=${year}&skip=0&limit=5`,
+    url: `${URLS.api.calendar}?month=${month}&year=${year}&skip=0&limit=10`,
     method: 'GET',
   };
 

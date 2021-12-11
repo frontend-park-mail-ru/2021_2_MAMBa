@@ -131,14 +131,6 @@ export const slider = (selector) => {
 
       if (allowSwipe) {
         swipeEndTime = Date.now();
-        // if (Math.abs(posFinal) > posThreshold || swipeEndTime - swipeStartTime < 300) {
-        //   if (posInit < posX1 && slideIndex > 0) {
-        //     slideIndex--;
-        //   } else if (posInit > posX1 && slideIndex < countItems - slidesToShow) {
-        //     slideIndex++;
-        //   }
-        // }
-        console.log(swipeEndTime - swipeStartTime, widthSlide, widthSlide + (posInit - posX1), borderToSlide)
         if (posInit !== posX1 && !isScroll && swipeEndTime - swipeStartTime < 800) {
           widthSlide += (posInit - posX1) * 3;
           if (widthSlide > borderToSlide) {
@@ -148,13 +140,9 @@ export const slider = (selector) => {
             widthSlide = 0;
           }
           slide(widthSlide);
-          // } else {
-          //   allowSwipe = true;
         } else if (widthSlide + (posInit - posX1) > borderToSlide) {
           slide(borderToSlide);
-          console.log("on border")
           sliderTrack.style.transform = `translate3d(-${borderToSlide}px, 0px, 0px)`;
-
         } else if (widthSlide + (posInit - posX1) <= 0) {
           slide(0);
           sliderTrack.style.transform = `translate3d(0px, 0px, 0px)`;

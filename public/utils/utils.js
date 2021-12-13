@@ -24,7 +24,6 @@ export const checkAuth = (id) =>{
   return true;
 };
 
-
 /**
  * Render warning to auth.
  * @param {string} text - Warning text to render.

@@ -7,7 +7,8 @@
     margin-bottom: 20px;
     border-bottom: 2px solid $pink;
   }
-  &__not-found{
+
+  &__not-found {
     height: 210px;
   }
 }
@@ -18,13 +19,9 @@
     padding-bottom: 30px;
     margin-bottom: 30px;
     border-bottom: 2px solid $grey-inputs;
+
     &:last-child {
       margin-bottom: 0;
-    }
-
-    @media (min-width: $md4+px) {
-      display: flex;
-      align-items: flex-start;
     }
   }
 
@@ -34,18 +31,10 @@
     border-radius: 6px;
     min-height: 210px;
     overflow: hidden;
-    @media (max-width: $md4+px) {
-      min-height: 0;
-      margin-bottom: 17px;
-      padding: 150% 0 0 0;
-    }
   }
 
   &__body {
     flex: 1 1 auto;
-    @media (min-width: $md4+px) {
-      padding: 0 30px 0 20px;
-    }
   }
 
   &__title {
@@ -59,16 +48,10 @@
     &:hover {
       color: $pink;
     }
-    @media (max-width: $md4+px) {
-      font-size: 24px;
-    }
   }
 
-  &__data{
+  &__data {
     margin-bottom: 10px;
-    @media (max-width: $md4+px) {
-      margin-bottom: 0;
-    }
   }
 
   &__info {
@@ -77,7 +60,7 @@
     justify-content: space-between;
   }
 
-  &__add-info{
+  &__add-info {
     margin-bottom: 5px;
     color: $grey;
   }
@@ -97,18 +80,54 @@
   }
 
   &__day {
-    width:90px;
+    width: 90px;
     margin-bottom: 10px;
     line-height: 50px;
     text-align: center;
     font-size: 70px;
     font-family: "Montserrat-Black", "Arial", sans-serif;
-    @media (max-width: $md4+px) {
-      width: auto;
-    }
   }
 
   &__text {
     text-align: center;
+  }
+}
+
+@media (min-width: $phoneSize) {
+  .premiere {
+    &__item {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    &__body {
+      padding: 0 30px 0 20px;
+    }
+
+    &__title {
+      font-size: 24px;
+    }
+  }
+}
+
+@media (max-width: $phoneSize) {
+  .premiere {
+    &__image {
+      min-height: 0;
+      margin-bottom: 17px;
+      padding: 150% 0 0 0;
+    }
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__data {
+      margin-bottom: 0;
+    }
+
+    &__day {
+      width: auto;
+    }
   }
 }

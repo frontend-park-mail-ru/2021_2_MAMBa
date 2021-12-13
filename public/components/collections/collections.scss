@@ -5,20 +5,20 @@
     display: grid;
     row-gap: 30px;
     column-gap: 20px;
-    @media (max-width: $md1+px) {
+    @media (max-width: $notebookSize) {
       row-gap: 20px;
     }
-    @media (max-width: $md4+px) {
+    @media (max-width: $phoneSize) {
       column-gap: 12px;
       row-gap: 12px;
     }
 
     &_column-number {
       grid-template-columns: repeat(4, 1fr);
-      @media (max-width: $md1+px) {
+      @media (max-width: $notebookSize) {
         grid-template-columns: repeat(3, 1fr);
       }
-      @media (max-width: $md3+px) {
+      @media (max-width: $padSize) {
         grid-template-columns: repeat(2, 1fr);
       }
     }

@@ -55,12 +55,17 @@ export class CalendarView extends BaseView {
       const yOffset = window.pageYOffset;
       const windowHeight = window.innerHeight;
       const y = yOffset + windowHeight;
-      if (y >= contentHeight + 300 && condition) {
+      if (y >= contentHeight + 300 && condition && data.year<2024) {
         const newData = nextMonth(data.year, data.month);
         data.year = newData[0];
         data.month = newData[1];
         this.isLoading = true;
         eventBus.emit( EVENTS.calendarPage.getFilms, data.year, data.month);
+      } else if (data.year>=2024){
+        const loader = document.querySelector('.load-infinit')
+        if (loader){
+          loader.innerHTML = ""
+        }
       }
     });
 

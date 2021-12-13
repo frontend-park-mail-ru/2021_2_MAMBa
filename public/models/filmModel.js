@@ -44,7 +44,7 @@ export class FilmPageModel {
    */
   postReview = (inputsData = {}) => {
     if (!authModule.user) {
-      renderWarning('Чтобы оставить отзыв, пожалуйста, <a href="/auth">зарегистрируйтесь</a>',
+      renderWarning(`Чтобы оставить отзыв, пожалуйста, <a href= /auth?redirect=films/${inputsData.film_id} class = "black_text">зарегистрируйтесь</a>`,
           'warning_no-auth');
       return;
     }
@@ -69,7 +69,7 @@ export class FilmPageModel {
     if (!authModule.user) {
       this.eventBus.emit(
           EVENTS.filmPage.render.warningRatingSend,
-          'Чтобы поставить оценку, пожалуйста, <a href="/auth" class = "white_text">зарегистрируйтесь</a>');
+          `Чтобы поставить оценку, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "white_text"">зарегистрируйтесь</a>`);
       return;
     }
     if (!filmId && !rating) {

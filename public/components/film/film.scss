@@ -7,6 +7,10 @@
   }
 }
 
+.user-rating {
+  display: flex;
+}
+
 .bookmark {
   position: absolute;
   top: 16px;
@@ -17,6 +21,10 @@
   background-size: cover;
   border-radius: 3px;
   background-image: url(static/pics/bookmark.png);
+}
+
+.bookmark-phone {
+  display: none;
 }
 
 .not_favourite {
@@ -42,6 +50,7 @@
     font-family: "Montserrat-Bold", "Arial", sans-serif;;
     font-size: 40px;
     color: $pink;
+    display: flex;
   }
 
   &__pic {
@@ -54,7 +63,7 @@
 }
 
 .trailer {
-  column-gap: 5%;
+  column-gap: 32px;;
   display: flex;
 
   &__video {
@@ -83,7 +92,7 @@
     color: $white;
     padding: 8px 20px;
     width: 130px;
-    height: 24px;
+    height: 30px;
     justify-content: center;
     align-items: center;
 
@@ -104,19 +113,20 @@
     display: block;
   }
 
-  &_summery {
+  &__summery {
     letter-spacing: 0.8px;
     font-size: 16px;
+    line-height: 20px;
   }
 }
 
 .rating-subtitle {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .film-info {
   &__reviews {
-    margin-top: $block_indentation;
+    margin-top: 20px;
   }
 }
 
@@ -200,17 +210,24 @@
   font-size: 16px;
 }
 
-@media (max-width: $md1+px) {
+@media (min-width: $phoneSize) {
+  .film {
+    &__background {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $notebookSize) {
   .film {
     &__container {
       max-width: none;
       padding: 0 32px;
     }
-
   }
 }
 
-@media (max-width: $md2+px) {
+@media (max-width: $horizontalPadSize) {
   .film {
     &__container {
       max-width: 750px;
@@ -221,38 +238,103 @@
 
   }
   .rating-item {
-    width: 28px;
+    width: 30px;
     height: 28px;
     background-size: cover;
   }
 
 }
 
-@media (max-width: $md4+px) {
+@media (max-width: $phoneSize) {
+  .padding {
+    height: 36px;
+    width: 100%;
+  }
+
+  .bookmark_mobile {
+    margin-bottom: 2px;
+    width: 14px;
+    height: 20px;
+    cursor: pointer;
+    align-self: center;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 3px;
+    background-image: url(static/pics/grey-bookmark.png);
+  }
+
+  .in-favourite {
+    background-image: url(static/pics/pink-bookmark.png);
+  }
+
+  .bookmark-phone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .bookmark-text {
+    text-align: center;
+    font-size: 13px;
+    color: $gray-menu;
+  }
+
   .film {
     &__container {
       padding: 0;
       margin: 0;
     }
 
-    &__show-more {
+    &__block {
       padding: 0 16px;
     }
 
-    &__pic {
+    &__show-more {
+      padding: 0 0 0 16px;
+    }
+
+    &__background {
       position: relative;
       overflow: hidden;
       height: 220px;
-      padding-top: 36px;
+      padding-top: 22px;
       padding-bottom: 36px;
-      background-color: #5F5E5E;
+      background: grey;
+
+      & img {
+        position: absolute;
+        top: -10px;
+        width: 120%;
+        height: 500px;
+        object-fit: cover;
+        -webkit-filter: blur(70px);
+      }
     }
 
-    & img {
+    &__poster {
+      position: relative;
+      display: block;
+      overflow: hidden;
       width: 256px;
       height: 380px;
-      display: block;
       margin: 0 auto;
+      -webkit-filter: none;
+
+      & img {
+        width: 256px;
+        height: 380px;
+        border-radius: 8px;
+        object-fit: cover;
+        -webkit-filter: none;
+      }
+    }
+
+    &__pic {
+      display: none;
+    }
+
+    &__fact{
+      justify-content: center;
     }
 
     &__text {
@@ -265,8 +347,13 @@
 
     }
   }
+  .bookmark {
+    display: none;
+  }
   .star-rating {
+    margin-top: 10px;
     justify-content: center;
+    gap: 24px;
 
     &__scors {
       text-align: center
@@ -299,13 +386,16 @@
     }
 
     .rating-item {
-      width: 22px;
+      width: 24px;
       height: 22px;
       background-size: cover;
     }
   }
   .button__write-review {
     display: none;
+  }
+  .rating-subtitle {
+    margin-bottom: 10px;
   }
 
   .button__show-more {

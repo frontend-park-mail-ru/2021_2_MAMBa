@@ -2,7 +2,10 @@ include ../filmCard/filmCard
 div.wrapper
     main.page
         div(class = "genreFilms page__container _container")
-            h1(class="genre__main-title title") #{genreName}
+            h1(class="genreFilms__main-title title main-title  ") Жанр
+                span
+                    = ' '
+                span.color-text-pink #{genreName}
             div(class ="black-container")
                     if (filmsTotal>0)
                         div.film__items#infinite-scroll

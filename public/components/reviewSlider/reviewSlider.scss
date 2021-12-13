@@ -1,74 +1,83 @@
 @import '../../css/consts';
 
-.review-slider-container {
-  overflow: hidden;
-  position: relative;
+.review-slider {
+  &__indent {
+    margin-right: 20px;
+  }
 
-  &__track {
+  &__item {
+    text-decoration: none;
+    position: relative;
     display: flex;
-    transition: .2s;
-    row-gap: 30px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    height: 180px;
+    cursor: pointer;
+    padding: 20px;
+    color: $white;
+    border-radius: 10px;
+  }
 
-    &_review {
-      text-decoration: none;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-right: 20px;
-      padding: 20px;
-      color: $white;
-      border-radius: 10px;
+  &__name {
+    font-size: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-      &_name {
-        margin-bottom: 10px;
-        font-size: 16px;
-      }
+  &__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 20px;
+    font-weight: 600;
+  }
 
-      &_text {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin-bottom: 25px;
-        font-size: 20px;
-        font-weight: 600;
-      }
-
-      &_date {
-        font-size: 16px;
-        text-align: right;
-      }
-    }
+  &__date {
+    font-size: 16px;
+    text-align: right;
   }
 }
 
-.red{
-  background: linear-gradient(45deg, $vinous,$light-grey);
+.red {
+  background: linear-gradient(45deg, $vinous, $light-grey);
 }
 
-.green{
+.green {
   background: linear-gradient(45deg, $light-green, $light-grey);
 }
 
-.grey{
+.grey {
   background: linear-gradient(45deg, $grey, $light-grey);
 }
 
-.review-slider-container_button {
-  position: absolute;
-  top: 40%;
-  color: white;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  transition: 0.24s ease-in-out;
+@media (max-width: $phoneSize) {
+  .review-slider {
+    &__item {
+      width: 260px;
+      height: 150px;
+    }
 
-  &-right {
-    right: 0;
-  }
+    &__indent {
+      margin-right: 10px;
+    }
 
-  &:hover {
-    transform: scale(1.2);
+    &__name {
+      font-size: 14px;
+      //margin-bottom: 4px;
+    }
+
+    &__text {
+      font-size: 16px;
+      font-weight: 500;
+      //margin-bottom: 10px;
+    }
+
+    &__date {
+      font-size: 14px;
+    }
   }
 }

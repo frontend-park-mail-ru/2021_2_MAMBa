@@ -6,6 +6,7 @@ import {login, register} from '../modules/http';
 import {eventBus} from '../modules/eventBus';
 import {ROUTES} from '../consts/routes.js';
 import {statuses} from '../consts/reqStatuses.js';
+import {REGROUTES} from '../consts/routesRegExp';
 
 export class AuthPageModel extends Model {
   constructor(eventBus) {
@@ -14,7 +15,7 @@ export class AuthPageModel extends Model {
   }
 
   getContent = (routeData) => {
-    if (routeData.path.path === ROUTES.AuthPage) {
+    if (routeData.path.path.match(REGROUTES.AuthPage)) {
       this.getAuthContent();
     } else {
       this.getRegContent();
@@ -134,7 +135,7 @@ export class AuthPageModel extends Model {
     if (hasErrorInputs) {
       return;
     }
-    if (routeData?.path?.path === ROUTES.AuthPage) {
+    if (routeData?.path?.path.match(REGROUTES.AuthPage)) {
       login(inputsData).then((response) => {
         if (!response) {
           return;

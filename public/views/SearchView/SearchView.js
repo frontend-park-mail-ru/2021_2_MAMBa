@@ -54,7 +54,7 @@ export class SearchView extends BaseView {
     }
     if (!response.persons.person_list.length) {
       personsContainer.innerHTML = emptySignPug({
-        text: 'К сожалению, по вашему запросу актёров не найдено',
+        text: 'К сожалению, по вашему запросу персон не найдено',
         blockClass: 'empty-sign-block',
       });
       return;

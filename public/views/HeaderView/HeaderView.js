@@ -116,7 +116,7 @@ export class HeaderView extends BaseView {
     }
     input.addEventListener('keydown', (e) => {
       if (e.keyCode === enterCode) {
-        this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
+        this.eventBus.emit(EVENTS.PathChanged, {path: `/search?query=${input.value}`});
       }
     });
     const button = document.querySelector('.search__btn');
@@ -124,7 +124,7 @@ export class HeaderView extends BaseView {
       return;
     }
     button.addEventListener('click', (e) => {
-      this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
+      this.eventBus.emit(EVENTS.PathChanged, {path: `/search?query=${input.value}`});
     });
     const checkbox = document.querySelector('.search__checkbox');
     if (!checkbox) {

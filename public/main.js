@@ -13,7 +13,7 @@ import {SearchController} from './controllers/searchController.js';
 import {CalendarPageController} from './controllers/calendarController';
 
 import {Router} from './modules/router.js';
-import {ROUTES} from './consts/routes.js';
+import {REGROUTES} from './consts/routesRegExp.js';
 import {errorPage} from './modules/404.js';
 
 import './index.scss';
@@ -46,16 +46,16 @@ const searchController = new SearchController();
 
 const router = new Router(ROOT);
 
-router.register(ROUTES.homePage, homePageController)
-    .register(ROUTES.filmPage, filmPageController)
-    .register(ROUTES.reviewPage, reviewPageController)
-    .register(ROUTES.collectionPage, collectionPageController)
-    .register(ROUTES.AuthPage, authPageController)
-    .register(ROUTES.RegPage, authPageController)
-    .register(ROUTES.Profile, profileController)
-    .register(ROUTES.actorPage, actorPageController)
-    .register(ROUTES.genres, genresPageController)
-    .register(ROUTES.genrePage, genrePageController)
-    .register(ROUTES.calendarPage, calendarPageController)
-    .register(ROUTES.search, searchController)
+router.register(REGROUTES.homePage, homePageController)
+    .register(REGROUTES.filmPage, filmPageController)
+    .register(REGROUTES.reviewPage, reviewPageController)
+    .register(REGROUTES.collectionPage, collectionPageController)
+    .register(REGROUTES.AuthPage, authPageController)
+    .register(REGROUTES.RegPage, authPageController)
+    .register(REGROUTES.Profile, profileController)
+    .register(REGROUTES.actorPage, actorPageController)
+    .register(REGROUTES.genres, genresPageController)
+    .register(REGROUTES.genrePage, genrePageController)
+    .register(REGROUTES.calendarPage, calendarPageController)
+    .register(REGROUTES.search, searchController)
     .start();

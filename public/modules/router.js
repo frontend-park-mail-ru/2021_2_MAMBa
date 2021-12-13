@@ -93,8 +93,11 @@ export class Router {
     let targetController = null;
     const result = this.getParam(path);
 
+    console.log(`path=   ${path}`);
     this.routes.forEach(({path, controller}) => {
       const res = result.path.match(path);
+      console.log(path);
+      console.log(res);
       if (res) {
         targetController = controller;
       }
@@ -137,6 +140,10 @@ export class Router {
       this.currentController.unsubscribe();
     }
     this.currentController = routeData.controller;
+    if (!this.currentController) {
+      eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
     this.currentController.subscribe();
 
     if (!this.currentController) {

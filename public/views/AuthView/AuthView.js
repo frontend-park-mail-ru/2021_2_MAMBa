@@ -5,6 +5,7 @@ import authError from '../../components/auth/authError/authError.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {createElementFromHTML} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
+import {REGROUTES} from '../../consts/routesRegExp';
 
 export class AuthView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
@@ -111,7 +112,7 @@ export class AuthView extends BaseView {
   addSubmitListener = () => {
     const authForm = this.getAuthFormFromDom();
     const submitBtn = document.querySelector(
-        this.routeData.path.path === ROUTES.AuthPage ? '.auth__btn' : '.reg__btn');
+        this.routeData.path.path.match(REGROUTES.AuthPage) ? '.auth__btn' : '.reg__btn');
     if (!submitBtn) {
       return;
     }

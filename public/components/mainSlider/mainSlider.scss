@@ -1,0 +1,78 @@
+@import '../../css/consts';
+
+.main-slider {
+  &__indent {
+    margin-right: 20px;
+  }
+
+  &__item {
+    width: 1216px;
+    //padding-right: 16px;
+    height: 524px;
+    display: inline-block;
+    vertical-align: top;
+    white-space: initial
+  }
+
+  &__name {
+    font-family: "Montserrat-Black", "Arial", sans-serif;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 72%);
+    position: absolute;
+    margin-top: 5px;
+    font-size: 40px;
+    font-weight: 600;
+    color: $white;
+    z-index: 2;
+  }
+
+  &__poster {
+    position: absolute;
+    z-index: -1;
+    & img {
+      min-width: 100%;
+      width: 1196px;
+      text-align: center;
+      height: 524px;
+      min-height: 524px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+}
+
+.main-slider-list {
+  overflow: visible;
+  position: relative;
+}
+
+.main-slider-list.grab {
+  cursor: grab;
+}
+
+.main-slider-list.grabbing {
+  cursor: grabbing;
+}
+
+@media (max-width: $phoneSize) {
+  .main-slider {
+    &__indent {
+      margin-right: 10px;
+    }
+    &__item {
+      width: 350px+10px;
+      min-width: 350px+10px;
+      text-align: center;
+    }
+    &__poster {
+      & img {
+        height: 330px;
+        min-height: 330px;
+      }
+    }
+    &__name {
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}

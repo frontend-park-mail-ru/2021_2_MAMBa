@@ -8,6 +8,7 @@ export const EVENTS = {
     Start: 'app:start',
     ErrorPage: 'app:errorPage',
     noAccess: 'app:noAccess',
+    ErrorPageText: 'app:errorPageText',
   },
   Router: {
     Go: 'router:go',
@@ -21,6 +22,16 @@ export const EVENTS = {
     get: {
       infoForHeader: 'homepage:InfoForHeader',
       mainPageContent: 'homepage:getCollections',
+    },
+  },
+  collectionsPage: {
+    render: {
+      errorPage: 'collectionsPage:renderErrorPage',
+      header: 'collectionsPage:renderHeader',
+      content: 'collectionsPage:renderContent',
+    },
+    get: {
+      collectionsPageContent: 'collectionsPage:getCollections',
     },
   },
   genresPage: {

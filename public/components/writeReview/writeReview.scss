@@ -75,6 +75,9 @@
   font-size: 16px;
   color: $white;
   padding: 8px 120px;
+  @media (max-width: $notebookSize) {
+    padding: 8px 100px;
+  }
   @media (max-width: $phoneSize) {
     font-size: 12px;
     padding: 8px 10px;

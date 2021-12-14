@@ -1,10 +1,9 @@
 import {BaseView} from '../BaseView/BaseView.js';
-import homeContent from '../../components/homePage/homePage.pug';
+import collectionsContent from '../../components/collectionsPage/collectionsPage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {slider} from "../../utils/slider";
 
 /** Class representing home page view. */
-export class HomePageView extends BaseView {
+export class CollectionsPageView extends BaseView {
   /**
    * Create a home page view.
    * @param {EventBus} eventBus - Global Event Bus.
@@ -18,7 +17,7 @@ export class HomePageView extends BaseView {
    * Emit event to get content for homepage.
    */
   emitGetContent = () => {
-    this.eventBus.emit(EVENTS.homepage.get.mainPageContent);
+    this.eventBus.emit(EVENTS.collectionsPage.get.mainPageContent);
   }
 
   /**
@@ -26,11 +25,10 @@ export class HomePageView extends BaseView {
    * @param {object} collections - Contains info about collections.
    */
   renderContent = (collections) => {
-    const template = homeContent(collections);
+    const template = collectionsContent(collections);
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      slider('#main-slider');
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }

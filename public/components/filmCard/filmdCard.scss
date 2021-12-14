@@ -2,8 +2,8 @@
 
 .film {
   &__items {
-    display: grid;
-    row-gap: 30px;
+    //display: grid;
+    //row-gap: 30px;
   }
 
   &__item {
@@ -89,7 +89,7 @@
   @media (max-width: $padSize) {
     .film {
       &__items {
-        row-gap: 15px;
+        //row-gap: 15px;
       }
 
       &__item {

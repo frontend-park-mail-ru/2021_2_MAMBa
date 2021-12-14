@@ -33,8 +33,9 @@ export class FilmPageModel {
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
-          // TODO: отрисовывать стр если фильма нет в бд
-          // if (response.parsedJson.status === statuses.NOT_FOUND) {}
+          if (response.status === statuses.NOT_FOUND) {
+            this.eventBus.emit(EVENTS.App.ErrorPageText, "На нашем сайте такого фильма нет");
+          }
         });
   }
 

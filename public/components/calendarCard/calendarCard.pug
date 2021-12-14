@@ -1,18 +1,28 @@
 mixin calendarCard (i)
     div.premiere__item
-        a(class = "premiere__image _ibg" href=`${i.href}`)
-            img(src=i.filmAvatar alt ="")
+        div.premiere__image
+            a(class = "premiere__image" href=`${i.href}`)
+                img(src=i.filmAvatar alt ="")
+            div.premiere__data_mobile
+                a(class = "premiere__title" href=`${i.href}`) #{i.title}
+                div.premiere__add-info #{i.titleOriginal}
+                div.premiere__add-info #{i.year}
+                if (i.rating)
+                    div(class ="rating-number-stars star-rating__scors")  #{i.rating}
+                        div(class = "star-rating__pic")
         div.premiere__body
             div.premiere__info
                 div.premiere__data
                     a(class = "premiere__title" href=`${i.href}`) #{i.title}
                     div.premiere__add-info #{i.titleOriginal}
                     div.premiere__add-info #{i.year}
-                div.premiere__rating
-                    div.premiere__text Рейтинг фильма
-                    div.rating__score
-                        div(class = "premiere__rating_number") #{i.rating}
+                if (i.rating)
+                    div.premiere__rating
+                        div.premiere__text Рейтинг фильма
+                        div.rating__score
+                            div(class = "premiere__rating_number") #{i.rating}
             div.premiere__description #{i.description}
-        div.premiere__date
-            div.premiere__day  #{i.day}
-            div.premiere__text #{i.month}
+        if (i.day && i.month)
+            div.premiere__date
+                div.premiere__day  #{i.day}
+                div.premiere__text #{i.month}

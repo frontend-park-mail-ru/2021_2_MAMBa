@@ -1,0 +1,11 @@
+include ../collection/collection
+div.wrapper
+    main.page
+        div(class = "collections page__container _container")
+            h1(class="collections__main-title title") Подборки
+            div.description Коллекции фильмов и сериалов на все случаи: топ фильмов различных жанров и стран, самые кассовые кинофраншизы, культовые сериалы, кинокомиксы, сборники работ известных актёров и режиссёров, фестивальное кино и многое другое
+            div(class = "black-container")
+                div(class = "collections__container collections__container_column-number")
+                  each input, _ in collections
+                      +collection(input)
+

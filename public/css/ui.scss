@@ -78,6 +78,9 @@
 
 .description {
   margin-bottom: 20px;
+  @media (max-width: $phoneSize) {
+    margin-bottom: 10px;
+  }
 }
 
 .info {

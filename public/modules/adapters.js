@@ -23,9 +23,6 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
 export const convertArrayToCollectionsPage = (collectionsInfoJson) => (
   {
     collections: convertArrayToCollection(collectionsInfoJson.collections_list),
-    moreAvailable: collectionsInfoJson.more_available,
-    skip: collectionsInfoJson.current_skip,
-    limit: collectionsInfoJson.current_limit,
   }
 );
 
@@ -108,6 +105,7 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
       year: jsonFilm?.release_year || '-',
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
       href: `/films/${jsonFilm.id}`,
+      rating:jsonFilm?.rating || "",
     };
   });
 };
@@ -306,31 +304,31 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
 const monthToText = (month) => {
   let monthName = ['-', '-'];
   switch (month) {
-    case '1':
+    case '01':
       monthName = ['января', 'Январь'];
       break;
-    case '2':
+    case '02':
       monthName = ['февраля', 'Февраль'];
       break;
-    case '3':
+    case '03':
       monthName = ['марта', 'Март'];
       break;
-    case '4':
+    case '04':
       monthName = ['апреля', 'Апрель'];
       break;
-    case '5':
+    case '05':
       monthName = ['мае', 'Май'];
       break;
-    case '6':
+    case '06':
       monthName = ['июня', 'Июнь'];
       break;
-    case '7':
+    case '07':
       monthName = ['июля', 'Июль'];
       break;
-    case '8':
+    case '08':
       monthName = ['августа', 'Август'];
       break;
-    case '9':
+    case '09':
       monthName = ['сентября', 'Сентябрь'];
       break;
     case '10':
@@ -407,7 +405,11 @@ export const convertArrayToCalendarPage = (calendarInfoJson, year, month) => {
  * @return {object} - Object for render date
  */
 export const convertDateToCalendarPage = (month, year) => {
+  if (month<10){
+    month = '0' + month
+  }
   const monthText = monthToText('' + month);
+  console.log(monthText)
   return `${monthText[1]}, ${year}`;
 };
 

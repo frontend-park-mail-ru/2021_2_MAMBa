@@ -477,6 +477,28 @@ const sendBookmark = async (filmId, bookmarked) => {
   }
 };
 
+/**
+ * Send async get request using async func.
+ * @return {array} - Array of objects for render home page.
+ */
+const getMainPageContent = async () => {
+  const params = {
+    url: URLS.api.collections,
+    method: 'GET',
+    credentials: 'include',
+  };
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 export {
   getCollectionFilms,
   sendReview,
@@ -502,5 +524,6 @@ export {
   getInfoAboutPremiers,
   sendBookmark,
   getSearch,
+  getMainPageContent
 };
 

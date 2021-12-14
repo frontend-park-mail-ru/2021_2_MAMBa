@@ -1,6 +1,6 @@
 export const headerLinks = [
   {
-    href: '/',
+    href: '/collectionsPage',
     title: 'Подборки',
   },
   {

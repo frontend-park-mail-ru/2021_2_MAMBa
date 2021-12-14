@@ -1,3 +1,8 @@
+import {getInfoAboutPremiers} from "../modules/http";
+import {EVENTS} from "../consts/EVENTS";
+import {statuses} from "../consts/reqStatuses";
+import {convertArrayToCalendarPage, convertDateToCalendarPage} from "../modules/adapters";
+
 export const slider = (selector) => {
   const slider = document.querySelector(selector);
   if (slider) {
@@ -46,8 +51,22 @@ export const slider = (selector) => {
           if (slideIndex < 0) {
             slideIndex = 0;
           }
-          const slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
+          console.log(slideIndex)
+
+
+          let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
+
+          console.log(slideWidth)
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
+          if (selector === "#main-slider" && slideWidth >3000){
+            setTimeout(async () => {
+
+              sliderTrack.style.transition = 'transform .0s';
+              sliderTrack.style.transform = `translate3d(-1216px, 0px, 0px)`;
+              slideIndex = slideIndex-2;
+
+            }, 500);
+          }
 
           prev.classList.toggle('disabled', slideIndex === 0);
           next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);

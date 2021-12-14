@@ -54,7 +54,7 @@
   background: linear-gradient(45deg, $grey, $light-grey);
 }
 
-@media (max-width: $phoneSize) {
+@media (max-width: $padSize) {
   .review-slider {
     &__item {
       width: 260px;
@@ -67,13 +67,11 @@
 
     &__name {
       font-size: 14px;
-      //margin-bottom: 4px;
     }
 
     &__text {
       font-size: 16px;
       font-weight: 500;
-      //margin-bottom: 10px;
     }
 
     &__date {

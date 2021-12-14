@@ -15,8 +15,10 @@ import {CalendarPageController} from './controllers/calendarController';
 import {Router} from './modules/router.js';
 import {REGROUTES} from './consts/routesRegExp.js';
 import {errorPage} from './modules/404.js';
+import {errorPageText} from './modules/404Text';
 
 import './index.scss';
+import {CollectionsPageController} from "./controllers/collectionsController";
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js', {scope: '/'})
@@ -31,6 +33,7 @@ export const ROOT = document.getElementById('root');
 
 const AuthModule = authModule;
 const error = new errorPage();
+const errorText = new errorPageText();
 const headerController = new HeaderController();
 const homePageController = new HomePageController();
 const actorPageController = new ActorPageController();
@@ -43,6 +46,7 @@ const genresPageController = new GenresPageController();
 const genrePageController = new GenrePageController();
 const calendarPageController = new CalendarPageController();
 const searchController = new SearchController();
+const collectionsController = new CollectionsPageController();
 
 const router = new Router(ROOT);
 
@@ -58,4 +62,5 @@ router.register(REGROUTES.homePage, homePageController)
     .register(REGROUTES.genrePage, genrePageController)
     .register(REGROUTES.calendarPage, calendarPageController)
     .register(REGROUTES.search, searchController)
+    .register(REGROUTES.collections, collectionsController)
     .start();

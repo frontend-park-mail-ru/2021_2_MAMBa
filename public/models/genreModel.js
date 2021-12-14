@@ -29,6 +29,7 @@ export class GenrePageModel {
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response?.status === statuses.OK && response.body) {
+            console.log(convertArrayToGenrePage(response.body))
             this.eventBus.emit(EVENTS.genrePage.render.content, convertArrayToGenrePage(response.body));
           } else if (response.status === statuses.NOT_FOUND) {
             this.eventBus.emit(EVENTS.genrePage.render.notFoundFilms, ('К сожалению, на нашем сайте нет этого жанра',

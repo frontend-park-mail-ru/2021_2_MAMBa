@@ -1,6 +1,5 @@
 export const ROUTES = {
   homePage: '/',
-  collections: '/collections',
   genres: '/genres',
   genrePage: '/genres/\\d+',
   calendarPage: '/premieres',
@@ -12,6 +11,7 @@ export const ROUTES = {
   actorPage: '/actors/\\d+',
   filmPage: '/films/\\d+',
   collectionPage: '/collections/\\d+',
+  collections: '/collectionsPage',
   Bookmarks: '/bookmarks',
   Subscriptions: '/subscriptions',
   reviewsMarks: '/reviews_marks',

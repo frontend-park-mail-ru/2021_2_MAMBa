@@ -32,8 +32,9 @@ export class ActorPageModel {
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.actorPage.render.content, convertArrayToActorPage(response.body));
           }
-          // TODO: отрисовывать стр если актера нет в бд
-          // if (response.parsedJson.status === 404) {}
+          if (response.parsedJson.status === statuses.NOT_FOUND) {
+            this.eventBus.emit(EVENTS.App.ErrorPageText, "На нашем сайте такого фильма нет");
+          }
         });
   }
 

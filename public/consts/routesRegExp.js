@@ -1,6 +1,6 @@
 export const REGROUTES = {
   homePage: '^/$',
-  collections: '/collections',
+  collections: '/collectionsPage',
   genres: '/genres',
   genrePage: '/genres/\\d+',
   calendarPage: '/premieres',

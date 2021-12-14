@@ -40,8 +40,8 @@ export class Router {
       this.application = app;
       this.application.addEventListener('click', (e) => {
         const target = e.target;
-        const closestLink = target.closest('a');
-        if (e.target.matches('.scroll-to') || e.target.matches('.not-route')) {
+        const closestLink = e.target.closest('a');
+        if (target.matches('.scroll-to') || target.matches('.not-route') || !closestLink) {
           return;
         }
         if (closestLink instanceof HTMLAnchorElement) {
@@ -93,11 +93,8 @@ export class Router {
     let targetController = null;
     const result = this.getParam(path);
 
-    console.log(`path=   ${path}`);
     this.routes.forEach(({path, controller}) => {
       const res = result.path.match(path);
-      console.log(path);
-      console.log(res);
       if (res) {
         targetController = controller;
       }

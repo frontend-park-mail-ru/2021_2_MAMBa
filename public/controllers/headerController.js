@@ -12,8 +12,11 @@ export class HeaderController extends BaseController {
         {event: EVENTS.authorization.gotUser, handler: this.view.renderUserBlock},
         {event: EVENTS.authorization.changedUser, handler: this.view.renderUserBlock},
         {event: EVENTS.PathChanged, handler: this.view.hideVerticalMenu},
+        {event: EVENTS.PathChanged, handler: this.view.showNavAndHideSearch},
         {event: EVENTS.Router.Go, handler: this.model.compareLinksWithPath},
         {event: EVENTS.Header.Render.header, handler: this.view.addEventListenerToSearch},
+        {event: EVENTS.Header.Render.header, handler: this.view.addEventListenerToResize},
+        {event: EVENTS.Header.Render.header, handler: this.view.addEventListenerToVerticalMenu},
     );
     this.subscribe();
   }

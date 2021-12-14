@@ -18,7 +18,7 @@
     align-items: center;
 
     & svg {
-      height: 50px;
+      height: 45px;
       transition: 0.5s ease-in-out;
     }
   }
@@ -27,10 +27,9 @@
     display: inherit;
     font-size: 20px;
     color: white;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin-left: 3%;
-    width: 573px;
+    width: 40%;
     min-width: 360px;
   }
 
@@ -41,63 +40,8 @@
     height: 65px;
     justify-content: center;
 
-    & input {
-      display: none;
-      opacity: 0;
-      z-index: 2;
-      height: 100%;
-      margin: 0;
-      top: 0;
-      left: 0;
-      width: 60px;
-      position: absolute;
+    &:hover {
       cursor: pointer;
-
-      &:checked {
-        width: 100vw;
-        height: 100vh;
-      }
-
-      &:checked ~ .vertical-menu__btn-container{
-        display: flex;
-      }
-
-      &:checked ~ span {
-        transform: rotate(45deg) translate(-1px, -1px);
-        background: $pink;
-      }
-
-      &:checked ~ span:nth-last-child(2) {
-        transform: rotate(-45deg) translate(0, 2px);
-      }
-
-      &:checked ~ span:nth-last-child(3) {
-        opacity: 0;
-        transform: rotate(0deg) scale(0.2, 0.2);
-      }
-    }
-
-    & span {
-      margin: 2px 0;
-      display: none;
-      width: 29px;
-      height: 2px;
-      position: relative;
-      background: #ffffff;
-      border-radius: 3px;
-      z-index: 1;
-      transform-origin: 7px 0;
-      transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-      background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-      opacity 0.55s ease;
-
-      &:first-child {
-        transform-origin: 0 0;
-      }
-
-      &:nth-last-child(2) {
-        transform-origin: 0 100%;
-      }
     }
 
     & svg {
@@ -157,19 +101,24 @@
 }
 
 .vertical-menu {
+
   &__btn-container {
     transition: display 4s 1s;
     background-color: $grey-base;
     position: absolute;
     top: 65px;
     left: 0;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     min-width: 60vw;
-    min-height: 40vh;
+    min-height: 30vh;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     z-index: 100;
+    transition-property: visibility, opacity;
+    transition-duration: 2s, 0.4s;
+    transition-delay: 0s;
 
     & > a {
       text-decoration: none;
@@ -184,13 +133,57 @@
   }
 }
 
+.vertical-menu-line {
+  margin: 2px 0;
+  display: none;
+  width: 29px;
+  height: 4px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 7px 0;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+  background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+  opacity 0.55s ease;
+}
+
+.first-line-in-menu {
+  background: $white;
+  transform-origin: 0 0;
+
+  &_animated {
+    background: $pink;
+    transform: rotate(45deg) translate(1px, 0px);
+  }
+}
+
+.second-line-in-menu {
+
+  &_animated {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+}
+
+.third-line-in-menu {
+  background: $white;
+  transform-origin: 0 100%;
+
+  &_animated {
+    background: $pink;
+    transform: rotate(-45deg) translate(-1px, -3px);
+  }
+}
+
 #vertical-logout-btn {
   font-size: 20px;
 }
 
 @media (min-width: 1016px) {
   .navbar__vertical-menu {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
   }
 }
 
@@ -198,9 +191,12 @@
   .navbar__wide-menu {
     display: none;
   }
+
   .vertical-menu__btn-container {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
   }
+
   .navbar__vertical-menu {
     display: flex;
     margin-right: 10px;

@@ -1,10 +1,11 @@
 .search {
   font-family: "Montserrat-Regular", "Arial", sans-serif;
   display: flex;
+  visibility: visible;
+  opacity: 1;
   justify-content: end;
   align-items: center;
-  margin: auto;
-  position: relative;
+  flex: 1 0;
   padding: 0 15px;
   width: 30%;
 
@@ -13,28 +14,12 @@
     font-family: "Montserrat-Regular", sans-serif;
     border-radius: 20px;
     width: 100%;
-    height: 20px;
     border: 0;
-    padding: 5px 15px;
+    padding: 6px 15px;
     outline: none;
-  }
-
-  &__checkbox {
-    position: absolute;
-    height: 40px;
-    width: 100%;
-    display: none;
-    opacity: 0;
-    z-index: 2;
-    margin: 0;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-
-    &:checked {
-      width: 100vw;
-      height: 100vh;
-    }
+    transition-property: visibility, opacity;
+    transition-duration: 2s, 0.4s;
+    transition-delay: 0s;
   }
 
   &__btn {
@@ -50,11 +35,8 @@
 
 @media (max-width: 450px) {
   .search__input {
-    display:none;
-  }
-
-  .search__checkbox {
-    display:flex;
+    visibility:hidden;
+    opacity: 0;
   }
 
   .search {

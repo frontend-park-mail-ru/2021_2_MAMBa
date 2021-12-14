@@ -10,6 +10,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin-left: 20px;
   }
 
   &__query-title {
@@ -45,7 +46,6 @@
     }
 
     &__query-title, &__films-title, &__persons-title {
-      margin-left: 15px;
       margin-bottom: 10px;
     }
   }

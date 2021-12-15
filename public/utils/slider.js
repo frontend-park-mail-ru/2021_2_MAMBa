@@ -1,8 +1,3 @@
-import {getInfoAboutPremiers} from "../modules/http";
-import {EVENTS} from "../consts/EVENTS";
-import {statuses} from "../consts/reqStatuses";
-import {convertArrayToCalendarPage, convertDateToCalendarPage} from "../modules/adapters";
-
 export const slider = (selector) => {
   const slider = document.querySelector(selector);
   if (slider) {
@@ -18,9 +13,9 @@ export const slider = (selector) => {
     let slideIndex = 0;
     const movePosition = sliderList.offsetWidth;
     const slidesToShow = Math.floor(movePosition / itemWidth);
-    console.log(movePosition,itemWidth, slidesToShow)
 
     const countItems = slides.length;
+    console.log(countItems)
 
 
     let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
@@ -31,12 +26,11 @@ export const slider = (selector) => {
     if (selector === "#main-slider") {
       slideIndex = 2;
       const toSlide = itemWidth * 2;
-
-
       sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
     } else {
       sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
     }
+    // sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
 
@@ -64,21 +58,19 @@ export const slider = (selector) => {
             slideIndex = 0;
           }
           console.log(slideIndex)
-
-
           let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
 
           console.log(slideWidth)
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
-          // if (selector === "#main-slider" && slideWidth > 3000) {
-          //   setTimeout(async () => {
-          //
-          //     sliderTrack.style.transition = 'transform .0s';
-          //     sliderTrack.style.transform = `translate3d(-1216px, 0px, 0px)`;
-          //     slideIndex = slideIndex - 2;
-          //
-          //   }, 500);
-          // }
+          if (selector === "#main-slider" && slideIndex===countItems-2) {
+            slideIndex = 1;
+            setTimeout(async () => {
+              sliderTrack.style.transition = 'transform .0s';
+              // slideIndex = 1;
+             slideWidth = slideIndex * itemWidth
+              sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
+            }, 500);
+          }
 
           prev.classList.toggle('disabled', slideIndex === 0);
           console.log(slidesToShow)

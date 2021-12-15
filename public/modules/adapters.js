@@ -42,6 +42,33 @@ export const convertArrayToCollection = (arrayContent) => {
 };
 
 /**
+ * Union actors and their ids.
+ * @param {object} collectionsInfoJson - Info about actor from json.
+ * @return {object} - Object for render actor information
+ */
+export const convertArrayToHomeMainSliderPage = (collectionsInfoJson) => (
+    {
+      collections: convertArrayToMainSlider(collectionsInfoJson.collections_list),
+    }
+);
+/**
+ * Union collection information
+ * @param {object} arrayContent - Info about collections from json.
+ * @return {object} - Object for render collections information
+ */
+export const convertArrayToMainSlider = (arrayContent) => {
+  let arr = arrayContent.map(function (jsonCollection) {
+    return {
+      title: jsonCollection?.title,
+      collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
+      href: `/collections/${jsonCollection.id}`,
+    };
+  });
+  arr.push(arr[0], arr[1]);
+  return arr;
+};
+
+/**
  * Union actor information
  * @param {object} actorInfoJson - Info about actor from json.
  * @return {object} - Object for render actor information

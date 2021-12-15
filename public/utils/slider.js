@@ -18,15 +18,27 @@ export const slider = (selector) => {
     let slideIndex = 0;
     const movePosition = sliderList.offsetWidth;
     const slidesToShow = Math.floor(movePosition / itemWidth);
+    console.log(movePosition,itemWidth, slidesToShow)
 
     const countItems = slides.length;
-    prev.classList.toggle('disabled', slideIndex === 0);
-    next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+
 
     let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
     if (countItems <= slidesToShow) {
       borderToSlide = 0;
     }
+
+    if (selector === "#main-slider") {
+      slideIndex = 2;
+      const toSlide = itemWidth * 2;
+
+
+      sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
+    } else {
+      sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
+    }
+    prev.classList.toggle('disabled', slideIndex === 0);
+    next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
 
     if (arrows && prev && next) {
       arrows.addEventListener('click', (e) => {
@@ -58,17 +70,18 @@ export const slider = (selector) => {
 
           console.log(slideWidth)
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
-          if (selector === "#main-slider" && slideWidth >3000){
-            setTimeout(async () => {
-
-              sliderTrack.style.transition = 'transform .0s';
-              sliderTrack.style.transform = `translate3d(-1216px, 0px, 0px)`;
-              slideIndex = slideIndex-2;
-
-            }, 500);
-          }
+          // if (selector === "#main-slider" && slideWidth > 3000) {
+          //   setTimeout(async () => {
+          //
+          //     sliderTrack.style.transition = 'transform .0s';
+          //     sliderTrack.style.transform = `translate3d(-1216px, 0px, 0px)`;
+          //     slideIndex = slideIndex - 2;
+          //
+          //   }, 500);
+          // }
 
           prev.classList.toggle('disabled', slideIndex === 0);
+          console.log(slidesToShow)
           next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
         }
       }
@@ -171,7 +184,7 @@ export const slider = (selector) => {
       isScroll = false;
     };
 
-    sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
+
     sliderList.classList.add('grab');
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);

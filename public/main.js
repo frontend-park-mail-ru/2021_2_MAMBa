@@ -18,7 +18,9 @@ import {errorPage} from './modules/404.js';
 import {errorPageText} from './modules/404Text';
 
 import './index.scss';
-import {CollectionsPageController} from "./controllers/collectionsController";
+import {CollectionsPageController} from './controllers/collectionsController';
+import {initializeApp} from 'firebase/app';
+import {getMessaging, onMessage, getToken} from 'firebase/messaging';
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('sw.js', {scope: '/'})
@@ -26,8 +28,41 @@ import {CollectionsPageController} from "./controllers/collectionsController";
 //         console.log('sw registration on scope:', registration.scope);
 //       })
 //       .catch((err) => {
+//         console.log(err);
 //       });
 // }
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyCPmCF5tpc8JqtCsY5Jndeki2353RWNTcg',
+  authDomain: 'film4u-83b5d.firebaseapp.com',
+  projectId: 'film4u-83b5d',
+  storageBucket: 'film4u-83b5d.appspot.com',
+  messagingSenderId: '1081604991906',
+  appId: '1:1081604991906:web:ee3348c5d9eb38ddf760fb',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging();
+getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J4prDCmZSsIqbPA4x-FT9aN6vhxqFzjPtBQETOmU'}).then((currentToken) => {
+  if (currentToken) {
+    fetch('https://film4u.club/api/user/subscribePush', {token: currentToken}).finally();
+    console.log(`token: ${currentToken}`);
+  } else {
+    console.log('No registration token available. Request permission to generate one.');
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+});
+
+onMessage(messaging, (payload) => {
+  console.log('Message received. ', payload);
+  const greeting = new Notification(payload.notification.title, {
+    body: payload.notification.body,
+    icon: 'https://pbs.twimg.com/media/EkKR_PrWoAACTKn.jpg',
+  });
+});
+
 
 export const ROOT = document.getElementById('root');
 

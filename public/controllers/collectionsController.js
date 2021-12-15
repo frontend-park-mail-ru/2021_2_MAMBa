@@ -1,7 +1,7 @@
 import {BaseController} from './baseController.js';
 import {EVENTS} from '../consts/EVENTS';
-import {CollectionsPageModel} from "../models/collectionsModel";
-import {CollectionsPageView} from "../views/CollectionsView/CollectionsView";
+import {CollectionsPageModel} from '../models/collectionsModel';
+import {CollectionsPageView} from '../views/CollectionsView/CollectionsView';
 
 /** Class representing home page controller. */
 export class CollectionsPageController extends BaseController {

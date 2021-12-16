@@ -8,6 +8,7 @@ import {setAnchorActions} from '../../utils/anchorAction.js';
 import {ratingNumber} from '../../modules/adapters';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {slider} from '../../utils/slider';
+import {authModule} from "../../modules/authorization";
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -142,7 +143,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function(e) {
+    rating.onmouseover = function (e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -150,7 +151,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function() {
+    rating.onmouseout = function () {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
@@ -200,6 +201,10 @@ export class FilmView extends BaseView {
     };
     const positiveButton = document.querySelector('.type-positive');
     const neutralButton = document.querySelector('.type-neutral');
+    if (neutralButton) {
+      review.review_type = 2;
+      neutralButton.classList.add('neutral-chosen');
+    }
     const negativeButton = document.querySelector('.type-negative');
     if (positiveButton && neutralButton && negativeButton) {
       positiveButton.addEventListener('click', () => {
@@ -240,20 +245,20 @@ export class FilmView extends BaseView {
     if (sendButton) {
       sendButton.addEventListener('click', (e) => {
         e.preventDefault();
-        if (review.review_type === 0) {
-          renderWarning('Чтобы отправить отзыв, пожалуйста, выберете тип отзывы', 'warning_type');
-          return;
-        }
         const textInput = document.querySelector('.write_review__text').value;
-        if (textInput) {
-          if (textInput === '') {
-            renderWarning('Введите текст отзыва', 'warning_empty-text');
-            return;
-          }
-          review.review_text = textInput;
+        if (textInput === '') {
+          renderWarning('Введите текст отзыва', 'warning_empty-text');
+          return;
+        } else {
+          this.removeWarning('warning_empty-text');
         }
-        this.eventBus.emit(EVENTS.filmPage.postReview, review);
-        this.removeWarning('warning_empty-text');
+        review.review_text = textInput;
+        if (!authModule.user) {
+          renderWarning(`Чтобы оставить отзыв, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "black_text">зарегистрируйтесь</a>`,
+              'warning_no-auth');
+      } else {
+          this.eventBus.emit(EVENTS.filmPage.postReview, review);
+        }
       });
     }
   }

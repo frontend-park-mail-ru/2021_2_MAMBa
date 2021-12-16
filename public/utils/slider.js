@@ -1,8 +1,3 @@
-import {getInfoAboutPremiers} from "../modules/http";
-import {EVENTS} from "../consts/EVENTS";
-import {statuses} from "../consts/reqStatuses";
-import {convertArrayToCalendarPage, convertDateToCalendarPage} from "../modules/adapters";
-
 export const slider = (selector) => {
   const slider = document.querySelector(selector);
   if (slider) {
@@ -20,20 +15,63 @@ export const slider = (selector) => {
     const slidesToShow = Math.floor(movePosition / itemWidth);
 
     const countItems = slides.length;
-    prev.classList.toggle('disabled', slideIndex === 0);
-    next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+    console.log(countItems)
+
 
     let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
     if (countItems <= slidesToShow) {
       borderToSlide = 0;
     }
 
+    if (selector === "#main-slider") {
+      slideIndex = 3;
+      const toSlide = itemWidth * 3;
+      sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
+    } else {
+      sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
+    }
+    // sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
+    prev.classList.toggle('disabled', slideIndex === 0);
+    next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+
     if (arrows && prev && next) {
       arrows.addEventListener('click', (e) => {
         const target = e.target;
+        if (selector === "#main-slider"){
+          arrows.classList.add('main-slider__button_block');
+          setTimeout(async () => {
+            arrows.classList.remove('main-slider__button_block')
+          }, 500);
+        }
         if (target.classList.contains('slider__button_right')) {
           slideIndex++;
         } else if (target.classList.contains('slider__button_left')) {
+          slideIndex--;
+        } else {
+          return;
+        }
+        slide();
+      });
+
+      //только для мэйн слайдера
+      arrows.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.classList.contains('main-slider__button_right') || target.classList.contains('main-slider__arrow_right')) {
+          console.log("click")
+          if (selector === "#main-slider"){
+            next.classList.add('main-slider__button_block');
+            setTimeout(async () => {
+              next.classList.remove('main-slider__button_block')
+            }, 500);
+          }
+          slideIndex++;
+        } else if (target.classList.contains('main-slider__button_left')  || target.classList.contains('main-slider__arrow_left')) {
+          if (selector === "#main-slider"){
+            prev.classList.add('main-slider__button_block');
+            setTimeout(async () => {
+              prev.classList.remove('main-slider__button_block')
+            }, 500);
+          }
           slideIndex--;
         } else {
           return;
@@ -51,20 +89,19 @@ export const slider = (selector) => {
           if (slideIndex < 0) {
             slideIndex = 0;
           }
-          console.log(slideIndex)
-
-
           let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
 
-          console.log(slideWidth)
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
-          if (selector === "#main-slider" && slideWidth >3000){
+
+          if (selector === "#main-slider" && (slideIndex===countItems-2||slideIndex===1)) {
+            if(slideIndex===countItems-2)
+              slideIndex = 2;
+            if(slideIndex===1)
+              slideIndex = countItems-3;
             setTimeout(async () => {
-
               sliderTrack.style.transition = 'transform .0s';
-              sliderTrack.style.transform = `translate3d(-1216px, 0px, 0px)`;
-              slideIndex = slideIndex-2;
-
+             slideWidth = slideIndex * itemWidth
+              sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
             }, 500);
           }
 
@@ -171,7 +208,7 @@ export const slider = (selector) => {
       isScroll = false;
     };
 
-    sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
+
     sliderList.classList.add('grab');
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);

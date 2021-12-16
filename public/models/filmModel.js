@@ -39,26 +39,32 @@ export class FilmPageModel {
         });
   }
 
+  checkAuthAndWarn = (filmId, name) => {
+    if (!authModule.user) {
+      renderWarning(`Чтобы оставить ${name}, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "black_text">зарегистрируйтесь</a>`,
+          'warning_no-auth');
+      return false;
+    } else
+      return true;
+  }
+
   /**
    * Post review
    * @param {object} inputsData - review to post.
    */
   postReview = (inputsData = {}) => {
-    if (!authModule.user) {
-      renderWarning(`Чтобы оставить отзыв, пожалуйста, <a href= /auth?redirect=films/${inputsData.film_id} class = "black_text">зарегистрируйтесь</a>`,
-          'warning_no-auth');
-      return;
+    console.log("in post review")
+    if (this.checkAuthAndWarn(inputsData.film_id, "отзыв")) {
+      sendReview(inputsData)
+          .then((response) => {
+            if (!response) {
+              return;
+            }
+            if (response.status === statuses.OK) {
+              this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
+            }
+          });
     }
-
-    sendReview(inputsData)
-        .then((response) => {
-          if (!response) {
-            return;
-          }
-          if (response.status === statuses.OK) {
-            this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
-          }
-        });
   }
 
   /**
@@ -67,17 +73,16 @@ export class FilmPageModel {
    * @param {number} rating - rating to post.
    */
   postRating = (filmId, rating) => {
+    if (!filmId && !rating) {
+      this.eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
     if (!authModule.user) {
       this.eventBus.emit(
           EVENTS.filmPage.render.warningRatingSend,
           `Чтобы поставить оценку, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "white_text"">зарегистрируйтесь</a>`);
       return;
     }
-    if (!filmId && !rating) {
-      this.eventBus.emit(EVENTS.App.ErrorPage);
-      return;
-    }
-
     sendRating(filmId, rating).then((response) => {
       if (!response) {
         return;
@@ -87,6 +92,7 @@ export class FilmPageModel {
       }
     });
   }
+
 
   /**
    * Post bookmark

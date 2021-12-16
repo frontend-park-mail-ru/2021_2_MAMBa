@@ -24,9 +24,10 @@ export class ReviewPageModel {
         .then((response) => {
           if (!response) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
-          }
-          if (response?.status === statuses.OK && response.body) {
+          }else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.reviewPage.render.content, convertReviewToReviewPage(response.body));
+          }else if (response.parsedJson.status === statuses.NOT_FOUND) {
+            this.eventBus.emit(EVENTS.App.ErrorPageText, "На нашем сайте такого отзыва нет");
           }
         });
   }

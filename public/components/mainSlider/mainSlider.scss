@@ -2,23 +2,27 @@
 
 .main-slider {
   &__indent {
-    margin-right: 20px;
+    margin-right: 16px;
   }
 
   &__item {
-    width: 1216px;
-    //padding-right: 16px;
+    width: 1232px;
     height: 524px;
     display: inline-block;
     vertical-align: top;
     white-space: initial
+  }
+  &-list{
+    width: 1216px;
+    margin:0 auto;
   }
 
   &__name {
     font-family: "Montserrat-Black", "Arial", sans-serif;
     text-shadow: 0 1px 2px rgb(0 0 0 / 72%);
     position: absolute;
-    margin-top: 5px;
+    margin-top: 20px;
+    margin-left: 30px;
     font-size: 40px;
     font-weight: 600;
     color: $white;
@@ -51,6 +55,65 @@
 
 .main-slider-list.grabbing {
   cursor: grabbing;
+}
+
+.main-slider__button_block{
+  pointer-events: none;
+}
+
+.main-slider__button_right{
+  left: 50%;
+  transform: translateX(622px);
+  width: 35%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 3;
+  cursor: pointer;
+  font-size: 0;
+  background-image: linear-gradient(to right,rgba(31,27,46,0),rgba(31,27,46,50));
+  &:hover .main-slider__arrow_right{
+    transition: all 0.2s ease-out;
+    background-image: url(static/pics/rightArrowActive.png);
+  }
+}
+.main-slider__button_left{
+  right: 50%;
+  transform: translateX(-622px);
+  width: 35%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 3;
+  cursor: pointer;
+  font-size: 0;
+  background-image: linear-gradient(to left,rgba(31,27,46,0),rgba(31,27,46,50));
+  &:hover .main-slider__arrow_left{
+    transition: all 0.2s ease-out;
+    background-image: url(static/pics/leftArrowActive.png);
+  }
+}
+
+.main-slider__arrow_right{
+  position: relative;
+  top: 50%;
+  left: 20px;
+  width: 20px;
+  height: 35px;;
+  background-size: cover;
+  background-image: url(static/pics/arrowNotActive.png);
+}
+
+.main-slider__arrow_left{
+  top: 50%;
+  position: relative;
+  left: 90%;
+  width: 20px;
+  height: 35px;
+  background-size: cover;
+  background-image: url(static/pics/leftArrowNotActive.png);
 }
 
 @media (max-width: $phoneSize) {

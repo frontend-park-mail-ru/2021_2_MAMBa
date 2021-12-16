@@ -48,7 +48,7 @@ getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J
   if (currentToken) {
     fetch('https://film4u.club/api/user/subscribePush', {
       method: 'POST',
-      token: currentToken,
+      body: JSON.stringify({token: currentToken}),
     }).finally();
     console.log(`token: ${currentToken}`);
   } else {

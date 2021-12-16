@@ -7,13 +7,13 @@ export const mainSlider = (selector) => {
     const arrows = slider.querySelector('.slider-arrows');
     const prev = arrows.children[0];
     const next = arrows.children[1];
-    let widthSlide = 0;
+    const widthSlide = 0;
     const itemWidth = slides[0].offsetWidth;
     let slideIndex = 0;
     const movePosition = sliderList.offsetWidth;
     const slidesToShow = Math.floor(movePosition / itemWidth);
     const countItems = slides.length;
-    let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
+    const borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
     slideIndex = 3;
     const toSlide = itemWidth * 3;
     sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
@@ -24,18 +24,16 @@ export const mainSlider = (selector) => {
       arrows.addEventListener('click', (e) => {
         const target = e.target;
         if (target.classList.contains('main-slider__button_right') || target.classList.contains('main-slider__arrow_right')) {
-
           next.classList.add('main-slider__button_block');
           setTimeout(async () => {
-            next.classList.remove('main-slider__button_block')
+            next.classList.remove('main-slider__button_block');
           }, 500);
 
           slideIndex++;
         } else if (target.classList.contains('main-slider__button_left') || target.classList.contains('main-slider__arrow_left')) {
-
           prev.classList.add('main-slider__button_block');
           setTimeout(async () => {
-            prev.classList.remove('main-slider__button_block')
+            prev.classList.remove('main-slider__button_block');
           }, 500);
 
           slideIndex--;
@@ -58,13 +56,15 @@ export const mainSlider = (selector) => {
         sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
 
         if (slideIndex === countItems - 2 || slideIndex === 1) {
-          if (slideIndex === countItems - 2)
+          if (slideIndex === countItems - 2) {
             slideIndex = 2;
-          if (slideIndex === 1)
+          }
+          if (slideIndex === 1) {
             slideIndex = countItems - 3;
+          }
           setTimeout(async () => {
             sliderTrack.style.transition = 'transform .0s';
-            slideWidth = slideIndex * itemWidth
+            slideWidth = slideIndex * itemWidth;
             sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
           }, 500);
         }
@@ -111,7 +111,7 @@ export const mainSlider = (selector) => {
     };
     const swipeAction = () => {
       allowSwipe = true;
-      let evt = getEvent();
+      const evt = getEvent();
       const style = sliderTrack.style.transform;
       const transform = +style.match(trfRegExp)[0];
       posX2 = posX1 - evt.clientX;
@@ -119,7 +119,7 @@ export const mainSlider = (selector) => {
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
       if (!isSwipe && !isScroll) {
-        let posY = Math.abs(posY2);
+        const posY = Math.abs(posY2);
         if (posY > 7 || posX2 === 0) {
           isScroll = true;
           allowSwipe = false;
@@ -150,7 +150,7 @@ export const mainSlider = (selector) => {
           slide();
         }
       }
-    }
+    };
 
     sliderList.classList.add('grab');
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);

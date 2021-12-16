@@ -499,6 +499,28 @@ const getMainPageContent = async () => {
   }
 };
 
+/**
+ * Send async get request using async func.
+ * @return {array} - Array of objects for render home page.
+ */
+export const getMainPagePopularFilms = async () => {
+  const params = {
+    url: URLS.api.popularFilms,
+    method: 'GET',
+    credentials: 'include',
+  };
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 export {
   getCollectionFilms,
   sendReview,
@@ -524,6 +546,6 @@ export {
   getInfoAboutPremiers,
   sendBookmark,
   getSearch,
-  getMainPageContent
+  getMainPageContent,
 };
 

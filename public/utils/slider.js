@@ -29,12 +29,6 @@ export const slider = (selector) => {
     if (arrows && prev && next) {
       arrows.addEventListener('click', (e) => {
         const target = e.target;
-        if (selector === "#main-slider") {
-          arrows.classList.add('main-slider__button_block');
-          setTimeout(async () => {
-            arrows.classList.remove('main-slider__button_block')
-          }, 500);
-        }
         if (target.classList.contains('slider__button_right')) {
           slideIndex++;
         } else if (target.classList.contains('slider__button_left')) {
@@ -55,7 +49,7 @@ export const slider = (selector) => {
           if (slideIndex < 0) {
             slideIndex = 0;
           }
-          let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
+          const slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
 
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
 
@@ -149,7 +143,7 @@ export const slider = (selector) => {
           sliderTrack.style.transform = `translate3d(-${borderToSlide}px, 0px, 0px)`;
         } else if (widthSlide + (posInit - posX1) <= 0) {
           slide(0);
-          sliderTrack.style.transform = `translate3d(0px, 0px, 0px)`;
+          sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
         }
       }
       isScroll = false;

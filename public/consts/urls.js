@@ -41,5 +41,6 @@ export const URLS = {
     genres: `${currentUrl}/api/film/genres`,
     genre: `${currentUrl}/api/film/genreFilms?id=`,
     calendar: `${currentUrl}/api/film/calendar`,
+    popularFilms: `${currentUrl}/api/film/popularFilms`,
   },
 };

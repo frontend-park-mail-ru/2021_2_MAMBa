@@ -8,7 +8,7 @@ import {setAnchorActions} from '../../utils/anchorAction.js';
 import {ratingNumber} from '../../modules/adapters';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {slider} from '../../utils/slider';
-import {authModule} from "../../modules/authorization";
+import {authModule} from '../../modules/authorization';
 
 /** Class representing film page view. */
 export class FilmView extends BaseView {
@@ -143,7 +143,7 @@ export class FilmView extends BaseView {
         this.eventBus.emit(EVENTS.filmPage.postRating, filmId, rating.myRating);
       }
     });
-    rating.onmouseover = function (e) {
+    rating.onmouseover = function(e) {
       const target = e.target;
       if (target.classList.contains('rating-item')) {
         removeClass(ratingItem, 'active');
@@ -151,7 +151,7 @@ export class FilmView extends BaseView {
         mouseOverActiveClass(ratingItem);
       }
     };
-    rating.onmouseout = function () {
+    rating.onmouseout = function() {
       addClass(ratingItem, 'active');
       mouseOutActiveClass(ratingItem);
     };
@@ -256,7 +256,7 @@ export class FilmView extends BaseView {
         if (!authModule.user) {
           renderWarning(`Чтобы оставить отзыв, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "black_text">зарегистрируйтесь</a>`,
               'warning_no-auth');
-      } else {
+        } else {
           this.eventBus.emit(EVENTS.filmPage.postReview, review);
         }
       });

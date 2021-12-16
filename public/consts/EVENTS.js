@@ -18,6 +18,7 @@ export const EVENTS = {
       errorPage: 'homepage:renderErrorPage',
       header: 'homepage:renderHeader',
       content: 'homepage:renderContent',
+      popularFilms: 'homepage:popularFilms',
     },
     get: {
       infoForHeader: 'homepage:InfoForHeader',

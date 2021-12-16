@@ -1,8 +1,8 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import homeContent from '../../components/homePage/homePage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {slider} from "../../utils/slider";
-import {mainSlider} from "../../utils/mainSlider";
+import {mainSlider} from '../../utils/mainSlider';
+import {slider} from '../../utils/slider';
 
 /** Class representing home page view. */
 export class HomePageView extends BaseView {
@@ -26,12 +26,15 @@ export class HomePageView extends BaseView {
    * Render content home page from pug template to content div.
    * @param {object} collections - Contains info about collections.
    */
-  renderContent = (collections) => {
-    const template = homeContent(collections);
+
+  renderContent = (collections, films) => {
+    console.log(collections);
+    const homePage = homeContent(collections, films);
     const content = document.querySelector('.content');
     if (content) {
-      content.innerHTML = template;
+      content.innerHTML = homePage;
       mainSlider('#main-slider');
+      slider('#film-slider');
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }

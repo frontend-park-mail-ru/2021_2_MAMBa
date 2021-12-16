@@ -26,13 +26,12 @@ export class GenrePageModel {
     }
     getInfoAboutGenre(genre.id)
         .then((response) => {
-          console.log(response.status)
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.genrePage.render.content, convertArrayToGenrePage(response.body));
           } else if (response.status === statuses.NOT_FOUND) {
-            this.eventBus.emit(EVENTS.App.ErrorPageText, "На нашем сайте такого жанра нет");
+            this.eventBus.emit(EVENTS.App.ErrorPageText, 'На нашем сайте такого жанра нет');
           }
         });
   }

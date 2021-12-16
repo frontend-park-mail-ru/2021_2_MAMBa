@@ -16,6 +16,6 @@ export class errorPageText {
     warning.classList.add('error-block');
     const loader = document.querySelector('.mask');
     warning.innerHTML = text;
-    content.replaceChild(warning, loader)
+    content.replaceChild(warning, loader);
   }
 }

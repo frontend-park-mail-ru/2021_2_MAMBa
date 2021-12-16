@@ -61,10 +61,10 @@ export class CalendarView extends BaseView {
         data.month = newData[1];
         this.isLoading = true;
         eventBus.emit( EVENTS.calendarPage.getFilms, data.year, data.month);
-      } else if (data.year>=2024){
-        const loader = document.querySelector('.load-infinit')
-        if (loader){
-          loader.innerHTML = ""
+      } else if (data.year>=2024) {
+        const loader = document.querySelector('.load-infinit');
+        if (loader) {
+          loader.innerHTML = '';
         }
       }
     });

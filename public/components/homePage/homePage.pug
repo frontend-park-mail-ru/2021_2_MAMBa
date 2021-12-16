@@ -1,6 +1,10 @@
 include ../mainSlider/mainSlider
+include ../slider/slider
 div.wrapper
     main.page
-        div(class = "homePage page__container  ")
-            +slider(collections)
+        div(class = "block")
+            +mainSlider(collections)
+        div(class = "home__container")
+            div(class= "block-subtitle") Популярные фильмы
+            +slider(popularFilms)
 

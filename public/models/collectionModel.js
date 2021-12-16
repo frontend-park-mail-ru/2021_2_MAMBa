@@ -30,8 +30,8 @@ export class CollectionPageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.collectionPage.render.content, convertCollectionToCollectionPage(response.body));
-          }else if (response.status === statuses.NOT_FOUND) {
-            this.eventBus.emit(EVENTS.App.ErrorPageText, "На нашем сайте такой коллекции нет");
+          } else if (response.status === statuses.NOT_FOUND) {
+            this.eventBus.emit(EVENTS.App.ErrorPageText, 'На нашем сайте такой коллекции нет');
           }
         });
   }

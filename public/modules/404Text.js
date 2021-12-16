@@ -12,6 +12,10 @@ export class errorPageText {
     if (!content) {
       return;
     }
-    content.innerHTML = `div class = "error-block">${text}</div>`;
+    const warning = document.createElement('div');
+    warning.classList.add('error-block');
+    const loader = document.querySelector('.mask');
+    warning.innerHTML = text;
+    content.replaceChild(warning, loader)
   }
 }

@@ -22,7 +22,6 @@ export class CollectionsPageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-
             this.eventBus.emit(EVENTS.collectionsPage.render.content, convertArrayToCollectionsPage(response.body));
           }
         });

@@ -1,6 +1,8 @@
 import {getMainPageContent} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
-import {convertArrayToCollectionsPage} from '../modules/adapters';
+import {
+  convertArrayToHomeMainSliderPage,
+} from '../modules/adapters';
 import {statuses} from '../consts/reqStatuses';
 
 /**
@@ -22,7 +24,7 @@ export class HomePageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            this.eventBus.emit(EVENTS.homepage.render.content, convertArrayToCollectionsPage(response.body));
+            this.eventBus.emit(EVENTS.homepage.render.content, convertArrayToHomeMainSliderPage(response.body));
           }
         });
   }

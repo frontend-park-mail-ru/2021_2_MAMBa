@@ -122,6 +122,26 @@ export const convertArrayToActorFilms = (actorFilmsJson) => (
  * @param {object} arrayContent - Info about films with descriptions from json.
  * @return {object} - Object for render films with descriptions.
  */
+export const convertArrayToGenreFilmWithDescription = (arrayContent) => {
+  return arrayContent.map((jsonFilm) => {
+    return {
+      id: jsonFilm.id,
+      title: jsonFilm.title,
+      originalTitle: jsonFilm?.title_original || '',
+      description: jsonFilm?.description || '-',
+      year: jsonFilm?.release_year || '-',
+      filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
+      href: `/films/${jsonFilm.id}`,
+      rating: jsonFilm?.rating|| '-',
+    };
+  });
+}
+
+/**
+ * Union actor`s film.
+ * @param {object} arrayContent - Info about films with descriptions from json.
+ * @return {object} - Object for render films with descriptions.
+ */
 export const convertArrayToFilmWithDescription = (arrayContent) => {
   return arrayContent.map((jsonFilm) => {
     return {
@@ -318,7 +338,7 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
       skip: genreInfoJson.current_skip,
       limit: genreInfoJson.current_limit,
       filmsWithDescription:
-          convertArrayToFilmWithDescription(genreInfoJson.films.film_list),
+          convertArrayToGenreFilmWithDescription(genreInfoJson.films.film_list),
     }
 );
 

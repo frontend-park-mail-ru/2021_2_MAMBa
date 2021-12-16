@@ -2,6 +2,7 @@ import {BaseView} from '../BaseView/BaseView.js';
 import homeContent from '../../components/homePage/homePage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {slider} from "../../utils/slider";
+import {mainSlider} from "../../utils/mainSlider";
 
 /** Class representing home page view. */
 export class HomePageView extends BaseView {
@@ -30,7 +31,7 @@ export class HomePageView extends BaseView {
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = template;
-      slider('#main-slider');
+      mainSlider('#main-slider');
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }

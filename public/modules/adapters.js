@@ -64,7 +64,7 @@ export const convertArrayToMainSlider = (arrayContent) => {
       href: `/collections/${jsonCollection.id}`,
     };
   });
-  arr.push(arr[0], arr[1], arr[2]);
+  arr.push(arr[0], arr[1], arr[2], arr[3]);
   return arr;
 };
 

@@ -24,8 +24,8 @@ export const slider = (selector) => {
     }
 
     if (selector === "#main-slider") {
-      slideIndex = 2;
-      const toSlide = itemWidth * 2;
+      slideIndex = 3;
+      const toSlide = itemWidth * 3;
       sliderTrack.style.transform = `translate3d(-${toSlide}px, 0px, 0px)`;
     } else {
       sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
@@ -37,9 +37,41 @@ export const slider = (selector) => {
     if (arrows && prev && next) {
       arrows.addEventListener('click', (e) => {
         const target = e.target;
+        if (selector === "#main-slider"){
+          arrows.classList.add('main-slider__button_block');
+          setTimeout(async () => {
+            arrows.classList.remove('main-slider__button_block')
+          }, 500);
+        }
         if (target.classList.contains('slider__button_right')) {
           slideIndex++;
         } else if (target.classList.contains('slider__button_left')) {
+          slideIndex--;
+        } else {
+          return;
+        }
+        slide();
+      });
+
+      //только для мэйн слайдера
+      arrows.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.classList.contains('main-slider__button_right') || target.classList.contains('main-slider__arrow_right')) {
+          console.log("click")
+          if (selector === "#main-slider"){
+            next.classList.add('main-slider__button_block');
+            setTimeout(async () => {
+              next.classList.remove('main-slider__button_block')
+            }, 500);
+          }
+          slideIndex++;
+        } else if (target.classList.contains('main-slider__button_left')  || target.classList.contains('main-slider__arrow_left')) {
+          if (selector === "#main-slider"){
+            prev.classList.add('main-slider__button_block');
+            setTimeout(async () => {
+              prev.classList.remove('main-slider__button_block')
+            }, 500);
+          }
           slideIndex--;
         } else {
           return;
@@ -57,23 +89,23 @@ export const slider = (selector) => {
           if (slideIndex < 0) {
             slideIndex = 0;
           }
-          console.log(slideIndex)
           let slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
 
-          console.log(slideWidth)
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
-          if (selector === "#main-slider" && slideIndex===countItems-2) {
-            slideIndex = 1;
+
+          if (selector === "#main-slider" && (slideIndex===countItems-2||slideIndex===1)) {
+            if(slideIndex===countItems-2)
+              slideIndex = 2;
+            if(slideIndex===1)
+              slideIndex = countItems-3;
             setTimeout(async () => {
               sliderTrack.style.transition = 'transform .0s';
-              // slideIndex = 1;
              slideWidth = slideIndex * itemWidth
               sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
             }, 500);
           }
 
           prev.classList.toggle('disabled', slideIndex === 0);
-          console.log(slidesToShow)
           next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
         }
       }

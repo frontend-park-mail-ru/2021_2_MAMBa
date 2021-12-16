@@ -19,7 +19,7 @@ export const headerLinks = [
 
 export const mobileHeaderLinks = [
   {
-    href: '/',
+    href: '/collectionsPage',
     title: 'Подборки',
   },
   {

@@ -11,6 +11,7 @@ export class HeaderController extends BaseController {
         {event: EVENTS.Header.ChangeActiveButton, handler: this.view.changeActiveButton},
         {event: EVENTS.authorization.gotUser, handler: this.view.renderUserBlock},
         {event: EVENTS.authorization.changedUser, handler: this.view.renderUserBlock},
+        {event: EVENTS.authorization.notLoggedIn, handler: this.view.renderEnterButton},
         {event: EVENTS.PathChanged, handler: this.view.hideVerticalMenu},
         {event: EVENTS.PathChanged, handler: this.view.showNavAndHideSearch},
         {event: EVENTS.Router.Go, handler: this.model.compareLinksWithPath},

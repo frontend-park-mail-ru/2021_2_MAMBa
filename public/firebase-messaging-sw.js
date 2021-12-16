@@ -13,13 +13,13 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 
-messaging.onBackgroundMessage(function(payload) {
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.title,
-    icon: 'https://pbs.twimg.com/media/EkKR_PrWoAACTKn.jpg',
-  };
-
-  self.registration.showNotification(notificationTitle,
-      notificationOptions).finally();
-});
+// messaging.onBackgroundMessage(function(payload) {
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//     icon: 'https://pbs.twimg.com/media/EkKR_PrWoAACTKn.jpg',
+//   };
+//
+//   self.registration.showNotification(notificationTitle,
+//       notificationOptions).finally();
+// });

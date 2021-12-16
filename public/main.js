@@ -62,7 +62,7 @@ onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
   const greeting = new Notification(payload.notification.title, {
     body: payload.notification.body,
-    icon: 'https://pbs.twimg.com/media/EkKR_PrWoAACTKn.jpg',
+    icon: 'https://film4u.club/assets/favicon.ico',
   });
 });
 

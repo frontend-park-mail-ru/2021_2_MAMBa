@@ -46,7 +46,6 @@ export class HomePageModel {
           if (response.status === statuses.OK && response.body) {
             mainPage['genres'] = convertArrayToGenresPage(response.body).genres;
             this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
-            // this.eventBus.emit(EVENTS.homepage.render.popularFilms, convertArrayToHomePopularFilmsPage(response.body));
           }
         });
   }

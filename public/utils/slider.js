@@ -16,7 +16,7 @@ export const slider = (selector) => {
 
     const countItems = slides.length;
 
-    let borderToSlide = countItems > slidesToShow ? (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow): 0 ;
+    const borderToSlide = countItems > slidesToShow ? (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow): 0;
 
     sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
     prev.classList.toggle('disabled', slideIndex === 0);
@@ -111,7 +111,6 @@ export const slider = (selector) => {
           event.preventDefault();
         }
       }
-
       if (isSwipe) {
         sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
       }
@@ -145,31 +144,31 @@ export const slider = (selector) => {
     };
 
     let isAnimating = false;
-    let stopAnimation = () => {
+    const stopAnimation = () => {
       setTimeout(() => {
         isAnimating = false;
       }, 500);
     };
-    if (countItems>slidesToShow){
-      slider.addEventListener("wheel", (event) => {
-            if (isAnimating) {
-              event.preventDefault();
-              return;
-            }
-            let direction = event.deltaX;
-            if (direction > 0) {
-              event.preventDefault();
-              slideIndex += 2;
-              isAnimating = true;
-              slide()
-            } else if (direction < 0) {
-              event.preventDefault();
-              slideIndex -= 2;
-              isAnimating = true;
-              slide()
-            }
-          },
-          {passive: false}
+    if (countItems>slidesToShow) {
+      slider.addEventListener('wheel', (event) => {
+        if (isAnimating) {
+          event.preventDefault();
+          return;
+        }
+        const direction = event.deltaX;
+        if (direction > 0) {
+          event.preventDefault();
+          slideIndex += 2;
+          isAnimating = true;
+          slide();
+        } else if (direction < 0) {
+          event.preventDefault();
+          slideIndex -= 2;
+          isAnimating = true;
+          slide();
+        }
+      },
+      {passive: false},
       );
     }
 

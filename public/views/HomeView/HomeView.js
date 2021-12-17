@@ -3,7 +3,6 @@ import homeContent from '../../components/homePage/homePage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {mainSlider} from '../../utils/mainSlider';
 import {slider} from '../../utils/slider';
-import {horizontSlider} from '../../utils/genreSlider';
 
 /** Class representing home page view. */
 export class HomePageView extends BaseView {
@@ -25,18 +24,16 @@ export class HomePageView extends BaseView {
 
   /**
    * Render content home page from pug template to content div.
-   * @param {object} collections - Contains info about collections.
+   * @param {object} data - Contains info about collections.
    */
 
-  renderContent = (collections, films) => {
-    console.log(collections);
-    const homePage = homeContent(collections, films);
+  renderContent = (data) => {
+    const homePage = homeContent(data);
     const content = document.querySelector('.content');
     if (content) {
       content.innerHTML = homePage;
       mainSlider('#main-slider');
       slider('#film-slider');
-      horizontSlider();
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }

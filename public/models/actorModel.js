@@ -9,7 +9,7 @@ import {statuses} from '../consts/reqStatuses';
  */
 export class ActorPageModel {
   /**
-   * Create a actor page model.
+   * Create an actor page model.
    * @param {EventBus} eventBus - Global Event Bus.
    */
   constructor(eventBus) {

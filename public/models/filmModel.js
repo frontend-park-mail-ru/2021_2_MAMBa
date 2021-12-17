@@ -6,8 +6,7 @@ import {statuses} from '../consts/reqStatuses';
 import {renderWarning} from '../utils/utils';
 
 
-/** Class representing film page model.
- */
+/** Class representing film page model. */
 export class FilmPageModel {
   /**
    * Create a film page model.

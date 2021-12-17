@@ -7,7 +7,6 @@ export const mainSlider = (selector) => {
     const arrows = slider.querySelector('.slider-arrows');
     const prev = arrows.children[0];
     const next = arrows.children[1];
-    const widthSlide = 0;
     const itemWidth = slides[0].offsetWidth;
     let slideIndex = 0;
     const movePosition = sliderList.offsetWidth;
@@ -28,14 +27,12 @@ export const mainSlider = (selector) => {
           setTimeout(async () => {
             next.classList.remove('main-slider__button_block');
           }, 500);
-
           slideIndex++;
         } else if (target.classList.contains('main-slider__button_left') || target.classList.contains('main-slider__arrow_left')) {
           prev.classList.add('main-slider__button_block');
           setTimeout(async () => {
             prev.classList.remove('main-slider__button_block');
           }, 500);
-
           slideIndex--;
         } else {
           return;
@@ -44,7 +41,7 @@ export const mainSlider = (selector) => {
       });
     }
 
-    const slide = (toSlide) => {
+    const slide = () => {
       if (sliderTrack) {
         sliderTrack.style.transition = 'transform .5s';
 
@@ -70,6 +67,7 @@ export const mainSlider = (selector) => {
         }
         prev.classList.toggle('disabled', slideIndex === 0);
         next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+        stopAnimation();
       }
     };
 
@@ -91,12 +89,9 @@ export const mainSlider = (selector) => {
     let prevTrf = 0;
     const posThreshold = slides[0].offsetWidth * 0.35;
     const trfRegExp = /([-0-9.]+(?=px))/;
-    let swipeStartTime;
-    let swipeEndTime;
     const swipeStart = () => {
       const evt = getEvent();
       if (allowSwipe) {
-        swipeStartTime = Date.now();
         transition = true;
         nextTrf = (slideIndex + 1) * -itemWidth;
         prevTrf = (slideIndex - 1) * -itemWidth;
@@ -152,7 +147,35 @@ export const mainSlider = (selector) => {
       }
     };
 
-    sliderList.classList.add('grab');
+    let isAnimating = false;
+    const stopAnimation = () => {
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    };
+
+    slider.addEventListener('wheel', (event) => {
+      if (isAnimating) {
+        event.preventDefault();
+        return;
+      }
+      const direction = event.deltaX;
+      if (direction > 0) {
+        event.preventDefault();
+        slideIndex ++;
+        isAnimating = true;
+        slide();
+      } else if (direction < 0) {
+        event.preventDefault();
+        slideIndex --;
+        isAnimating = true;
+        slide();
+      }
+    },
+    {passive: false},
+    );
+
+
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }

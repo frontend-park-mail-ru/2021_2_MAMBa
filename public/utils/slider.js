@@ -4,23 +4,19 @@ export const slider = (selector) => {
     const sliderList = slider.querySelector('.slider-list');
     const sliderTrack = slider.querySelector('.slider-track');
     const slides = slider.querySelectorAll('.slide');
+    let slideIndex = 0;
+
     const arrows = slider.querySelector('.slider-arrows');
     const prev = arrows.children[0];
     const next = arrows.children[1];
-    let widthSlide = 0;
-    const itemWidth = slides[0].offsetWidth;
 
-    let slideIndex = 0;
+    const itemWidth = slides[0].offsetWidth;
     const movePosition = sliderList.offsetWidth;
     const slidesToShow = Math.floor(movePosition / itemWidth);
 
     const countItems = slides.length;
 
-
-    let borderToSlide = (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow);
-    if (countItems <= slidesToShow) {
-      borderToSlide = 0;
-    }
+    let borderToSlide = countItems > slidesToShow ? (countItems - (slidesToShow + 1)) * itemWidth + itemWidth - (movePosition - itemWidth * slidesToShow): 0 ;
 
     sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
     prev.classList.toggle('disabled', slideIndex === 0);
@@ -50,11 +46,15 @@ export const slider = (selector) => {
             slideIndex = 0;
           }
           const slideWidth = slideIndex * itemWidth > borderToSlide ? borderToSlide : slideIndex * itemWidth;
-
           sliderTrack.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
 
           prev.classList.toggle('disabled', slideIndex === 0);
           next.classList.toggle('disabled', slideIndex >= countItems - slidesToShow);
+
+          if (slideIndex >= countItems - slidesToShow) {
+            slideIndex = (countItems - slidesToShow - 1) > 0 ? countItems - slidesToShow - 1 : 0;
+          }
+          stopAnimation();
         }
       }
     };
@@ -63,6 +63,7 @@ export const slider = (selector) => {
       return (event.type.search('touch') !== -1) ? event.touches[0] : event;
     };
 
+    let widthSlided = 0;
     let transition = true;
     let posInit = 0;
     let posX1 = 0;
@@ -84,13 +85,10 @@ export const slider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        slider.addEventListener('touchmove', {handleEvent: swipeAction});
+        slider.addEventListener('touchmove', swipeAction);
         slider.addEventListener('touchend', swipeEnd);
-        sliderList.classList.remove('grab');
-        sliderList.classList.add('grabbing');
       }
     };
-
 
     const swipeAction = () => {
       allowSwipe = true;
@@ -124,24 +122,21 @@ export const slider = (selector) => {
       slider.removeEventListener('touchmove', swipeAction);
       slider.removeEventListener('touchend', swipeEnd);
 
-      sliderList.classList.add('grab');
-      sliderList.classList.remove('grabbing');
-
       if (allowSwipe) {
         swipeEndTime = Date.now();
         if (posInit !== posX1 && !isScroll && swipeEndTime - swipeStartTime < 800) {
-          widthSlide += (posInit - posX1) * 3;
-          if (widthSlide > borderToSlide) {
-            widthSlide = borderToSlide;
+          widthSlided += (posInit - posX1) * 3;
+          if (widthSlided > borderToSlide) {
+            widthSlided = borderToSlide;
           }
-          if (widthSlide <= 0) {
-            widthSlide = 0;
+          if (widthSlided <= 0) {
+            widthSlided = 0;
           }
-          slide(widthSlide);
-        } else if (widthSlide + (posInit - posX1) > borderToSlide) {
+          slide(widthSlided);
+        } else if (widthSlided + (posInit - posX1) > borderToSlide) {
           slide(borderToSlide);
           sliderTrack.style.transform = `translate3d(-${borderToSlide}px, 0px, 0px)`;
-        } else if (widthSlide + (posInit - posX1) <= 0) {
+        } else if (widthSlided + (posInit - posX1) <= 0) {
           slide(0);
           sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)';
         }
@@ -149,8 +144,36 @@ export const slider = (selector) => {
       isScroll = false;
     };
 
+    let isAnimating = false;
+    let stopAnimation = () => {
+      setTimeout(() => {
+        isAnimating = false;
+      }, 500);
+    };
+    if (countItems>slidesToShow){
+      slider.addEventListener("wheel", (event) => {
+            if (isAnimating) {
+              event.preventDefault();
+              return;
+            }
+            let direction = event.deltaX;
+            if (direction > 0) {
+              event.preventDefault();
+              slideIndex += 2;
+              isAnimating = true;
+              slide()
+            } else if (direction < 0) {
+              event.preventDefault();
+              slideIndex -= 2;
+              isAnimating = true;
+              slide()
+            }
+          },
+          {passive: false}
+      );
+    }
 
-    sliderList.classList.add('grab');
+
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }

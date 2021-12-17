@@ -3,6 +3,7 @@ import homeContent from '../../components/homePage/homePage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {mainSlider} from '../../utils/mainSlider';
 import {slider} from '../../utils/slider';
+import {horizontSlider} from '../../utils/genreSlider';
 
 /** Class representing home page view. */
 export class HomePageView extends BaseView {
@@ -35,6 +36,7 @@ export class HomePageView extends BaseView {
       content.innerHTML = homePage;
       mainSlider('#main-slider');
       slider('#film-slider');
+      horizontSlider();
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }

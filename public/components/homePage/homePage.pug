@@ -1,9 +1,12 @@
 include ../mainSlider/mainSlider
 include ../slider/slider
+include ../genreSlider/genreSlider
 div.wrapper
     main.page
         div(class = "block")
-            +mainSlider(collections)
+            +mainSlider(mainSliderContent)
         div(class = "home__container")
             div(class= "block-subtitle") Популярные фильмы
             +slider(popularFilms)
+            div(class= "block-subtitle") Жанры
+            +genreSlider(genres)

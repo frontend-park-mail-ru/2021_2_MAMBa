@@ -5,6 +5,7 @@
   transition: all .2s ease-out;
   text-decoration: none;
   flex-direction: column;
+  display: block;
   background: linear-gradient(
                   104deg,
                   $grey-background 0%,
@@ -32,12 +33,45 @@
     color: $white;
   }
 
-  &:hover {
+  &__card:hover {
     position: relative;
     opacity: 1;
     transform: scale(1.1);
   }
 }
+.genre-slider{
+  &__item {
+    width: 220px+20px;
+    min-width: 220px+20px;
+    text-align: center;
+  }
+  &__indent {
+    width: 220px;
+    min-width: 220px;
+    margin: 10px 20px 10px 0;
+  }
+  &__wrapper {
+    flex-direction: column;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  &__item:hover {
+    transform: translateY(-5px) scale(1.04);
+    transition: all .15s ease-in-out;
+    transition-property: all;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+  }
+}
+
 
 @media (max-width: $padSize) {
   .genre{

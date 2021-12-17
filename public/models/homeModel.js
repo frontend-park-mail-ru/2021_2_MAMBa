@@ -1,4 +1,4 @@
-import {getGenres, getMainPageContent, getMainPagePopularFilms} from '../modules/http.js';
+import {getGenres, getCollections, getMainPagePopularFilms} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {
   convertArrayToGenresPage,
@@ -19,14 +19,14 @@ export class HomePageModel {
   }
 
   getMainPageContent = () => {
-    const mainPage= {};
-    getMainPageContent()
+    const mainPage = {};
+    getCollections()
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            mainPage['collections'] = convertArrayToHomeMainSliderPage(response.body).collections;
+            mainPage['mainSliderContent'] = convertArrayToHomeMainSliderPage(response.body).collections;
           }
         });
     getMainPagePopularFilms()
@@ -45,8 +45,19 @@ export class HomePageModel {
           }
           if (response.status === statuses.OK && response.body) {
             mainPage['genres'] = convertArrayToGenresPage(response.body).genres;
-            this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
+
           }
+        });
+    getCollections()
+        .then((response) => {
+          if (!response || !response.status) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          }
+          if (response.status === statuses.OK && response.body) {
+            mainPage['collections'] = convertArrayToHomeMainSliderPage(response.body).collections;
+          }
+          this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
+          console.log(mainPage)
         });
   }
 }

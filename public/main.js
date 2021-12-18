@@ -46,7 +46,10 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging();
 getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J4prDCmZSsIqbPA4x-FT9aN6vhxqFzjPtBQETOmU'}).then((currentToken) => {
   if (currentToken) {
-    fetch('https://film4u.club/api/user/subscribePush', {token: currentToken}).finally();
+    fetch('https://film4u.club/api/user/subscribePush', {
+      method: 'POST',
+      body: JSON.stringify({token: currentToken}),
+    }).finally();
     console.log(`token: ${currentToken}`);
   } else {
     console.log('No registration token available. Request permission to generate one.');
@@ -59,7 +62,7 @@ onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
   const greeting = new Notification(payload.notification.title, {
     body: payload.notification.body,
-    icon: 'https://pbs.twimg.com/media/EkKR_PrWoAACTKn.jpg',
+    icon: 'https://film4u.club/assets/favicon.ico',
   });
 });
 

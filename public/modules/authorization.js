@@ -47,6 +47,7 @@ class Authorization {
       if (response?.parsedJson?.status === statuses.OK) {
         return response.parsedJson?.body?.id;
       } else {
+        window.localStorage.removeItem('user');
         this.eventBus.emit(EVENTS.authorization.notLoggedIn);
         this.lastEvent = EVENTS.authorization.notLoggedIn;
         return null;

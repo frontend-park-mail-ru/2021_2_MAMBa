@@ -3,6 +3,7 @@ import homeContent from '../../components/homePage/homePage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {mainSlider} from '../../utils/mainSlider';
 import {slider} from '../../utils/slider';
+import liSliderPug from '../../components/slider/sliderNotMixin.pug';
 
 /** Class representing home page view. */
 export class HomePageView extends BaseView {
@@ -34,8 +35,43 @@ export class HomePageView extends BaseView {
       content.innerHTML = homePage;
       mainSlider('#main-slider');
       slider('#film-slider');
+      slider('#genre-slider');
+      this.homeMenu(data)
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
+
+  homeMenu = (data) => {
+      const liPopularFilms = document.querySelector(`.popularFilms`);
+    const liPremiere = document.querySelector(`.premiereLi`);
+    const liSlider = document.querySelector(`.liSlider`);
+      if (liPopularFilms && liSlider && liPremiere) {
+        liPopularFilms.addEventListener('click', (e) => {
+          e.preventDefault();
+          const films ={
+            films : data.popularFilms
+          }
+          if(!liPopularFilms.classList.contains('subtitle_chosen')){
+            liSlider.innerHTML = liSliderPug(films);
+            liPremiere.classList.remove('subtitle_chosen');
+            liPopularFilms.classList.add('subtitle_chosen');
+          }
+          slider('#film-slider');
+        });
+        liPremiere.addEventListener('click', (e) => {
+          e.preventDefault();
+          const films ={
+            films : data.premieres
+          }
+          if(!liPremiere.classList.contains('subtitle_chosen')){
+            liSlider.innerHTML = liSliderPug(films);
+            liPremiere.classList.add('subtitle_chosen');
+            liPopularFilms.classList.remove('subtitle_chosen');
+            slider('#film-slider');
+          }
+        });
+      }
+    };
+
 }

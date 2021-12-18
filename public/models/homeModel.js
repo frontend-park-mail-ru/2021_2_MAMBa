@@ -1,6 +1,7 @@
-import {getGenres, getCollections, getMainPagePopularFilms} from '../modules/http.js';
+import {getGenres, getCollections, getMainPagePopularFilms, getInfoAboutPremiers} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {
+  convertArrayToCalendarPage,
   convertArrayToGenresPage,
   convertArrayToHomeMainSliderPage, convertArrayToHomePopularFilmsPage,
 } from '../modules/adapters';
@@ -56,8 +57,20 @@ export class HomePageModel {
           if (response.status === statuses.OK && response.body) {
             mainPage['collections'] = convertArrayToHomeMainSliderPage(response.body).collections;
           }
-          this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
-          console.log(mainPage)
+
         });
+    const data = new Date();
+    const year = data.getFullYear();
+    const month = data.getMonth();
+    getInfoAboutPremiers(year, month)
+        .then((response) => {
+          if (!response.status) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          } else if (response?.status === statuses.OK && response.body) {
+            mainPage['premieres'] = convertArrayToCalendarPage(response.body, year, month).premieres;
+          }
+          this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
+        });
+    console.log(mainPage)
   }
 }

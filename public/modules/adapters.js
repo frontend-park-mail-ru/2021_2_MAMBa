@@ -467,7 +467,6 @@ export const convertDateToCalendarPage = (month, year) => {
     month = '0' + month;
   }
   const monthText = monthToText('' + month);
-  console.log(monthText);
   return `${monthText[1]}, ${year}`;
 };
 

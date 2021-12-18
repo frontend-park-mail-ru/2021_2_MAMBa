@@ -6,7 +6,11 @@ div.wrapper
         div(class = "block")
             +mainSlider(mainSliderContent)
         div(class = "home__container")
-            div(class= "block-subtitle") Популярные фильмы
-            +slider(popularFilms)
-            div(class= "block-subtitle") Жанры
+            ul.subtitle__list
+                li(class = "subtitle_chosen subtitle_default popularFilms") Популярное
+                div.subtitle_slash /
+                li(class = "subtitle_default premiereLi") Скоро на экранах
+            div.liSlider
+                +slider(popularFilms)
+            div(class= "block-subtitle home-subtitle") Фильмы по жанрам
             +genreSlider(genres)

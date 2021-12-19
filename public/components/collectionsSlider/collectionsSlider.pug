@@ -1,0 +1,14 @@
+mixin collectionsSlider(i)
+    div.slider#collections-slider
+        div.slider-list
+            div(class ="slider-track")
+              each input, _ in i
+                  div(class ="collections-slider__item slide")
+                    div.collections-slider__indent
+                        a(class = "collections-slider__link slider__item" href=`${input.href}`)
+                            div.collections-slider__poster
+                                img(src=input.collectionAvatar)
+                            div.collections-slider__name #{input.title}
+        div.slider-arrows
+            div(class="prev slider__button slider__button_left")
+            div(class="next slider__button slider__button_right")

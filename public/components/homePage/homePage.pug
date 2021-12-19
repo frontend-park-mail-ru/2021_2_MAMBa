@@ -1,6 +1,7 @@
 include ../mainSlider/mainSlider
 include ../slider/slider
 include ../genreSlider/genreSlider
+include ../collectionsSlider/collectionsSlider
 div.wrapper
     main.page
         div(class = "block")
@@ -12,5 +13,7 @@ div.wrapper
                 li(class = "subtitle_default premiereLi") Скоро на экранах
             div.liSlider
                 +slider(popularFilms)
-            div(class= "block-subtitle home-subtitle") Фильмы по жанрам
+            div(class= "home-subtitle") Фильмы по жанрам
             +genreSlider(genres)
+            div(class= "home-subtitle") Подборки
+            +collectionsSlider(collections)

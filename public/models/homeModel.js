@@ -1,7 +1,7 @@
 import {getGenres, getCollections, getMainPagePopularFilms, getInfoAboutPremiers} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {
-  convertArrayToCalendarPage,
+  convertArrayToCalendarPage, convertArrayToCollectionsPage,
   convertArrayToGenresPage,
   convertArrayToHomeMainSliderPage, convertArrayToHomePopularFilmsPage,
 } from '../modules/adapters';
@@ -55,7 +55,7 @@ export class HomePageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            mainPage['collections'] = convertArrayToHomeMainSliderPage(response.body).collections;
+            mainPage['collections'] = convertArrayToCollectionsPage(response.body).collections;
           }
 
         });

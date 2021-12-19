@@ -6,7 +6,7 @@ mixin genreSlider(i)
               each input, _ in i
                   div(class ="genre-slider__item slide")
                     div.genre-slider__indent
-                        a(class = "genre" href=`${input.href}`)
+                        a(class = "genre slider__item" href=`${input.href}`)
                             div.genre-slider__wrapper
                                 img(src=input.genreAvatar)
                                 div.genre__name #{input.title}

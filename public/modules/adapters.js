@@ -55,7 +55,7 @@ export const convertArrayToHomeMainSliderPage = (collectionsInfoJson) => (
 );
 /**
  * Union actors and their ids.
- * @param {object} collectionsInfoJson - Info about actor from json.
+ * @param {object} filmsInfoJson - Info about actor from json.
  * @return {object} - Object for render actor information
  */
 export const convertArrayToHomePopularFilmsPage = (filmsInfoJson) => (

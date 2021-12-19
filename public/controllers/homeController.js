@@ -6,7 +6,7 @@ import {EVENTS} from '../consts/EVENTS';
 /** Class representing home page controller. */
 export class HomePageController extends BaseController {
   /**
-   * Create an home page controller.
+   * Create a home page controller.
    */
   constructor() {
     super(HomePageView, HomePageModel);

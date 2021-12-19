@@ -4,15 +4,17 @@
  * @return {object} - Object for render actor information
  */
 export const convertArrayToActorPage = (fullActorInfoJson) => (
-    {
-      actor: convertActorToActorPage(fullActorInfoJson.actor),
-      moreAvailable: fullActorInfoJson.films.more_available,
-      skip: fullActorInfoJson.films.current_skip,
-      limit: fullActorInfoJson.films.current_limit,
-      filmsWithDescription:
+  {
+    actor: convertActorToActorPage(fullActorInfoJson.actor),
+    moreAvailable: fullActorInfoJson.films.more_available,
+    skip: fullActorInfoJson.films.current_skip,
+    limit: fullActorInfoJson.films.current_limit,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(fullActorInfoJson.films.film_list),
-      filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
-    }
+    countFilmsWithDescription: fullActorInfoJson?.films.film_total || 0,
+    filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
+    countFilmsToSlide: fullActorInfoJson?.popular_films.film_total || 0,
+  }
 );
 
 /**
@@ -21,9 +23,9 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
  * @return {object} - Object for render actor information
  */
 export const convertArrayToCollectionsPage = (collectionsInfoJson) => (
-    {
-      collections: convertArrayToCollection(collectionsInfoJson.collections_list),
-    }
+  {
+    collections: convertArrayToCollection(collectionsInfoJson.collections_list),
+  }
 );
 
 /**
@@ -47,9 +49,19 @@ export const convertArrayToCollection = (arrayContent) => {
  * @return {object} - Object for render actor information
  */
 export const convertArrayToHomeMainSliderPage = (collectionsInfoJson) => (
-    {
-      collections: convertArrayToMainSlider(collectionsInfoJson.collections_list),
-    }
+  {
+    collections: convertArrayToMainSlider(collectionsInfoJson.collections_list),
+  }
+);
+/**
+ * Union actors and their ids.
+ * @param {object} filmsInfoJson - Info about actor from json.
+ * @return {object} - Object for render actor information
+ */
+export const convertArrayToHomePopularFilmsPage = (filmsInfoJson) => (
+  {
+    popularFilms: convertArrayToFilm(filmsInfoJson.film_list),
+  }
 );
 /**
  * Union collection information
@@ -57,7 +69,7 @@ export const convertArrayToHomeMainSliderPage = (collectionsInfoJson) => (
  * @return {object} - Object for render collections information
  */
 export const convertArrayToMainSlider = (arrayContent) => {
-  let arr = arrayContent.map(function (jsonCollection) {
+  const arr = arrayContent.map(function(jsonCollection) {
     return {
       title: jsonCollection?.title,
       collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
@@ -74,15 +86,15 @@ export const convertArrayToMainSlider = (arrayContent) => {
  * @return {object} - Object for render actor information
  */
 export const convertActorToActorPage = (actorInfoJson) => (
-    {
-      name: actorInfoJson.name_rus,
-      nameEnglish: actorInfoJson.name_en,
-      avatar: `https://film4u.club${actorInfoJson.picture_url}`,
-      heightMetre: `${actorInfoJson.height} м`,
-      date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
-      filmTotal: actorInfoJson.film_number,
-      ...actorInfoJson,
-    }
+  {
+    name: actorInfoJson.name_rus,
+    nameEnglish: actorInfoJson.name_en,
+    avatar: `https://film4u.club${actorInfoJson.picture_url}`,
+    heightMetre: `${actorInfoJson.height} м`,
+    date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
+    filmTotal: actorInfoJson.film_number,
+    ...actorInfoJson,
+  }
 );
 
 /**
@@ -108,14 +120,34 @@ export const convertArrayToFilm = (arrayContent) => {
  * @return {object} - Object for render actor information
  */
 export const convertArrayToActorFilms = (actorFilmsJson) => (
-    {
-      moreAvailable: actorFilmsJson.more_available,
-      skip: actorFilmsJson.current_skip,
-      limit: actorFilmsJson.current_limit,
-      filmsWithDescription:
+  {
+    moreAvailable: actorFilmsJson.more_available,
+    skip: actorFilmsJson.current_skip,
+    limit: actorFilmsJson.current_limit,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(actorFilmsJson.film_list),
-    }
+  }
 );
+
+/**
+ * Union actor`s film.
+ * @param {object} arrayContent - Info about films with descriptions from json.
+ * @return {object} - Object for render films with descriptions.
+ */
+export const convertArrayToGenreFilmWithDescription = (arrayContent) => {
+  return arrayContent.map((jsonFilm) => {
+    return {
+      id: jsonFilm.id,
+      title: jsonFilm.title,
+      originalTitle: jsonFilm?.title_original || '',
+      description: jsonFilm?.description || '-',
+      year: jsonFilm?.release_year || '-',
+      filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
+      href: `/films/${jsonFilm.id}`,
+      rating: jsonFilm?.rating|| '-',
+    };
+  });
+};
 
 /**
  * Union actor`s film.
@@ -142,14 +174,14 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
  * @return {object} - Object for render film information
  */
 export const convertArrayToFilmPage = (filmInfoJson) => (
-    {
-      film: convertArrayToFilmInfo(filmInfoJson.film),
-      reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
-      recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
-      myRating: filmInfoJson.my_review?.stars || 1,
-      myReview: convertReviewToReviewPage(filmInfoJson.my_review),
-      bookmarked: filmInfoJson.bookmarked,
-    }
+  {
+    film: convertArrayToFilmInfo(filmInfoJson.film),
+    reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.reviews.review_list),
+    recommendations: convertArrayToFilm(filmInfoJson.recommendations.recommendation_list),
+    myRating: filmInfoJson.my_review?.stars || 1,
+    myReview: convertReviewToReviewPage(filmInfoJson.my_review),
+    bookmarked: filmInfoJson.bookmarked,
+  }
 );
 /**
  * Union actors and their ids.
@@ -192,7 +224,7 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     year: arrayContent?.release_year || '-',
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
-    rating: arrayContent?.rating || "-",
+    rating: arrayContent?.rating || '-',
     trailerUrl: arrayContent?.trailer_url || '-',
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
@@ -269,13 +301,13 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
  * @return {object} - Object for render collection information
  */
 export const convertCollectionToCollectionPage = (collectionInfoJson) => (
-    {
-      name: `${collectionInfoJson.collection.collection_name}`,
-      description: collectionInfoJson.collection.description,
-      id: collectionInfoJson.collection.id,
-      filmsWithDescription:
+  {
+    name: `${collectionInfoJson.collection.collection_name}`,
+    description: collectionInfoJson.collection.description,
+    id: collectionInfoJson.collection.id,
+    filmsWithDescription:
           convertArrayToFilmWithDescription(collectionInfoJson.films),
-    }
+  }
 );
 
 /**
@@ -299,9 +331,9 @@ export const convertArrayToGenres = (genres) => {
  * @return {object} - Object for render genres information
  */
 export const convertArrayToGenresPage = (genresInfoJson) => (
-    {
-      genres: convertArrayToGenres(genresInfoJson.genres_list),
-    }
+  {
+    genres: convertArrayToGenres(genresInfoJson.genres_list),
+  }
 );
 
 /**
@@ -310,16 +342,16 @@ export const convertArrayToGenresPage = (genresInfoJson) => (
  * @return {object} - Object for render genre information
  */
 export const convertArrayToGenrePage = (genreInfoJson) => (
-    {
-      filmsTotal: genreInfoJson.films.film_total,
-      id: genreInfoJson.id,
-      genreName: `${genreInfoJson.name}`,
-      moreAvailable: genreInfoJson?.more_available || false,
-      skip: genreInfoJson.current_skip,
-      limit: genreInfoJson.current_limit,
-      filmsWithDescription:
-          convertArrayToFilmWithDescription(genreInfoJson.films.film_list),
-    }
+  {
+    filmsTotal: genreInfoJson.films.film_total,
+    id: genreInfoJson.id,
+    genreName: `${genreInfoJson.name}`,
+    moreAvailable: genreInfoJson?.more_available || false,
+    skip: genreInfoJson.current_skip,
+    limit: genreInfoJson.current_limit,
+    filmsWithDescription:
+          convertArrayToGenreFilmWithDescription(genreInfoJson.films.film_list),
+  }
 );
 
 /**
@@ -432,10 +464,9 @@ export const convertArrayToCalendarPage = (calendarInfoJson, year, month) => {
  */
 export const convertDateToCalendarPage = (month, year) => {
   if (month < 10) {
-    month = '0' + month
+    month = '0' + month;
   }
   const monthText = monthToText('' + month);
-  console.log(monthText)
   return `${monthText[1]}, ${year}`;
 };
 

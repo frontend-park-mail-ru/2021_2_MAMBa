@@ -31,9 +31,9 @@ div.wrapper
                             div(class = "fact__key fact__key_invisible")  Всего фильмов
                             div(class = "fact__value fact__value_dop") #{actor.filmTotal}
                     a(class="actor__facts-button button-with-border scroll-to button" href="#facts") Факты
-            if film && filmsToSlide
+            if countFilmsWithDescription > 0 || countFilmsToSlide > 0
                 div(class ="black-container")
-                    div(class= "block-subtitle block") Популярные фильмы с актером
+                    div(class= "block-subtitle") Популярные фильмы с актером
                     +slider(filmsToSlide, "white")
                     div(class = "films-with-description")
                         div.block-subtitle Полная фильмография

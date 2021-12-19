@@ -133,28 +133,6 @@ const getActorFilms = async (actorId, skip, limit) => {
 
 /**
  * Send async get request using async func.
- * @return {array} - Array of objects for render collections page.
- */
-const getCollections = async () => {
-  const params = {
-    url: URLS.api.collections,
-    method: 'GET',
-    credentials: 'include',
-  };
-  try {
-    const {status: responseStatus, parsedJson: responseBody} =
-        await sendRequest(params);
-    if (responseStatus === statuses.OK) {
-      return (responseBody);
-    }
-    return null;
-  } catch {
-    return null;
-  }
-};
-
-/**
- * Send async get request using async func.
  * @param {object} collectionId - Contains id of collection to render.
  * @return {array} - Array of objects for render collection page.
  */
@@ -481,9 +459,31 @@ const sendBookmark = async (filmId, bookmarked) => {
  * Send async get request using async func.
  * @return {array} - Array of objects for render home page.
  */
-const getMainPageContent = async () => {
+const getCollections = async () => {
   const params = {
     url: URLS.api.collections,
+    method: 'GET',
+    credentials: 'include',
+  };
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @return {array} - Array of objects for render home page.
+ */
+export const getMainPagePopularFilms = async () => {
+  const params = {
+    url: URLS.api.popularFilms,
     method: 'GET',
     credentials: 'include',
   };
@@ -524,6 +524,5 @@ export {
   getInfoAboutPremiers,
   sendBookmark,
   getSearch,
-  getMainPageContent
 };
 

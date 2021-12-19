@@ -1,4 +1,4 @@
-import {getMainPageContent} from '../modules/http.js';
+import {getCollections} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {convertArrayToCollectionsPage} from '../modules/adapters';
 import {statuses} from '../consts/reqStatuses';
@@ -16,7 +16,7 @@ export class CollectionsPageModel {
   }
 
   getCollectionsPageContent = () => {
-    getMainPageContent()
+    getCollections()
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);

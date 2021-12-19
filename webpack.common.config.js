@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const { basename } = require('path')
+const {basename} = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 
 const PATHS = {
@@ -68,8 +68,8 @@ module.exports = {
     }),
     new FaviconsWebpackPlugin({
       logo: 'public/oscar.png',
-      inject: htmlPlugin =>
-          basename(htmlPlugin.options.filename) === 'index.html',
+      inject: (htmlPlugin) =>
+        basename(htmlPlugin.options.filename) === 'index.html',
     }),
     new CopyWebpackPlugin({
       patterns: [

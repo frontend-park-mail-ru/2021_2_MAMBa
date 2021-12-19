@@ -1,30 +1,126 @@
 @import '../../css/consts.scss';
 
-.collections {
+.home {
   &__container {
-    display: grid;
-    row-gap: 30px;
-    column-gap: 20px;
+    max-width: $maxWidth + px;
+    margin: 0 auto;
     @media (max-width: $notebookSize) {
-      row-gap: 20px;
+      max-width: 750px;
     }
-    @media (max-width: $phoneSize) {
-      column-gap: 12px;
-      row-gap: 12px;
+    @media (max-width: $padSize) {
+      padding: 0 0 0 16px;
     }
+  }
+  &-subtitle{
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    @media (max-width: $horizontalPadSize) {
+      font-size: 22px;
+      margin-bottom: 5px;
+      margin-left: 5px;
+    }
+    @media (max-width: $padSize) {
+      font-size: 20px;
+      margin-bottom: 5px;
+      margin-left: 0;
+    }
+  }
+}
 
-    &_column-number {
-      grid-template-columns: repeat(4, 1fr);
-      @media (max-width: $notebookSize) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      @media (max-width: $padSize) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+.subtitle {
+  &__list {
+    position: relative;
+    display: flex;
+    height: 34px;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+    align-items: stretch;
+    margin-bottom: 20px;
+  }
 
-    &_genres-column-number {
-      grid-template-columns: repeat( auto-fit, minmax(160px, 1fr));
+  &_chosen {
+    color: $pink;
+  }
+
+  &_default {
+    margin: 0 10px;
+    font-size: 24px;
+    line-height: 40px;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    cursor: pointer;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+    &:hover {
+      color: $pink;
+    }
+  }
+
+  &_slash {
+    margin: 0 3px;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: "Montserrat-Bold", "Arial", sans-serif;
+  }
+
+  * {
+    outline: none;
+  }
+}
+
+@media (min-width: $padSize) {
+  .slider__item{
+    display: block;
+    &:hover {
+      transform: translateY(-5px) scale(1.04);
+      transition: all .15s ease-in-out;
+      transition-property: all;
+      transition-duration: 0.15s;
+      transition-timing-function: ease-in-out;
+      transition-delay: 0s;
+    }
+  }
+}
+
+@media (max-width: $horizontalPadSize) {
+  .subtitle {
+    &_default {
+      font-size: 20px;
+      margin: 0 5px;
+    }
+    &_slash {
+      font-size: 14px;
+    }
+  }
+  .subtitle__list{
+    margin: 5px 0;
+  }
+  .home {
+    &__container {
+      max-width: none;
+      padding: 0 0 0 32px;
+    }
+  }
+}
+
+@media (max-width: $phoneSize) {
+  .home-subtitle{
+    padding-left: 10px;
+  }
+  .home {
+    &__container {
+        padding: 0;
+    }
+  }
+  .subtitle {
+    &_default {
+      font-size: 16px;
+      margin: 0 5px;
     }
   }
 }

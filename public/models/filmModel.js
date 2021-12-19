@@ -6,8 +6,7 @@ import {statuses} from '../consts/reqStatuses';
 import {renderWarning} from '../utils/utils';
 
 
-/** Class representing film page model.
- */
+/** Class representing film page model. */
 export class FilmPageModel {
   /**
    * Create a film page model.
@@ -34,7 +33,7 @@ export class FilmPageModel {
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
           if (response.status === statuses.NOT_FOUND) {
-            this.eventBus.emit(EVENTS.App.ErrorPageText, "На нашем сайте такого фильма нет");
+            this.eventBus.emit(EVENTS.App.ErrorPageText, 'На нашем сайте такого фильма нет');
           }
         });
   }
@@ -44,8 +43,9 @@ export class FilmPageModel {
       renderWarning(`Чтобы оставить ${name}, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "black_text">зарегистрируйтесь</a>`,
           'warning_no-auth');
       return false;
-    } else
+    } else {
       return true;
+    }
   }
 
   /**
@@ -53,8 +53,7 @@ export class FilmPageModel {
    * @param {object} inputsData - review to post.
    */
   postReview = (inputsData = {}) => {
-    console.log("in post review")
-    if (this.checkAuthAndWarn(inputsData.film_id, "отзыв")) {
+    if (this.checkAuthAndWarn(inputsData.film_id, 'отзыв')) {
       sendReview(inputsData)
           .then((response) => {
             if (!response) {

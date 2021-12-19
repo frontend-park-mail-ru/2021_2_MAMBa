@@ -5,6 +5,7 @@ export const REGROUTES = {
   genrePage: '/genres/\\d+',
   calendarPage: '/premieres',
   reviewPage: '/reviews/\\d+',
+  randomPage: '^/random$',
   AuthPage: '^/auth$',
   search: '^/search$',
   RegPage: '^/reg$',

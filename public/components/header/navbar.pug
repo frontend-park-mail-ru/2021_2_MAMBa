@@ -12,7 +12,7 @@ header.navbar
     .navbar__wide-menu
       each btn in headerLinks
             if  btn.title == 'Рандомный фильм'
-                a.navbar__menu-btn
+                a.navbar__menu-btn(href = btn.href)
                     include ../../static/pics/cube.svg
             else
                 a.navbar__menu-btn(href = btn.href)= btn.title

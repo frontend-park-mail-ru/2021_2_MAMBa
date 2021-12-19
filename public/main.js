@@ -10,6 +10,7 @@ import {CollectionPageController} from './controllers/collectionController.js';
 import {GenresPageController} from './controllers/genresController';
 import {GenrePageController} from './controllers/genreController';
 import {SearchController} from './controllers/searchController.js';
+import {RandomController} from './controllers/randomController.js';
 import {CalendarPageController} from './controllers/calendarController';
 
 import {Router} from './modules/router.js';
@@ -85,6 +86,7 @@ const genrePageController = new GenrePageController();
 const calendarPageController = new CalendarPageController();
 const searchController = new SearchController();
 const collectionsController = new CollectionsPageController();
+const randomController = new RandomController();
 
 const router = new Router(ROOT);
 
@@ -101,4 +103,5 @@ router.register(REGROUTES.homePage, homePageController)
     .register(REGROUTES.calendarPage, calendarPageController)
     .register(REGROUTES.search, searchController)
     .register(REGROUTES.collections, collectionsController)
+    .register(REGROUTES.randomPage, randomController)
     .start();

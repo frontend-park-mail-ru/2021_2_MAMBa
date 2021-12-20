@@ -42,5 +42,6 @@ export const URLS = {
     genre: `${currentUrl}/api/film/genreFilms?id=`,
     calendar: `${currentUrl}/api/film/calendar`,
     popularFilms: `${currentUrl}/api/film/popularFilms`,
+    random: `${currentUrl}/api/getRandom`,
   },
 };

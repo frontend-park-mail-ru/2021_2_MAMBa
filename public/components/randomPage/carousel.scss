@@ -15,6 +15,27 @@
     transition: transform 0.5s;
   }
 
+  &__btn-container {
+    margin-top: 20px;
+    display: flex;
+  }
+
+  &__prev-btn, &__next-btn {
+    padding: 10px;
+    cursor: pointer;
+    background-color: $pink;
+    color: $white;
+    border-radius: 10px;
+    margin: 0 10px;
+    font-size: 1.2em;
+    font-family: "Montserrat-Medium", sans-serif;
+  }
+
+  &__prev-btn:active, &__next-btn:active {
+    transform: scale(0.95);
+  }
+
+
   &__card {
     flex: 0 0 auto;
     width: 100%;

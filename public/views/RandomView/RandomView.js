@@ -10,38 +10,15 @@ export class RandomView extends BaseView {
   }
 
   emitGetContent = () => {
-    this.renderContent();
+    this.eventBus.emit(EVENTS.randomPage.getPageContent);
   }
 
-  renderContent = () => {
+  renderContent = (data) => {
     const content = document.querySelector('.content');
     if (!content) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
-    content.innerHTML = randomPug({
-      cardList: [
-        {
-          filmHref: `${deployUrl}/film/1`,
-          imgSrc: 'https://randomwordgenerator.com/img/picture-generator/51e6dd444a54b10ff3d8992cc12c30771037dbf85254794e732f7bd49344_640.jpg',
-        },
-        {
-          filmHref: `${deployUrl}/film/1`,
-          imgSrc: 'https://cdn.pixabay.com/photo/2020/05/28/08/00/girl-5230306_960_720.jpg',
-        },
-        {
-          filmHref: `${deployUrl}/film/1`,
-          imgSrc: 'https://randomwordgenerator.com/img/picture-generator/50e2d2444e54b10ff3d8992cc12c30771037dbf852547848702a7fd79444_640.jpg',
-        },
-        {
-          filmHref: `${deployUrl}/film/1`,
-          imgSrc: 'https://randomwordgenerator.com/img/picture-generator/5fe5d0414a53b10ff3d8992cc12c30771037dbf852547940762b7adc904f_640.jpg',
-        },
-        {
-          filmHref: `${deployUrl}/film/1`,
-          imgSrc: 'https://randomwordgenerator.com/img/picture-generator/51e6dd444a54b10ff3d8992cc12c30771037dbf85254794e732f7bd49344_640.jpg',
-        },
-      ],
-    });
+    content.innerHTML = randomPug(data);
     this.setupCarousel();
     this.setupNavigation();
     this.addEventListenerToResize();

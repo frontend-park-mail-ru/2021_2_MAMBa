@@ -11,7 +11,8 @@ export class RandomController extends BaseController {
   constructor() {
     super(RandomView, RandomModel);
     this.events.push(
-        // {event: EVENTS.reviewPage.getPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.randomPage.getPageContent, handler: this.model.getPageContent},
+        {event: EVENTS.randomPage.render, handler: this.view.renderContent},
     );
   }
 }

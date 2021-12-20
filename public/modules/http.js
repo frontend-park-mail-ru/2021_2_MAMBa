@@ -213,6 +213,20 @@ const logout = async () => {
   }
 };
 
+const getRandom = async (filters) => {
+  const params = {
+    url: URLS.api.random,
+    method: 'GET',
+    body: JSON.stringify(filters),
+  };
+
+  try {
+    return await sendRequest(params);
+  } catch (err) {
+    return null;
+  }
+};
+
 const register = async (user) => {
   const params = {
     url: URLS.api.register,
@@ -524,5 +538,6 @@ export {
   getInfoAboutPremiers,
   sendBookmark,
   getSearch,
+  getRandom,
 };
 

@@ -27,7 +27,7 @@ export class RandomView extends BaseView {
 
   addEventListenerToResize = () => {
     window.addEventListener('resize', () => {
-      this.setupCarousel(parseFloat(getComputedStyle(this.carouselCards[0]).width));
+      this.setupCarousel();
     });
   }
 
@@ -40,7 +40,7 @@ export class RandomView extends BaseView {
     });
   }
 
-  setupCarousel = (imageWidth = null) => {
+  setupCarousel = () => {
     if (!this.carouselFigure || !this.carouselCards || !this.currentCardIndex || !this.oneAngle) {
       this.carouselFigure = document.querySelector('.carousel-random__card-container');
       this.carouselCards = document.querySelectorAll('.carousel-random__card');
@@ -52,9 +52,7 @@ export class RandomView extends BaseView {
       return;
     }
 
-    if (!imageWidth) {
-      imageWidth = parseFloat(getComputedStyle(this.carouselCards[0]).width);
-    }
+    const imageWidth = this.carouselCards[0].clientWidth;
 
     const apothem = imageWidth / (2 * Math.tan(this.oneAngle / 2));
     this.carouselFigure.style.transformOrigin = `50% 50% ${-apothem}px`;

@@ -25,11 +25,12 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 520px) {
   .profile-menu {
+    justify-content: space-around;
     &__link {
-      margin: 0 4x;
-      font-size: 14px;
+      margin: 0 4px;
+      font-size: 12px;
     }
   }
 }

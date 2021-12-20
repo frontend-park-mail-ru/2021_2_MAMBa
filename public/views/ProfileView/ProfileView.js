@@ -213,9 +213,6 @@ export class ProfileView extends BaseView {
     if (!bookmarks || !bookmarks.body) {
       return;
     }
-    for (const bookmark of bookmarks.body.bookmarks_list) {
-      bookmark.rating = (!(bookmark.rating % 1) || bookmark.rating === 10) ? `${bookmark.rating}.0` : bookmark.rating;
-    }
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;
@@ -223,7 +220,7 @@ export class ProfileView extends BaseView {
     if (profileContent.querySelector('.loader')) {
       if (bookmarks.status === statuses.NO_BLOCKS || bookmarks.body.bookmarks_list.length === 0) {
         profileContent.innerHTML = emptySignPug({
-          text: 'Вы еще не добавили ни 1 фильма в закладки',
+          text: 'Фильмы в закладках отсутствуют',
           blockClass: 'empty-sign-block_big',
         });
       } else {
@@ -256,7 +253,7 @@ export class ProfileView extends BaseView {
     if (profileContent.querySelector('.loader')) {
       if (reviewsMarks.status === statuses.NO_BLOCKS || reviewsMarks.body.review_list.length === 0) {
         profileContent.innerHTML = emptySignPug({
-          text: 'Вы еще не оставили отзыв (оценку) ни на 1 фильме',
+          text: 'Вы еще не написали отзыв на фильм',
           blockClass: 'empty-sign-block_big',
         });
       } else {

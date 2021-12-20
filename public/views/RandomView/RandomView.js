@@ -1,7 +1,9 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import randomPug from '../../components/randomPage/randomPage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {deployUrl} from '../../consts/urls';
+import {deployUrl, URLS} from '../../consts/urls';
+import {ROUTES} from '../../consts/routes';
+import {REGROUTES} from '../../consts/routesRegExp';
 
 
 export class RandomView extends BaseView {
@@ -19,16 +21,25 @@ export class RandomView extends BaseView {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
     content.innerHTML = randomPug(data);
-    this.setupCarousel();
+    this.setupCarousel(true);
     this.setupNavigation();
+    this.handlerResize = () => {
+      if (!window.location.pathname.match(REGROUTES.randomPage)) {
+        this.removeEventListenerToResize();
+      } else {
+        this.setupCarousel();
+      }
+    };
     this.addEventListenerToResize();
     this.addEventListenerToMouseOnOver();
   }
 
   addEventListenerToResize = () => {
-    window.addEventListener('resize', () => {
-      this.setupCarousel();
-    });
+    window.addEventListener('resize', this.handlerResize);
+  }
+
+  removeEventListenerToResize = () => {
+    window.removeEventListener('resize', this.handlerResize);
   }
 
   addEventListenerToMouseOnOver = () => {
@@ -40,13 +51,15 @@ export class RandomView extends BaseView {
     });
   }
 
-  setupCarousel = () => {
-    if (!this.carouselFigure || !this.carouselCards || !this.currentCardIndex || !this.oneAngle) {
-      this.carouselFigure = document.querySelector('.carousel-random__card-container');
-      this.carouselCards = document.querySelectorAll('.carousel-random__card');
+  setupCarousel = (startSetup = false) => {
+    this.carouselFigure = document.querySelector('.carousel-random__card-container');
+    this.carouselCards = document.querySelectorAll('.carousel-random__card');
+    this.oneAngle = 2 * Math.PI / this.carouselCards.length;
+
+    if (startSetup || !this.currentCardIndex) {
       this.currentCardIndex = 0;
-      this.oneAngle = 2 * Math.PI / this.carouselCards.length;
     }
+
     if (!this.carouselFigure || !this.carouselCards || !this.hasOwnProperty('currentCardIndex') || !this.oneAngle) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
@@ -61,7 +74,9 @@ export class RandomView extends BaseView {
       card.style.transformOrigin = `50% 50% ${-apothem}px`;
       card.style.transform = `rotateY(${index * this.oneAngle}rad)`;
     });
-    this.autoRotate();
+    if (startSetup) {
+      this.autoRotate();
+    }
   }
 
   setupNavigation = () => {

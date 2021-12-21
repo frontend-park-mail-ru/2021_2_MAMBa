@@ -120,9 +120,12 @@ export const mainSlider = (selector) => {
           allowSwipe = false;
         } else if (posY < 7) {
           isSwipe = true;
+          event.preventDefault();
         }
       }
-      sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
+      if (isSwipe) {
+        sliderTrack.style.transform = `translate3d(${transform - posX2}px, 0px, 0px)`;
+      }
     };
 
     const swipeEnd = () => {
@@ -174,8 +177,6 @@ export const mainSlider = (selector) => {
     },
     {passive: false},
     );
-
-
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }

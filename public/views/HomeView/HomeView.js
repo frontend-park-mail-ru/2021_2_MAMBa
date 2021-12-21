@@ -25,10 +25,12 @@ export class HomePageView extends BaseView {
 
   /**
    * Render content home page from pug template to content div.
-   * @param {object} data - Contains info about collections.
+   * @param {object} data - Contains info about home infp.
    */
 
   renderContent = (data) => {
+    console.log(data)
+    console.log("data.mainSliderContent", data.mainSliderContent)
     const homePage = homeContent(data);
     const content = document.querySelector('.content');
     if (content) {

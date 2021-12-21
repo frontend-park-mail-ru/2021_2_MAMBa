@@ -108,10 +108,13 @@
   }
 }
 
-@media (max-width: $phoneSize) {
+@media (max-width: $padSize) {
   .home-subtitle{
-    padding-left: 10px;
+    margin:  0 0 10px 10px;
   }
+}
+
+@media (max-width: $phoneSize) {
   .home {
     &__container {
         padding: 0;

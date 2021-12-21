@@ -145,6 +145,8 @@
     position: relative;
 
     &__film-img {
+      background-repeat: no-repeat;
+      background-size: cover;
       width: 100%;
       max-width: 100%;
       min-width: 100%;

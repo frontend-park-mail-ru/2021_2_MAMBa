@@ -107,17 +107,19 @@
   padding: 8px;
   margin: 7px;
   width: 48%;
-  background-color: rgba(36, 11, 54, 0.1);
+  background-color: rgba(36, 11, 54, 0.04);
   border-radius: 20px;
 
   &__film-img {
     height: 80%;
-    width: 20%;
+    max-width: 20%;
+    min-width: 20%;
     object-fit: cover;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
     margin: 0 10px;
+    background-attachment: fixed;
   }
 
   &__film-content {
@@ -138,11 +140,16 @@
     flex-direction: column;
     justify-content: center;
     min-height: 400px;
+    margin: 7px 0;
+    padding: 0;
     position: relative;
 
     &__film-img {
-      max-height: 30%;
-      width: 80%;
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 
@@ -161,13 +168,18 @@
     }
   }
 
+  .film-upper-block {
+    justify-content: center;
+  }
+
   .film-description-block__description {
     text-align: center;
     white-space: inherit;
   }
 
   .film-genres-block {
-    align-items: center;
+    align-items: flex-end;
+    margin-right: 10px;
   }
 
   .film-actors-block {

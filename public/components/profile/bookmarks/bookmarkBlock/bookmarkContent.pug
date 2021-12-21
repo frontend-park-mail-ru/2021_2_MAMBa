@@ -1,7 +1,7 @@
 each block in bookmarks_list
-    .bookmark-block
-        img.bookmark-block__film-img(src=block.poster_url)
-        .bookmark-block__film-content
+ .bookmark-block
+    a.bookmark-block__film-img(href=block.film_url style=`background-image:url("${block.poster_url}")`)
+    .bookmark-block__film-content
             .film-upper-block
                 .film-name-block
                     a.film-name-block__ru(href=block.film_url title=block.title) #{block.title}

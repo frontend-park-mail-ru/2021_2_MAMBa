@@ -172,7 +172,6 @@ export const slider = (selector) => {
       );
     }
 
-
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }

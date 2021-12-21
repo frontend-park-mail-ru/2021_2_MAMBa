@@ -107,6 +107,13 @@ export const EVENTS = {
     getPageContent: 'reviewPage:getReviewPageContent',
   },
 
+  randomPage: {
+    render: {
+      content: 'randomPage:renderContent',
+    },
+    getPageContent: 'randomPage:getRandomPageContent',
+  },
+
   collectionPage: {
     render: {
       content: 'collectionPage:renderContent',

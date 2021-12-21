@@ -1,15 +1,13 @@
 .film-name-block {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  flex: 1 0 auto;
-  max-width: 70%;
   justify-content: center;
 
   &__ru, &__en {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 330px;
     color: $dark-blue-text;
   }
 
@@ -31,11 +29,7 @@
 .film-actors-block {
   display: flex;
   width: 100%;
-  max-width: 380px;
-
-  & a:not(:first-child)  {
-    margin: 0 4px;
-  }
+  margin: 0.3em 0;
 
   &__actor {
     text-decoration: none;
@@ -43,6 +37,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin-right: 10px;
 
     &:hover {
       color: $pink;
@@ -53,11 +48,8 @@
 .film-genres-block {
   display: flex;
   width: 100%;
+  font-size: 1.2em;
   margin-bottom: 10px;
-
-  & a:not(:first-child)  {
-    margin-left: 10px;
-  }
 
   &__genre {
     color: $dark-blue-text;
@@ -65,6 +57,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin-right: 10px;
 
     &:hover {
       color: $pink;
@@ -84,7 +77,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 365px;
   }
 }
 
@@ -111,61 +103,102 @@
 .bookmark-block {
   display: flex;
   overflow: hidden;
-  height: 162px;
+  min-height: 162px;
   padding: 8px;
   margin: 7px;
-  background-color: rgba(36, 11, 54, 0.1);
+  width: 48%;
+  background-color: rgba(36, 11, 54, 0.04);
   border-radius: 20px;
 
   &__film-img {
-    width: 170px;
-    height: 120px;
+    height: 80%;
+    max-width: 20%;
+    min-width: 20%;
     object-fit: cover;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
     margin: 0 10px;
+    background-attachment: fixed;
   }
 
   &__film-content {
     display:flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    min-width: 0;
+    justify-content: space-around;
   }
+}
+
+.film-upper-block {
+  justify-content: space-between;
+  display: flex;
 }
 
 @media (max-width: 575px) {
   .bookmark-block {
     flex-direction: column;
     justify-content: center;
-    height: 250px;
-    max-width: 400px;
-  }
+    min-height: 400px;
+    margin: 7px 0;
+    padding: 0;
+    position: relative;
 
-  .film-name-block {
-    flex: 0 0 auto;
-  }
-}
-
-@media (max-width: 400px) {
-  .film-description-block__description, .film-actors-block, .film-genres-block {
-    max-width: 300px;
-  }
-  .bookmark-block {
-    max-width: 300px;
-  }
-}
-
-@media (min-width: 575px) {
-  .bookmark-block {
-    width: 550px;
-
-    &__film-content {
-
+    &__film-img {
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 
-  .film-description-block {
+  .rating-block {
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+
+  .film-name-block {
+    align-items: center;
+
+    &__ru, &__en {
+      text-align: center;
+      white-space: inherit;
+    }
+  }
+
+  .film-upper-block {
+    justify-content: center;
+  }
+
+  .film-description-block__description {
+    text-align: center;
+    white-space: inherit;
+  }
+
+  .film-genres-block {
+    align-items: flex-end;
+    margin-right: 10px;
+  }
+
+  .film-actors-block {
+    margin-left: 10px;
+  }
+
+  .film-actors-block, .film-genres-block {
     flex-direction: column;
-    flex-wrap: nowrap;
+    font-size: 1.1em;
+
+    &__genre {
+      margin: 0;
+      font-size: 1em;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .bookmark-block {
+    width: 100%;
   }
 }

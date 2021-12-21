@@ -1,0 +1,9 @@
+.carousel-random
+    figure.carousel-random__card-container
+        each card in cardList
+          .carousel-random__card
+              a(href=card.filmHref)
+                img(src=card.imgSrc)
+    .carousel-random__btn-container
+        .carousel-random__prev-btn Назад
+        .carousel-random__next-btn Вперед

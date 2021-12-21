@@ -1,9 +1,11 @@
-import {getGenres, getCollections, getMainPagePopularFilms, getInfoAboutPremiers} from '../modules/http.js';
+import {getCollections, getGenres, getInfoAboutPremiers, getMainPagePopularFilms} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {
-  convertArrayToCalendarPage, convertArrayToCollectionsPage,
+  convertArrayToCalendarPage,
+  convertArrayToCollectionsPage,
   convertArrayToGenresPage,
-  convertArrayToHomeMainSliderPage, convertArrayToHomePopularFilmsPage,
+  convertArrayToHomeMainSliderPage,
+  convertArrayToHomePopularFilmsPage,
 } from '../modules/adapters';
 import {statuses} from '../consts/reqStatuses';
 
@@ -17,17 +19,18 @@ export class HomePageModel {
    */
   constructor(eventBus) {
     this.eventBus = eventBus;
+
   }
 
   getMainPageContent = () => {
-    const mainPage = {};
+    let mainPage = {};
     getCollections()
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            mainPage['mainSliderContent'] = convertArrayToHomeMainSliderPage(response.body).collections;
+            mainPage = {...mainPage, ...convertArrayToHomeMainSliderPage(response.body)};
           }
         });
     getMainPagePopularFilms()
@@ -36,7 +39,7 @@ export class HomePageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            mainPage['popularFilms'] = convertArrayToHomePopularFilmsPage(response.body).popularFilms;
+            mainPage = {...mainPage, ...convertArrayToHomePopularFilmsPage(response.body)};
           }
         });
     getGenres()
@@ -45,8 +48,7 @@ export class HomePageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            mainPage['genres'] = convertArrayToGenresPage(response.body).genres;
-
+            mainPage = {...mainPage, ...convertArrayToGenresPage(response.body)};
           }
         });
     getCollections()
@@ -55,9 +57,8 @@ export class HomePageModel {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            mainPage['collections'] = convertArrayToCollectionsPage(response.body).collections;
+            mainPage = {...mainPage, ...convertArrayToCollectionsPage(response.body)};
           }
-
         });
     const data = new Date();
     const year = data.getFullYear();
@@ -67,10 +68,11 @@ export class HomePageModel {
           if (!response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           } else if (response?.status === statuses.OK && response.body) {
-            mainPage['premieres'] = convertArrayToCalendarPage(response.body, year, month).premieres;
+            mainPage = {...mainPage, ...convertArrayToCalendarPage(response.body, year, month)};
           }
-          this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
         });
-    console.log(mainPage)
+    Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms()]).then(results => {
+      this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
+    })
   }
 }

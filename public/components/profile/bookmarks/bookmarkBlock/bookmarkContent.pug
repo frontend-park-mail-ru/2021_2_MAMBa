@@ -2,12 +2,13 @@ each block in bookmarks_list
     .bookmark-block
         img.bookmark-block__film-img(src=block.poster_url)
         .bookmark-block__film-content
-            .film-name-block
-                a.film-name-block__ru(href=block.film_url title=block.title) #{block.title}
-                span.film-name-block__en #{block.title_original}
-            .rating-block
-                include ../../../../static/pics/pink_star.svg
-                span.rating-block__rating #{block.rating}
+            .film-upper-block
+                .film-name-block
+                    a.film-name-block__ru(href=block.film_url title=block.title) #{block.title}
+                    span.film-name-block__en #{block.title_original}
+                .rating-block
+                    include ../../../../static/pics/pink_star.svg
+                    span.rating-block__rating #{block.rating}
             .film-description-block
                 span.film-description-block__description #{block.release_year}, #{block.origin_countries[0]}, реж. #{block.director.name_rus}
                 .film-actors-block

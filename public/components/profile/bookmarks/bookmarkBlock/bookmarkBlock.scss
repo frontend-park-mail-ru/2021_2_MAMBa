@@ -1,15 +1,13 @@
 .film-name-block {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  flex: 1 0 auto;
-  max-width: 70%;
   justify-content: center;
 
   &__ru, &__en {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 330px;
     color: $dark-blue-text;
   }
 
@@ -31,11 +29,7 @@
 .film-actors-block {
   display: flex;
   width: 100%;
-  max-width: 380px;
-
-  & a:not(:first-child)  {
-    margin: 0 4px;
-  }
+  margin: 0.3em 0;
 
   &__actor {
     text-decoration: none;
@@ -53,11 +47,8 @@
 .film-genres-block {
   display: flex;
   width: 100%;
+  font-size: 1.2em;
   margin-bottom: 10px;
-
-  & a:not(:first-child)  {
-    margin-left: 10px;
-  }
 
   &__genre {
     color: $dark-blue-text;
@@ -84,7 +75,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    max-width: 365px;
   }
 }
 
@@ -119,8 +109,8 @@
   border-radius: 20px;
 
   &__film-img {
-    width: 170px;
-    height: 120px;
+    height: 80%;
+    width: 20%;
     object-fit: cover;
     border-radius: 20px;
     align-self: center;
@@ -130,30 +120,71 @@
 
   &__film-content {
     display:flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    min-width: 0;
+    justify-content: space-around;
   }
+}
+
+.film-upper-block {
+  justify-content: space-between;
+  display: flex;
 }
 
 @media (max-width: 575px) {
   .bookmark-block {
     flex-direction: column;
     justify-content: center;
-    height: 250px;
+    min-height: 400px;
+    position: relative;
+
+    &__film-img {
+      height: 80%;
+      width: 80%;
+    }
+  }
+
+  .rating-block {
+    position: absolute;
+    top: 10px;
+    right: 0;
   }
 
   .film-name-block {
-    flex: 0 0 auto;
+    align-items: center;
+
+    &__ru, &__en {
+      text-align: center;
+      white-space: inherit;
+    }
+  }
+
+  .film-description-block__description {
+    text-align: center;
+    white-space: inherit;
+  }
+
+  .film-genres-block {
+    align-items: center;
+  }
+
+  .film-actors-block {
+    margin-left: 10px;
+  }
+
+  .film-actors-block, .film-genres-block {
+    flex-direction: column;
+    font-size: 1.1em;
+
+    &__genre {
+      margin: 0;
+      font-size: 1em;
+    }
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .bookmark-block {
     width: 100%;
-  }
-}
-
-@media (max-width: 400px) {
-  .film-description-block__description, .film-actors-block, .film-genres-block {
-    max-width: 300px;
   }
 }

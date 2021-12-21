@@ -37,6 +37,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin-right: 10px;
 
     &:hover {
       color: $pink;
@@ -56,6 +57,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin-right: 10px;
 
     &:hover {
       color: $pink;
@@ -101,7 +103,7 @@
 .bookmark-block {
   display: flex;
   overflow: hidden;
-  height: 162px;
+  min-height: 162px;
   padding: 8px;
   margin: 7px;
   width: 48%;
@@ -139,7 +141,7 @@
     position: relative;
 
     &__film-img {
-      height: 80%;
+      max-height: 30%;
       width: 80%;
     }
   }

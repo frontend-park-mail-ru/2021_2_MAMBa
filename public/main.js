@@ -60,7 +60,6 @@ getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J
 });
 
 onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
   const greeting = new Notification(payload.notification.title, {
     body: payload.notification.body,
     icon: 'https://film4u.club/assets/favicon.ico',

@@ -31,7 +31,6 @@ export class ActorView extends BaseView {
    * @param {Object} data - Contains info about actor.
    */
   renderContent = (data) => {
-    console.log(data)
     const template = actorPageContent(data);
     const content = document.querySelector('.content');
     if (content) {

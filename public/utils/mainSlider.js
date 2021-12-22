@@ -121,7 +121,6 @@ export const mainSlider = (selector) => {
         } else if (posY < 7) {
           isSwipe = true;
           // event.preventDefault();
-          console.log("a", event)
         }
       }
       if (isSwipe) {

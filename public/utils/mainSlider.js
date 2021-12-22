@@ -98,13 +98,13 @@ export const mainSlider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        slider.addEventListener('touchmove', swipeAction);
+        slider.addEventListener('touchmove', function (e) { swipeAction(e); });
         slider.addEventListener('touchend', swipeEnd);
         sliderList.classList.remove('grab');
         sliderList.classList.add('grabbing');
       }
     };
-    const swipeAction = () => {
+    const swipeAction = (e) => {
       allowSwipe = true;
       const evt = getEvent();
       const style = sliderTrack.style.transform;
@@ -120,8 +120,9 @@ export const mainSlider = (selector) => {
           allowSwipe = false;
         } else if (posY < 7) {
           isSwipe = true;
-          // event.preventDefault();
-          console.log("a", event)
+          e.preventDefault();
+          e.stopPropagation()
+          console.log("a", e)
         }
       }
       if (isSwipe) {
@@ -134,9 +135,6 @@ export const mainSlider = (selector) => {
       isSwipe = false;
       slider.removeEventListener('touchmove', swipeAction);
       slider.removeEventListener('touchend', swipeEnd);
-
-      sliderList.classList.add('grab');
-      sliderList.classList.remove('grabbing');
       if (allowSwipe) {
         if (Math.abs(posFinal) > posThreshold) {
           if (posInit < posX1) {

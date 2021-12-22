@@ -156,7 +156,8 @@ export const convertArrayToGenreFilmWithDescription = (arrayContent) => {
  */
 export const convertArrayToFilmWithDescription = (arrayContent) => {
   return arrayContent.map((jsonFilm) => {
-    console.log( ratingNewNumber(jsonFilm?.rating) || '-')
+    if (typeof jsonFilm?.rating ===  "number")
+      console.log( ratingNewNumber(jsonFilm?.rating) || '-')
     return {
       id: jsonFilm.id,
       title: jsonFilm.title,
@@ -215,7 +216,10 @@ export const ratingNumber = (rating) => {
  * @param {number} rating - rating of film.
  */
 export const ratingNewNumber = (rating) => {
-  return rating.toFixed(1);
+  if (typeof rating ===  "number")
+    return rating.toFixed(1);
+  else
+    return rating
 };
 
 /**

@@ -2,7 +2,10 @@ each block in review_list
     .review-block
         .review-block__image-block
             a.review-image-block__film-img(href=block.film_url style=`background-image:url("${block.film_picture_url}")`)
-            span.review-image-block__stars-block #{block.stars} &#11088;
+            if (block.stars === 0)
+                span.review-image-block__stars-block -
+            else
+                span.review-image-block__stars-block #{block.stars} &#11088;
         .review-block__data-block
             a.review-data-block__film-name-ru(href=block.film_url) #{block.film_title_ru}
             span.review-data-block__film-name-en #{block.film_title_original}

@@ -122,7 +122,6 @@ export const mainSlider = (selector) => {
           isSwipe = true;
           e.preventDefault();
           e.stopPropagation()
-          console.log("a", e)
         }
       }
       if (isSwipe) {

@@ -164,7 +164,7 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
       year: jsonFilm?.release_year || '-',
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
       href: `/films/${jsonFilm.id}`,
-      rating: ratingNumber(jsonFilm?.rating) || '-',
+      rating: ratingNewNumber(jsonFilm?.rating) || '-',
     };
   });
 };
@@ -207,6 +207,14 @@ export const convertArrayToReviewArrayInFilmPage = (arrayContent) => {
 export const ratingNumber = (rating) => {
   return (!(rating % 1) && rating !== 10) ?
       `${rating}.0` : rating;
+};
+
+/**
+ * Convert rating for stars.
+ * @param {number} rating - rating of film.
+ */
+export const ratingNewNumber = (rating) => {
+  return rating.toFixed(1);
 };
 
 /**

@@ -25,7 +25,8 @@ export class SearchModel extends Model {
       this.eventBus.emit(EVENTS.searchPage.renderEmptyPage);
       return;
     }
-    getSearch(query, this.paginationFilms.skip, this.paginationFilms.limit, this.paginationPersons.skip,
+    getSearch(encodeURIComponent(query), this.paginationFilms.skip, this.paginationFilms.limit,
+        this.paginationPersons.skip,
         this.paginationPersons.limit).then((response) => {
       if (!response) {
         return;

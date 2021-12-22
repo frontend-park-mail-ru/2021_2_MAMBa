@@ -6,6 +6,7 @@ import {login, register} from '../modules/http';
 import {eventBus} from '../modules/eventBus';
 import {ROUTES} from '../consts/routes.js';
 import {statuses} from '../consts/reqStatuses.js';
+import {REGROUTES} from '../consts/routesRegExp';
 
 export class AuthPageModel extends Model {
   constructor(eventBus) {
@@ -14,7 +15,7 @@ export class AuthPageModel extends Model {
   }
 
   getContent = (routeData) => {
-    if (routeData.path.path === ROUTES.AuthPage) {
+    if (routeData.path.path.match(REGROUTES.AuthPage)) {
       this.getAuthContent();
     } else {
       this.getRegContent();
@@ -83,6 +84,16 @@ export class AuthPageModel extends Model {
     }
   }
 
+  deleteAllErrorsFromInput = (inputName) => {
+    if (!inputName) {
+      return;
+    }
+
+    for (const error of this.errorMessages.get(inputName)) {
+      this.deleteAndEmitError(inputName, error);
+    }
+  }
+
   validateOneInput = (inputName, inputValue, passwordValue) => {
     if (!inputName) {
       return;
@@ -90,12 +101,13 @@ export class AuthPageModel extends Model {
 
     if (!inputValue) {
       this.addAndEmitError(inputName, ErrorMessages.EmptyField.text);
+      return;
     } else {
       this.deleteAndEmitError(inputName, ErrorMessages.EmptyField.text);
     }
 
     for (const error of ErrorMessages[inputName]) {
-      if (!error.regex && inputName === authConfig.repPasswordInput.name) {
+      if (!error.regexp && inputName === authConfig.repPasswordInput.name) {
         if (inputValue !== passwordValue) {
           this.addAndEmitError(inputName, error.text);
         } else {
@@ -123,7 +135,7 @@ export class AuthPageModel extends Model {
     if (hasErrorInputs) {
       return;
     }
-    if (routeData?.path?.path === ROUTES.AuthPage) {
+    if (routeData?.path?.path.match(REGROUTES.AuthPage)) {
       login(inputsData).then((response) => {
         if (!response) {
           return;

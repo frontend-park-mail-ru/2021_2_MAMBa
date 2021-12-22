@@ -5,6 +5,7 @@ import authError from '../../components/auth/authError/authError.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {createElementFromHTML} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
+import {REGROUTES} from '../../consts/routesRegExp';
 
 export class AuthView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
@@ -35,22 +36,28 @@ export class AuthView extends BaseView {
     const authForm = this.getAuthFormFromDom();
     const errorInput = authForm[inputName];
     errorInput.classList.add('auth-error-input');
-    authForm.insertBefore(this.createError(errorMessage), errorInput);
+    authForm.insertBefore(this.createError(errorMessage), errorInput.nextSibling);
   }
 
   addNotAuthorizedMessage = (message) => {
-    const oldMessage = document.querySelector('.auth-error-text');
-    if (oldMessage) {
-      oldMessage.remove();
-    }
-    const submitBtn = this.routeData.path.path === ROUTES.AuthPage ? document.querySelector('.auth') :
-        document.querySelector('.reg');
+    this.deleteNotAuthorizedMessage();
+    const submitBtn = this.routeData.path.path === ROUTES.AuthPage ? document.querySelector('.auth__btn') :
+        document.querySelector('.reg__btn');
     if (!submitBtn) {
       return;
     }
+    const authForm = this.getAuthFormFromDom();
     const errorDiv = this.createError(message);
+    errorDiv.classList.add('not-authorized-error');
     errorDiv.style.textAlign = 'center';
-    submitBtn.appendChild(errorDiv);
+    authForm.insertBefore(errorDiv, submitBtn);
+  }
+
+  deleteNotAuthorizedMessage = () => {
+    const message = document.querySelector('.not-authorized-error');
+    if (message) {
+      message.remove();
+    }
   }
 
   deleteErrorMessage = (inputName, errorMessage) => {
@@ -88,9 +95,13 @@ export class AuthView extends BaseView {
       return;
     }
     for (const input of formTextInputs) {
-      input.addEventListener('blur', () => {
+      input.addEventListener('input', () => {
+        this.eventBus.emit(EVENTS.AuthPage.deleteAllErrors, input.name);
+        this.deleteNotAuthorizedMessage();
+      });
+      input.addEventListener('change', () => {
         this.eventBus.emit(EVENTS.AuthPage.Validate, input.name, input.value, input.name ===
-          authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
+        authConfig.repPasswordInput.name ? this.getAuthFormFromDom()[authConfig.passwordInput.name].value : '');
       });
       input.addEventListener('animationend', () => {
         input.classList.remove('auth-error-input_animated');
@@ -101,7 +112,7 @@ export class AuthView extends BaseView {
   addSubmitListener = () => {
     const authForm = this.getAuthFormFromDom();
     const submitBtn = document.querySelector(
-        this.routeData.path.path === ROUTES.AuthPage ? '.auth__btn' : '.reg__btn');
+        this.routeData.path.path.match(REGROUTES.AuthPage) ? '.auth__btn' : '.reg__btn');
     if (!submitBtn) {
       return;
     }

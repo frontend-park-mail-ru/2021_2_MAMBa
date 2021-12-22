@@ -6,8 +6,7 @@ import {statuses} from '../consts/reqStatuses';
 import {renderWarning} from '../utils/utils';
 
 
-/** Class representing film page model.
- */
+/** Class representing film page model. */
 export class FilmPageModel {
   /**
    * Create a film page model.
@@ -33,9 +32,20 @@ export class FilmPageModel {
           } else if (response?.status === statuses.OK && response.body) {
             this.eventBus.emit(EVENTS.filmPage.render.content, convertArrayToFilmPage(response.body));
           }
-          // TODO: отрисовывать стр если фильма нет в бд
-          // if (response.parsedJson.status === statuses.NOT_FOUND) {}
+          if (response.status === statuses.NOT_FOUND) {
+            this.eventBus.emit(EVENTS.App.ErrorPageText, 'На нашем сайте такого фильма нет');
+          }
         });
+  }
+
+  checkAuthAndWarn = (filmId, name) => {
+    if (!authModule.user) {
+      renderWarning(`Чтобы оставить ${name}, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "black_text">зарегистрируйтесь</a>`,
+          'warning_no-auth');
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
@@ -43,21 +53,17 @@ export class FilmPageModel {
    * @param {object} inputsData - review to post.
    */
   postReview = (inputsData = {}) => {
-    if (!authModule.user) {
-      renderWarning('Чтобы оставить отзыв, пожалуйста, <a href="/auth">зарегистрируйтесь</a>',
-          'warning_no-auth');
-      return;
+    if (this.checkAuthAndWarn(inputsData.film_id, 'отзыв')) {
+      sendReview(inputsData)
+          .then((response) => {
+            if (!response) {
+              return;
+            }
+            if (response.status === statuses.OK) {
+              this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
+            }
+          });
     }
-
-    sendReview(inputsData)
-        .then((response) => {
-          if (!response) {
-            return;
-          }
-          if (response.status === statuses.OK) {
-            this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
-          }
-        });
   }
 
   /**
@@ -66,17 +72,16 @@ export class FilmPageModel {
    * @param {number} rating - rating to post.
    */
   postRating = (filmId, rating) => {
-    if (!authModule.user) {
-      this.eventBus.emit(
-          EVENTS.filmPage.render.warningRatingSend,
-          'Чтобы поставить оценку, пожалуйста, <a href="/auth" class = "white_text">зарегистрируйтесь</a>');
-      return;
-    }
     if (!filmId && !rating) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
       return;
     }
-
+    if (!authModule.user) {
+      this.eventBus.emit(
+          EVENTS.filmPage.render.warningRatingSend,
+          `Чтобы поставить оценку, пожалуйста, <a href= /auth?redirect=films/${filmId} class = "white_text"">зарегистрируйтесь</a>`);
+      return;
+    }
     sendRating(filmId, rating).then((response) => {
       if (!response) {
         return;
@@ -86,6 +91,7 @@ export class FilmPageModel {
       }
     });
   }
+
 
   /**
    * Post bookmark

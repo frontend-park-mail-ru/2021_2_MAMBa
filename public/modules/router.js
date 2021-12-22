@@ -40,8 +40,9 @@ export class Router {
       this.application = app;
       this.application.addEventListener('click', (e) => {
         const target = e.target;
-        const closestLink = target.closest('a');
-        if (e.target.matches('.scroll-to') || e.target.matches('.not-route')) {
+        const closestLink = e.target.closest('a');
+        if (target.matches('.scroll-to') || target.matches('.not-route') || !closestLink ||
+            closestLink.matches('.not-route')) {
           return;
         }
         if (closestLink instanceof HTMLAnchorElement) {
@@ -137,6 +138,10 @@ export class Router {
       this.currentController.unsubscribe();
     }
     this.currentController = routeData.controller;
+    if (!this.currentController) {
+      eventBus.emit(EVENTS.App.ErrorPage);
+      return;
+    }
     this.currentController.subscribe();
 
     if (!this.currentController) {

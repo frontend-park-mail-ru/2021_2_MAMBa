@@ -11,7 +11,9 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
     limit: fullActorInfoJson.films.current_limit,
     filmsWithDescription:
           convertArrayToFilmWithDescription(fullActorInfoJson.films.film_list),
+    countFilmsWithDescription: fullActorInfoJson?.films.film_total || 0,
     filmsToSlide: convertArrayToFilm(fullActorInfoJson.popular_films.film_list),
+    countFilmsToSlide: fullActorInfoJson?.popular_films.film_total || 0,
   }
 );
 
@@ -23,9 +25,6 @@ export const convertArrayToActorPage = (fullActorInfoJson) => (
 export const convertArrayToCollectionsPage = (collectionsInfoJson) => (
   {
     collections: convertArrayToCollection(collectionsInfoJson.collections_list),
-    moreAvailable: collectionsInfoJson.more_available,
-    skip: collectionsInfoJson.current_skip,
-    limit: collectionsInfoJson.current_limit,
   }
 );
 
@@ -42,6 +41,43 @@ export const convertArrayToCollection = (arrayContent) => {
       href: `/collections/${jsonCollection.id}`,
     };
   });
+};
+
+/**
+ * Union actors and their ids.
+ * @param {object} collectionsInfoJson - Info about actor from json.
+ * @return {object} - Object for render actor information
+ */
+export const convertArrayToHomeMainSliderPage = (collectionsInfoJson) => (
+  {
+    collections: convertArrayToMainSlider(collectionsInfoJson.collections_list),
+  }
+);
+/**
+ * Union actors and their ids.
+ * @param {object} filmsInfoJson - Info about actor from json.
+ * @return {object} - Object for render actor information
+ */
+export const convertArrayToHomePopularFilmsPage = (filmsInfoJson) => (
+  {
+    popularFilms: convertArrayToFilm(filmsInfoJson.film_list),
+  }
+);
+/**
+ * Union collection information
+ * @param {object} arrayContent - Info about collections from json.
+ * @return {object} - Object for render collections information
+ */
+export const convertArrayToMainSlider = (arrayContent) => {
+  const arr = arrayContent.map(function(jsonCollection) {
+    return {
+      title: jsonCollection?.title,
+      collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
+      href: `/collections/${jsonCollection.id}`,
+    };
+  });
+  arr.push(arr[0], arr[1], arr[2], arr[3]);
+  return arr;
 };
 
 /**
@@ -98,6 +134,26 @@ export const convertArrayToActorFilms = (actorFilmsJson) => (
  * @param {object} arrayContent - Info about films with descriptions from json.
  * @return {object} - Object for render films with descriptions.
  */
+export const convertArrayToGenreFilmWithDescription = (arrayContent) => {
+  return arrayContent.map((jsonFilm) => {
+    return {
+      id: jsonFilm.id,
+      title: jsonFilm.title,
+      originalTitle: jsonFilm?.title_original || '',
+      description: jsonFilm?.description || '-',
+      year: jsonFilm?.release_year || '-',
+      filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
+      href: `/films/${jsonFilm.id}`,
+      rating: jsonFilm?.rating|| '-',
+    };
+  });
+};
+
+/**
+ * Union actor`s film.
+ * @param {object} arrayContent - Info about films with descriptions from json.
+ * @return {object} - Object for render films with descriptions.
+ */
 export const convertArrayToFilmWithDescription = (arrayContent) => {
   return arrayContent.map((jsonFilm) => {
     return {
@@ -108,6 +164,7 @@ export const convertArrayToFilmWithDescription = (arrayContent) => {
       year: jsonFilm?.release_year || '-',
       filmAvatar: `https://film4u.club${jsonFilm.poster_url}`,
       href: `/films/${jsonFilm.id}`,
+      rating: ratingNewNumber(jsonFilm?.rating) || '-',
     };
   });
 };
@@ -153,6 +210,14 @@ export const ratingNumber = (rating) => {
 };
 
 /**
+ * Convert rating for stars.
+ * @param {number} rating - rating of film.
+ */
+export const ratingNewNumber = (rating) => {
+  return rating.toFixed(1);
+};
+
+/**
  * Union actors and their ids.
  * @param {object} arrayContent - Info about films with descriptions from json.
  * @return {object} - Object for render films with descriptions.
@@ -160,7 +225,6 @@ export const ratingNumber = (rating) => {
 export const convertArrayToFilmInfo = (arrayContent) => {
   const duration = (arrayContent.content_type === 'film') ?
       `${arrayContent.duration} минут` : `${arrayContent.duration} сезонов`;
-  const rating = ratingNumber(arrayContent.rating);
   return {
     ...arrayContent,
     titleOriginal: arrayContent?.title_original,
@@ -168,12 +232,14 @@ export const convertArrayToFilmInfo = (arrayContent) => {
     year: arrayContent?.release_year || '-',
     filmAvatar: `https://film4u.club${arrayContent.poster_url}`,
     duration: duration,
-    rating: rating,
-    trailerUrl: arrayContent.trailer_url,
+    rating: arrayContent?.rating || '-',
+    trailerUrl: arrayContent?.trailer_url || '-',
     totalRevenue: arrayContent.total_revenue,
     genres: convertArrayToGenresArray(arrayContent?.genres) || '-',
     director: arrayContent?.director.name_rus || '-',
+    directorHref: `/actors/${arrayContent.director.id}`,
     screenwriter: arrayContent?.screenwriter.name_rus || '-',
+    screenwriterHref: `/actors/${arrayContent.screenwriter.id}`,
     actors: convertArrayToActorArray(arrayContent?.cast) || '-',
   };
 };
@@ -224,12 +290,14 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
     classType = 'positive-review';
     classButtonType = 'positive-button';
   }
+
   return {
+    href: `/profile/${reviewInfoJson?.author_id}`,
     classType: classType,
     classButtonType: classButtonType,
     authorAvatar: `https://film4u.club${reviewInfoJson?.author_picture_url}`,
     filmTitle: reviewInfoJson?.film_title_ru,
-    authorName: reviewInfoJson?.author_name,
+    authorName: `Автор ${reviewInfoJson?.author_name}`,
     reviewText: reviewInfoJson?.review_text || 0,
     date: reviewInfoJson?.date,
   };
@@ -242,7 +310,7 @@ export const convertReviewToReviewPage = (reviewInfoJson) => {
  */
 export const convertCollectionToCollectionPage = (collectionInfoJson) => (
   {
-    name: `Подборка  ${collectionInfoJson.collection.collection_name}`,
+    name: `${collectionInfoJson.collection.collection_name}`,
     description: collectionInfoJson.collection.description,
     id: collectionInfoJson.collection.id,
     filmsWithDescription:
@@ -285,12 +353,12 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
   {
     filmsTotal: genreInfoJson.films.film_total,
     id: genreInfoJson.id,
-    genreName: `Жанр ${genreInfoJson.name}`,
+    genreName: `${genreInfoJson.name}`,
     moreAvailable: genreInfoJson?.more_available || false,
     skip: genreInfoJson.current_skip,
     limit: genreInfoJson.current_limit,
     filmsWithDescription:
-          convertArrayToFilmWithDescription(genreInfoJson.films.film_list),
+          convertArrayToGenreFilmWithDescription(genreInfoJson.films.film_list),
   }
 );
 
@@ -302,31 +370,31 @@ export const convertArrayToGenrePage = (genreInfoJson) => (
 const monthToText = (month) => {
   let monthName = ['-', '-'];
   switch (month) {
-    case '1':
+    case '01':
       monthName = ['января', 'Январь'];
       break;
-    case '2':
+    case '02':
       monthName = ['февраля', 'Февраль'];
       break;
-    case '3':
+    case '03':
       monthName = ['марта', 'Март'];
       break;
-    case '4':
+    case '04':
       monthName = ['апреля', 'Апрель'];
       break;
-    case '5':
+    case '05':
       monthName = ['мае', 'Май'];
       break;
-    case '6':
+    case '06':
       monthName = ['июня', 'Июнь'];
       break;
-    case '7':
+    case '07':
       monthName = ['июля', 'Июль'];
       break;
-    case '8':
+    case '08':
       monthName = ['августа', 'Август'];
       break;
-    case '9':
+    case '09':
       monthName = ['сентября', 'Сентябрь'];
       break;
     case '10':
@@ -369,7 +437,7 @@ export const convertArrayToPremierFilms = (arrayContent) => {
       id: jsonFilm.id,
       title: jsonFilm.title,
       titleOriginal: jsonFilm?.title_original || '',
-      rating: ratingNumber(jsonFilm?.rating) || '-',
+      rating: jsonFilm?.rating || '-',
       description: jsonFilm?.description || '-',
       year: yearNumber,
       month: monthText,
@@ -403,6 +471,9 @@ export const convertArrayToCalendarPage = (calendarInfoJson, year, month) => {
  * @return {object} - Object for render date
  */
 export const convertDateToCalendarPage = (month, year) => {
+  if (month < 10) {
+    month = '0' + month;
+  }
   const monthText = monthToText('' + month);
   return `${monthText[1]}, ${year}`;
 };

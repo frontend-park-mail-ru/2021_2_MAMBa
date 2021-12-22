@@ -16,14 +16,14 @@ body {
 ._container {
 	max-width: $maxWidth + px;
 	margin: 0 auto;
-	@media (max-width: $md1+px) {
+	@media (max-width: $notebookSize) {
 		max-width: 750px;
 	}
-	@media (max-width: $md2+px) {
+	@media (max-width: $horizontalPadSize) {
 		max-width: none;
 		padding: 0 32px;
 	}
-	@media (max-width: $md3+px) {
+	@media (max-width: $padSize) {
 		padding: 0 16px;
 	}
 }
@@ -33,7 +33,7 @@ body {
 	border-radius: 20px;
 	color: $white;
 	padding: 30px;
-	@media (max-width: $md3+px) {
+	@media (max-width: $padSize) {
 		padding: 16px;
 	}
 }
@@ -41,7 +41,7 @@ body {
 .page {
 	margin: 20px 0 50px 0;
 	flex: 1 1 auto;
-	@media (max-width: $md3+px) {
-		padding: 10px 0 20px 0;
+	@media (max-width: $padSize) {
+		margin: 10px 0 20px 0;
 	}
 }

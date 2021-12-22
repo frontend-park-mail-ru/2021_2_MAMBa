@@ -5,6 +5,7 @@ import {getPathArgs} from '../../modules/router.js';
 import {showMore} from '../../utils/showMore.js';
 import {checkShowMoreButton} from '../../utils/showMore.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
+import {slider} from '../../utils/slider';
 
 /** Class representing actor page view. */
 export class ActorView extends BaseView {
@@ -35,72 +36,11 @@ export class ActorView extends BaseView {
     if (content) {
       content.innerHTML = template;
       setAnchorActions();
-      // this.setSliderActions();
+      slider('#film-slider');
       checkShowMoreButton(data.moreAvailable, '.button__show-more' );
       showMore(data, '.button__show-more', EVENTS.actorPage.getFilms);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
-  }
-
-  /**
-   * Set slider actions.
-   */
-  setSliderActions = () => {
-    let position = 0;
-    const slidesToShow = 6;
-    const slidesToScroll = 1;
-    const container = document.querySelector('.slider-container');
-    const track = document.querySelector('.slider-container__track');
-    const items = document.querySelectorAll('.slider-container__track_film');
-    const itemCount = items.length;
-    const btvPrev = document.querySelector('.slider-container_button-left');
-    const btvNext = document.querySelector('.slider-container_button-right');
-    const itemWidth = container.clientWidth / slidesToShow;
-    const movePosition = slidesToScroll * itemWidth;
-
-    items.forEach((item) => {
-      item.style.maxWidth = `${itemWidth}px`;
-      item.style.minWidth = `${itemWidth}px`;
-    });
-
-    btvNext.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = itemCount - (Math.abs(position) + slidesToShow * itemWidth) / itemWidth;
-      position -= itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
-      setPosition();
-      checkButtons();
-    });
-
-    btvPrev.addEventListener('click', (e) => {
-      e.preventDefault();
-      const itemLeft = Math.abs(position) / itemWidth;
-      position += itemLeft >= slidesToScroll ? movePosition : itemLeft * itemWidth;
-      setPosition();
-      checkButtons();
-    });
-    /**
-     * Set film to the right position.
-     */
-    const setPosition = () => {
-      track.style.transform = `translateX(${position}px`;
-    };
-    /**
-     * Check buttons.
-     */
-    const checkButtons = () => {
-      if (position === 0) {
-        btvPrev.classList.add('hidden');
-      } else {
-        btvPrev.classList.remove('hidden');
-      }
-
-      if (position <= -(itemCount - slidesToShow) * itemWidth) {
-        btvNext.classList.add('hidden');
-      } else {
-        btvNext.classList.remove('hidden');
-      }
-    };
-    checkButtons();
   }
 }

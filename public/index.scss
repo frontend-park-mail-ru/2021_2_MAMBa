@@ -15,16 +15,17 @@
 @import 'components/slider/slider.scss';
 @import 'components/filmCard/filmdCard.scss';
 @import 'components/search/searchBlock.scss';
-@import 'components/buttonWithBorder/buttonWithBorder';
-@import 'components/buttonShowMore/buttonShowMore.scss';
 @import 'components/search/personsBlock/personsBlock.scss';
 @import 'components/collection/collection.scss';
 @import 'components/film/film.scss';
+@import 'components/emptySign/emptySign.scss';
 @import 'components/reviewSlider/reviewSlider.scss';
 @import 'components/writeReview/writeReview.scss';
 @import 'components/review/review.scss';
 @import 'components/userRating/userRating.scss';
 @import 'components/textReadMore/textReadMore.scss';
+@import 'components/randomPage/carousel.scss';
+@import 'components/randomPage/randomPage.scss';
 @import 'components/profile/profile.scss';
 @import 'components/profile/settings/settings.scss';
 @import 'components/profile/profileHeader/profileHeader.scss';
@@ -37,6 +38,8 @@
 @import 'components/genreCard/genreCard.scss';
 @import 'components/calendarCard/calendarCard.scss';
 @import 'components/noAccess/noAccess.scss';
+@import 'components/homePage/homePage.scss';
+@import 'components/mainSlider/mainSlider.scss';
 
 @font-face {
   font-family: 'Montserrat-Regular';
@@ -66,7 +69,6 @@
 html, body {
   font-family: 'Montserrat-Regular', sans-serif;
   margin: 0;
-  overflow-x: hidden;
   padding: 0;
   background-color: $white;
   color: $black;
@@ -76,6 +78,8 @@ html, body {
 
 body {
   overflow-y: scroll;
+  overflow-x: hidden;
+
 }
 
 .content {

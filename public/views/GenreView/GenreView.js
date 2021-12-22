@@ -41,14 +41,16 @@ export class GenreView extends BaseView {
   showScrollMore = (data) => {
     window.addEventListener('scroll', () => {
       const block = document.getElementById('infinite-scroll');
-      let contentHeight = block.offsetHeight;
-      const yOffset = window.pageYOffset;
-      const windowHeight = window.innerHeight;
-      const y = yOffset + windowHeight;
-      if (y >= contentHeight && data.moreAvailable) {
-        contentHeight = block.offsetHeight;
-        data.skip = data.skip + data.limit;
-        this.eventBus.emit(EVENTS.genrePage.getFilms, data);
+      if (block) {
+        let contentHeight = block.offsetHeight;
+        const yOffset = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const y = yOffset + windowHeight;
+        if (y >= contentHeight && data.moreAvailable) {
+          contentHeight = block.offsetHeight;
+          data.skip = data.skip + data.limit;
+          this.eventBus.emit(EVENTS.genrePage.getFilms, data);
+        }
       }
     });
   }

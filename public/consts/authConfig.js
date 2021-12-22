@@ -1,9 +1,9 @@
 export const authConfig = {
-  emailInput: {type: 'email', name: 'email', placeholder: 'Email'},
-  surnameInput: {type: 'text', name: 'surname', placeholder: 'Фамилия'},
-  nameInput: {type: 'text', name: 'first_name', placeholder: 'Имя'},
-  passwordInput: {type: 'password', name: 'password', placeholder: 'Пароль'},
-  repPasswordInput: {type: 'password', name: 'password_repeat', placeholder: 'Повторите пароль'},
+  emailInput: {type: 'email', name: 'email', placeholder: 'ivan@mail.ru', title: 'Email'},
+  surnameInput: {type: 'text', name: 'surname', placeholder: 'Иванов', title: 'Фамилия'},
+  nameInput: {type: 'text', name: 'first_name', placeholder: 'Иван', title: 'Имя'},
+  passwordInput: {type: 'password', name: 'password', placeholder: '', title: 'Пароль'},
+  repPasswordInput: {type: 'password', name: 'password_repeat', placeholder: '', title: 'Повторите пароль'},
 };
 
 export const AuthFormName = 'authForm';

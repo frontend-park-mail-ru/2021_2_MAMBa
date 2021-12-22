@@ -1,0 +1,68 @@
+.carousel-random {
+  padding: 10px 30px;
+  -webkit-perspective: 3000px;
+  perspective: 3000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  &__card-container {
+    margin: 0;
+    width: 50%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+  }
+
+  &__btn-container {
+    margin-top: 20px;
+    display: flex;
+  }
+
+  &__prev-btn, &__next-btn {
+    padding: 10px;
+    cursor: pointer;
+    background-color: $pink;
+    color: $white;
+    border-radius: 10px;
+    margin: 0 10px;
+    font-size: 1.2em;
+    font-family: "Montserrat-Medium", sans-serif;
+  }
+
+  &__prev-btn:active, &__next-btn:active {
+    transform: scale(0.95);
+  }
+
+
+  &__card {
+    flex: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
+
+    &:not(:first-of-type) {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+
+    & img {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0;
+      object-fit: cover;
+      height: 400px;
+      border-radius: 10px;
+
+      &:not(:first-of-type) {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+}
+

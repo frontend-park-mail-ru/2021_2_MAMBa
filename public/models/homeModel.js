@@ -1,6 +1,12 @@
-import {getCollections} from '../modules/http.js';
+import {getCollections, getGenres, getInfoAboutPremiers, getMainPagePopularFilms} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
-import {convertArrayToCollectionsPage} from '../modules/adapters';
+import {
+  convertArrayToCalendarPage,
+  convertArrayToCollectionsPage,
+  convertArrayToGenresPage,
+  convertArrayToHomeMainSliderPage,
+  convertArrayToHomePopularFilmsPage,
+} from '../modules/adapters';
 import {statuses} from '../consts/reqStatuses';
 
 /**
@@ -8,22 +14,65 @@ import {statuses} from '../consts/reqStatuses';
  */
 export class HomePageModel {
   /**
-   * Create a actor page model.
+   * Create a home page model.
    * @param {EventBus} eventBus - Global Event Bus.
    */
   constructor(eventBus) {
     this.eventBus = eventBus;
+
   }
 
   getMainPageContent = () => {
+    let mainPage = {};
     getCollections()
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
           }
           if (response.status === statuses.OK && response.body) {
-            this.eventBus.emit(EVENTS.homepage.render.content, convertArrayToCollectionsPage(response.body));
+            mainPage = {...mainPage, ...convertArrayToHomeMainSliderPage(response.body)};
           }
         });
+    getMainPagePopularFilms()
+        .then((response) => {
+          if (!response || !response.status) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          }
+          if (response.status === statuses.OK && response.body) {
+            mainPage = {...mainPage, ...convertArrayToHomePopularFilmsPage(response.body)};
+          }
+        });
+    getGenres()
+        .then((response) => {
+          if (!response || !response.status) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          }
+          if (response.status === statuses.OK && response.body) {
+            mainPage = {...mainPage, ...convertArrayToGenresPage(response.body)};
+          }
+        });
+    getCollections()
+        .then((response) => {
+          if (!response || !response.status) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          }
+          if (response.status === statuses.OK && response.body) {
+            mainPage = {...mainPage, ...convertArrayToCollectionsPage(response.body)};
+          }
+        });
+    const data = new Date();
+    const year = data.getFullYear();
+    const month = data.getMonth();
+    getInfoAboutPremiers(year, month)
+        .then((response) => {
+          if (!response.status) {
+            this.eventBus.emit(EVENTS.App.ErrorPage);
+          } else if (response?.status === statuses.OK && response.body) {
+            mainPage = {...mainPage, ...convertArrayToCalendarPage(response.body, year, month)};
+          }
+        });
+    Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms()]).then(results => {
+      this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
+    })
   }
 }

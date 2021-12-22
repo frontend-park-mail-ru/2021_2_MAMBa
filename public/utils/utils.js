@@ -2,6 +2,8 @@ import {authModule} from '../modules/authorization';
 import {eventBus} from '../modules/eventBus';
 import {EVENTS} from '../consts/EVENTS';
 import {ROUTES} from '../consts/routes';
+import baseViewPug from '../views/BaseView/BaseView.pug';
+import {headerLinks, mobileHeaderLinks} from '../consts/header';
 
 const createElementFromHTML = (html) => {
   const temp = document.createElement('div');
@@ -22,7 +24,6 @@ export const checkAuth = (id) =>{
   return true;
 };
 
-
 /**
  * Render warning to auth.
  * @param {string} text - Warning text to render.
@@ -32,5 +33,27 @@ export const renderWarning = (text, className) => {
   const errorBlock = document.querySelector(`.${className}`);
   if (errorBlock) {
     errorBlock.innerHTML = text;
+  }
+};
+
+export const renderBaseView = () => {
+  const userLocalStorage = window.localStorage.getItem('user');
+  if (userLocalStorage) {
+    const user = JSON.parse(userLocalStorage);
+    return baseViewPug({
+      headerLinks: headerLinks,
+      mobileHeaderLinks: mobileHeaderLinks,
+      userName: user.first_name.length > 8 ? user.first_name.substr(0, 8) + '...' : user.first_name,
+      imgSrc: user.profile_pic,
+      userId: user.id,
+      profileHref: ROUTES.Profile,
+      userFromStorage: true,
+    });
+  } else {
+    return baseViewPug({
+      headerLinks: headerLinks,
+      mobileHeaderLinks: mobileHeaderLinks,
+      userFromStorage: false,
+    });
   }
 };

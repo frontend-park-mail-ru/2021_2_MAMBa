@@ -1,24 +1,23 @@
-import headerPug from '../../components/header/navbar.pug';
 import enterButton from '../../components/header/enterButton.pug';
 import logoutButton from '../../components/header/logoutButton.pug';
 import userBlock from '../../components/header/userBlock/userBlock.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {headerLinks, mobileHeaderLinks} from '../../consts/header';
 import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
-import {createElementFromHTML} from '../../utils/utils';
+import {createElementFromHTML, renderBaseView} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
-import {menuObjects} from '../../consts/profileMenu';
 const symbolCount = 11;
 const enterCode = 13;
 
 export class HeaderView extends BaseView {
   constructor(eventBus) {
     super(eventBus);
+    this.searchIsClicked = false;
+    this.vertMenuIsClicked = false;
   }
 
   render = () => {
-    const template = headerPug({headerLinks: headerLinks, mobileHeaderLinks: mobileHeaderLinks});
+    const template = renderBaseView();
     const header = this.getHeaderFromDom();
     if (header) {
       header.innerHTML = template;
@@ -26,6 +25,7 @@ export class HeaderView extends BaseView {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
+
 
   changeActiveButton = (buttonHref) => {
     this.unActiveAllButtons();
@@ -42,18 +42,6 @@ export class HeaderView extends BaseView {
         button.classList.add('navbar__menu-btn_active');
       }
     }
-  }
-
-  hideVerticalMenu = () => {
-    const checkBox = document.querySelector('.navbar__vertical-menu input');
-    if (!checkBox) {
-      return;
-    }
-    checkBox.checked = false;
-  }
-
-  getHeaderFromDom = () => {
-    return document.querySelector('.navbar');
   }
 
   unActiveAllButtons = () => {
@@ -74,6 +62,13 @@ export class HeaderView extends BaseView {
     }
   }
 
+  renderEnterButton = () => {
+    const userBlock = document.querySelector('.user-block');
+    if (!userBlock) {
+      return;
+    }
+    userBlock.replaceWith(createElementFromHTML(enterButton()));
+  }
 
   renderUserBlock = () => {
     if (!authModule.user) {
@@ -93,6 +88,10 @@ export class HeaderView extends BaseView {
     })));
     const verticalMenu = document.querySelector('.vertical-menu__btn-container');
     if (verticalMenu) {
+      const logoutBtn = document.querySelector('#vertical-logout-btn');
+      if (logoutBtn) {
+        return;
+      }
       verticalMenu.appendChild(createElementFromHTML(logoutButton()));
     }
     this.addEventListenerToLogoutButton();
@@ -112,72 +111,138 @@ export class HeaderView extends BaseView {
     });
   }
 
+
+  addEventListenerToResize = () => {
+    window.addEventListener('resize', () => {
+      if (document.documentElement.clientWidth > 450) {
+        this.showNavAndHideSearch();
+      }
+    });
+  }
+
+
   addEventListenerToSearch = () => {
     const input = document.querySelector('.search__input');
     if (!input) {
       return;
     }
+
     input.addEventListener('keydown', (e) => {
       if (e.keyCode === enterCode) {
-        this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
+        this.eventBus.emit(EVENTS.PathChanged, {path: `/search?query=${input.value}`});
+        if (document.documentElement.clientWidth <= 450) {
+          this.showNavAndHideSearch();
+          this.searchIsClicked = false;
+        }
       }
     });
-    const button = document.querySelector('.search__btn');
-    if (!button) {
+    const searchBtn = document.querySelector('.search__btn');
+    if (!searchBtn) {
       return;
     }
-    button.addEventListener('click', (e) => {
-      this.eventBus.emit(EVENTS.PathChanged, {path: `${ROUTES.search}?query=${input.value}`});
-    });
-    const checkbox = document.querySelector('.search__checkbox');
-    if (!checkbox) {
-      return;
-    }
-    checkbox.addEventListener('change', (e) => {
-      console.log('xde');
-      console.log(e.target.checked);
-
-      const logo = document.querySelector('.navbar__logo');
-      const verticalMenu = document.querySelector('.navbar__vertical-menu');
-      const searchInput = document.querySelector('.search__input');
-      const searchBtn = document.querySelector('.search__btn');
-      if (e.target.checked) {
-        if (logo) {
-          logo.style.display = 'none';
-        }
-        if (verticalMenu) {
-          verticalMenu.style.display = 'none';
-        }
-        if (searchInput) {
-          searchInput.style.display = 'flex';
-          searchInput.style.zIndex = '4';
-        }
-        if (searchBtn) {
-          searchBtn.style.zIndex = '4';
-        }
+    searchBtn.addEventListener('click', (e) => {
+      if (document.documentElement.clientWidth > 450) {
+        this.searchIsClicked = false;
+        this.eventBus.emit(EVENTS.PathChanged, {path: `/search?query=${input.value}`});
       } else {
-        if (logo) {
-          logo.style.removeProperty('display');
-        }
-        if (verticalMenu) {
-          verticalMenu.style.removeProperty('display');
-        }
-        if (searchInput) {
-          searchInput.style.removeProperty('display');
-          searchInput.style.removeProperty('z-index');
-        }
-        if (searchBtn) {
-          searchBtn.style.removeProperty('z-index');
+        if (this.searchIsClicked) {
+          this.searchIsClicked = false;
+          this.eventBus.emit(EVENTS.PathChanged, {path: `/search?query=${input.value}`});
+        } else {
+          this.searchIsClicked = true;
+          this.hideNavAndShowSearch();
         }
       }
     });
   }
 
-  renderEnterButton = () => {
-    const userBlock = document.querySelector('.user-block');
-    if (!userBlock) {
+  showNavAndHideSearch = () => {
+    this.searchIsClicked = false;
+    const logo = document.querySelector('.navbar__logo');
+    const verticalMenu = document.querySelector('.navbar__vertical-menu');
+    const searchInput = document.querySelector('.search__input');
+    if (logo) {
+      logo.style.removeProperty('display');
+    }
+    if (verticalMenu) {
+      verticalMenu.style.removeProperty('display');
+    }
+    if (searchInput) {
+      searchInput.style.removeProperty('visibility');
+      searchInput.style.removeProperty('opacity');
+    }
+  }
+
+  hideNavAndShowSearch = () => {
+    const logo = document.querySelector('.navbar__logo');
+    const verticalMenu = document.querySelector('.navbar__vertical-menu');
+    const searchInput = document.querySelector('.search__input');
+    if (logo) {
+      logo.style.display = 'none';
+    }
+    if (verticalMenu) {
+      verticalMenu.style.display = 'none';
+    }
+    if (searchInput) {
+      searchInput.style.visibility = 'visible';
+      searchInput.style.opacity = '1';
+    }
+  };
+
+
+  addEventListenerToVerticalMenu = () => {
+    const verticalMenu = document.querySelector('.navbar__vertical-menu');
+    if (!verticalMenu) {
       return;
     }
-    userBlock.replaceWith(createElementFromHTML(enterButton()));
+    verticalMenu.addEventListener('click', () => {
+      if (!this.vertMenuIsClicked) {
+        this.showVerticalMenu();
+        this.vertMenuIsClicked = true;
+      } else {
+        this.hideVerticalMenu();
+        this.vertMenuIsClicked = false;
+      }
+    });
+  }
+
+  hideVerticalMenu = () => {
+    this.vertMenuIsClicked = false;
+    const spanLines = document.querySelectorAll('.vertical-menu-line');
+    if (spanLines.length) {
+      spanLines.forEach((item) => {
+        const lineClass = item.classList.item(1);
+        item.classList.remove(lineClass);
+        item.classList.add(lineClass.replace('_animated', ''));
+      });
+    }
+    const verticalMenu = document.querySelector('.vertical-menu__btn-container');
+    if (!verticalMenu) {
+      return;
+    }
+    verticalMenu.style.visibility = 'hidden';
+    verticalMenu.style.opacity = '0';
+  }
+
+  showVerticalMenu = () => {
+    const spanLines = document.querySelectorAll('.vertical-menu-line');
+    if (spanLines.length) {
+      spanLines.forEach((item) => {
+        const lineClass = item.classList.item(1);
+        item.classList.remove(lineClass);
+        item.classList.add(`${lineClass}_animated`);
+      });
+    }
+    const verticalMenu = document.querySelector('.vertical-menu__btn-container');
+    if (!verticalMenu) {
+      return;
+    }
+    verticalMenu.style.visibility = 'visible';
+    verticalMenu.style.opacity = '1';
+  }
+
+
+  getHeaderFromDom = () => {
+    return document.querySelector('.navbar');
   }
 }

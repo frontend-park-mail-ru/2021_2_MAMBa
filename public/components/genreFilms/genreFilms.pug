@@ -1,13 +1,17 @@
 include ../filmCard/filmCard
+include ../calendarCard/calendarCard
 div.wrapper
     main.page
         div(class = "genreFilms page__container _container")
-            h1(class="genre__main-title title") #{genreName}
+            h1(class="genreFilms__main-title title main-title  ") Жанр
+                span
+                    = ' '
+                span.color-text-pink #{genreName}
             div(class ="black-container")
                     if (filmsTotal>0)
                         div.film__items#infinite-scroll
                             each film, _ in filmsWithDescription
-                              +filmCard(film)
+                              +calendarCard(film)
                     else
-                        div.film-card_description_name К сожалению, на нашем сайне нет фильмов этого жанра
+                        div.film-card_description_name К сожалению, на нашем сайте нет фильмов этого жанра
 

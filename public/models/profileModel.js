@@ -54,7 +54,7 @@ export class ProfileModel extends Model {
         }
         getMenuLinks(user.id);
         this.eventBus.emit(EVENTS.ProfilePage.Render.Content, user, this.isThisUser());
-      } else if (response?.parsedJson?.status === statuses.NOT_FOUND) {
+      } else {
         this.eventBus.emit(EVENTS.App.ErrorPage);
         return null;
       }

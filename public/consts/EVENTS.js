@@ -8,6 +8,7 @@ export const EVENTS = {
     Start: 'app:start',
     ErrorPage: 'app:errorPage',
     noAccess: 'app:noAccess',
+    ErrorPageText: 'app:errorPageText',
   },
   Router: {
     Go: 'router:go',
@@ -17,10 +18,21 @@ export const EVENTS = {
       errorPage: 'homepage:renderErrorPage',
       header: 'homepage:renderHeader',
       content: 'homepage:renderContent',
+      popularFilms: 'homepage:popularFilms',
     },
     get: {
       infoForHeader: 'homepage:InfoForHeader',
       mainPageContent: 'homepage:getCollections',
+    },
+  },
+  collectionsPage: {
+    render: {
+      errorPage: 'collectionsPage:renderErrorPage',
+      header: 'collectionsPage:renderHeader',
+      content: 'collectionsPage:renderContent',
+    },
+    get: {
+      collectionsPageContent: 'collectionsPage:getCollections',
     },
   },
   genresPage: {
@@ -65,6 +77,7 @@ export const EVENTS = {
     Validate: 'authPage:validate',
     HavingWrongInput: 'authPage:havingWrongInputs',
     GetContent: 'authPage:getContent',
+    deleteAllErrors: 'authPage:deleteAllErrors',
   },
   actorPage: {
     render: {
@@ -92,6 +105,13 @@ export const EVENTS = {
       content: 'reviewPage:renderContent',
     },
     getPageContent: 'reviewPage:getReviewPageContent',
+  },
+
+  randomPage: {
+    render: {
+      content: 'randomPage:renderContent',
+    },
+    getPageContent: 'randomPage:getRandomPageContent',
   },
 
   collectionPage: {

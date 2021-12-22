@@ -1,5 +1,6 @@
 .auth-error-input {
   border: 2px solid $pink;
+  margin: 1em 0 0;
 
   &_animated {
     animation: errorField  0.3s 1 ease-in-out;
@@ -9,7 +10,16 @@
 .auth-error-text {
   font-family: "Montserrat-Regular", "Arial", sans-serif;
   font-size: 13px;
-  color: $purple-text;
+  color: indigo;
+  margin: 0.5em 0 0;
+  width: 80%;
+}
+
+.not-authorized-error {
+   text-align: center;
+   font-size: 1em;
+   margin: 1em auto 0;
+   font-family: "Montserrat-Medium", "Arial", sans-serif;
 }
 
 @keyframes errorField {

@@ -2,11 +2,7 @@
 
 .film {
   &__items {
-    display: grid;
-    row-gap: 30px;
-    @media (max-width: $md3+px) {
-      row-gap: 15px;
-    }
+    text-align: center;
   }
 
   &__item {
@@ -23,14 +19,6 @@
     &:last-child {
       margin-bottom: 0;
     }
-
-    @media (min-width: $md3+px) {
-      display: flex;
-      align-items: stretch;
-    }
-    @media (max-width: $md3+px) {
-      padding: 16px;
-    }
   }
 
   &__info {
@@ -38,9 +26,6 @@
     display: flex;
     justify-content: space-between;
     flex: 1 1 0;
-    @media (min-width: $md3+px) {
-      padding: 0 30px 0 20px;
-    }
   }
 
   &__name {
@@ -55,19 +40,12 @@
     &:hover {
       color: $pink;
     }
-
-    @media (max-width: $md3+px) {
-      font-size: 24px;
-    }
   }
 
   &__year {
     font-size: 13px;
     font-family: 'Montserrat-Light', "Arial", sans-serif;;
     margin-bottom: 15px;
-    @media (max-width: $md3+px) {
-      margin-bottom: 5px;
-    }
   }
 
   &__description {
@@ -85,25 +63,47 @@
 }
 
 .pink-button {
-  display: inline-flex;
   align-self: flex-start;
-  border-radius: 10px;
-  cursor: pointer;
   font-weight: 600;
   font-size: 18px;
   padding: 6px 20px;
-  justify-content: center;
-  transition: all .2s ease-out;
   text-decoration: none;
   background-color: $pink;
   color: $white;
-  @media (max-width: $md3+px) {
-    align-self: normal;
+}
+
+  @media (min-width: $padSize) {
+    .film {
+      &__item {
+        display: flex;
+        align-items: stretch;
+      }
+
+      &__info {
+        padding: 0 30px 0 20px;
+      }
+    }
   }
-}
 
-.pink-button:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
+  @media (max-width: $padSize) {
+    .film {
+      &__items {
+        //row-gap: 15px;
+      }
 
+      &__item {
+        padding: 16px;
+      }
+
+      &__name {
+        font-size: 24px;
+      }
+
+      &__year {
+        margin-bottom: 5px;
+      }
+    }
+    .pink-button {
+      align-self: normal;
+    }
+  }

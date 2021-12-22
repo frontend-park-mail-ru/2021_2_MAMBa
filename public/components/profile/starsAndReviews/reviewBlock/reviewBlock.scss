@@ -1,46 +1,59 @@
 .review-block {
   display: flex;
-  width: 550px;
+  width: 48%;
   margin: 7px;
-  height: 162px;
+  min-height: 162px;
   padding: 8px;
-  background-color: rgba(36, 11, 54, 0.1);
+  background-color: rgba(36, 11, 54, 0.04);
   border-radius: 20px;
+  overflow: hidden;
 
   &__image-block {
     display: flex;
-    padding: 20px;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 20%;
+    margin: 0 10px;
   }
 
   &__data-block {
     display: flex;
-    flex: 1 0 auto;
     flex-direction: column;
-    justify-content: space-evenly;
+  }
+
+  &__image-block {
+    height: 100%;
+    min-width: 20%;
   }
 }
 
 .review-image-block {
   &__film-img {
-    width: 177px;
-    height: 100px;
+    height: 80%;
+    flex: 1 0 auto;
+    max-width: 100%;
+    min-width: 100%;
     object-fit: cover;
     border-radius: 20px;
+    align-self: center;
+    justify-self: center;
+    margin: 0 10px;
+    background-attachment: fixed;
   }
 
   &__stars-block {
+    color: $pink;
+    font-family: "Montserrat-Semi-Bold", "Arial", sans-serif;
   }
 }
 
 .review-data-block {
   &__film-name-ru {
-    max-width: 330px;
     text-decoration: none;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: inherit;
     color: $dark-blue-text;
     font-family: "Montserrat-Bold", sans-serif;
     font-size: 18px;
@@ -51,10 +64,9 @@
   }
 
   &__film-name-en {
-    max-width: 330px;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: inherit;
     color: $dark-blue-text;
     font-size: 14px;
   }
@@ -62,11 +74,12 @@
 
   &__review-text {
     color:$dark-blue-text;
-    font-size: 16px;
+    font-size: 1em;
     font-family: "Montserrat-Medium", sans-serif;
-    max-width: 330px;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-top: 15px;
+    flex: 1 0 auto;
   }
 
   &__to-review-btn {
@@ -89,8 +102,8 @@
   }
 
   &__write-review-btn {
-    width: 200px;
-    height: 40px;
+    width: 150px;
+    height: 30px;
     font-size: 14px;
     font-family: "Montserrat-Bold", sans-serif;
     background: white;
@@ -111,7 +124,7 @@
   }
 
   &__to-review, &__write-review {
-    align-self: end;
+    align-self: start;
     text-decoration: none;
   }
 
@@ -120,24 +133,67 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .review-block {
+    width: 100%;
+  }
+}
+
 @media (max-width: 575px) {
   .review-block {
     flex-direction: column;
     justify-content: center;
-    height: 250px;
-    max-width: 400px;
-  }
-}
-
-@media (max-width: 400px) {
-  .review-data-block__review-text {
-    white-space: nowrap;
-  }
-  .review-block {
-    max-width: 300px;
-  }
-  .review-block__image-block {
+    min-height: 300px;
+    margin: 7px 0;
     padding: 0;
+
+    &__image-block {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .review-data-block {
+
+    &__film-name-ru, &__film-name-en {
+      text-align: center;
+      white-space: inherit;
+    }
+
+    &__to-review, &__write-review {
+      align-self: center;
+      margin: 12px;
+    }
+
+    &__review-text {
+      text-align: center;
+    }
+
+  }
+
+  .review-image-block {
+    &__film-img {
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin: 0;
+    }
   }
 }
+//
+//@media (max-width: 400px) {
+//  .review-data-block__review-text {
+//    white-space: nowrap;
+//  }
+//  .review-block {
+//    max-width: 300px;
+//  }
+//  .review-block__image-block {
+//    padding: 0;
+//  }
+//}
 

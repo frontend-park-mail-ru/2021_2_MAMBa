@@ -98,7 +98,8 @@ export const mainSlider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        slider.addEventListener('touchmove', function (e) { swipeAction(e); });
+
+        slider.addEventListener('touchmove', function (e) { swipeAction(e) },false);
         slider.addEventListener('touchend', swipeEnd);
         sliderList.classList.remove('grab');
         sliderList.classList.add('grabbing');

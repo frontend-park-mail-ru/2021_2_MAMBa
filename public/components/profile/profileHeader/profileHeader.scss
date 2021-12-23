@@ -36,6 +36,9 @@
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 26px;
     color: $white;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
   }
 
   &__label-subscribers-count {

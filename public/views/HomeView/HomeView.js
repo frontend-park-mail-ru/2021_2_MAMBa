@@ -29,6 +29,7 @@ export class HomePageView extends BaseView {
    */
 
   renderContent = (data) => {
+    console.log(data)
     const homePage = homeContent(data);
     const content = document.querySelector('.content');
     if (content) {
@@ -42,6 +43,7 @@ export class HomePageView extends BaseView {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
+
 
   homeMenu = (data) => {
     const liPopularFilms = document.querySelector(`.popularFilms`);

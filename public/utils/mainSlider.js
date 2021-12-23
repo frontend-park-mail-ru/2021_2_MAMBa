@@ -118,6 +118,8 @@ export const mainSlider = (selector) => {
         if (posY > 7 || posX2 === 0) {
           isScroll = true;
           allowSwipe = false;
+          e.preventDefault();
+          e.stopPropagation()
         } else if (posY < 7) {
           isSwipe = true;
           e.preventDefault();

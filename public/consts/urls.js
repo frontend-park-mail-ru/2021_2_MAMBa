@@ -43,5 +43,6 @@ export const URLS = {
     calendar: `${currentUrl}/api/film/calendar`,
     popularFilms: `${currentUrl}/api/film/popularFilms`,
     random: `${currentUrl}/api/getRandom`,
+    banners: `${currentUrl}/api/film/banners`,
   },
 };

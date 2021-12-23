@@ -1,7 +1,7 @@
-import {getCollections, getGenres, getInfoAboutPremiers, getMainPagePopularFilms} from '../modules/http.js';
+import {getBanners, getCollections, getGenres, getInfoAboutPremiers, getMainPagePopularFilms} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {
-  convertArrayToCalendarPage,
+  convertArrayToCalendarPage, convertArrayToCollection,
   convertArrayToCollectionsPage,
   convertArrayToGenresPage,
   convertArrayToHomeMainSliderPage,
@@ -24,7 +24,7 @@ export class HomePageModel {
 
   getMainPageContent = () => {
     let mainPage = {};
-    getCollections()
+    getBanners()
         .then((response) => {
           if (!response || !response.status) {
             this.eventBus.emit(EVENTS.App.ErrorPage);
@@ -33,45 +33,58 @@ export class HomePageModel {
             mainPage = {...mainPage, ...convertArrayToHomeMainSliderPage(response.body)};
           }
         });
-    getMainPagePopularFilms()
-        .then((response) => {
-          if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          }
-          if (response.status === statuses.OK && response.body) {
-            mainPage = {...mainPage, ...convertArrayToHomePopularFilmsPage(response.body)};
-          }
-        });
-    getGenres()
-        .then((response) => {
-          if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          }
-          if (response.status === statuses.OK && response.body) {
-            mainPage = {...mainPage, ...convertArrayToGenresPage(response.body)};
-          }
-        });
-    getCollections()
-        .then((response) => {
-          if (!response || !response.status) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          }
-          if (response.status === statuses.OK && response.body) {
-            mainPage = {...mainPage, ...convertArrayToCollectionsPage(response.body)};
-          }
-        });
-    const data = new Date();
-    const year = data.getFullYear();
-    const month = data.getMonth();
-    getInfoAboutPremiers(year, month)
-        .then((response) => {
-          if (!response.status) {
-            this.eventBus.emit(EVENTS.App.ErrorPage);
-          } else if (response?.status === statuses.OK && response.body) {
-            mainPage = {...mainPage, ...convertArrayToCalendarPage(response.body, year, month)};
-          }
-        });
-    Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms()]).then(results => {
+    // getCollections()
+    //     .then((response) => {
+    //       if (!response || !response.status) {
+    //         this.eventBus.emit(EVENTS.App.ErrorPage);
+    //       }
+    //       if (response.status === statuses.OK && response.body) {
+    //         mainPage = {...mainPage, ...convertArrayToCollection(response.body)};
+    //       }
+    //     });
+    // getMainPagePopularFilms()
+    //     .then((response) => {
+    //       if (!response || !response.status) {
+    //         this.eventBus.emit(EVENTS.App.ErrorPage);
+    //       }
+    //       if (response.status === statuses.OK && response.body) {
+    //         mainPage = {...mainPage, ...convertArrayToHomePopularFilmsPage(response.body)};
+    //       }
+    //     });
+    // getGenres()
+    //     .then((response) => {
+    //       if (!response || !response.status) {
+    //         this.eventBus.emit(EVENTS.App.ErrorPage);
+    //       }
+    //       if (response.status === statuses.OK && response.body) {
+    //         mainPage = {...mainPage, ...convertArrayToGenresPage(response.body)};
+    //       }
+    //     });
+    // getCollections()
+    //     .then((response) => {
+    //       if (!response || !response.status) {
+    //         this.eventBus.emit(EVENTS.App.ErrorPage);
+    //       }
+    //       if (response.status === statuses.OK && response.body) {
+    //         mainPage = {...mainPage, ...convertArrayToCollectionsPage(response.body)};
+    //       }
+    //     });
+    // const data = new Date();
+    // const year = data.getFullYear();
+    // const month = data.getMonth();
+    // getInfoAboutPremiers(year, month)
+    //     .then((response) => {
+    //       if (!response.status) {
+    //         this.eventBus.emit(EVENTS.App.ErrorPage);
+    //       } else if (response?.status === statuses.OK && response.body) {
+    //         mainPage = {...mainPage, ...convertArrayToCalendarPage(response.body, year, month)};
+    //       }
+    //     });
+    // Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms(), getBanners()]).then(_ => {
+    //   this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
+    // })
+
+    Promise.all([getBanners()]).then(_ => {
       this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
     })
   }

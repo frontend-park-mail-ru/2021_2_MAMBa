@@ -74,11 +74,11 @@ export const convertArrayToMainSlider = (arrayContent) => {
       title: jsonBanner?.title,
       description: jsonBanner?.description,
       poster: `https://film4u.club${jsonBanner?.picture_url}`,
-      href: jsonBanner?.link|| "",
+      href: jsonBanner?.link|| '',
     };
   });
   // arr.push(arr[0], arr[1], arr[2], arr[3]);
-  arr.push(arr[0], arr[1], arr[0], arr[1],arr[0], arr[1],);
+  arr.push(arr[0], arr[1], arr[0], arr[1], arr[0], arr[1]);
   return arr;
 };
 
@@ -216,10 +216,11 @@ export const ratingNumber = (rating) => {
  * @param {number} rating - rating of film.
  */
 export const ratingNewNumber = (rating) => {
-  if (typeof rating ===  "number")
+  if (typeof rating === 'number') {
     return rating.toFixed(1);
-  else
-    return rating
+  } else {
+    return rating;
+  }
 };
 
 /**

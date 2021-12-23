@@ -1,7 +1,7 @@
 import {getBanners, getCollections, getGenres, getInfoAboutPremiers, getMainPagePopularFilms} from '../modules/http.js';
 import {EVENTS} from '../consts/EVENTS.js';
 import {
-  convertArrayToCalendarPage, convertArrayToCollection,
+  convertArrayToCalendarPage,
   convertArrayToCollectionsPage,
   convertArrayToGenresPage,
   convertArrayToHomeMainSliderPage,
@@ -19,7 +19,6 @@ export class HomePageModel {
    */
   constructor(eventBus) {
     this.eventBus = eventBus;
-
   }
 
   getMainPageContent = () => {
@@ -71,12 +70,12 @@ export class HomePageModel {
             mainPage = {...mainPage, ...convertArrayToCalendarPage(response.body, year, month)};
           }
         });
-    Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms(), getBanners()]).then(_ => {
+    Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms(), getBanners()]).then((_) => {
       this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
-    })
+    });
 
-    Promise.all([getBanners()]).then(_ => {
+    Promise.all([getBanners()]).then((_) => {
       this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
-    })
+    });
   }
 }

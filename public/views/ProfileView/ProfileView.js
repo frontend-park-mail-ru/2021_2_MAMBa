@@ -10,6 +10,7 @@ import settingsLinkPug from '../../components/profile/profileMenu/addSettingsLin
 import loader from '../../components/loader/loader.pug';
 import noAccessPug from '../../components/noAccess/noAccess.pug';
 import emptySignPug from '../../components/emptySign/emptySign.pug';
+import authError from '../../components/auth/authError/authError.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {menuLinks, menuObjects} from '../../consts/profileMenu';
 import {SettingsInput} from '../../consts/settingsInputs.js';
@@ -17,6 +18,8 @@ import {ROOT} from '../../main';
 import {statuses} from '../../consts/reqStatuses.js';
 import {createElementFromHTML, renderBaseView} from '../../utils/utils.js';
 import {ROUTES} from '../../consts/routes';
+const settingsFormName = 'settingsForm';
+const maxAvatarSizeMb = 5;
 
 
 export class ProfileView extends BaseView {
@@ -191,7 +194,77 @@ export class ProfileView extends BaseView {
     }
     profileContent.innerHTML = settingsPug({inputs: SettingsInput, profile_pic: this.user.profile_pic});
     this.listenAvatarChanged();
+    this.addValidateListeners();
     this.submitSettingsButton();
+  }
+
+  addErrorMessage = (inputName, errorMessage) => {
+    if (!inputName || !errorMessage) {
+      return;
+    }
+    const settingsForm = this.getSettingsFormFromDom();
+    const errorInput = settingsForm[inputName];
+    errorInput.classList.add('auth-error-input');
+    const newError = this.createError(errorMessage);
+    newError.classList.add('text-align-center');
+    settingsForm.insertBefore(newError, errorInput.nextSibling);
+  }
+
+  deleteErrorMessage = (inputName, errorMessage) => {
+    if (!inputName || !errorMessage) {
+      return;
+    }
+    const errorInput = document.forms[settingsFormName][inputName];
+    errorInput.classList.remove('auth-error-input');
+    const errorBlocks = document.forms[settingsFormName].querySelectorAll('.auth-error-text');
+    if (!errorBlocks.length) {
+      return;
+    }
+    for (const errorBlock of errorBlocks) {
+      if (errorMessage === errorBlock.innerText) {
+        errorBlock.remove();
+      }
+    }
+  }
+
+  animateWrongInput = (inputName) => {
+    const errorInput = document.forms[settingsFormName][inputName];
+    if (!errorInput) {
+      return;
+    }
+    errorInput.classList.add('auth-error-input_animated');
+  }
+
+  createError = (text) => {
+    return createElementFromHTML(authError({text: text}));
+  }
+
+  getSettingsFormFromDom = () => {
+    return document.forms[settingsFormName];
+  }
+
+  addValidateListeners = () => {
+    const settingsForm = this.getSettingsFormFromDom();
+    if (!settingsForm) {
+      return;
+    }
+    const formTextInputs = settingsForm.querySelectorAll('.settings-form__inputs');
+    if (!formTextInputs.length) {
+      return;
+    }
+    for (const input of formTextInputs) {
+      input.addEventListener('input', () => {
+        this.eventBus.emit(EVENTS.ProfilePage.deleteAllErrors, input.name);
+      });
+      if (input.name !== 'avatar') {
+        input.addEventListener('change', () => {
+          this.eventBus.emit(EVENTS.ProfilePage.Validate, input.name, input.value);
+        });
+      }
+      input.addEventListener('animationend', () => {
+        input.classList.remove('auth-error-input_animated');
+      });
+    }
   }
 
   listenAvatarChanged = () => {
@@ -201,6 +274,13 @@ export class ProfileView extends BaseView {
       return;
     }
     avatarInput.addEventListener('change', (event) => {
+      if (!event.target.files[0]) {
+        return;
+      }
+      if (event.target.files[0].size / 1024 /1024 > maxAvatarSizeMb) {
+        this.eventBus.emit(EVENTS.ProfilePage.Validate, 'avatar', 'oversize');
+        return;
+      }
       const reader = new FileReader();
       reader.addEventListener('load', (event) => {
         avatarDiv.style.backgroundImage = `url(${event.target.result})`;

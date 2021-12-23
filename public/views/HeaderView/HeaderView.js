@@ -6,7 +6,7 @@ import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML, renderBaseView} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
-const symbolCount = 11;
+const symbolCount = 9;
 const enterCode = 13;
 
 export class HeaderView extends BaseView {
@@ -191,7 +191,7 @@ export class HeaderView extends BaseView {
 
 
   addEventListenerToVerticalMenu = () => {
-    const verticalMenu = document.querySelector('.navbar__vertical-menu');
+    const verticalMenu = document.querySelector('.vertical-menu__main-btn');
     if (!verticalMenu) {
       return;
     }
@@ -220,6 +220,7 @@ export class HeaderView extends BaseView {
     if (!verticalMenu) {
       return;
     }
+    verticalMenu.style.display = 'none';
     verticalMenu.style.visibility = 'hidden';
     verticalMenu.style.opacity = '0';
   }
@@ -237,6 +238,7 @@ export class HeaderView extends BaseView {
     if (!verticalMenu) {
       return;
     }
+    verticalMenu.style.display = 'flex';
     verticalMenu.style.visibility = 'visible';
     verticalMenu.style.opacity = '1';
   }

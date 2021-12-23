@@ -28,6 +28,12 @@ export class ProfileController extends BaseController {
         {event: EVENTS.ProfilePage.ChangeProfile, handler: this.model.changeProfile},
         {event: EVENTS.ProfilePage.ChangedProfile, handler: this.view.reRenderHeader},
         {event: EVENTS.ProfilePage.MoreButton, handler: this.model.changePagAndGetNBlocks},
+        {event: EVENTS.ProfilePage.AddValidateError, handler: this.view.addErrorMessage},
+        {event: EVENTS.ProfilePage.DeleteValidateError, handler: this.view.deleteErrorMessage},
+        {event: EVENTS.ProfilePage.HavingWrongInput, handler: this.view.animateWrongInput},
+        {event: EVENTS.ProfilePage.Validate, handler: this.model.validateOneInput},
+        {event: EVENTS.ProfilePage.RenderError, handler: this.view.addNotAuthorizedMessage},
+        {event: EVENTS.ProfilePage.deleteAllErrors, handler: this.model.deleteAllErrorsFromInput},
     );
   }
 }

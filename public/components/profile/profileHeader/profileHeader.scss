@@ -6,6 +6,7 @@
   align-items: center;
   border-radius: 20px;
   margin: 20px 0 10px 0;
+  overflow: hidden;
 
   &__img {
     box-shadow: 0 0 20px 1px rgb(255 255 255 / 30%);
@@ -36,6 +37,8 @@
     font-family: "Montserrat-Bold", "Arial", sans-serif;
     font-size: 26px;
     color: $white;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__label-subscribers-count {
@@ -76,7 +79,8 @@
   &__data-block {
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__subscribers-block, &__bookmark-block  {
@@ -115,6 +119,8 @@
     }
     &__name-surname {
       font-size: 20px;
+      text-align: center;
+      word-break: break-word;
     }
     &__label-reg-data {
       font-size: 12px;
@@ -144,6 +150,7 @@
     min-height: 300px;
     padding: 12px 0;
     align-items: center;
+    height: fit-content;
 
     &__data-block {
       align-items: center;

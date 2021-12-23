@@ -111,6 +111,7 @@ export const mainSlider = (selector) => {
     const swipeAction = (e) => {
       // allowSwipe = true;
       // isScroll = true;
+      e.preventDefault();
       const evt = getEvent();
       const style = sliderTrack.style.transform;
       const transform = +style.match(trfRegExp)[0];

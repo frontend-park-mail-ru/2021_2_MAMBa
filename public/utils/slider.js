@@ -85,6 +85,7 @@ export const slider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
+        slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
         slider.addEventListener('touchmove', swipeAction);
         slider.addEventListener('touchend', swipeEnd);
       }

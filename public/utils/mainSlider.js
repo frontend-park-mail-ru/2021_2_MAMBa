@@ -98,6 +98,7 @@ export const mainSlider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
+        slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
 
         slider.addEventListener('touchmove', function(e) {
           swipeAction(e);
@@ -108,6 +109,7 @@ export const mainSlider = (selector) => {
       }
     };
     const swipeAction = (e) => {
+
       e.preventDefault();
       e.stopPropagation();
       allowSwipe = true;

@@ -98,7 +98,7 @@ export const mainSlider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
+        // slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
 
         slider.addEventListener('touchmove', function(e) {
           swipeAction(e);
@@ -109,10 +109,8 @@ export const mainSlider = (selector) => {
       }
     };
     const swipeAction = (e) => {
-
-      e.preventDefault();
-      e.stopPropagation();
       allowSwipe = true;
+      // isScroll = true;
       const evt = getEvent();
       const style = sliderTrack.style.transform;
       const transform = +style.match(trfRegExp)[0];
@@ -120,11 +118,15 @@ export const mainSlider = (selector) => {
       posX1 = evt.clientX;
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
+      console.log(isSwipe, isScroll)
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);
+        console.log(posY)
         if (posY > 7 || posX2 === 0) {
           isScroll = true;
           allowSwipe = false;
+          e.preventDefault();
+          e.stopPropagation();
         } else if (posY < 7) {
           isSwipe = true;
         }
@@ -136,10 +138,12 @@ export const mainSlider = (selector) => {
 
     const swipeEnd = () => {
       posFinal = posInit - posX1;
+      isScroll = false;
       isSwipe = false;
       slider.removeEventListener('touchmove', swipeAction);
       slider.removeEventListener('touchend', swipeEnd);
       if (allowSwipe) {
+        console.log("swiping")
         if (Math.abs(posFinal) > posThreshold) {
           if (posInit < posX1) {
             slideIndex--;
@@ -180,7 +184,7 @@ export const mainSlider = (selector) => {
     },
     {passive: false},
     );
-    sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
+    // sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }
 };

@@ -85,15 +85,17 @@ export const slider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
-        slider.addEventListener('touchmove', swipeAction);
+        // slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
+        slider.addEventListener('touchmove', function(e) {
+          swipeAction(e);
+        }, false);
         slider.addEventListener('touchend', swipeEnd);
       }
     };
 
     const swipeAction = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.preventDefault();
+      // e.stopPropagation();
       allowSwipe = true;
       const evt = getEvent();
       const style = sliderTrack.style.transform;
@@ -103,6 +105,7 @@ export const slider = (selector) => {
 
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
+      console.log(isSwipe, isScroll)
 
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);

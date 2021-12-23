@@ -109,7 +109,7 @@ export const mainSlider = (selector) => {
       }
     };
     const swipeAction = (e) => {
-      allowSwipe = true;
+      // allowSwipe = true;
       // isScroll = true;
       const evt = getEvent();
       const style = sliderTrack.style.transform;
@@ -118,15 +118,15 @@ export const mainSlider = (selector) => {
       posX1 = evt.clientX;
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
-      console.log(isSwipe, isScroll)
+      // console.log(isSwipe, isScroll)
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);
         console.log(posY)
         if (posY > 7 || posX2 === 0) {
           isScroll = true;
           allowSwipe = false;
-          e.preventDefault();
-          e.stopPropagation();
+          // e.preventDefault();
+          // e.stopPropagation();
         } else if (posY < 7) {
           isSwipe = true;
         }
@@ -137,6 +137,7 @@ export const mainSlider = (selector) => {
     };
 
     const swipeEnd = () => {
+      console.log("in swipeEnd", allowSwipe)
       posFinal = posInit - posX1;
       isScroll = false;
       isSwipe = false;
@@ -154,6 +155,8 @@ export const mainSlider = (selector) => {
         if (posInit !== posX1) {
           slide();
         }
+      }else {
+        allowSwipe = true;
       }
     };
 

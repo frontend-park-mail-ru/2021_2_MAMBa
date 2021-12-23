@@ -114,7 +114,6 @@ export const slider = (selector) => {
           allowSwipe = false;
         } else if (posY < 7) {
           isSwipe = true;
-          event.preventDefault();
         }
       }
       if (isSwipe) {

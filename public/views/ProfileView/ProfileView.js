@@ -274,12 +274,12 @@ export class ProfileView extends BaseView {
       return;
     }
     avatarInput.addEventListener('change', (event) => {
-      console.log('zdes');
       if (!event.target.files[0]) {
         return;
       }
       if (event.target.files[0].size / 1024 /1024 > maxAvatarSizeMb) {
         this.eventBus.emit(EVENTS.ProfilePage.Validate, 'avatar', 'oversize');
+        return;
       }
       const reader = new FileReader();
       reader.addEventListener('load', (event) => {

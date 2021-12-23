@@ -6,7 +6,7 @@ import {authModule} from '../../modules/authorization';
 import {BaseView} from '../BaseView/BaseView';
 import {createElementFromHTML, renderBaseView} from '../../utils/utils';
 import {ROUTES} from '../../consts/routes';
-const symbolCount = 11;
+const symbolCount = 9;
 const enterCode = 13;
 
 export class HeaderView extends BaseView {

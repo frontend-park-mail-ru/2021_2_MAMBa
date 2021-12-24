@@ -47,7 +47,7 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging();
 getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J4prDCmZSsIqbPA4x-FT9aN6vhxqFzjPtBQETOmU'}).then((currentToken) => {
   if (currentToken) {
-    fetch('https://film4u.club/api/user/subscribePush', {
+    fetch('https://park.film4u.club/api/user/subscribePush', {
       method: 'POST',
       body: JSON.stringify({token: currentToken}),
     }).finally();
@@ -62,7 +62,7 @@ getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J
 onMessage(messaging, (payload) => {
   const greeting = new Notification(payload.notification.title, {
     body: payload.notification.body,
-    icon: 'https://film4u.club/assets/favicon.ico',
+    icon: 'https://park.film4u.club/assets/favicon.ico',
   });
 });
 

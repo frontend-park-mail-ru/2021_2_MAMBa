@@ -37,7 +37,7 @@ export const convertArrayToCollection = (arrayContent) => {
   return arrayContent.map((jsonCollection) => {
     return {
       title: jsonCollection?.title,
-      collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
+      collectionAvatar: `https://park.film4u.club${jsonCollection?.picture_url}`,
       href: `/collections/${jsonCollection.id}`,
     };
   });
@@ -73,7 +73,7 @@ export const convertArrayToMainSlider = (arrayContent) => {
     return {
       title: jsonBanner?.title,
       description: jsonBanner?.description,
-      poster: `https://film4u.club${jsonBanner?.picture_url}`,
+      poster: `https://park.film4u.club${jsonBanner?.picture_url}`,
       href: jsonBanner?.link|| '',
     };
   });
@@ -91,7 +91,7 @@ export const convertActorToActorPage = (actorInfoJson) => (
   {
     name: actorInfoJson.name_rus,
     nameEnglish: actorInfoJson.name_en,
-    avatar: `https://film4u.club${actorInfoJson.picture_url}`,
+    avatar: `https://park.film4u.club${actorInfoJson.picture_url}`,
     heightMetre: `${actorInfoJson.height} м`,
     date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
     filmTotal: actorInfoJson.film_number,
@@ -109,7 +109,7 @@ export const convertArrayToFilm = (arrayContent) => {
     return {
       id: jsonFilm?.id,
       title: jsonFilm?.title,
-      filmAvatar: `https://film4u.club${jsonFilm?.poster_url}`,
+      filmAvatar: `https://park.film4u.club${jsonFilm?.poster_url}`,
       href: `/films/${jsonFilm.id}`,
     };
   });

@@ -69,7 +69,6 @@
     font-size: 20px;
     font-weight: 400;
     color: $white;
-    //margin-bottom: 40px;
   }
 
   &__poster {
@@ -92,14 +91,6 @@
 .main-slider-list {
   overflow: visible;
   position: relative;
-}
-
-.main-slider-list.grab {
-  cursor: grab;
-}
-
-.main-slider-list.grabbing {
-  cursor: grabbing;
 }
 
 .main-slider__button_block {
@@ -145,7 +136,7 @@
 .main-slider__arrow_right {
   position: relative;
   top: 50%;
-  left: 30px;
+  left: 25px;
   width: 20px;
   height: 35px;;
   background-size: cover;
@@ -155,7 +146,7 @@
 .main-slider__arrow_left {
   top: 50%;
   position: relative;
-  left: 92%;
+  left: 93%;
   width: 20px;
   height: 35px;
   background-size: cover;

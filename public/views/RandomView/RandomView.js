@@ -9,6 +9,7 @@ import {REGROUTES} from '../../consts/routesRegExp';
 export class RandomView extends BaseView {
   constructor(eventBus, {data = {}} = {}) {
     super(eventBus, data);
+    this.genresList = [];
   }
 
   emitGetContent = () => {
@@ -21,6 +22,22 @@ export class RandomView extends BaseView {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
     content.innerHTML = randomPug(data);
+    this.carouselFigure = document.querySelector('.carousel-random__card-container');
+    this.carouselCards = document.querySelectorAll('.carousel-random__card');
+    if (!this.carouselCards.length) {
+      this.deleteAutoRotate();
+      this.carouselFigure.innerHTML = '<span style="font-size: 1.5em">К сожалению, по вашему запросу фильмов не' +
+          ' найдено</span>';
+      this.addEventListenersToCheckboxes();
+      this.addEventListenerToSubmit();
+      return;
+    }
+    if (this.carouselCards.length === 1) {
+      this.deleteAutoRotate();
+      this.addEventListenersToCheckboxes();
+      this.addEventListenerToSubmit();
+      return;
+    }
     this.setupCarousel(true);
     this.setupNavigation();
     this.handlerResize = () => {
@@ -30,8 +47,60 @@ export class RandomView extends BaseView {
         this.setupCarousel();
       }
     };
+    this.handlerMouseOn = () => {
+      this.deleteAutoRotate();
+    };
+    this.handlerMouseOut = () => {
+      this.autoRotate();
+    };
     this.addEventListenerToResize();
     this.addEventListenerToMouseOnOver();
+    this.addEventListenersToCheckboxes();
+    this.addEventListenerToSubmit();
+  }
+
+  addEventListenerToSubmit = () => {
+    const submitBtn = document.querySelector('.random-page__submit-btn');
+    if (!submitBtn) {
+      return;
+    }
+    const beginSelect = document.querySelector('.random-page__year_from');
+    const endSelect = document.querySelector('.random-page__year_to');
+    if (!beginSelect || !endSelect) {
+      return;
+    }
+    submitBtn.addEventListener('click', (e) => {
+      this.eventBus.emit(EVENTS.randomPage.submitPressed, {
+        beginSelect: beginSelect.value,
+        endSelect: endSelect.value,
+        checkboxes: this.genresList,
+      });
+    });
+  }
+
+  addEventListenersToCheckboxes = () => {
+    const checkboxes = document.querySelectorAll('.genres-container__input');
+    if (!checkboxes.length) {
+      return;
+    }
+    checkboxes.forEach((item) => {
+      item.addEventListener('change', (e) => {
+        if (item.checked) {
+          if (this.genresList.length === 3) {
+            const delIdx = this.genresList.shift();
+            this.genresList.push(item.id);
+            const delElem = document.querySelector(`.genres-container__input[id='${delIdx}']`);
+            if (delElem) {
+              delElem.checked = false;
+            }
+          } else {
+            this.genresList.push(item.id);
+          }
+        } else {
+          this.genresList.splice(this.genresList.indexOf(item), 1);
+        }
+      });
+    });
   }
 
   addEventListenerToResize = () => {
@@ -43,12 +112,13 @@ export class RandomView extends BaseView {
   }
 
   addEventListenerToMouseOnOver = () => {
-    this.carouselFigure.addEventListener('mouseover', () => {
-      this.deleteAutoRotate();
-    });
-    this.carouselFigure.addEventListener('mouseout', () => {
-      this.autoRotate();
-    });
+    this.carouselFigure.addEventListener('mouseover', this.handlerMouseOn);
+    this.carouselFigure.addEventListener('mouseout', this.handlerMouseOut);
+  }
+
+  removeEventListenerToMouseOnOver = () => {
+    this.carouselFigure.removeEventListener('mouseover', this.handlerMouseOn);
+    this.carouselFigure.removeEventListener('mouseout', this.handlerMouseOut);
   }
 
   setupCarousel = (startSetup = false) => {

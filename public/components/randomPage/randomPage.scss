@@ -3,6 +3,11 @@
   display: flex;
   flex-direction: column;
 
+  &__inputs-block {
+    display: flex;
+    justify-content: center;
+  }
+
   &__title {
     font-size: 2em;
     text-align: center;
@@ -10,4 +15,19 @@
     color: $pink;
     font-family: "Montserrat-Medium", sans-serif
   }
+
+  &__submit-btn {
+    align-self: center;
+    font-size: 1.2em;
+  }
+
+  &__year_to, &__year_from {
+    align-self: flex-start;
+    margin: 0px 10px;
+  }
+}
+
+.genres-container {
+  display: flex;
+  flex-direction: column;
 }

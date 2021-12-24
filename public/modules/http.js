@@ -215,14 +215,18 @@ const logout = async () => {
 
 const getRandom = async (filters) => {
   const params = {
-    url: URLS.api.random,
+    url: `${URLS.api.random}?${filters.join('&')}`,
     method: 'GET',
-    body: JSON.stringify(filters),
   };
 
   try {
-    return await sendRequest(params);
-  } catch (err) {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
     return null;
   }
 };

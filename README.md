@@ -2,7 +2,7 @@
 
 ## Деплой
 
-https://www.film4u.club/
+https://www.park.film4u.club/
 
 ## API
 

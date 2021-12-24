@@ -54,7 +54,7 @@ export const slider = (selector) => {
           if (slideIndex >= countItems - slidesToShow) {
             slideIndex = (countItems - slidesToShow - 1) > 0 ? countItems - slidesToShow - 1 : 0;
           }
-          stopAnimation();
+          // stopAnimation();
         }
       }
     };
@@ -150,34 +150,34 @@ export const slider = (selector) => {
       isScroll = false;
     };
 
-    let isAnimating = false;
-    const stopAnimation = () => {
-      setTimeout(() => {
-        isAnimating = false;
-      }, 500);
-    };
-    if (countItems>slidesToShow) {
-      slider.addEventListener('wheel', (event) => {
-        if (isAnimating) {
-          event.preventDefault();
-          return;
-        }
-        const direction = event.deltaX;
-        if (direction > 0) {
-          event.preventDefault();
-          slideIndex += 2;
-          isAnimating = true;
-          slide();
-        } else if (direction < 0) {
-          event.preventDefault();
-          slideIndex -= 2;
-          isAnimating = true;
-          slide();
-        }
-      },
-      {passive: false},
-      );
-    }
+    // let isAnimating = false;
+    // const stopAnimation = () => {
+    //   setTimeout(() => {
+    //     isAnimating = false;
+    //   }, 500);
+    // };
+    // if (countItems>slidesToShow) {
+    //   slider.addEventListener('wheel', (event) => {
+    //     if (isAnimating) {
+    //       event.preventDefault();
+    //       return;
+    //     }
+    //     const direction = event.deltaX;
+    //     if (direction > 0) {
+    //       event.preventDefault();
+    //       slideIndex += 2;
+    //       isAnimating = true;
+    //       slide();
+    //     } else if (direction < 0) {
+    //       event.preventDefault();
+    //       slideIndex -= 2;
+    //       isAnimating = true;
+    //       slide();
+    //     }
+    //   },
+    //   {passive: false},
+    //   );
+    // }
 
     sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);

@@ -5,7 +5,7 @@ import readMore from '../../components/textReadMore/textReadMore.pug';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth, renderWarning} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
-import {ratingNumber} from '../../modules/adapters';
+import {ratingNewNumber, ratingNumber} from '../../modules/adapters';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {slider} from '../../utils/slider';
 import {authModule} from '../../modules/authorization';
@@ -79,7 +79,7 @@ export class FilmView extends BaseView {
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
-    const ratingAdapter = ratingNumber(newFilmRating);
+    const ratingAdapter = ratingNewNumber(newFilmRating);
     const ratingItemStar = document.querySelector('.rating-number-stars');
     const ratingItem = document.querySelector('.rating-number');
     if (ratingItem && ratingItemStar) {

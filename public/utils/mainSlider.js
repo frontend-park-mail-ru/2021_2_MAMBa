@@ -42,6 +42,7 @@ export const mainSlider = (selector) => {
     }
 
     const slide = () => {
+      console.log("in slider")
       if (sliderTrack) {
         sliderTrack.style.transition = 'transform .5s';
 
@@ -100,7 +101,7 @@ export const mainSlider = (selector) => {
         sliderTrack.style.transition = '';
         // slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
 
-        slider.addEventListener('touchmove', function(e) {
+        slider.addEventListener('touchmove', function (e) {
           swipeAction(e);
         }, false);
         slider.addEventListener('touchend', swipeEnd);
@@ -109,6 +110,7 @@ export const mainSlider = (selector) => {
       }
     };
     const swipeAction = (e) => {
+      console.log("aaaa")
       // allowSwipe = true;
       // isScroll = true;
       // e.preventDefault();
@@ -119,7 +121,8 @@ export const mainSlider = (selector) => {
       posX1 = evt.clientX;
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
-      // console.log(isSwipe, isScroll)
+      console.log(isSwipe, isScroll)
+      console.log(posY2)
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);
         console.log(posY)
@@ -156,39 +159,49 @@ export const mainSlider = (selector) => {
         if (posInit !== posX1) {
           slide();
         }
-      }else {
+      } else {
         allowSwipe = true;
       }
     };
 
     let isAnimating = false;
+
     const stopAnimation = () => {
       setTimeout(() => {
         isAnimating = false;
       }, 500);
     };
 
-    slider.addEventListener('wheel', (event) => {
-      if (isAnimating) {
-        event.preventDefault();
-        return;
-      }
-      const direction = event.deltaX;
-      if (direction > 0) {
-        event.preventDefault();
-        slideIndex ++;
-        isAnimating = true;
-        slide();
-      } else if (direction < 0) {
-        event.preventDefault();
-        slideIndex --;
-        isAnimating = true;
-        slide();
-      }
-    },
-    {passive: false},
-    );
+    // slider.addEventListener('wheel', (event) => {
+    //       const direction = event.deltaX;
+    //       const deltaX = Math.abs(event.deltaY);
+    //
+    //       if (Math.abs(direction) > 0) {
+    //         event.preventDefault();
+    //       }
+    //       if (isAnimating) {
+    //         event.preventDefault();
+    //         return;
+    //       }
+    //       console.log(event.deltaX, event.deltaY)
+    //       if (direction > 0) {
+    //         event.preventDefault();
+    //         event.stopPropagation();
+    //         slideIndex++;
+    //         isAnimating = true;
+    //         slide();
+    //       } else if (direction < 0) {
+    //         event.preventDefault();
+    //         event.stopPropagation();
+    //         slideIndex--;
+    //         isAnimating = true;
+    //         slide();
+    //       }
+    //     },
+    //     {passive: false},
+    // );
     // sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }
+
 };

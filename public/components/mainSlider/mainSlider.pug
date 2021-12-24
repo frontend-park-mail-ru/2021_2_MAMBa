@@ -1,17 +1,15 @@
-mixin mainSlider(i, color)
+mixin mainSlider(i)
     div.slider#main-slider
         div(class ="main-slider-list slider-list")
             div(class ="slider-track")
               each input, _ in i
                   div(class ="main-slider__item slide")
-                    div.main-slider__indent
-                        a.main-slider__link(href=`${input.href}`)
-                            div.main-slider__poster
-                                img(src= input.collectionAvatar)
-                            if (color==="white")
-                                div(class = "slider-container__track_film_name white_text")  #{input.title}
-                            else
-                                div.main-slider__name  #{input.title}
+                          div.main-slider__background
+                          div.main-slider__poster
+                              img(src= input.poster)
+                          a(class = "main-slider__link main-slider__content")(href=`${input.href}`)
+                              div.main-slider__name  #{input.title}
+                              div.main-slider__sub-name #{input.description}
         div.slider-arrows
             div(class="prev main-slider__button_left ")
                 div(class="main-slider__arrow_left ")

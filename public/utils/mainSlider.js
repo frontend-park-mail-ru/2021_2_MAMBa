@@ -75,7 +75,7 @@ export const mainSlider = (selector) => {
       return (event.type.search('touch') !== -1) ? event.touches[0] : event;
     };
 
-    let transition = true;
+    // let transition = true;
     let posInit = 0;
     let posX1 = 0;
     let posX2 = 0;
@@ -85,27 +85,33 @@ export const mainSlider = (selector) => {
     let isSwipe = false;
     let isScroll = false;
     let allowSwipe = true;
-    let nextTrf = 0;
-    let prevTrf = 0;
+    // let nextTrf = 0;
+    // let prevTrf = 0;
     const posThreshold = slides[0].offsetWidth * 0.35;
     const trfRegExp = /([-0-9.]+(?=px))/;
     const swipeStart = () => {
       const evt = getEvent();
       if (allowSwipe) {
-        transition = true;
-        nextTrf = (slideIndex + 1) * -itemWidth;
-        prevTrf = (slideIndex - 1) * -itemWidth;
+        // transition = true;
+        // nextTrf = (slideIndex + 1) * -itemWidth;
+        // prevTrf = (slideIndex - 1) * -itemWidth;
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        slider.addEventListener('touchmove', function (e) { swipeAction(e); });
+        // slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
+
+        slider.addEventListener('touchmove', function(e) {
+          swipeAction(e);
+        }, false);
         slider.addEventListener('touchend', swipeEnd);
         sliderList.classList.remove('grab');
         sliderList.classList.add('grabbing');
       }
     };
     const swipeAction = (e) => {
-      allowSwipe = true;
+      // allowSwipe = true;
+      // isScroll = true;
+      e.preventDefault();
       const evt = getEvent();
       const style = sliderTrack.style.transform;
       const transform = +style.match(trfRegExp)[0];
@@ -113,15 +119,17 @@ export const mainSlider = (selector) => {
       posX1 = evt.clientX;
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
+      // console.log(isSwipe, isScroll)
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);
+        console.log(posY)
         if (posY > 7 || posX2 === 0) {
           isScroll = true;
           allowSwipe = false;
+          e.preventDefault();
+          e.stopPropagation();
         } else if (posY < 7) {
           isSwipe = true;
-          e.preventDefault();
-          e.stopPropagation()
         }
       }
       if (isSwipe) {
@@ -130,11 +138,14 @@ export const mainSlider = (selector) => {
     };
 
     const swipeEnd = () => {
+      console.log("in swipeEnd", allowSwipe)
       posFinal = posInit - posX1;
+      isScroll = false;
       isSwipe = false;
       slider.removeEventListener('touchmove', swipeAction);
       slider.removeEventListener('touchend', swipeEnd);
       if (allowSwipe) {
+        console.log("swiping")
         if (Math.abs(posFinal) > posThreshold) {
           if (posInit < posX1) {
             slideIndex--;
@@ -145,6 +156,8 @@ export const mainSlider = (selector) => {
         if (posInit !== posX1) {
           slide();
         }
+      }else {
+        allowSwipe = true;
       }
     };
 
@@ -175,7 +188,7 @@ export const mainSlider = (selector) => {
     },
     {passive: false},
     );
-    sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
+    // sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }
 };

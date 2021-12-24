@@ -112,6 +112,7 @@ export const EVENTS = {
       content: 'randomPage:renderContent',
     },
     getPageContent: 'randomPage:getRandomPageContent',
+    submitPressed: 'randomPage:submitPressed',
   },
 
   collectionPage: {

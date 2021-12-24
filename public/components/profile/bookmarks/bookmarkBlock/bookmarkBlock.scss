@@ -120,8 +120,6 @@
     justify-self: center;
     margin: 0 10px;
     background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
   }
 
   &__film-content {
@@ -202,5 +200,10 @@
 @media (max-width: 1100px) {
   .bookmark-block {
     width: 100%;
+
+    &film__img {
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
   }
 }

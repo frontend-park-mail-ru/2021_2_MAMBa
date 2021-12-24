@@ -8,6 +8,7 @@
   overflow: hidden;
 
   &__card-container {
+    text-align: center;
     margin: 0;
     width: 50%;
     -webkit-transform-style: preserve-3d;
@@ -27,7 +28,7 @@
     color: $white;
     border-radius: 10px;
     margin: 0 10px;
-    font-size: 1.2em;
+    font-size: 1em;
     font-family: "Montserrat-Medium", sans-serif;
   }
 
@@ -53,8 +54,8 @@
       width: 100%;
       box-sizing: border-box;
       padding: 0;
-      object-fit: cover;
-      height: 400px;
+      object-fit: contain;
+      height: 500px;
       border-radius: 10px;
 
       &:not(:first-of-type) {
@@ -63,6 +64,12 @@
         top: 0;
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .carousel-random__card img {
+    height: 200px;
   }
 }
 

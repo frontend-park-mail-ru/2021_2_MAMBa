@@ -1,8 +1,6 @@
 import {BaseView} from '../BaseView/BaseView.js';
 import randomPug from '../../components/randomPage/randomPage.pug';
 import {EVENTS} from '../../consts/EVENTS.js';
-import {deployUrl, URLS} from '../../consts/urls';
-import {ROUTES} from '../../consts/routes';
 import {REGROUTES} from '../../consts/routesRegExp';
 
 
@@ -26,20 +24,21 @@ export class RandomView extends BaseView {
     this.carouselCards = document.querySelectorAll('.carousel-random__card');
     if (!this.carouselCards.length) {
       this.deleteAutoRotate();
-      this.carouselFigure.innerHTML = '<span style="font-size: 1.5em">К сожалению, по вашему запросу фильмов не' +
-          ' найдено</span>';
+      this.carouselFigure.innerHTML = '<span style="font-size: 1.5em; height: 100%;">К сожалению, по вашим параметрам' +
+          ' фильмов не найдено</span>';
+      this.addEventListenerToGenresSelect();
       this.addEventListenersToCheckboxes();
       this.addEventListenerToSubmit();
       return;
     }
     if (this.carouselCards.length === 1) {
       this.deleteAutoRotate();
+      this.addEventListenerToGenresSelect();
       this.addEventListenersToCheckboxes();
       this.addEventListenerToSubmit();
       return;
     }
     this.setupCarousel(true);
-    this.setupNavigation();
     this.handlerResize = () => {
       if (!window.location.pathname.match(REGROUTES.randomPage)) {
         this.removeEventListenerToResize();
@@ -55,6 +54,7 @@ export class RandomView extends BaseView {
     };
     this.addEventListenerToResize();
     this.addEventListenerToMouseOnOver();
+    this.addEventListenerToGenresSelect();
     this.addEventListenersToCheckboxes();
     this.addEventListenerToSubmit();
   }
@@ -73,8 +73,20 @@ export class RandomView extends BaseView {
       this.eventBus.emit(EVENTS.randomPage.submitPressed, {
         beginSelect: beginSelect.value,
         endSelect: endSelect.value,
-        checkboxes: this.genresList,
+        checkboxes: this.genresList.slice(0),
       });
+      this.genresList = [];
+    });
+  }
+
+  addEventListenerToGenresSelect = () => {
+    const genresSelect = document.querySelector('.random-page__genres-select');
+    const genresContainer = document.querySelector('.genres-container');
+    if (!genresSelect || !genresContainer) {
+      return;
+    }
+    genresSelect.addEventListener('click', () => {
+      genresContainer.classList.toggle('display-flex');
     });
   }
 
@@ -88,14 +100,12 @@ export class RandomView extends BaseView {
         if (item.checked) {
           if (this.genresList.length === 3) {
             const delIdx = this.genresList.shift();
-            this.genresList.push(item.id);
             const delElem = document.querySelector(`.genres-container__input[id='${delIdx}']`);
             if (delElem) {
               delElem.checked = false;
             }
-          } else {
-            this.genresList.push(item.id);
           }
+          this.genresList.push(item.id);
         } else {
           this.genresList.splice(this.genresList.indexOf(item), 1);
         }
@@ -147,19 +157,6 @@ export class RandomView extends BaseView {
     if (startSetup) {
       this.autoRotate();
     }
-  }
-
-  setupNavigation = () => {
-    const btnContainer = document.querySelector('.carousel-random__btn-container');
-    btnContainer.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (e.target.classList.contains('carousel-random__next-btn')) {
-        this.currentCardIndex++;
-      } else {
-        this.currentCardIndex--;
-      }
-      this.rotateCarousel(this.currentCardIndex);
-    });
   }
 
   rotateCarousel = (imageIndex) => {

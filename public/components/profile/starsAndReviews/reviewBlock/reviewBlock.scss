@@ -34,12 +34,11 @@
     flex: 1 0 auto;
     max-width: 100%;
     min-width: 100%;
-    object-fit: cover;
+    background-size: cover;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
     margin: 0 10px;
-    background-attachment: fixed;
   }
 
   &__stars-block {
@@ -178,8 +177,7 @@
       min-width: 100%;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      background-repeat: no-repeat;
-      background-size: cover;
+      background-size: auto;
       margin: 0;
     }
   }

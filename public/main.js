@@ -51,7 +51,6 @@ getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J
       method: 'POST',
       body: JSON.stringify({token: currentToken}),
     }).finally();
-    console.log(`token: ${currentToken}`);
   } else {
     console.log('No registration token available. Request permission to generate one.');
   }

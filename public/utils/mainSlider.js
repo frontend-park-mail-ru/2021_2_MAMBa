@@ -91,12 +91,11 @@ export const mainSlider = (selector) => {
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-       slider.addEventListener('touchmove', function (e) {
+    slider.addEventListener('touchmove', function (e) {
           swipeAction(e);
         }, false);
         slider.addEventListener('touchend', swipeEnd);
-        sliderList.classList.remove('grab');
-        sliderList.classList.add('grabbing');
+
       }
     };
     const swipeAction = (e) => {
@@ -107,8 +106,6 @@ export const mainSlider = (selector) => {
       posX1 = evt.clientX;
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
-      console.log(isSwipe, isScroll)
-      console.log(posY2)
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);
         if (posY > 7 || posX2 === 0) {

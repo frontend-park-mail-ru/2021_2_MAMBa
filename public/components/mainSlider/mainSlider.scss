@@ -133,24 +133,25 @@
   }
 }
 
-.main-slider__arrow_right {
-  position: relative;
-  top: 50%;
-  left: 25px;
-  width: 20px;
-  height: 35px;;
-  background-size: cover;
-  background-image: url(static/pics/arrowNotActive.png);
-}
-
-.main-slider__arrow_left {
-  top: 50%;
-  position: relative;
-  left: 93%;
-  width: 20px;
-  height: 35px;
-  background-size: cover;
-  background-image: url(static/pics/leftArrowNotActive.png);
+.main-slider__arrow {
+  &_right {
+    position: relative;
+    top: 50%;
+    left: 25px;
+    width: 20px;
+    height: 35px;;
+    background-size: cover;
+    background-image: url(static/pics/arrowNotActive.png);
+  }
+  &_left {
+    top: 50%;
+    position: relative;
+    left: 93%;
+    width: 20px;
+    height: 35px;
+    background-size: cover;
+    background-image: url(static/pics/leftArrowNotActive.png);
+  }
 }
 
 @media (max-width: 1260px) {

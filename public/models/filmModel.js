@@ -1,6 +1,6 @@
 import {EVENTS} from '../consts/EVENTS.js';
-import {getInfoAboutFilm, sendReview, sendRating, sendBookmark} from '../modules/http';
-import {convertArrayToFilmPage} from '../modules/adapters.js';
+import {getInfoAboutFilm, sendReview, sendRating, sendBookmark, getUpdatedReviews} from '../modules/http';
+import {convertArrayToFilmPage, convertArrayToUpdateReviews} from '../modules/adapters.js';
 import {authModule} from '../modules/authorization';
 import {statuses} from '../consts/reqStatuses';
 import {renderWarning} from '../utils/utils';
@@ -61,6 +61,14 @@ export class FilmPageModel {
             }
             if (response.status === statuses.OK) {
               this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
+            }
+          });
+      getUpdatedReviews(inputsData)
+          .then((response) => {
+            if (!response || !response.status) {
+              this.eventBus.emit(EVENTS.App.ErrorPage);
+            } else if (response?.status === statuses.OK && response.body) {
+              this.eventBus.emit(EVENTS.filmPage.render.successfulReviewSend, convertArrayToUpdateReviews(response.body));
             }
           });
     }

@@ -185,6 +185,17 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     bookmarked: filmInfoJson.bookmarked,
   }
 );
+
+/**
+ * Union actors and their ids.
+ * @param {object} filmInfoJson - Info about reviews from json.
+ * @return {object} - Object for render film information
+ */
+export const convertArrayToUpdateReviews = (filmInfoJson) => (
+    {
+      reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.review_list),
+    }
+);
 /**
  * Union actors and their ids.
  * @param {object} arrayContent - Info about reviews from json.
@@ -333,7 +344,7 @@ export const convertArrayToGenres = (genres) => {
   return genres.map((jsonGender) => {
     return {
       title: jsonGender?.name,
-      genreAvatar: `https://film4u.club${jsonGender?.picture_url}`,
+      genreAvatar: `https://film4u.club${jsonGender?.picture_url}` || '',
       href: `/genres/${jsonGender.id}`,
     };
   });

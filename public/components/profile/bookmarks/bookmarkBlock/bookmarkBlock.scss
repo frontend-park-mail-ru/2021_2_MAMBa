@@ -114,12 +114,11 @@
     height: 80%;
     max-width: 20%;
     min-width: 20%;
-    object-fit: cover;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
     margin: 0 10px;
-    background-attachment: fixed;
+    background-size: cover;
   }
 
   &__film-content {
@@ -200,10 +199,5 @@
 @media (max-width: 1100px) {
   .bookmark-block {
     width: 100%;
-
-    &film__img {
-      background-repeat: no-repeat;
-      background-size: auto;
-    }
   }
 }

@@ -13,7 +13,7 @@ export const headerLinks = [
   },
   {
     href: '/random',
-    title: 'Рандомный фильм',
+    title: 'Случайные фильмы',
   },
 ];
 
@@ -32,6 +32,6 @@ export const mobileHeaderLinks = [
   },
   {
     href: '/random',
-    title: 'Рандомный фильм',
+    title: 'Случайные фильмы',
   },
 ];

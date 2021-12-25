@@ -18,6 +18,7 @@ import {ROOT} from '../../main';
 import {statuses} from '../../consts/reqStatuses.js';
 import {createElementFromHTML, renderBaseView} from '../../utils/utils.js';
 import {ROUTES} from '../../consts/routes';
+import {deployUrl} from "../../consts/urls";
 const settingsFormName = 'settingsForm';
 const maxAvatarSizeMb = 5;
 
@@ -293,6 +294,10 @@ export class ProfileView extends BaseView {
     if (!bookmarks || !bookmarks.body) {
       return;
     }
+    bookmarks.body.bookmarks_list.forEach((item) => {
+      item.poster_url = `${deployUrl}${item.poster_url}`;
+    });
+
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;
@@ -326,6 +331,9 @@ export class ProfileView extends BaseView {
     if (!reviewsMarks) {
       return;
     }
+    reviewsMarks.body.review_list.forEach((item) => {
+      item.film_picture_url = `${deployUrl}${item.film_picture_url}`;
+    });
     const profileContent = document.querySelector('.profile__profile-content');
     if (!profileContent) {
       return;

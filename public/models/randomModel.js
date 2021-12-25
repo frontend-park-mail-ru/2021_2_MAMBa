@@ -1,7 +1,7 @@
 import {EVENTS} from '../consts/EVENTS.js';
 import {Model} from './model';
 import {deployUrl} from '../consts/urls';
-const beginYear = 1895;
+const beginYear = 1980;
 const endYear = 2022;
 import {getGenres, getRandom} from '../modules/http';
 import {statuses} from '../consts/reqStatuses';
@@ -22,11 +22,9 @@ export class RandomModel extends Model {
     if (!randomResponse || randomResponse.status !== statuses.OK || !randomResponse.body) {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
-    // del
     randomResponse.body.film_list.forEach((item) => {
       item.poster_url = `${deployUrl}${item.poster_url}`;
     });
-    // del
     result.cardList = randomResponse.body.film_list;
     result.yearBegin = beginYear;
     result.yearEnd = endYear;
@@ -52,11 +50,9 @@ export class RandomModel extends Model {
       if (!response || response.status !== statuses.OK || !response.body) {
         return;
       }
-      // del
       response.body.film_list.forEach((item) => {
         item.poster_url = `${deployUrl}${item.poster_url}`;
       });
-      // del
       const newResult = {};
       newResult.cardList = response.body.film_list;
       newResult.yearBegin = beginYear;

@@ -42,7 +42,6 @@ export const mainSlider = (selector) => {
     }
 
     const slide = () => {
-      console.log("in slider")
       if (sliderTrack) {
         sliderTrack.style.transition = 'transform .5s';
 
@@ -101,7 +100,7 @@ export const mainSlider = (selector) => {
         sliderTrack.style.transition = '';
         // slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
 
-        slider.addEventListener('touchmove', function (e) {
+        slider.addEventListener('touchmove', function(e) {
           swipeAction(e);
         }, false);
         slider.addEventListener('touchend', swipeEnd);
@@ -110,7 +109,6 @@ export const mainSlider = (selector) => {
       }
     };
     const swipeAction = (e) => {
-      console.log("aaaa")
       // allowSwipe = true;
       // isScroll = true;
       // e.preventDefault();
@@ -121,11 +119,8 @@ export const mainSlider = (selector) => {
       posX1 = evt.clientX;
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
-      console.log(isSwipe, isScroll)
-      console.log(posY2)
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);
-        console.log(posY)
         if (posY > 7 || posX2 === 0) {
           isScroll = true;
           allowSwipe = false;
@@ -141,14 +136,12 @@ export const mainSlider = (selector) => {
     };
 
     const swipeEnd = () => {
-      console.log("in swipeEnd", allowSwipe)
       posFinal = posInit - posX1;
       isScroll = false;
       isSwipe = false;
       slider.removeEventListener('touchmove', swipeAction);
       slider.removeEventListener('touchend', swipeEnd);
       if (allowSwipe) {
-        console.log("swiping")
         if (Math.abs(posFinal) > posThreshold) {
           if (posInit < posX1) {
             slideIndex--;
@@ -183,7 +176,6 @@ export const mainSlider = (selector) => {
     //         event.preventDefault();
     //         return;
     //       }
-    //       console.log(event.deltaX, event.deltaY)
     //       if (direction > 0) {
     //         event.preventDefault();
     //         event.stopPropagation();
@@ -203,5 +195,4 @@ export const mainSlider = (selector) => {
     // sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
     slider.addEventListener('touchstart', swipeStart);
   }
-
 };

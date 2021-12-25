@@ -105,7 +105,6 @@ export const slider = (selector) => {
 
       posY2 = posY1 - evt.clientY;
       posY1 = evt.clientY;
-      console.log(isSwipe, isScroll)
 
       if (!isSwipe && !isScroll) {
         const posY = Math.abs(posY2);

@@ -29,7 +29,6 @@ export class HomePageView extends BaseView {
    */
 
   renderContent = (data) => {
-    console.log(data);
     const homePage = homeContent(data);
     const content = document.querySelector('.content');
     if (content) {

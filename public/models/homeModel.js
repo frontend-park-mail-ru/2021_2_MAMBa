@@ -61,7 +61,7 @@ export class HomePageModel {
         });
     const data = new Date();
     const year = data.getFullYear();
-    const month = data.getMonth();
+    const month = data.getMonth() + 1;
     getInfoAboutPremiers(year, month)
         .then((response) => {
           if (!response.status) {

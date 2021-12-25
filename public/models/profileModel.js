@@ -6,6 +6,8 @@ import {getMenuLinks, menuObjects} from '../consts/profileMenu';
 import {URLS} from '../consts/urls';
 import {statuses} from '../consts/reqStatuses';
 import {ROUTES} from '../consts/routes';
+import {SettingsInput} from '../consts/settingsInputs';
+import {ErrorMessages} from '../consts/validateErrors';
 const maxWordsInURl = 4;
 
 export class ProfileModel extends Model {
@@ -17,6 +19,7 @@ export class ProfileModel extends Model {
       path: URLS.pages.main,
       haveMore: false,
     };
+    this.errorMessages = new Map();
   }
 
   getUserIdFromPath = (path) => {
@@ -58,6 +61,7 @@ export class ProfileModel extends Model {
         this.eventBus.emit(EVENTS.App.ErrorPage);
         return null;
       }
+      this.initializeErrorMessages();
     });
   }
 
@@ -162,6 +166,22 @@ export class ProfileModel extends Model {
   }
 
   changeProfile = async (inputsData, formData) => {
+    let hasErrorInputs = false;
+    for (const inputName in inputsData) {
+      if (inputName === 'gender' || inputName === 'email' || inputName === 'profile_pic') {
+        continue;
+      }
+      if (inputName !== 'avatar') {
+        this.validateOneInput(inputName, inputsData[inputName]);
+      }
+      if (this.errorMessages.get(inputName).size) {
+        this.eventBus.emit(EVENTS.ProfilePage.HavingWrongInput, inputName);
+        hasErrorInputs = true;
+      }
+    }
+    if (hasErrorInputs) {
+      return;
+    }
     if (!inputsData || !formData) {
       return;
     }
@@ -244,5 +264,67 @@ export class ProfileModel extends Model {
       return false;
     }
     return authModule.user.id.toString() === this.userId;
+  }
+
+  initializeErrorMessages = () => {
+    for (const input in SettingsInput) {
+      this.errorMessages.set(SettingsInput[input].name, new Set());
+    }
+  }
+
+  addAndEmitError = (inputName, errorText) => {
+    const currInputErrSet = this.errorMessages.get(inputName);
+    if (!currInputErrSet.has(errorText)) {
+      this.eventBus.emit(EVENTS.ProfilePage.AddValidateError, inputName, errorText);
+      currInputErrSet.add(errorText);
+    }
+  }
+
+  deleteAndEmitError = (inputName, errorText) => {
+    const currInputErrSet = this.errorMessages.get(inputName);
+    if (currInputErrSet.has(errorText)) {
+      this.eventBus.emit(EVENTS.ProfilePage.DeleteValidateError, inputName, errorText);
+      currInputErrSet.delete(errorText);
+    }
+  }
+
+  deleteAllErrorsFromInput = (inputName) => {
+    if (!inputName) {
+      return;
+    }
+
+    for (const error of this.errorMessages.get(inputName)) {
+      this.deleteAndEmitError(inputName, error);
+    }
+  }
+
+  validateOneInput = (inputName, inputValue) => {
+    if (!inputName) {
+      return;
+    }
+
+    if (!inputValue) {
+      this.addAndEmitError(inputName, ErrorMessages.EmptyField.text);
+      return;
+    } else {
+      this.deleteAndEmitError(inputName, ErrorMessages.EmptyField.text);
+    }
+
+    if (inputName === 'avatar') {
+      if (inputValue === 'oversize') {
+        this.addAndEmitError(inputName, 'Размер файла превышает 5 мб!');
+      } else {
+        this.deleteAndEmitError(inputName, 'Размер файла превышает 5 мб!');
+      }
+      return;
+    }
+
+    for (const error of ErrorMessages[inputName]) {
+      if (!inputValue.match(error.regexp)) {
+        this.addAndEmitError(inputName, error.text);
+      } else {
+        this.deleteAndEmitError(inputName, error.text);
+      }
+    }
   }
 }

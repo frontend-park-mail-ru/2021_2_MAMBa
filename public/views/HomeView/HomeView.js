@@ -37,22 +37,23 @@ export class HomePageView extends BaseView {
       slider('#film-slider');
       slider('#genre-slider');
       slider('#collections-slider');
-      this.homeMenu(data)
+      this.homeMenu(data);
     } else {
       this.eventBus.emit(EVENTS.App.ErrorPage);
     }
   }
 
+
   homeMenu = (data) => {
-    const liPopularFilms = document.querySelector(`.popularFilms`);
-    const liPremiere = document.querySelector(`.premiereLi`);
-    const liSlider = document.querySelector(`.liSlider`);
+    const liPopularFilms = document.querySelector('.popularFilms');
+    const liPremiere = document.querySelector('.premiereLi');
+    const liSlider = document.querySelector('.liSlider');
     if (liPopularFilms && liSlider && liPremiere) {
       liPopularFilms.addEventListener('click', (e) => {
         e.preventDefault();
         const films = {
-          films: data.popularFilms
-        }
+          films: data.popularFilms,
+        };
         if (!liPopularFilms.classList.contains('subtitle_chosen')) {
           liSlider.innerHTML = liSliderPug(films);
           liPremiere.classList.remove('subtitle_chosen');
@@ -63,8 +64,8 @@ export class HomePageView extends BaseView {
       liPremiere.addEventListener('click', (e) => {
         e.preventDefault();
         const films = {
-          films: data.premieres
-        }
+          films: data.premieres,
+        };
         if (!liPremiere.classList.contains('subtitle_chosen')) {
           liSlider.innerHTML = liSliderPug(films);
           liPremiere.classList.add('subtitle_chosen');
@@ -74,5 +75,4 @@ export class HomePageView extends BaseView {
       });
     }
   };
-
 }

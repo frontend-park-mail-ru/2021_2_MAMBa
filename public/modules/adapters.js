@@ -37,7 +37,7 @@ export const convertArrayToCollection = (arrayContent) => {
   return arrayContent.map((jsonCollection) => {
     return {
       title: jsonCollection?.title,
-      collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
+      collectionAvatar: `https://park.film4u.club${jsonCollection?.picture_url}`,
       href: `/collections/${jsonCollection.id}`,
     };
   });
@@ -45,12 +45,12 @@ export const convertArrayToCollection = (arrayContent) => {
 
 /**
  * Union actors and their ids.
- * @param {object} collectionsInfoJson - Info about actor from json.
+ * @param {object} bannersInfoJson - Info about banners from json.
  * @return {object} - Object for render actor information
  */
-export const convertArrayToHomeMainSliderPage = (collectionsInfoJson) => (
+export const convertArrayToHomeMainSliderPage = (bannersInfoJson) => (
   {
-    collections: convertArrayToMainSlider(collectionsInfoJson.collections_list),
+    banners: convertArrayToMainSlider(bannersInfoJson.banners_list),
   }
 );
 /**
@@ -69,14 +69,16 @@ export const convertArrayToHomePopularFilmsPage = (filmsInfoJson) => (
  * @return {object} - Object for render collections information
  */
 export const convertArrayToMainSlider = (arrayContent) => {
-  const arr = arrayContent.map(function(jsonCollection) {
+  const arr = arrayContent.map(function(jsonBanner) {
     return {
-      title: jsonCollection?.title,
-      collectionAvatar: `https://film4u.club${jsonCollection?.picture_url}`,
-      href: `/collections/${jsonCollection.id}`,
+      title: jsonBanner?.title,
+      description: jsonBanner?.description,
+      poster: `https://park.film4u.club${jsonBanner?.picture_url}`,
+      href: jsonBanner?.link|| '',
     };
   });
-  arr.push(arr[0], arr[1], arr[2], arr[3]);
+  // arr.push(arr[0], arr[1], arr[2], arr[3]);
+  arr.push(arr[0], arr[1], arr[0], arr[1], arr[0], arr[1]);
   return arr;
 };
 
@@ -89,7 +91,7 @@ export const convertActorToActorPage = (actorInfoJson) => (
   {
     name: actorInfoJson.name_rus,
     nameEnglish: actorInfoJson.name_en,
-    avatar: `https://film4u.club${actorInfoJson.picture_url}`,
+    avatar: `https://park.film4u.club${actorInfoJson.picture_url}`,
     heightMetre: `${actorInfoJson.height} м`,
     date: `${actorInfoJson.birthday}  ·  ${actorInfoJson.age} лет`,
     filmTotal: actorInfoJson.film_number,
@@ -107,7 +109,7 @@ export const convertArrayToFilm = (arrayContent) => {
     return {
       id: jsonFilm?.id,
       title: jsonFilm?.title,
-      filmAvatar: `https://film4u.club${jsonFilm?.poster_url}`,
+      filmAvatar: `https://park.film4u.club${jsonFilm?.poster_url}`,
       href: `/films/${jsonFilm.id}`,
     };
   });
@@ -183,6 +185,17 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
     bookmarked: filmInfoJson.bookmarked,
   }
 );
+
+/**
+ * Union actors and their ids.
+ * @param {object} filmInfoJson - Info about reviews from json.
+ * @return {object} - Object for render film information
+ */
+export const convertArrayToUpdateReviews = (filmInfoJson) => (
+  {
+    reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.review_list),
+  }
+);
 /**
  * Union actors and their ids.
  * @param {object} arrayContent - Info about reviews from json.
@@ -214,7 +227,11 @@ export const ratingNumber = (rating) => {
  * @param {number} rating - rating of film.
  */
 export const ratingNewNumber = (rating) => {
-  return rating.toFixed(1);
+  if (typeof rating === 'number') {
+    return rating.toFixed(1);
+  } else {
+    return rating;
+  }
 };
 
 /**
@@ -327,7 +344,7 @@ export const convertArrayToGenres = (genres) => {
   return genres.map((jsonGender) => {
     return {
       title: jsonGender?.name,
-      genreAvatar: `https://film4u.club${jsonGender?.picture_url}`,
+      genreAvatar: `https://film4u.club${jsonGender?.picture_url}` || '',
       href: `/genres/${jsonGender.id}`,
     };
   });

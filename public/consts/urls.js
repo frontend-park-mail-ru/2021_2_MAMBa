@@ -2,7 +2,7 @@
 const localUrl = 'http://localhost:8086';
 
 // eslint-disable-next-line no-unused-vars
-export const deployUrl = 'https://film4u.club';
+export const deployUrl = 'https://park.film4u.club';
 
 const COLLECTIONS_COUNT = 12;
 const COLLECTIONS_LIMIT = 0;
@@ -42,6 +42,8 @@ export const URLS = {
     genre: `${currentUrl}/api/film/genreFilms?id=`,
     calendar: `${currentUrl}/api/film/calendar`,
     popularFilms: `${currentUrl}/api/film/popularFilms`,
-    random: `${currentUrl}/api/getRandom`,
+    random: `${currentUrl}/api/film/getRandom`,
+    banners: `${currentUrl}/api/film/banners`,
+    reviews: `${currentUrl}/api/film/loadFilmReviews?id=`,
   },
 };

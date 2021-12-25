@@ -114,12 +114,11 @@
     height: 80%;
     max-width: 20%;
     min-width: 20%;
-    object-fit: cover;
     border-radius: 20px;
     align-self: center;
     justify-self: center;
     margin: 0 10px;
-    background-attachment: fixed;
+    background-size: cover;
   }
 
   &__film-content {
@@ -145,8 +144,6 @@
     position: relative;
 
     &__film-img {
-      background-repeat: no-repeat;
-      background-size: cover;
       width: 100%;
       max-width: 100%;
       min-width: 100%;

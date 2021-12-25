@@ -42,6 +42,24 @@ const sendReview = async (review) => {
   }
 };
 
+export const getUpdatedReviews = async (review) => {
+  const params = {
+    url: `${URLS.api.reviews}${review.film_id}&skip=0&limit=20`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 const getInfoAboutFilm = async (filmId) => {
   const params = {
     url: `${URLS.api.film}${filmId}`,
@@ -215,14 +233,18 @@ const logout = async () => {
 
 const getRandom = async (filters) => {
   const params = {
-    url: URLS.api.random,
+    url: `${URLS.api.random}?${filters.join('&')}`,
     method: 'GET',
-    body: JSON.stringify(filters),
   };
 
   try {
-    return await sendRequest(params);
-  } catch (err) {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
     return null;
   }
 };
@@ -498,6 +520,28 @@ const getCollections = async () => {
 export const getMainPagePopularFilms = async () => {
   const params = {
     url: URLS.api.popularFilms,
+    method: 'GET',
+    credentials: 'include',
+  };
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return (responseBody);
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Send async get request using async func.
+ * @return {array} - Array of objects for render home page.
+ */
+export const getBanners = async () => {
+  const params = {
+    url: URLS.api.banners,
     method: 'GET',
     credentials: 'include',
   };

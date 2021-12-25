@@ -68,7 +68,8 @@ div.wrapper
                               a(class='change-color-text-href' href=`${actor.href}`) #{actor.name}
         div(class = "trailer block")
             div(class = "trailer__video")
-                a(class ="trailer__button button" ref=`${film.trailerUrl}`) Трейлер
+                img(src=film.filmAvatar)
+                a(class ="trailer__button button not-route" href=`${film.trailerUrl}`) Трейлер
             div.trailer__description
                 div(class = "trailer__name block-subtitle") Обзор
                 div.trailer__summery #{film.description}

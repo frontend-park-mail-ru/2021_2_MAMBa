@@ -68,7 +68,7 @@ export const EVENTS = {
       Page: 'authPage:render',
       Content: 'authPage:renderContent',
     },
-    redirect: 'authPage:render',
+    redirect: 'authPage:redirect',
     RenderError: 'authPage:renderError',
     Submit: 'authPage:submit',
     SuccessLogReg: 'authPage:successLogReg',
@@ -94,6 +94,7 @@ export const EVENTS = {
       warningRatingSend: 'filmPage:renderWarningRatingSend',
       successfulSend: 'filmPage:renderSuccessfulSend',
       successfulRatingSend: 'filmPage:renderSuccessfulRatingSend',
+      successfulReviewSend: 'filmPage:renderSuccessfulReviewSend',
     },
     getPageContent: 'filmPage:getMainPageContent',
     postReview: 'filmPage:postReview',
@@ -112,6 +113,7 @@ export const EVENTS = {
       content: 'randomPage:renderContent',
     },
     getPageContent: 'randomPage:getRandomPageContent',
+    submitPressed: 'randomPage:submitPressed',
   },
 
   collectionPage: {
@@ -157,6 +159,11 @@ export const EVENTS = {
     NoMoreAvailable: 'profilePage:noMoreAvailable',
     ChangeProfile: 'profilePage:changeProfile',
     ChangedProfile: 'profilePage:changedProfile',
+    DeleteValidateError: 'profilePage:deleteValidateError',
+    HavingWrongInput: 'profilePage:havingWrongInput',
+    Validate: 'profilePage:validate',
+    RenderError: 'profilePage:renderError',
+    deleteAllErrors: 'profilePage:deleteAllErrors',
   },
 
   searchPage: {

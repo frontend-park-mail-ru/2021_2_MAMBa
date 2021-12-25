@@ -2,10 +2,11 @@ import {BaseView} from '../BaseView/BaseView.js';
 import filmPageContent from '../../components/film/film.pug';
 import userRating from '../../components/userRating/userRating.pug';
 import readMore from '../../components/textReadMore/textReadMore.pug';
+import updatedReviews from '../../components/updatedReviews/updatedReviews.pug';
 import {getPathArgs} from '../../modules/router.js';
 import {checkAuth, renderWarning} from '../../utils/utils.js';
 import {setAnchorActions} from '../../utils/anchorAction.js';
-import {ratingNumber} from '../../modules/adapters';
+import {ratingNewNumber} from '../../modules/adapters';
 import {EVENTS} from '../../consts/EVENTS.js';
 import {slider} from '../../utils/slider';
 import {authModule} from '../../modules/authorization';
@@ -79,7 +80,7 @@ export class FilmView extends BaseView {
     if (ratingArea) {
       ratingArea.innerHTML = template;
     }
-    const ratingAdapter = ratingNumber(newFilmRating);
+    const ratingAdapter = ratingNewNumber(newFilmRating);
     const ratingItemStar = document.querySelector('.rating-number-stars');
     const ratingItem = document.querySelector('.rating-number');
     if (ratingItem && ratingItemStar) {
@@ -278,6 +279,18 @@ export class FilmView extends BaseView {
     const errorBlock = document.querySelector(`.${className}`);
     if (errorBlock) {
       errorBlock.innerHTML = '';
+    }
+  }
+
+  /**
+   * Render updated reviews to successful sending.
+   */
+  successfulReviewSend = (data) => {
+    const template = updatedReviews(data);
+    const reviews = document.querySelector('#review-slider');
+    if (reviews) {
+      reviews.innerHTML = template;
+      slider('#review-slider');
     }
   }
 

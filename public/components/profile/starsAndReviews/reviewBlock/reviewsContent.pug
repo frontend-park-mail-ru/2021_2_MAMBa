@@ -1,8 +1,11 @@
 each block in review_list
     .review-block
         .review-block__image-block
-            img.review-image-block__film-img(src=block.film_picture_url)
-            span.review-image-block__stars-block #{block.stars} &#127775;
+            a.review-image-block__film-img(href=block.film_url style=`background-image:url("${block.film_picture_url}")`)
+            if (block.stars === 0)
+                span.review-image-block__stars-block -
+            else
+                span.review-image-block__stars-block #{block.stars} &#11088;
         .review-block__data-block
             a.review-data-block__film-name-ru(href=block.film_url) #{block.film_title_ru}
             span.review-data-block__film-name-en #{block.film_title_original}
@@ -12,6 +15,7 @@ each block in review_list
                     .review-data-block__to-review-btn
                         span К отзыву
             else
+                q.review-data-block__review-text
                 a.review-data-block__write-review(href=block.film_url)
                     .review-data-block__write-review-btn
                         span Написать отзыв

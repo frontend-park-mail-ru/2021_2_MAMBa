@@ -23,16 +23,6 @@ import {CollectionsPageController} from './controllers/collectionsController';
 import {initializeApp} from 'firebase/app';
 import {getMessaging, onMessage, getToken} from 'firebase/messaging';
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js', {scope: '/'})
-//       .then((registration) => {
-//         console.log('sw registration on scope:', registration.scope);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-// }
-
 const firebaseConfig = {
   apiKey: 'AIzaSyCPmCF5tpc8JqtCsY5Jndeki2353RWNTcg',
   authDomain: 'film4u-83b5d.firebaseapp.com',
@@ -47,11 +37,10 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging();
 getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J4prDCmZSsIqbPA4x-FT9aN6vhxqFzjPtBQETOmU'}).then((currentToken) => {
   if (currentToken) {
-    fetch('https://film4u.club/api/user/subscribePush', {
+    fetch('https://park.film4u.club/api/user/subscribePush', {
       method: 'POST',
       body: JSON.stringify({token: currentToken}),
     }).finally();
-    console.log(`token: ${currentToken}`);
   } else {
     console.log('No registration token available. Request permission to generate one.');
   }
@@ -62,7 +51,7 @@ getToken(messaging, {vapidKey: 'BIfcfgyjgd3fPzG_8gS5SD9O9aRs2T-P9541lwshLM-G0X9J
 onMessage(messaging, (payload) => {
   const greeting = new Notification(payload.notification.title, {
     body: payload.notification.body,
-    icon: 'https://film4u.club/assets/favicon.ico',
+    icon: 'https://park.film4u.club/assets/favicon.ico',
   });
 });
 

@@ -1,7 +1,29 @@
+- var beginYear = yearBegin;
+- var endYear = yearEnd;
 .random-page
-    span.random-page__title Рандомный фильм
+    span.random-page__title Случайные фильмы
     include ./carousel.pug
-    .random-page__year_from
-    .random-page__year_to
-    .random-page__genres
-    .random-page__random-btn
+    .random-page__submit-btn-container
+        .random-page__submit-btn Попытать удачу
+    .random-page__inputs-block
+        .random-page__year_from-block
+            label.random-page__label(for='year_from') Выберите год с
+            select.random-page__year_from(id='year_from')
+                while beginYear < endYear
+                  option.random-page__option #{beginYear}
+                  - beginYear++
+        -beginYear = yearBegin
+        .random-page__year_to-block
+            label.random-page__label(for='year_to') Выберите год по
+            select.random-page__year_to(id='year_to')
+                while beginYear < endYear
+                    option.random-page__option(selected="selected") #{beginYear}
+                    - beginYear++
+        .random-page__genres
+            span.random-page__genres-title Выберите жанры
+            .random-page__genres-select Жанры
+            .genres-container
+                each genre in genresList
+                  label.genres-container__label(for=genre.id)
+                    input.genres-container__input(type='checkbox' id=genre.id)
+                    span #{genre.name}

@@ -2,12 +2,124 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
+
+  &__inputs-block {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__year_from-block,&__year_to-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__year_to-block {
+    margin: 0 20px;
+  }
 
   &__title {
     font-size: 2em;
     text-align: center;
     padding: 1em 0;
-    color: $pink;
-    font-family: "Montserrat-Medium", sans-serif
+    color: $dark-blue-text;
+    font-family: "Montserrat-Bold", sans-serif
+  }
+
+  &__submit-btn-container {
+    width: fit-content;
+    height: fit-content;
+    align-self: center;
+    margin: 10px 0;
+    border-radius: 23px;
+    padding: 3px;
+    background: linear-gradient(90deg, $dark-blue-text 20%, $pink 40%, $pink 60%, $dark-blue-text 80%);
+    animation: background 5s infinite alternate;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__submit-btn {
+    border-radius: 20px;
+    text-align: center;
+    background-color: $white;
+    padding: 10px;
+    font-size: 1.4em;
+    font-family: "Montserrat-Bold", sans-serif;
+    mix-blend-mode: lighten;
+  }
+
+  &__label, &__genres-title {
+    color: $dark-blue-text;
+    font-family: "Montserrat-Bold", sans-serif;
+  }
+
+  &__year_to, &__year_from, &__genres-select {
+    align-self: center;
+    margin: 10px 10px;
+    width: 70%;
+    font-family: "Montserrat-Semi-Bold", sans-serif;
+    color: $dark-blue-text;
+    font-size: 20px;
+    padding: 8px 6px;
+    border-radius: 10px;
+    background: $white;
+    cursor: pointer;
+    border: 2px solid;
+    outline: none;
+
+    &:hover {
+      border-color: $pink;
+    }
+  }
+
+  &__genres {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.genres-container {
+  display: none;
+  flex-direction: column;
+
+  &__label {
+    cursor: pointer;
+  }
+}
+
+@keyframes background {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1000px 1000px;
+  }
+}
+
+@media (max-width: 520px) {
+  .random-page {
+    &__inputs-block {
+      flex-direction: column;
+    }
+
+    &__label, &__genres-title {
+      align-self: center;
+    }
+
+    &__year_to-block {
+      margin: 0;
+    }
+  }
+
+  .genres-container {
+    align-self: center;
   }
 }

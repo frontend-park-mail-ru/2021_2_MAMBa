@@ -13,6 +13,7 @@ export class RandomController extends BaseController {
     this.events.push(
         {event: EVENTS.randomPage.getPageContent, handler: this.model.getPageContent},
         {event: EVENTS.randomPage.render, handler: this.view.renderContent},
+        {event: EVENTS.randomPage.submitPressed, handler: this.model.getSubmitContent},
     );
   }
 }

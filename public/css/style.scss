@@ -12,7 +12,9 @@ body {
 	&._loaded {
 	}
 }
-
+a {
+	color: inherit;
+}
 ._container {
 	max-width: $maxWidth + px;
 	margin: 0 auto;

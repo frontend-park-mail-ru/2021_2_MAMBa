@@ -18,7 +18,7 @@ import {ROOT} from '../../main';
 import {statuses} from '../../consts/reqStatuses.js';
 import {createElementFromHTML, renderBaseView} from '../../utils/utils.js';
 import {ROUTES} from '../../consts/routes';
-import {deployUrl} from "../../consts/urls";
+import {deployUrl} from '../../consts/urls';
 const settingsFormName = 'settingsForm';
 const maxAvatarSizeMb = 5;
 

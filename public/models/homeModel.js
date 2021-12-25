@@ -70,7 +70,8 @@ export class HomePageModel {
             mainPage = {...mainPage, ...convertArrayToCalendarPage(response.body, year, month)};
           }
         });
-    Promise.all([getCollections(), getInfoAboutPremiers(year, month), getMainPagePopularFilms(), getMainPagePopularFilms(), getBanners()]).then((_) => {
+    Promise.all([getCollections(), getInfoAboutPremiers(year, month),
+      getMainPagePopularFilms(), getMainPagePopularFilms(), getBanners()]).then((_) => {
       this.eventBus.emit(EVENTS.homepage.render.content, mainPage);
     });
 

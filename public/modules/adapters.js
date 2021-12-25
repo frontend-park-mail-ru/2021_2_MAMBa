@@ -192,9 +192,9 @@ export const convertArrayToFilmPage = (filmInfoJson) => (
  * @return {object} - Object for render film information
  */
 export const convertArrayToUpdateReviews = (filmInfoJson) => (
-    {
-      reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.review_list),
-    }
+  {
+    reviews: convertArrayToReviewArrayInFilmPage(filmInfoJson.review_list),
+  }
 );
 /**
  * Union actors and their ids.

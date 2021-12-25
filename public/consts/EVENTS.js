@@ -94,7 +94,7 @@ export const EVENTS = {
       warningRatingSend: 'filmPage:renderWarningRatingSend',
       successfulSend: 'filmPage:renderSuccessfulSend',
       successfulRatingSend: 'filmPage:renderSuccessfulRatingSend',
-      successfulReviewSend: `filmPage:renderSuccessfulReviewSend`
+      successfulReviewSend: 'filmPage:renderSuccessfulReviewSend',
     },
     getPageContent: 'filmPage:getMainPageContent',
     postReview: 'filmPage:postReview',

@@ -23,16 +23,6 @@ import {CollectionsPageController} from './controllers/collectionsController';
 import {initializeApp} from 'firebase/app';
 import {getMessaging, onMessage, getToken} from 'firebase/messaging';
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('sw.js', {scope: '/'})
-//       .then((registration) => {
-//         console.log('sw registration on scope:', registration.scope);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-// }
-
 const firebaseConfig = {
   apiKey: 'AIzaSyCPmCF5tpc8JqtCsY5Jndeki2353RWNTcg',
   authDomain: 'film4u-83b5d.firebaseapp.com',

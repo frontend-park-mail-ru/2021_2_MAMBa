@@ -44,5 +44,6 @@ export const URLS = {
     popularFilms: `${currentUrl}/api/film/popularFilms`,
     random: `${currentUrl}/api/film/getRandom`,
     banners: `${currentUrl}/api/film/banners`,
+    reviews: `${currentUrl}/api/film/loadFilmReviews?id=`,
   },
 };

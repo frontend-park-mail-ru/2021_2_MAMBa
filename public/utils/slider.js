@@ -54,7 +54,6 @@ export const slider = (selector) => {
           if (slideIndex >= countItems - slidesToShow) {
             slideIndex = (countItems - slidesToShow - 1) > 0 ? countItems - slidesToShow - 1 : 0;
           }
-          // stopAnimation();
         }
       }
     };
@@ -64,13 +63,11 @@ export const slider = (selector) => {
     };
 
     let widthSlided = 0;
-    // let transition = true;
     let posInit = 0;
     let posX1 = 0;
     let posX2 = 0;
     let posY1 = 0;
     let posY2 = 0;
-    // let posFinal = 0;
     let isSwipe = false;
     let isScroll = false;
     let allowSwipe = true;
@@ -81,11 +78,9 @@ export const slider = (selector) => {
       const evt = getEvent();
       if (allowSwipe) {
         swipeStartTime = Date.now();
-        // transition = true;
         posInit = posX1 = evt.clientX;
         posY1 = evt.clientY;
         sliderTrack.style.transition = '';
-        // slider.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
         slider.addEventListener('touchmove', function(e) {
           swipeAction(e);
         }, false);
@@ -94,8 +89,6 @@ export const slider = (selector) => {
     };
 
     const swipeAction = (e) => {
-      // e.preventDefault();
-      // e.stopPropagation();
       allowSwipe = true;
       const evt = getEvent();
       const style = sliderTrack.style.transform;
@@ -113,6 +106,8 @@ export const slider = (selector) => {
           allowSwipe = false;
         } else if (posY < 7) {
           isSwipe = true;
+          e.preventDefault();
+          e.stopPropagation();
         }
       }
       if (isSwipe) {

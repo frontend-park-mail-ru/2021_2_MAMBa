@@ -42,6 +42,24 @@ const sendReview = async (review) => {
   }
 };
 
+export const getUpdatedReviews = async (review) => {
+  const params = {
+    url: `${URLS.api.reviews}${review.film_id}&skip=0&limit=20`,
+    method: 'GET',
+  };
+
+  try {
+    const {status: responseStatus, parsedJson: responseBody} =
+        await sendRequest(params);
+    if (responseStatus === statuses.OK) {
+      return responseBody;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
+
 const getInfoAboutFilm = async (filmId) => {
   const params = {
     url: `${URLS.api.film}${filmId}`,

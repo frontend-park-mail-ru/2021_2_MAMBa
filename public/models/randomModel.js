@@ -29,6 +29,8 @@ export class RandomModel extends Model {
     result.yearBegin = beginYear;
     result.yearEnd = endYear;
     result.genresList = genresResponse.body.genres_list;
+    result.cardList.sort(() => Math.random() - 0.5);
+
     this.genresList = genresResponse.body.genres_list;
     this.eventBus.emit(EVENTS.randomPage.render, result);
   }
@@ -58,6 +60,8 @@ export class RandomModel extends Model {
       newResult.yearBegin = beginYear;
       newResult.yearEnd = endYear;
       newResult.genresList = this.genresList;
+      newResult.cardList.sort(() => Math.random() - 0.5);
+
       this.eventBus.emit(EVENTS.randomPage.render, newResult);
     });
   }

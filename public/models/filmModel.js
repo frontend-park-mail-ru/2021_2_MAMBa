@@ -62,14 +62,14 @@ export class FilmPageModel {
             if (response.status === statuses.OK) {
               this.eventBus.emit(EVENTS.filmPage.render.successfulSend);
             }
-          });
-      getUpdatedReviews(inputsData)
-          .then((response) => {
-            if (!response || !response.status) {
-              this.eventBus.emit(EVENTS.App.ErrorPage);
-            } else if (response?.status === statuses.OK && response.body) {
-              this.eventBus.emit(EVENTS.filmPage.render.successfulReviewSend, convertArrayToUpdateReviews(response.body));
-            }
+            getUpdatedReviews(inputsData)
+                .then((response) => {
+                  if (!response || !response.status) {
+                    this.eventBus.emit(EVENTS.App.ErrorPage);
+                  } else if (response?.status === statuses.OK && response.body) {
+                    this.eventBus.emit(EVENTS.filmPage.render.successfulReviewSend, convertArrayToUpdateReviews(response.body));
+                  }
+                });
           });
     }
   }
